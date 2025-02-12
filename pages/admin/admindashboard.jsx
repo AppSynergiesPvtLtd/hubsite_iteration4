@@ -15,6 +15,10 @@ import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle } from "@/store/a
 import { useRouter } from "next/router";
 // If you need the AdminRoutes import for route protection, uncomment the next line
 // import AdminRoutes from "../adminRoutes";
+import Group from "../../public/group.svg";
+import House from "../../public/h-dashboard.svg";
+
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -175,26 +179,28 @@ const Admindashboard = () => {
       {/* Top Stats */}
       <div className="flex flex-wrap ml-6 gap-1 md:gap-6 mb-6">
         <div className="bg-white shadow-lg w-[200px] md:w-[230px] rounded-lg p-6 flex items-center gap-6 border-l-4 border-[#0057A1]">
-          <Image src="/logoicon.png" alt="Users Icon" width={60} height={60} />
+        <div className="bg-blue-200 w-12 h-12 flex items-center justify-center rounded-full">
+          <Group />
+        </div>
+
           <div>
             <h3 className="text-lg">Users</h3>
             <p className="text-2xl">{stats.userCount}</p>
           </div>
         </div>
         <div className="bg-white shadow-lg w-[200px] md:w-[230px] rounded-lg p-6 flex items-center gap-6 border-l-4 border-[#0057A1]">
-          <Image src="/house.png" alt="Surveys Icon" width={60} height={60} />
+        <div className="bg-blue-200 w-12 h-12 flex items-center justify-center rounded-full">
+          <House />
+        </div>
           <div>
             <h3 className="text-lg">Surveys</h3>
             <p className="text-2xl">{stats.surveyCount}</p>
           </div>
         </div>
-        <div className="bg-white shadow-lg w-[200px] md:w-[300px] rounded-lg p-6 flex items-center gap-6 border-l-4 border-[#0057A1]">
-          <Image
-            src="/house.png"
-            alt="Surveys Completed Icon"
-            width={60}
-            height={60}
-          />
+        <div className="bg-white shadow-lg w-[270px] sm:w-[200px] md:w-[300px] rounded-lg p-6 flex items-center gap-6 border-l-4 border-[#0057A1]">
+        <div className="bg-blue-200 w-12 h-12 flex items-center justify-center rounded-full">
+          <House />
+        </div>
           <div>
             <h3 className="text-lg">Surveys Completed</h3>
             <p className="text-2xl">{stats.serveyCompletedCount}</p>
