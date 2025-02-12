@@ -3,15 +3,43 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminRoutes from "@/pages/adminRoutes";
+import { CheckCircle, AlertCircle } from "lucide-react"; // Import icons
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
+const MessageModal = ({ visible, type, message, onClose }) => {
+  if (!visible) return null;
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="absolute inset-0 bg-black opacity-50" onClick={onClose}></div>
+      <div className="bg-white rounded-lg shadow-lg p-6 z-10 max-w-sm w-full mx-4">
+        <div className="flex justify-center mb-4">
+          {type === "success" ? (
+            <CheckCircle className="w-12 h-12 text-green-500" />
+          ) : (
+            <AlertCircle className="w-12 h-12 text-red-500" />
+          )}
+        </div>
+        <div className="text-center mb-4">
+          <p className="text-lg">{message}</p>
+        </div>
+        <div className="flex justify-center">
+          <button
+            onClick={onClose}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const TestimonialForm = () => {
   const router = useRouter();
-  // Expecting URL like: /testimonial?id=cm71uvu2n00b7nthruddc1o1s
   const { id } = router.query;
-
   const initialFormData = {
     name: "",
     city: "",
@@ -24,11 +52,17 @@ const TestimonialForm = () => {
   const [errors, setErrors] = useState({});
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState("");
 
-  // If an id is present, fetch the testimonial details.
+
+  const [modalConfig, setModalConfig] = useState({
+    visible: false,
+    type: "",
+    message: "",
+    redirect: null,
+  });
+
   useEffect(() => {
     if (!router.isReady) return;
     if (id) {
@@ -52,7 +86,7 @@ const TestimonialForm = () => {
               city: data.city || "",
               comment: data.comment || "",
               rating: data.rating ? data.rating.toString() : "",
-              file: null, // File stays null; user can update it if needed.
+              file: null, 
             });
             setImagePreview(data.image || null);
           } else {
@@ -68,7 +102,6 @@ const TestimonialForm = () => {
     }
   }, [id, router.isReady]);
 
-  // Handle text input changes.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -86,21 +119,30 @@ const TestimonialForm = () => {
     }
   };
 
-  // Validate required fields.
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name) newErrors.name = "Name is required";
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.comment) newErrors.comment = "Comment is required";
     if (!formData.rating) newErrors.rating = "Rating is required";
-    // For new testimonials, image is required.
     if (!id && !formData.file) newErrors.file = "Image is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission.
+  const closeModal = () => {
+    if (modalConfig.redirect) {
+      router.push(modalConfig.redirect);
+    }
+    setModalConfig({
+      visible: false,
+      type: "",
+      message: "",
+      redirect: null,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -108,7 +150,6 @@ const TestimonialForm = () => {
 
     try {
       if (id) {
-        // UPDATE mode: Build FormData with each field.
         const updateFormData = new FormData();
         updateFormData.append("id", id);
         updateFormData.append("name", formData.name);
@@ -128,19 +169,16 @@ const TestimonialForm = () => {
         });
         const result = await response.json();
         if (response.ok) {
-          setSuccessMessage("Testimonial created successfully!");
-          // Wait 5 seconds before redirecting to allow the user to see the alert.
-          setTimeout(() => {
-            router.push({
-              pathname: router.pathname,
-              query: { id },
-            });
-          }, 5000);
+          setModalConfig({
+            visible: true,
+            type: "success",
+            message: "Testimonial updated successfully!",
+            redirect: { pathname: router.pathname, query: { id } },
+          });
         } else {
           throw new Error(result.message || "Something went wrong");
         }
       } else {
-        // CREATE mode: Use FormData normally.
         const submitData = new FormData();
         submitData.append("name", formData.name);
         submitData.append("city", formData.city);
@@ -159,25 +197,26 @@ const TestimonialForm = () => {
         });
         const result = await response.json();
         if (response.ok) {
-          setSuccessMessage("Testimonial created successfully!");
-          // Wait 5 seconds before redirecting so that the alert remains visible.
-          setTimeout(() => {
-            router.push({
-              pathname: router.pathname,
-              query: { id: result.data.id },
-            });
-          }, 2000);
-          // Optionally, clear the form after creation.
+          setModalConfig({
+            visible: true,
+            type: "success",
+            message: "Testimonial created successfully!",
+            redirect: { pathname: router.pathname, query: { id: result.data.id } },
+          });
           setFormData(initialFormData);
           setImagePreview(null);
         } else {
           throw new Error(result.message || "Something went wrong");
         }
       }
-      // Clear the success message after some time (if not redirecting)
-      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error("Error submitting form:", error);
+      setModalConfig({
+        visible: true,
+        type: "error",
+        message: error.message || "Something went wrong",
+        redirect: null,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -203,11 +242,12 @@ const TestimonialForm = () => {
 
   return (
     <div className="min-h-screen w-full bg-white p-6">
-      {successMessage && (
-        <div className="mb-4 p-4 bg-green-100 text-green-800 rounded">
-          {successMessage}
-        </div>
-      )}
+      <MessageModal
+        visible={modalConfig.visible}
+        type={modalConfig.type}
+        message={modalConfig.message}
+        onClose={closeModal}
+      />
       <form onSubmit={handleSubmit} className="w-full space-y-6">
         <div>
           <label className="block mb-2">Upload Image here*</label>
