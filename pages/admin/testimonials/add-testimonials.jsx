@@ -1,107 +1,193 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import AdminRoutes from "@/pages/adminRoutes"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import AdminRoutes from "@/pages/adminRoutes";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const TestimonialForm = () => {
+  const router = useRouter();
+  // Expecting URL like: /testimonial?id=cm71uvu2n00b7nthruddc1o1s
+  const { id } = router.query; 
+
   const initialFormData = {
     name: "",
     city: "",
     comment: "",
     rating: "",
     file: null,
-  }
+  };
 
-  const [formData, setFormData] = useState(initialFormData)
-  const [errors, setErrors] = useState({})
-  const [imagePreview, setImagePreview] = useState(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState("")
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState({});
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
+  const [fetchError, setFetchError] = useState("");
 
-  function handleInputChange(e) {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-    // Clear error when user types
+  // If an id is present, fetch the testimonial details.
+  useEffect(() => {
+    if (!router.isReady) return;
+    if (id) {
+      setIsFetching(true);
+      (async () => {
+        try {
+          const response = await fetch(`${API_BASE_URL}/testimonial/${id}`, {
+            method: "GET",
+            headers: {
+              "x-api-key": API_KEY,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Failed to fetch testimonial");
+          }
+          const data = await response.json();
+          if (data && data.id) {
+            setFormData({
+              name: data.name || "",
+              city: data.city || "",
+              comment: data.comment || "",
+              rating: data.rating ? data.rating.toString() : "",
+              file: null, // File stays null; user can update it if needed.
+            });
+            setImagePreview(data.image || null);
+          } else {
+            setFetchError("Testimonial not found or invalid id.");
+          }
+        } catch (error) {
+          console.error("Error fetching testimonial:", error);
+          setFetchError("Testimonial not found or invalid id.");
+        } finally {
+          setIsFetching(false);
+        }
+      })();
+    }
+  }, [id, router.isReady]);
+
+  // Handle text input changes.
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }))
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-  }
+  };
 
-  function handleFileChange(e) {
-    const file = e.target.files[0]
+  // Handle file input changes.
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        file,
-      }))
-      setImagePreview(URL.createObjectURL(file))
+      setFormData((prev) => ({ ...prev, file }));
+      setImagePreview(URL.createObjectURL(file));
     }
-  }
+  };
 
-  function validateForm() {
-    const newErrors = {}
-    if (!formData.name) newErrors.name = "Name is required"
-    if (!formData.city) newErrors.city = "City is required"
-    if (!formData.comment) newErrors.comment = "Comment is required"
-    if (!formData.rating) newErrors.rating = "Rating is required"
-    if (!formData.file) newErrors.file = "Image is required"
+  // Validate required fields.
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.city) newErrors.city = "City is required";
+    if (!formData.comment) newErrors.comment = "Comment is required";
+    if (!formData.rating) newErrors.rating = "Rating is required";
+    // For new testimonials, image is required.
+    if (!id && !formData.file) newErrors.file = "Image is required";
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-
-    if (!validateForm()) return
-
-    setIsSubmitting(true)
-    const submitData = new FormData()
-    submitData.append("name", formData.name)
-    submitData.append("city", formData.city)
-    submitData.append("comment", formData.comment)
-    submitData.append("rating", formData.rating)
-    if (formData.file) {
-      submitData.append("file", formData.file)
-    }
+  // Handle form submission.
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/testimonial/create`, {
-        method: "POST",
-        headers: {
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: submitData,
-      })
-
-      const result = await response.json()
-
-      if (response.ok) {
-        // Show success message
-        setSuccessMessage("Testimonial created successfully!")
-        // Reset form data
-        setFormData(initialFormData)
-        setImagePreview(null)
-        // Optionally clear success message after a few seconds
-        setTimeout(() => setSuccessMessage(""), 5000)
+      if (id) {
+        // UPDATE mode: Build FormData with each field.
+        const updateFormData = new FormData();
+        updateFormData.append("id", id);
+        updateFormData.append("name", formData.name);
+        updateFormData.append("city", formData.city);
+        updateFormData.append("comment", formData.comment);
+        updateFormData.append("rating", formData.rating);
+        if (formData.file) {
+          updateFormData.append("file", formData.file);
+        }
+        const response = await fetch(`${API_BASE_URL}/testimonial/update`, {
+          method: "PUT",
+          headers: {
+            "x-api-key": API_KEY,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: updateFormData,
+        });
+        const result = await response.json();
+        if (response.ok) {
+          setSuccessMessage("Testimonial updated successfully!");
+        } else {
+          throw new Error(result.message || "Something went wrong");
+        }
       } else {
-        throw new Error(result.message || "Something went wrong")
+        // CREATE mode: Use FormData normally.
+        const submitData = new FormData();
+        submitData.append("name", formData.name);
+        submitData.append("city", formData.city);
+        submitData.append("comment", formData.comment);
+        submitData.append("rating", formData.rating);
+        if (formData.file) {
+          submitData.append("file", formData.file);
+        }
+        const response = await fetch(`${API_BASE_URL}/testimonial/create`, {
+          method: "POST",
+          headers: {
+            "x-api-key": API_KEY,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: submitData,
+        });
+        const result = await response.json();
+        if (response.ok) {
+          setSuccessMessage("Testimonial created successfully!");
+          // Update URL to include the new testimonial id for future updates.
+          router.push({
+            pathname: router.pathname,
+            query: { id: result.id },
+          });
+          setFormData(initialFormData);
+          setImagePreview(null);
+        } else {
+          throw new Error(result.message || "Something went wrong");
+        }
       }
+      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error("Error submitting form:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
+  };
+
+  if (isFetching) {
+    return (
+      <div className="min-h-screen w-full bg-white p-6">
+        <p>Loading testimonial data...</p>
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="min-h-screen w-full bg-white p-6">
+        <div className="mb-4 p-4 bg-red-100 text-red-800 rounded">
+          {fetchError}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -137,7 +223,9 @@ const TestimonialForm = () => {
             onChange={handleFileChange}
             className="hidden"
           />
-          {errors.file && <p className="text-red-500 text-sm mt-1">{errors.file}</p>}
+          {errors.file && (
+            <p className="text-red-500 text-sm mt-1">{errors.file}</p>
+          )}
         </div>
 
         <div>
@@ -150,7 +238,9 @@ const TestimonialForm = () => {
             className="w-full p-2 border rounded"
             placeholder="Enter Name"
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">Name is required</p>}
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
         </div>
 
         <div>
@@ -163,7 +253,9 @@ const TestimonialForm = () => {
             className="w-full p-2 border rounded"
             placeholder="Enter City"
           />
-          {errors.city && <p className="text-red-500 text-sm mt-1">City is required</p>}
+          {errors.city && (
+            <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+          )}
         </div>
 
         <div>
@@ -175,7 +267,9 @@ const TestimonialForm = () => {
             className="w-full p-2 border rounded h-32 resize-none"
             placeholder="Enter Comment"
           />
-          {errors.comment && <p className="text-red-500 text-sm mt-1">Comment is required</p>}
+          {errors.comment && (
+            <p className="text-red-500 text-sm mt-1">{errors.comment}</p>
+          )}
         </div>
 
         <div>
@@ -190,7 +284,9 @@ const TestimonialForm = () => {
             className="w-full p-2 border rounded"
             placeholder="Enter Rating"
           />
-          {errors.rating && <p className="text-red-500 text-sm mt-1">Rating is required</p>}
+          {errors.rating && (
+            <p className="text-red-500 text-sm mt-1">{errors.rating}</p>
+          )}
         </div>
 
         <div className="flex justify-center">
@@ -199,12 +295,12 @@ const TestimonialForm = () => {
             disabled={isSubmitting}
             className="bg-blue-600 text-white px-8 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : id ? "Update" : "Submit"}
           </button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AdminRoutes(TestimonialForm)
+export default AdminRoutes(TestimonialForm);

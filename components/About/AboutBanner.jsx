@@ -30,16 +30,16 @@ const AboutBanner = () => {
     <div className="bg-gray-50 px-5">
       <div className="flex justify-center flex-col items-center p-2">
         <motion.h2
-          className="text-3xl md:text-5xl lg:text-6xl font-bold text-center sm:text-center md:text-left"
+          className="text-3xl mt-2 md:mt-0 md:text-4xl lg:text-5xl font-bold text-center sm:text-center md:text-left"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {aboutData.title}{" "}
-          <span className="text-[#0057A1]">{aboutData.title.split(" ")[1]}</span>
+          About
+          <span className="text-[#0057A1]"> Hubsite Social</span>
         </motion.h2>
         <motion.p
-          className="text-lg md:text-2xl text-[#757575] text-center sm:text-center md:text-left font-semibold mt-4 max-w-4xl poppins-extrabold"
+          className="text-md md:text-2xl text-[#757575] text-center sm:text-center md:text-left font-semibold mt-4 max-w-4xl poppins-extrabold"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -69,12 +69,12 @@ const AboutBanner = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="w-full md:w-[35%]">
-            <h2 className="text-4xl md:text-[45px] font-semibold sm:text-center md:text-left poppins-semibold leading-[55px]">
+            <h2 className="text-2xl md:text-4xl  sm:text-center md:text-left poppins-semibold leading-[55px]">
               {aboutData.whatIsHubsite.heading}
             </h2>
           </div>
           <div className="w-full md:w-[60%]">
-            <p className="text-lg md:text-xl poppins-medium -mt-20 text-[#636363] md:mt-0">
+            <p className="text-md md:text-lg poppins-medium -mt-20 text-[#636363] md:mt-0">
               {aboutData.whatIsHubsite.description}
             </p>
           </div>
@@ -86,13 +86,13 @@ const AboutBanner = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl text-center sm:text-center md:text-left poppins-bold">
+          <h2 className="text-2xl md:text-4xl text-center sm:text-center md:text-left poppins-bold">
             {aboutData.whyHubsitian.heading.split(" ")[0]}{" "}
             <span className="text-[#0057A1]">
               {aboutData.whyHubsitian.heading.split(" ")[4]}
             </span>
           </h2>
-          <ol className="list-decimal text-lg md:text-xl text-[#636363] mt-6 w-full md:w-4/5 poppins-medium">
+          <ol className="list-decimal text-md md:text-xl text-[#636363] mt-6 w-full md:w-4/5 poppins-medium">
             {aboutData.whyHubsitian.points.map((point, index) => (
               <motion.li
                 key={index}
