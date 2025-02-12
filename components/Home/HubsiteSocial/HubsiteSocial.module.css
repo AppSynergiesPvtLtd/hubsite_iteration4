@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,900;1,800;1,900&display=swap');
+
+.social_para{
+    line-height: 24px;
+}
+.heading_social{
+    font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+    line-height: 78px;
+    letter-spacing: 5%;
+    text-align: center;
+
+}
+
+
+@media (max-width: 600px) {
+    .heading_social{
+        font-size: 50px;
+        line-height: 60px;
+        margin-bottom: 2rem;
+        
+    }
+    
+    .paraBanner{
+        font-size: 20px;
+        line-height: 30px;
+        width:auto;
+        padding: 2px;
+    }
+}

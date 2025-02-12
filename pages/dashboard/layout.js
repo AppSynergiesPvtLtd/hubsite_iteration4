@@ -1,0 +1,161 @@
+import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import Spinner from "@/components/Spinner";
+import { signOut } from "next-auth/react";
+import { clearUser } from "@/store/userSlice";
+import { LayoutDashboard, ClipboardList, Award } from "lucide-react";
+
+const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
+  const dropdownRef = useRef(null);
+  const user = useSelector((state) => state.user.user);
+
+  // Redirect to "/" if user is not available
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user, router]);
+
+  if (!user) {
+    return <Spinner />;
+  }
+
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const sidebarItems = [
+    {
+      name: "dashboard",
+      label: "Dashboard",
+      path: "/dashboard",
+      icon: <LayoutDashboard size={20} className="mr-2" />,
+    },
+    {
+      name: "survey",
+      label: "Profiling Surveys",
+      path: "/dashboard/survey",
+      icon: <ClipboardList size={20} className="mr-2" />,
+    },
+    {
+      name: "rewards",
+      label: "Rewards",
+      path: "/dashboard/rewards",
+      icon: <Award size={20} className="mr-2" />,
+    },
+  ];
+
+  const handleLogout = async () => {
+    // dispatch(clearUser());
+    localStorage.removeItem("user_token");
+    sessionStorage.clear();
+    await signOut({ callbackUrl: "/" });
+  };
+
+  return (
+    <div className="poppins flex">
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-50 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 transition-transform duration-300 ease-in-out bg-gray-50 w-[250px] h-screen md:relative border-r`}
+      >
+        <div className="p-5 flex flex-col justify-between h-full">
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <a href={"/"}>
+                <Image src="/navbar_logo.png" alt="Logo" width={120} height={24} />
+              </a>
+              <button onClick={toggleSidebar} className="text-2xl md:hidden focus:outline-none">
+                ✕
+              </button>
+            </div>
+            <ul className="space-y-4">
+              {sidebarItems.map((item) => (
+                <li
+                  key={item.name}
+                  className={`flex rounded-lg p-2 items-center cursor-pointer ${
+                    router.pathname === item.path
+                      ? "text-white bg-[#0057A1]"
+                      : "text-gray-700 hover:text-[#0057A1]"
+                  }`}
+                  onClick={() => router.push(item.path)}
+                >
+                  {item.icon}
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1">
+        <div className="bg-[#0057A1] text-white p-3 flex justify-between items-center">
+          <button onClick={toggleSidebar} className="text-2xl md:hidden focus:outline-none">
+            ☰
+          </button>
+          <h1 className="text-[24px] font-semibold capitalize">
+            {router.pathname.split("/").pop()}
+          </h1>
+          <div className="flex gap-5 relative">
+            <div
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold text-sm"
+              title={`${user?.hubcoins} Hubcoins`}
+            >
+              {user?.hubCoins >= 1000
+                ? `${(user?.hubCoins / 1000).toFixed(1).replace(".0", "")}K`
+                : user?.hubCoins}
+            </div>
+            <div className="relative" ref={dropdownRef}>
+              <Image
+                className="w-12 h-12 cursor-pointer rounded-full"
+                src={user.userDp || "/dummyProfile.png"}
+                alt="Account Image"
+                width={48}
+                height={48}
+                onClick={toggleDropdown}
+              />
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
+                  <ul className="py-2">
+                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer max-w-xs break-words">
+                      {user.email}
+                    </li>
+                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                      <Link href={"/dashboard/profile"}>Edit Profile</Link>
+                    </li>
+                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                      <button onClick={handleLogout}>Logout</button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">{children}</div>
+      </div>
+    </div>
+  );
+};
+
+export default Layout;

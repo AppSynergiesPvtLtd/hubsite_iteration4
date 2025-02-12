@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap');
+
+.poppinsextrabold{
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .poppinsregular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 1.4px;
+  }
+
+  .gradient{
+    background: linear-gradient(90deg, #4aa3fc 0%, #0057A1 100%);
+  }
+
+  .smScreen{
+
+  }
+  @media (max-width: 390px)  {
+    .smScreen{
+    width:100%;}
+    .montetaryheading{
+      font-size: 1.3rem;
+    }
+  }
+    

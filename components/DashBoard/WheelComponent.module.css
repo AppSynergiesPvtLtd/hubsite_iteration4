@@ -1,0 +1,42 @@
+/* WheelComponent.module.css */
+
+.canvas-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.wheel-canvas {
+  display: block;
+  margin: auto;
+  transform-origin: center center;
+}
+
+.pointer {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.spin-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: gree;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.spin-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}

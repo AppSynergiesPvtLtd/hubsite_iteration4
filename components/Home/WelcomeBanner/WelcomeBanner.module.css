@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300400,600;0,900;1,800;1,900&display=swap');
+
+.banner {
+  background-image: url("/banner.jpeg");
+}
+
+.mainHeading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 50px;
+  line-height: 91.5px;
+  letter-spacing: -0.33px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.paraBanner {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 40px;
+  letter-spacing: 1.67px;
+  text-align: center;
+  color: #FFFFFF;
+}
+.btnBanner{
+  width: auto;
+  padding: 14px;
+  width: 200px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+
+
+}
+
+@media (max-width: 600px) {
+  .mainHeading {
+    font-size: 50px;
+    line-height: 60px;
+    margin-bottom: 2rem;
+  }
+
+  .paraBanner {
+    font-size: 20px;
+    line-height: 30px;
+    width: auto;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 450px) {
+  .mainHeading {
+    font-size: 32px;
+    line-height: 60px;
+    margin-bottom: .5rem;
+  }
+
+  .paraBanner {
+    font-size: 16px;
+    line-height: 30px;
+    width: auto;
+    padding: 2px;
+  }
+  .btnBanner{
+    width: auto;
+    padding: 8px;
+    width: 200px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+
+  
+  
+  }
+}

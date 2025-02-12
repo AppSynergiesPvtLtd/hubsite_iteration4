@@ -1,0 +1,40 @@
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  .navLink {
+    font-weight: 700;
+    color: #333;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .navLink:hover {
+    color: #0066b2;
+  }
+  
+  .mobileNavLink {
+    font-size: 1.25rem;
+    /* font-weight: 700; */
+    color: #333;
+  }
+  
+  .mobileMenu {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .mobileMenu[data-state='open'] {
+    transform: translateX(0);
+  }
+  
+  .mobileMenu[data-state='closed'] {
+    transform: translateX(100%);
+  }
+  
+
+  .activeNavLink {
+    color: #0057A1;
+    font-weight: bold;
+  }
+  
