@@ -17,7 +17,7 @@ import {
   showRefresh,
 } from "@/store/adminbtnSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Trash2 } from "lucide-react";
+import { Trash2, Edit2 } from "lucide-react";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -104,7 +104,10 @@ const TestimonialManagement = () => {
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
     dispatch(
-      showAdd({ label: "Add", redirectTo: "/admin/testimonials/add-testimonials" })
+      showAdd({
+        label: "Add",
+        redirectTo: "/admin/testimonials/add-testimonials",
+      })
     );
     // dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
     return () => {
@@ -145,6 +148,8 @@ const TestimonialManagement = () => {
           },
         }
       );
+
+      console.log("response", response);
       // Assuming the API returns an array of testimonials.
       const { data } = response;
       const transformedData = data.map((testimonial) => ({
@@ -362,10 +367,20 @@ const TestimonialManagement = () => {
                                 )}
                           </td>
                         ))}
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-4 flex items-center">
+                        <button
+                          onClick={() =>
+                            router.push(
+                              `/admin/testimonials/add-testimonials?id=${item.id}`
+                            )
+                          }
+                          className="text-blue-600 hover:text-blue-800"
+                        >
+                          <Edit2 size={16} />
+                        </button>
                         <button
                           onClick={() => openDeleteModal(item.id)}
-                          className="text-red-600 hover:text-red-800"
+                          className="ml-2 text-red-600 hover:text-red-800"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -382,6 +397,16 @@ const TestimonialManagement = () => {
                   key={item.id}
                   className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
                 >
+                  <button
+                    onClick={() =>
+                      router.push(
+                        `/admin/testimonials/add-testimonials?id=${item.id}`
+                      )
+                    }
+                    className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
+                  >
+                    <Edit2 size={20} />
+                  </button>
                   <button
                     onClick={() => openDeleteModal(item.id)}
                     className="absolute top-2 right-2 text-red-600 hover:text-red-800"
@@ -430,6 +455,16 @@ const TestimonialManagement = () => {
                   key={item.id}
                   className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
                 >
+                  <button
+                    onClick={() =>
+                      router.push(
+                        `/admin/testimonials/add-testimonials?id=${item.id}`
+                      )
+                    }
+                    className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
+                  >
+                    <Edit2 size={20} />
+                  </button>
                   <button
                     onClick={() => openDeleteModal(item.id)}
                     className="absolute top-2 right-2 text-red-600 hover:text-red-800"
