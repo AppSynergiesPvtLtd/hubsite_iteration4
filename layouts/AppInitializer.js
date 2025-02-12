@@ -101,12 +101,12 @@ const AppInitializer = ({ children }) => {
 
   return isLoading ? (
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
+      // style={{
+      //   display: 'flex',
+      //   justifyContent: 'center',
+      //   alignItems: 'center',
+      //   height: '100vh',
+      // }}
     >
       <Spinner/>
     </div>
