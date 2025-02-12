@@ -69,6 +69,7 @@ const AppInitializer = ({ children }) => {
         console.error("Token verification failed:", error.response?.data || error.message);
         // Clear invalid token and user data
         localStorage.removeItem('token');
+        localStorage.removeItem('user_token');
         dispatch(clearUser());
         router.replace('/');
       }

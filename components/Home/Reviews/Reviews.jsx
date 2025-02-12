@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -8,10 +8,20 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Reviews = () => {
   const [testimonials, setTestimonials] = useState([]);
-  const [swiperInstance, setSwiperInstance] = useState(null);
+  const swiperRef = useRef(null);
+  const autoplayTimerRef = useRef(null);
   const [autoplayDelay, setAutoplayDelay] = useState(3000);
+  const [windowWidth, setWindowWidth] = useState(1024);
 
-  // Fetch testimonials on mount.
+  // Update windowWidth on mount and on resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Fetch testimonials on mount
   useEffect(() => {
     async function fetchTestimonials() {
       try {
@@ -30,9 +40,9 @@ const Reviews = () => {
     fetchTestimonials();
   }, []);
 
-  // Update autoplay delay based on screen width.
+  // Update autoplay delay based on screen width
   useEffect(() => {
-    function updateDelay() {
+    const updateDelay = () => {
       const width = window.innerWidth;
       if (width < 768) {
         setAutoplayDelay(3000);
@@ -41,41 +51,81 @@ const Reviews = () => {
       } else {
         setAutoplayDelay(5000);
       }
-    }
+    };
     updateDelay();
     window.addEventListener("resize", updateDelay);
     return () => window.removeEventListener("resize", updateDelay);
   }, []);
 
-  // Custom autoplay using the "slideChangeTransitionEnd" event.
-  useEffect(() => {
-    if (!swiperInstance) return;
-    let timeoutId = null;
+  // Autoplay helper functions
+  const clearAutoplayTimer = () => {
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current);
+    }
+  };
 
-    const scheduleNextSlide = () => {
-      timeoutId = setTimeout(() => {
-        swiperInstance.slideNext();
+  const scheduleNextSlide = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      autoplayTimerRef.current = setTimeout(() => {
+        swiperRef.current.swiper.slideNext();
       }, autoplayDelay);
-    };
+    }
+  };
 
-    // When slide transition ends, clear the timeout and schedule the next slide.
-    const onSlideChangeTransitionEnd = () => {
-      clearTimeout(timeoutId);
+  useEffect(() => {
+    if (!swiperRef.current || !swiperRef.current.swiper) return;
+    const swiper = swiperRef.current.swiper;
+    const onTransitionEnd = () => {
+      clearAutoplayTimer();
       scheduleNextSlide();
     };
-
-    swiperInstance.on("slideChangeTransitionEnd", onSlideChangeTransitionEnd);
-
-    // Start the initial autoplay after the delay.
+    swiper.on("slideChangeTransitionEnd", onTransitionEnd);
+    // Start autoplay initially
     scheduleNextSlide();
 
     return () => {
-      clearTimeout(timeoutId);
-      if (swiperInstance && swiperInstance.off) {
-        swiperInstance.off("slideChangeTransitionEnd", onSlideChangeTransitionEnd);
-      }
+      clearAutoplayTimer();
+      swiper.off("slideChangeTransitionEnd", onTransitionEnd);
     };
-  }, [swiperInstance, autoplayDelay]);
+  }, [autoplayDelay, testimonials]);
+
+  // Determine if we need to combine testimonials into one slide.
+  // On large screens (>=1024) and if there are less than 3 testimonials,
+  // we want to render all testimonial cards in one slide.
+  const isLargeScreen = windowWidth >= 1024;
+  const combineTestimonials =
+    isLargeScreen && testimonials.length > 0 && testimonials.length < 3;
+
+  // Set Swiper props based on the above conditions.
+  let slidesPerView, spaceBetween, centeredSlides, loop;
+  if (combineTestimonials) {
+    // When combining testimonials on large screens:
+    slidesPerView = 1;
+    spaceBetween = 16;
+    centeredSlides = false;
+    loop = false;
+  } else {
+    // Normal behavior:
+    if (windowWidth >= 1024) {
+      // Large screens: show 3 cards if available.
+      slidesPerView = testimonials.length >= 3 ? 3 : testimonials.length;
+      spaceBetween = testimonials.length >= 3 ? 32 : 16;
+      centeredSlides = false;
+      loop = testimonials.length > 1;
+    } else if (windowWidth >= 768) {
+      // Tablet screens: show 2 if available.
+      slidesPerView = testimonials.length >= 2 ? 2 : testimonials.length;
+      spaceBetween = testimonials.length >= 2 ? 24 : 16;
+      centeredSlides = testimonials.length < 2;
+      loop = testimonials.length > 1;
+    } else {
+      // Mobile: always one slide at a time.
+      slidesPerView = 1;
+      spaceBetween = 16;
+      centeredSlides = true;
+      loop = false;
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 relative">
@@ -84,22 +134,29 @@ const Reviews = () => {
       </h2>
 
       <div className="relative flex items-center justify-center py-4 md:py-12 md:px-12">
-        {/* Left Arrow */}
-        <button
-          onClick={() => swiperInstance && swiperInstance.slidePrev()}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
-          aria-label="Previous slide"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-700"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {/* Show navigation arrows only when not combining testimonials */}
+        {!combineTestimonials && testimonials.length > 1 && (
+          <button
+            onClick={() => {
+              if (swiperRef.current && swiperRef.current.swiper) {
+                clearAutoplayTimer();
+                swiperRef.current.swiper.slidePrev();
+              }
+            }}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
+            aria-label="Previous slide"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        )}
 
         {/* Background Accent */}
         <div className="bg-orange-300 w-[60%] h-full rounded-md absolute z-0 py-12"></div>
@@ -107,63 +164,94 @@ const Reviews = () => {
         {/* Swiper */}
         <div className="z-10 w-full px-6 md:px-0">
           <Swiper
-            onSwiper={setSwiperInstance}
-            loop={true}
-            spaceBetween={16}
-            slidesPerView={1}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 32,
-              },
-            }}
+            ref={swiperRef}
+            loop={loop}
+            spaceBetween={spaceBetween}
+            slidesPerView={slidesPerView}
+            centeredSlides={centeredSlides}
           >
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
-                <div className="bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
-                  <div className="flex items-center mb-2">
-                    <span className="text-yellow-500 text-xl">
-                      {"★".repeat(testimonial.rating).padEnd(5, "☆")}
-                    </span>
-                  </div>
-                  <p className="text-gray-700 text-sm mb-4">{testimonial.comment}</p>
-                  <div className="flex items-center">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-14 h-14 rounded-full mr-4 border border-gray-200"
-                    />
-                    <div>
-                      <h3 className="text-lg font-semibold">{testimonial.name}</h3>
-                      <p className="text-gray-500 text-sm">{testimonial.city}</p>
+            {combineTestimonials ? (
+              // When combining testimonials: render a single slide containing all cards.
+              <SwiperSlide key="combined">
+                <div className="flex justify-center items-center gap-8">
+                  {testimonials.map((testimonial) => (
+                    <div
+                      key={testimonial.id}
+                      className="bg-gray-50 w-[450px] flex-none shadow-2xl rounded-lg p-6"
+                    >
+                      <div className="flex items-center mb-2">
+                        <span className="text-yellow-500 text-xl">
+                          {"★".repeat(testimonial.rating).padEnd(5, "☆")}
+                        </span>
+                      </div>
+                      <p className="text-gray-700 text-sm mb-4">{testimonial.comment}</p>
+                      <div className="flex items-center">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-14 h-14 rounded-full mr-4 border border-gray-200"
+                        />
+                        <div>
+                          <h3 className="text-lg font-semibold">{testimonial.name}</h3>
+                          <p className="text-gray-500 text-sm">{testimonial.city}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </SwiperSlide>
-            ))}
+            ) : (
+              // Normal behavior: each testimonial gets its own slide.
+              testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.id}>
+                  <div className="bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
+                    <div className="flex items-center mb-2">
+                      <span className="text-yellow-500 text-xl">
+                        {"★".repeat(testimonial.rating).padEnd(5, "☆")}
+                      </span>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">{testimonial.comment}</p>
+                    <div className="flex items-center">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-14 h-14 rounded-full mr-4 border border-gray-200"
+                      />
+                      <div>
+                        <h3 className="text-lg font-semibold">{testimonial.name}</h3>
+                        <p className="text-gray-500 text-sm">{testimonial.city}</p>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
         </div>
 
-        {/* Right Arrow */}
-        <button
-          onClick={() => swiperInstance && swiperInstance.slideNext()}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
-          aria-label="Next slide"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-700"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {/* Show right arrow only when not combining testimonials */}
+        {!combineTestimonials && testimonials.length > 1 && (
+          <button
+            onClick={() => {
+              if (swiperRef.current && swiperRef.current.swiper) {
+                clearAutoplayTimer();
+                swiperRef.current.swiper.slideNext();
+              }
+            }}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
+            aria-label="Next slide"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="h-16 md:h-32"></div>
