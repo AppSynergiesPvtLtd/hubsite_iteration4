@@ -10,7 +10,7 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const TestimonialForm = () => {
   const router = useRouter();
   // Expecting URL like: /testimonial?id=cm71uvu2n00b7nthruddc1o1s
-  const { id } = router.query; 
+  const { id } = router.query;
 
   const initialFormData = {
     name: "",
@@ -128,7 +128,14 @@ const TestimonialForm = () => {
         });
         const result = await response.json();
         if (response.ok) {
-          setSuccessMessage("Testimonial updated successfully!");
+          setSuccessMessage("Testimonial created successfully!");
+          // Wait 5 seconds before redirecting to allow the user to see the alert.
+          setTimeout(() => {
+            router.push({
+              pathname: router.pathname,
+              query: { id },
+            });
+          }, 5000);
         } else {
           throw new Error(result.message || "Something went wrong");
         }
@@ -153,17 +160,21 @@ const TestimonialForm = () => {
         const result = await response.json();
         if (response.ok) {
           setSuccessMessage("Testimonial created successfully!");
-          // Update URL to include the new testimonial id for future updates.
-          router.push({
-            pathname: router.pathname,
-            query: { id: result.id },
-          });
+          // Wait 5 seconds before redirecting so that the alert remains visible.
+          setTimeout(() => {
+            router.push({
+              pathname: router.pathname,
+              query: { id: result.data.id },
+            });
+          }, 2000);
+          // Optionally, clear the form after creation.
           setFormData(initialFormData);
           setImagePreview(null);
         } else {
           throw new Error(result.message || "Something went wrong");
         }
       }
+      // Clear the success message after some time (if not redirecting)
       setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error("Error submitting form:", error);
