@@ -64,8 +64,8 @@ const Surveys = () => {
   }
 
   return (
-    <div className="p-4 poppins-semibold">
-      <div className="w-[95%] xl:w-[80%] m-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="p-1 sm:p-4 poppins-semibold">
+      <div className="w-[98%] xl:w-[98%] m-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {surveys.map((survey) => {
           const { id, title, hubCoins, progress = {} } = survey
           // Destructure progress values
@@ -86,10 +86,10 @@ const Surveys = () => {
           if (completed) {
             topRightContent = (
               <div className="flex flex-col items-end">
-                <span className="text-[#4CAF50] text-2xl md:text-3xl font-bold m-auto">
+                <span className="text-[#4CAF50] text-lg font-[600] m-auto">
                   {hubCoins || 20}
                 </span>
-                <span className="text-[#4CAF50] md:text-lg font-light">
+                <span className="text-[#4CAF50] text-[0.8rem] whitespace-nowrap sm:whitespace-normal md:text-[1rem] font-light ">
                   HUBCOINS RECEIVED
                 </span>
               </div>
@@ -101,8 +101,8 @@ const Surveys = () => {
           } else {
             topRightContent = (
               <div className="flex flex-col items-end">
-                <span className="text-2xl font-[600] m-auto">{hubCoins || 20}</span>
-                <span className="sm:text-lg font-[300]">HUBCOINS</span>
+                <span className="text-lg font-[600] m-auto">{hubCoins || 20}</span>
+                <span className="md:text-lg font-[300]">HUBCOINS</span>
               </div>
             )
             bottomContent = <div className="text-[#0057A1] font-semibold">TAKE SURVEY</div>
@@ -128,7 +128,7 @@ const Surveys = () => {
                       className="mt-1"
                     />
                     <div>
-                      <h3 className="md:text-xl w-[100%] font-semibold mb-1 capitalize">{title}</h3>
+                      <h3 className="text-[1rem] md:text-lg w-[100%] !font-[500] mb-1 capitalize">{title}</h3>
                       <p className="text-gray-500">{2} min</p>
                     </div>
                   </div>

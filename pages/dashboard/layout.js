@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const user = useSelector((state) => state.user.user);
-
+  const [isHovered, setIsHovered] = useState(false)
   // Redirect to "/" if user is not available
   useEffect(() => {
     if (!user) {
@@ -115,15 +115,26 @@ const Layout = ({ children }) => {
           <h1 className="text-[24px] font-semibold capitalize">
             {router.pathname.split("/").pop()}
           </h1>
-          <div className="flex gap-5 relative">
-            <div
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold text-sm"
-              title={`${user?.hubcoins} Hubcoins`}
-            >
-              {user?.hubCoins >= 1000
-                ? `${(user?.hubCoins / 1000).toFixed(1).replace(".0", "")}K`
-                : user?.hubCoins}
-            </div>
+          <div className="flex  gap-2 md:gap-5 relative items-center">
+          <div className="relative group inline-block">
+  <div
+    className="w-12 h-12 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold text-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl cursor-pointer"
+    aria-label={`${user?.hubCoins} Hubcoins`}
+    onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    {user?.hubCoins >= 1000
+      ? `${(user?.hubCoins / 1000).toFixed(1).replace(".0", "")}K`
+      : user?.hubCoins}
+  </div>
+
+  {/* Floating tooltip */}
+  {isHovered && (
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-md whitespace-nowrap">
+          {user?.hubCoins} Hubcoins
+        </div>
+      )}
+</div>
+
+
             <div className="relative" ref={dropdownRef}>
               <Image
                 className="w-12 h-12 cursor-pointer rounded-full"
