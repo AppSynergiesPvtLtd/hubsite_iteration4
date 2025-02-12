@@ -134,7 +134,6 @@ const Reviews = () => {
       </h2>
 
       <div className="relative flex items-center justify-center py-4 md:py-12 md:px-12">
-        {/* Show navigation arrows only when not combining testimonials */}
         {!combineTestimonials && testimonials.length > 1 && (
           <button
             onClick={() => {
@@ -158,10 +157,8 @@ const Reviews = () => {
           </button>
         )}
 
-        {/* Background Accent */}
         <div className="bg-orange-300 w-[60%] h-full rounded-md absolute z-0 py-12"></div>
 
-        {/* Swiper */}
         <div className="z-10 w-full px-6 md:px-0">
           <Swiper
             ref={swiperRef}
@@ -171,7 +168,6 @@ const Reviews = () => {
             centeredSlides={centeredSlides}
           >
             {combineTestimonials ? (
-              // When combining testimonials: render a single slide containing all cards.
               <SwiperSlide key="combined">
                 <div className="flex justify-center items-center gap-8">
                   {testimonials.map((testimonial) => (
@@ -201,7 +197,6 @@ const Reviews = () => {
                 </div>
               </SwiperSlide>
             ) : (
-              // Normal behavior: each testimonial gets its own slide.
               testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
                   <div className="bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
@@ -229,7 +224,6 @@ const Reviews = () => {
           </Swiper>
         </div>
 
-        {/* Show right arrow only when not combining testimonials */}
         {!combineTestimonials && testimonials.length > 1 && (
           <button
             onClick={() => {
