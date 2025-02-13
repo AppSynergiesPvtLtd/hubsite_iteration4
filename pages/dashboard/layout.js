@@ -15,7 +15,8 @@ const Layout = ({ children }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const user = useSelector((state) => state.user.user);
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
+
   // Redirect to "/" if user is not available
   useEffect(() => {
     if (!user) {
@@ -61,6 +62,26 @@ const Layout = ({ children }) => {
       icon: <Award size={20} className="mr-2" />,
     },
   ];
+
+  // Function to get the page title based on the current route
+  const getPageTitle = () => {
+    // Try to match the current route with a sidebar item
+    const currentItem = sidebarItems.find((item) => item.path === router.pathname);
+    if (currentItem) {
+      return currentItem.label;
+    }
+    // Additional routes can be added here
+    if (router.pathname === "/dashboard/profile") {
+      return "Profile";
+    }
+    // Fallback: format the last segment of the path
+    const pathSegments = router.pathname.split("/").filter(Boolean);
+    if (pathSegments.length > 0) {
+      const lastSegment = pathSegments[pathSegments.length - 1];
+      return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+    }
+    return "Dashboard";
+  };
 
   const handleLogout = async () => {
     // dispatch(clearUser());
@@ -112,28 +133,27 @@ const Layout = ({ children }) => {
           <button onClick={toggleSidebar} className="text-2xl md:hidden focus:outline-none">
             ☰
           </button>
-          <h1 className="text-[24px] font-semibold capitalize">
-            {router.pathname.split("/").pop()}
-          </h1>
-          <div className="flex  gap-2 md:gap-5 relative items-center">
-          <div className="relative group inline-block">
-  <div
-    className="w-12 h-12 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold text-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl cursor-pointer"
-    aria-label={`${user?.hubCoins} Hubcoins`}
-    onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-    {user?.hubCoins >= 1000
-      ? `${(user?.hubCoins / 1000).toFixed(1).replace(".0", "")}K`
-      : user?.hubCoins}
-  </div>
+          <h1 className="text-[24px] font-semibold capitalize">{getPageTitle()}</h1>
+          <div className="flex gap-2 md:gap-5 relative items-center">
+            <div className="relative group inline-block">
+              <div
+                className="w-12 h-12 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold text-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl cursor-pointer"
+                aria-label={`${user?.hubCoins} Hubcoins`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {user?.hubCoins >= 1000
+                  ? `${(user?.hubCoins / 1000).toFixed(1).replace(".0", "")}K`
+                  : user?.hubCoins}
+              </div>
 
-  {/* Floating tooltip */}
-  {isHovered && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-md whitespace-nowrap">
-          {user?.hubCoins} Hubcoins
-        </div>
-      )}
-</div>
-
+              {/* Floating tooltip */}
+              {isHovered && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-md whitespace-nowrap">
+                  {user?.hubCoins} Hubcoins
+                </div>
+              )}
+            </div>
 
             <div className="relative" ref={dropdownRef}>
               <Image
