@@ -5,14 +5,22 @@ import Layout from "../layout";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
-import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle, showAdd, showRefresh } from "@/store/adminbtnSlice";
+import { 
+  clearTitle, 
+  hideAdd, 
+  hideExcel, 
+  hideRefresh, 
+  setTitle, 
+  showAdd, 
+  showRefresh 
+} from "@/store/adminbtnSlice";
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const LiveSurvey = () => {
   const router = useRouter();
-  const [profilingData, setProfilingData] = useState([]);
+  const [liveSurveyData, setLiveSurveyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [notification, setNotification] = useState({ type: "", message: "" });
@@ -23,7 +31,6 @@ const LiveSurvey = () => {
     dispatch(setTitle("Live Survey"));
     dispatch(showAdd({ label: "Add", redirectTo: "/admin/manage-surveys/addquestion-livesurvey" }));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    // dispatch(showExcel({ label: "Generate Excel", redirectTo: "/admin/export-excel" }));
 
     // Clean up on unmount
     return () => {
@@ -39,21 +46,26 @@ const LiveSurvey = () => {
       setLoading(true);
       setErrorMessage("");
       try {
-        const response = await axios.get(`${API_BASE_URL}/live-survey/?page=1&isActive=true`, {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `${API_BASE_URL}/live-survey/?page=1&isActive=true`,
+          {
+            headers: {
+              "x-api-key": API_KEY,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         const data = response.data?.data || [];
+        console.log("Data", data);
         const formattedData = data.map((survey) => ({
           id: survey.id,
           question: survey.title,
           description: survey.description,
+          isActive: survey.isActive, // include active/inactive flag
         }));
 
-        setProfilingData(formattedData);
+        setLiveSurveyData(formattedData);
       } catch (error) {
         console.error("Error fetching live surveys:", error);
         setErrorMessage("Failed to load live surveys. Please try again later.");
@@ -66,7 +78,6 @@ const LiveSurvey = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    
     try {
       await axios.delete(`${API_BASE_URL}/live-survey/${id}`, {
         headers: {
@@ -76,7 +87,7 @@ const LiveSurvey = () => {
       });
 
       // Remove deleted survey from state
-      setProfilingData(profilingData.filter((q) => q.id !== id));
+      setLiveSurveyData(liveSurveyData.filter((q) => q.id !== id));
 
       setNotification({ type: "success", message: "Survey deleted successfully." });
     } catch (error) {
@@ -109,35 +120,25 @@ const LiveSurvey = () => {
     );
   }
 
-  const handleAddClick = () => {
-    router.push("/admin/manage-surveys/addquestion-livesurvey");
-  };
-
-  const handleRefreshClick = () => {
-    window.location.reload();
-  };
-
   return (
-    <>
-      <div className="w-full">
-        {/* Notification Section */}
-        {notification.message && (
-          <div
-            className={`mb-4 p-4 rounded-md text-white ${
-              notification.type === "success" ? "bg-green-500" : "bg-red-500"
-            }`}
-          >
-            {notification.message}
-          </div>
-        )}
+    <div className="w-full">
+      {/* Notification Section */}
+      {notification.message && (
+        <div
+          className={`mb-4 p-4 rounded-md text-white ${
+            notification.type === "success" ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {notification.message}
+        </div>
+      )}
 
-        <SurveyTemplate
-          surveyData={profilingData}
-          onDelete={handleDelete}
-          editRedirect={handleEditRedirect}
-        />
-      </div>
-    </>
+      <SurveyTemplate
+        surveyData={liveSurveyData}
+        onDelete={handleDelete}
+        editRedirect={handleEditRedirect}
+      />
+    </div>
   );
 };
 

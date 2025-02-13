@@ -5,9 +5,17 @@ import Layout from "../layout";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
-import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle, showAdd, showRefresh } from "@/store/adminbtnSlice";
+import {
+  clearTitle,
+  hideAdd,
+  hideExcel,
+  hideRefresh,
+  setTitle,
+  showAdd,
+  showRefresh,
+} from "@/store/adminbtnSlice";
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const ProfileSurvey = () => {
@@ -20,9 +28,10 @@ const ProfileSurvey = () => {
 
   useEffect(() => {
     dispatch(setTitle("Profile Survey"));
-    dispatch(showAdd({ label: "Add", redirectTo: "/admin/manage-surveys/add-profilesurvey" }));
+    dispatch(
+      showAdd({ label: "Add", redirectTo: "/admin/manage-surveys/add-profilesurvey" })
+    );
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    // dispatch(showExcel({ label: "Generate Excel", redirectTo: "/admin/export-excel" }));
 
     // Clean up on unmount
     return () => {
@@ -33,24 +42,30 @@ const ProfileSurvey = () => {
     };
   }, [dispatch, router.asPath]);
 
-
   useEffect(() => {
     const fetchProfileSurveys = async () => {
       setLoading(true);
       setErrorMessage("");
       try {
-        const response = await axios.get(`${API_BASE_URL}/profile-survey/?isActive=true`, {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `${API_BASE_URL}/profile-survey/?isActive=false`,
+          {
+            headers: {
+              "x-api-key": API_KEY,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         const data = response.data?.data || [];
+        console.log("data", data);
+
+        // Include isActive property along with other fields
         const formattedData = data.map((survey) => ({
           id: survey.id,
           question: survey.title,
           description: survey.description,
+          isActive: survey.isActive,
         }));
 
         setProfilingData(formattedData);
@@ -108,35 +123,25 @@ const ProfileSurvey = () => {
     );
   }
 
-  const handleAddClick = () => {
-    router.push("/admin/manage-surveys/add-profilesurvey");
-  };
-
-  const handleRefreshClick = () => {
-    window.location.reload();
-  };
-   
   return (
-    <>
-      <div className="w-full">
-        {/* Notification Section */}
-        {notification.message && (
-          <div
-            className={`mb-4 p-4 rounded-md text-white ${
-              notification.type === "success" ? "bg-green-500" : "bg-red-500"
-            }`}
-          >
-            {notification.message}
-          </div>
-        )}
+    <div className="w-full">
+      {/* Notification Section */}
+      {notification.message && (
+        <div
+          className={`mb-4 p-4 rounded-md text-white ${
+            notification.type === "success" ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {notification.message}
+        </div>
+      )}
 
-        <SurveyTemplate
-          surveyData={profilingData}
-          onDelete={handleDelete}
-          editRedirect={handleEditRedirect}
-        />
-      </div>
-    </>
+      <SurveyTemplate
+        surveyData={profilingData}
+        onDelete={handleDelete}
+        editRedirect={handleEditRedirect}
+      />
+    </div>
   );
 };
 
