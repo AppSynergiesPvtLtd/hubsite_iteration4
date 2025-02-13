@@ -81,7 +81,6 @@ const Userinformation = () => {
         <div className="p-4 text-red-600">Error: {error}</div>
     );
   }
-  console.log("data",userData.userDp)
   return (
       <div className="p-4">
         <img src={userData.userDp||"/dummyProfile.png"} alt="User Info" className="w-[200px] h-[200px] max-w-sm rounded-full" />
@@ -100,7 +99,7 @@ const Userinformation = () => {
           </p>
           {/* Since the API response doesn’t provide a Country Code, display a placeholder */}
           <p>
-            <b>Country Code :</b> -
+            <b>Country Code : {userData.phone?(<>+{userData.phone.slice(0, 2)}</>):(<>-</>)}</b>
           </p>
           <p>
             <b>Date:</b> {userData.createdAt ? new Date(userData.createdAt).toLocaleDateString() : "-"}

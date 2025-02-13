@@ -65,9 +65,25 @@ const UserManagement = () => {
     };
   }, [dispatch, router.asPath]);
 
+  // Helper function to format dates as "day month year" (e.g. 14 Feb 2025)
+  const formatDate = (dateString) => {
+    if (!dateString) return "-";
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   // Generate Excel file from userData.
   const handleGenerateExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(userData);
+    // Optionally format dates before exporting
+    const formattedData = userData.map((user) => ({
+      ...user,
+      createdAt: formatDate(user.createdAt),
+      dob: user.dob && user.dob !== "-" ? formatDate(user.dob) : user.dob,
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "UserManagement");
     XLSX.writeFile(workbook, "UserManagement.xlsx");
@@ -108,7 +124,6 @@ const UserManagement = () => {
         }
       );
       const { data, total } = response.data;
-      console.log(response);
       const transformedData = data.map((user) => ({
         ...user,
         dob: user.dob || "-", // Replace missing DOB with a placeholder
@@ -327,7 +342,9 @@ const UserManagement = () => {
                         .map((field) => (
                           <td key={field.key} className="py-3 px-4 break-words">
                             {field.key === "createdAt"
-                              ? new Date(item.createdAt).toLocaleDateString()
+                              ? formatDate(item.createdAt)
+                              : field.key === "dob" && item.dob !== "-"
+                              ? formatDate(item.dob)
                               : item[field.key] || "-"}
                           </td>
                         ))}
@@ -370,13 +387,13 @@ const UserManagement = () => {
                       )}
                       {visibleFields.includes("dob") && (
                         <p className="text-gray-600 break-words">
-                          <b>Date of Birth:</b> {item.dob}
+                          <b>Date of Birth:</b>{" "}
+                          {item.dob !== "-" ? formatDate(item.dob) : item.dob}
                         </p>
                       )}
                       {visibleFields.includes("createdAt") && (
                         <p className="text-gray-600 break-words">
-                          <b>Created At:</b>{" "}
-                          {new Date(item.createdAt).toLocaleDateString()}
+                          <b>Created At:</b> {formatDate(item.createdAt)}
                         </p>
                       )}
                       {visibleFields.includes("role") && (
@@ -423,13 +440,13 @@ const UserManagement = () => {
                     )}
                     {visibleFields.includes("dob") && (
                       <p className="text-gray-600 break-words">
-                        <b>Date of Birth:</b> {item.dob}
+                        <b>Date of Birth:</b>{" "}
+                        {item.dob !== "-" ? formatDate(item.dob) : item.dob}
                       </p>
                     )}
                     {visibleFields.includes("createdAt") && (
                       <p className="text-gray-600 break-words">
-                        <b>Created At:</b>{" "}
-                        {new Date(item.createdAt).toLocaleDateString()}
+                        <b>Created At:</b> {formatDate(item.createdAt)}
                       </p>
                     )}
                     {visibleFields.includes("role") && (

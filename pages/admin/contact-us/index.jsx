@@ -16,36 +16,6 @@ import {
   showExcel,
 } from "@/store/adminbtnSlice";
 
-// Helper function to get initials from a name.
-const getInitials = (name) => {
-  if (!name) return "";
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) {
-    return name.substring(0, 2).toUpperCase();
-  } else {
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-};
-
-// Avatar component shows an image if provided; otherwise, it shows a fallback with initials.
-const Avatar = ({ name, url }) => {
-  if (url) {
-    return (
-      <img
-        src={url}
-        alt={name}
-        className="w-10 h-10 rounded-full object-cover"
-      />
-    );
-  } else {
-    return (
-      <div className="w-10 h-10 flex items-center justify-center bg-gray-300 text-gray-700 rounded-full">
-        {getInitials(name)}
-      </div>
-    );
-  }
-};
-
 // Reusable confirmation modal component.
 export const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
   return (
@@ -77,10 +47,8 @@ const Contactus = () => {
   const [viewStyle, setViewStyle] = useState("Table View");
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  // Applied filters
   const [sortOrder, setSortOrder] = useState("");
   const [selectedSubjects, setSelectedSubjects] = useState([]);
-  // Temporary filter states used in the modal
   const [tempSortOrder, setTempSortOrder] = useState("");
   const [tempSelectedSubjects, setTempSelectedSubjects] = useState([]);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
@@ -90,7 +58,7 @@ const Contactus = () => {
   const [confirmDelete, setConfirmDelete] = useState({ show: false, id: null });
   const router = useRouter();
 
-  // Define the togglable data fields.
+  // Data fields to display.
   const dataFields = [
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },
@@ -150,7 +118,7 @@ const Contactus = () => {
     });
   };
 
-  // The list of subjects (for filtering)
+  // The list of subjects (for filtering).
   const subjects = [
     "General Inquiry",
     "Technical Support",
@@ -161,7 +129,7 @@ const Contactus = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-  // Fetch users (and pass applied filters to the API if supported)
+  // Fetch users (and pass applied filters to the API if supported).
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -186,7 +154,6 @@ const Contactus = () => {
           },
         }
       );
-      console.log("fetch users", response);
       const { data, total } = response.data;
       setUserData(data);
       setTotalUsers(total);
@@ -203,7 +170,7 @@ const Contactus = () => {
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Toggle a subject in the temporary filter state (used in the modal)
+  // Toggle a subject in the temporary filter state (used in the modal).
   const handleTempSubjectToggle = (subject) => {
     setTempSelectedSubjects((prev) => {
       if (prev.includes(subject)) {
@@ -214,20 +181,20 @@ const Contactus = () => {
     });
   };
 
-  // Clear temporary filters in the modal
+  // Clear temporary filters in the modal.
   const handleClearTempFilters = () => {
     setTempSelectedSubjects([]);
     setTempSortOrder("");
   };
 
-  // Apply the temporary filters to the applied state when clicking Apply
+  // Apply the temporary filters to the applied state when clicking Apply.
   const handleApplyFilters = () => {
     setSelectedSubjects(tempSelectedSubjects);
     setSortOrder(tempSortOrder);
     setIsSortModalOpen(false);
   };
 
-  // Client-side filtering by search term (note: subject filtering is also applied here)
+  // Client-side filtering by search term.
   const filteredData = userData.filter(
     (item) =>
       (searchTerm === "" ||
@@ -281,7 +248,7 @@ const Contactus = () => {
     }
   }, [alert]);
 
-  // Alert component
+  // Alert component.
   const AlertComponent = ({ message, type }) => (
     <div
       className={`fixed top-4 right-4 p-4 rounded-md shadow-md flex items-center space-x-2 ${
@@ -391,26 +358,7 @@ const Contactus = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-
             <div className="p-4 space-y-6">
-              {/* Filter Section */}
-              <div>
-                <h4 className="text-sm font-medium mb-3">Filter (Subject)</h4>
-                <div className="space-y-3">
-                  {subjects.map((subject) => (
-                    <label key={subject} className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        checked={tempSelectedSubjects.includes(subject)}
-                        onChange={() => handleTempSubjectToggle(subject)}
-                      />
-                      <span className="text-sm text-gray-700">{subject}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
               {/* Sort Section */}
               <div>
                 <h4 className="text-sm font-medium mb-3">Sort By (Date)</h4>
@@ -436,7 +384,6 @@ const Contactus = () => {
                 </div>
               </div>
             </div>
-
             {/* Action Buttons */}
             <div className="flex items-center justify-center gap-3 p-4 border-t">
               <button
@@ -469,8 +416,6 @@ const Contactus = () => {
                 <thead>
                   <tr className="text-sm text-gray-600 font-medium">
                     <th className="py-3 px-4">S. NO</th>
-                    {/* Always show the image/avatar column */}
-                    <th className="py-3 px-4">Image</th>
                     {dataFields
                       .filter((field) => visibleFields.includes(field.key))
                       .map((field) => (
@@ -485,9 +430,6 @@ const Contactus = () => {
                   {filteredData.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-100">
                       <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">
-                        <Avatar name={item.name} url={item.upload} />
-                      </td>
                       {dataFields
                         .filter((field) => visibleFields.includes(field.key))
                         .map((field) => (
@@ -522,9 +464,6 @@ const Contactus = () => {
                     key={item.id}
                     className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col justify-between"
                   >
-                    <div className="flex justify-center mb-4">
-                      <Avatar name={item.name} url={item.upload} />
-                    </div>
                     <div className="space-y-2">
                       {visibleFields.includes("name") && (
                         <h2 className="font-bold text-lg break-words">
@@ -570,31 +509,28 @@ const Contactus = () => {
                   key={item.id}
                   className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col md:flex-row md:items-center justify-between"
                 >
-                  <div className="flex items-center gap-4">
-                    <Avatar name={item.name} url={item.upload} />
-                    <div className="space-y-2">
-                      {visibleFields.includes("name") && (
-                        <h2 className="font-bold text-lg break-words">
-                          {item.name}
-                        </h2>
-                      )}
-                      {visibleFields.includes("email") && (
-                        <p className="text-gray-600 break-words">
-                          <b>Email:</b> {item.email}
-                        </p>
-                      )}
-                      {visibleFields.includes("message") && (
-                        <p className="text-gray-600 break-words">
-                          <b>Message:</b> {item.message}
-                        </p>
-                      )}
-                      {visibleFields.includes("createdAt") && (
-                        <p className="text-gray-600 break-words">
-                          <b>Created:</b>{" "}
-                          {new Date(item.createdAt).toLocaleDateString()}
-                        </p>
-                      )}
-                    </div>
+                  <div className="space-y-2">
+                    {visibleFields.includes("name") && (
+                      <h2 className="font-bold text-lg break-words">
+                        {item.name}
+                      </h2>
+                    )}
+                    {visibleFields.includes("email") && (
+                      <p className="text-gray-600 break-words">
+                        <b>Email:</b> {item.email}
+                      </p>
+                    )}
+                    {visibleFields.includes("message") && (
+                      <p className="text-gray-600 break-words">
+                        <b>Message:</b> {item.message}
+                      </p>
+                    )}
+                    {visibleFields.includes("createdAt") && (
+                      <p className="text-gray-600 break-words">
+                        <b>Created:</b>{" "}
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    )}
                   </div>
                   <div className="mt-2 md:mt-0">
                     <button

@@ -175,7 +175,7 @@ const Admindashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6  min-h-screen">
       {/* Top Stats */}
       <div className="flex flex-wrap ml-6 gap-1 md:gap-6 mb-6">
         <div className="bg-white shadow-lg w-[200px] md:w-[230px] rounded-lg p-6 flex items-center gap-6 border-l-4 border-[#0057A1]">

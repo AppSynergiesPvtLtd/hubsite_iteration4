@@ -1,38 +1,49 @@
 import React, { useState } from "react";
-import Image from "next/image"; // Ensure you're using Next.js
+import Image from "next/image";
 import { SlCalender } from "react-icons/sl";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useSelector, useDispatch } from "react-redux";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { setUser } from "@/store/userSlice";
-
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+import { clearUser, setUser } from "@/store/userSlice";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import metadata from "libphonenumber-js/metadata.min.json";
+import Calendar from "../Calendar";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const countryCodeToFlagUrl = (countryCode) =>
-  `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
-
-const phoneToCountryCode = {
-  "91": "in", // India
-  "1": "us", // USA
-  "44": "gb", // United Kingdom
-  "49": "de", // Germany
-  "81": "jp", // Japan
-};
-
+/**
+ * Updated getCountryFlagUrl function:
+ * - Trims the input.
+ * - If the phone number does not start with a "+", prepends one.
+ * - Parses the phone number without a default country so that the embedded country code is used.
+ */
 const getCountryFlagUrl = (phoneNumber) => {
-  if (!phoneNumber || !phoneNumber.startsWith("+")) return "/Group.png";
-  const countryCode = phoneNumber.match(/^\+?(\d+)/)?.[1];
-  const country = phoneToCountryCode[countryCode];
-  return country ? countryCodeToFlagUrl(country) : "/default-flag.png";
-};
+  if (!phoneNumber) return "/Group.png";
 
+  // Remove extra whitespace.
+  let formattedPhone = phoneNumber.trim();
+
+  // If the number doesn't start with a "+", add it.
+  if (!formattedPhone.startsWith("+")) {
+    formattedPhone = `+${formattedPhone}`;
+  }
+
+  // Parse without a default country.
+  const phoneNumberObj = parsePhoneNumberFromString(formattedPhone, undefined, metadata);
+  console.log("Parsed phone number:", formattedPhone, phoneNumberObj);
+
+  if (phoneNumberObj && phoneNumberObj.country) {
+    return `https://flagcdn.com/w40/${phoneNumberObj.country.toLowerCase()}.png`;
+  }
+
+  return "/default-flag.png";
+};
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user?.user); // Redux state for user data
+  const user = useSelector((state) => state.user?.user);
 
   const [userInfo, setUserInfo] = useState({
     fullName: user?.name || "-",
@@ -42,16 +53,14 @@ const Profile = () => {
   });
 
   const [profileImage, setProfileImage] = useState(user?.userDp || "/dummyProfile.png");
-  const [profileImageFile, setProfileImageFile] = useState(null); // Store the selected file
+  const [profileImageFile, setProfileImageFile] = useState(null);
   const [isEditing, setIsEditing] = useState({
     fullName: false,
     phoneNumber: false,
-    dob: false,
   });
   const [loading, setLoading] = useState(false);
-
-  // UI alert state
   const [alert, setAlert] = useState({ type: "", message: "" });
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleEditToggle = (field) => {
     setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -62,17 +71,12 @@ const Profile = () => {
     setUserInfo((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleDateChange = (date) => {
-    setUserInfo((prev) => ({ ...prev, dob: date }));
-    setIsEditing((prev) => ({ ...prev, dob: false }));
-  };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
-      setProfileImageFile(file); // Store file for upload
+      setProfileImageFile(file);
     }
   };
 
@@ -83,20 +87,16 @@ const Profile = () => {
     }
 
     const body = new FormData();
-
-    // Always include required fields (like name)
     body.append("name", userInfo.fullName || user?.name || "-");
 
-    // Append optional fields only if they exist
     if (userInfo.dob) {
-      body.append("dob", userInfo.dob?.toISOString());
+      body.append("dob", userInfo.dob.toISOString());
     }
 
     if (userInfo.phoneNumber) {
       body.append("phone", userInfo.phoneNumber);
     }
 
-    // Append the profile image only if it's updated
     if (profileImageFile) {
       body.append("userDp", profileImageFile);
     }
@@ -107,45 +107,55 @@ const Profile = () => {
       const response = await fetch(`${API_BASE_URL}/user/${user.id}`, {
         method: "PUT",
         headers: {
-          "x-api-key": API_KEY, // API key
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`, // Bearer token
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
-        body, // Pass FormData directly
+        body,
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response:", errorData); // Log server response for debugging
+        console.error("Error response:", errorData);
         throw new Error("Failed to update profile");
       }
 
       const updatedUser = await response.json();
-      dispatch(setUser(updatedUser)); // Update Redux state with the updated user
+      dispatch(setUser(updatedUser));
       setAlert({ type: "success", message: "Profile updated successfully!" });
     } catch (error) {
       console.error("Error updating profile:", error);
-      setAlert({ type: "error", message: "Failed to update profile. Please try again." });
+      setAlert({
+        type: "error",
+        message: "Failed to update profile. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8">
-      {/* Alert message */}
-     
+  const router = useRouter()
+   const handleLogout = async () => {
+      localStorage.removeItem("user_token");
+      // sessionStorage.clear();
+      await signOut({ redirect: false });
+      router.reload();
+    };
 
+  return (
+    <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative">
       {/* User Information Section */}
       <div className="w-full md:w-2/3 space-y-6">
-      {alert.message && (
-        <div
-          className={`p-4 mb-4 rounded text-sm ${
-            alert.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-          }`}
-        >
-          {alert.message}
-        </div>
-      )}
+        {alert.message && (
+          <div
+            className={`p-4 mb-4 rounded text-sm ${
+              alert.type === "success"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {alert.message}
+          </div>
+        )}
         <h2 className="text-[#0057A1] text-2xl font-semibold">Profile</h2>
         <p className="text-gray-500 text-sm">See your account information in here!</p>
 
@@ -202,7 +212,9 @@ const Profile = () => {
                     height={16}
                     className="rounded"
                   />
-                  <p className="text-gray-800 font-medium">{userInfo.phoneNumber || "-"}</p>
+                  <p className="text-gray-800 font-medium">
+                    {userInfo.phoneNumber || "-"}
+                  </p>
                 </div>
               )}
             </div>
@@ -223,27 +235,18 @@ const Profile = () => {
           </div>
 
           {/* Date of Birth */}
-          <div className="flex justify-between items-center border-b pb-2">
+          <div className="flex justify-between items-center border-b pb-2 relative">
             <div>
               <p className="text-gray-400 text-sm">Date of Birth</p>
-              {isEditing.dob ? (
-                <DatePicker
-                  selected={userInfo.dob}
-                  onChange={handleDateChange}
-                  dateFormat="dd/MM/yyyy"
-                  className="border rounded p-1 text-gray-800"
-                />
-              ) : (
-                <p className="text-gray-800 font-medium">
-                  {userInfo.dob ? userInfo.dob.toLocaleDateString("en-GB") : "-"}
-                </p>
-              )}
+              <p className="text-gray-800 font-medium">
+                {userInfo.dob ? userInfo.dob.toLocaleDateString("en-GB") : "-"}
+              </p>
             </div>
             <span
               className="text-[#0057A1] text-sm cursor-pointer"
-              onClick={() => handleEditToggle("dob")}
+              onClick={() => setShowCalendar(true)}
             >
-              {isEditing.dob ? "Cancel" : <SlCalender />}
+              <SlCalender />
             </span>
           </div>
         </div>
@@ -259,7 +262,7 @@ const Profile = () => {
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
-          <button className="w-4/6 md:w-2/6 bg-red-500 text-white font-semibold py-2 rounded">
+          <button onClick={handleLogout} className="w-4/6 md:w-2/6 bg-red-500 text-white font-semibold py-2 rounded">
             Logout
           </button>
         </div>
@@ -291,6 +294,30 @@ const Profile = () => {
           />
         </div>
       </div>
+
+      {/* Calendar Modal for Date of Birth */}
+      {showCalendar && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black opacity-50"
+            onClick={() => setShowCalendar(false)}
+          ></div>
+          <div className="relative">
+            <Calendar
+              selectedDate={userInfo.dob}
+              onDateSelect={(date) =>
+                setUserInfo((prev) => ({ ...prev, dob: date }))
+              }
+              onSave={(date) => {
+                setUserInfo((prev) => ({ ...prev, dob: date }));
+                setShowCalendar(false);
+              }}
+              onCancel={() => setShowCalendar(false)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

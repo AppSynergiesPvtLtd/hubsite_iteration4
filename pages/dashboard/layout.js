@@ -170,11 +170,11 @@ const Layout = ({ children }) => {
                     <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer max-w-xs break-words">
                       {user.email}
                     </li>
-                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                      <Link href={"/dashboard/profile"}>Edit Profile</Link>
+                    <li className=" text-gray-700 hover:bg-gray-100 cursor-pointer w-full ">
+                      <div className="w-full px-4" onClick={()=>router.push("/dashboard/profile")}>Edit Profile</div>
                     </li>
-                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                      <button onClick={handleLogout}>Logout</button>
+                    <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
+                      <button >Logout</button>
                     </li>
                   </ul>
                 </div>
