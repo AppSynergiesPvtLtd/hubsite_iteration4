@@ -47,6 +47,7 @@ const DashboardLanding = () => {
       );
 
       const data = await response.json();
+      console.log("live survey",response)
       if (response.ok) {
         setLiveSurveys(data.data || []);
       } else {
@@ -69,7 +70,7 @@ const DashboardLanding = () => {
           headers: {
             "Content-Type": "application/json",
             "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
           },
         }
       );
