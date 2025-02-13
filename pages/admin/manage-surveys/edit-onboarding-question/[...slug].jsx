@@ -7,17 +7,19 @@ import AdminRoutes from "@/pages/adminRoutes";
 import { useDispatch } from "react-redux";
 import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle } from "@/store/adminbtnSlice";
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const EditOnBoardingQuestion = () => {
   const router = useRouter();
-  const { slug } = router.query; // Slug for identifying the question to edit
-  const [initialQuestionData, setInitialQuestionData] = useState(null); // Store original data for comparison
+  const { slug } = router.query; // slug identifies the question to edit
+
+  // Store both the original API data and the current form data.
+  const [initialQuestionData, setInitialQuestionData] = useState(null);
   const [questionData, setQuestionData] = useState({
     questionTitle: "",
     questionDescription: "",
-    type: "SINGLE_SELECTION", // Ensure field name matches
+    type: "SINGLE_SELECTION",
     isRequired: true,
     options: [],
   });
@@ -25,16 +27,10 @@ const EditOnBoardingQuestion = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setTitle("Onboarding Question"));
-    // dispatch(showAdd({ label: "Add", redirectTo: "/admin/manage-surveys/addquestion-livesurvey" }));
-    // dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    // dispatch(showExcel({ label: "Generate Excel", redirectTo: "/admin/export-excel" }));
-
-    // Clean up on unmount
     return () => {
       dispatch(hideAdd());
       dispatch(hideRefresh());
@@ -43,7 +39,7 @@ const EditOnBoardingQuestion = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Fetch question details on component mount
+  // Fetch the question details from the API.
   useEffect(() => {
     if (!slug) return;
 
@@ -56,17 +52,17 @@ const EditOnBoardingQuestion = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-
         const data = response.data;
-
         const formattedData = {
           questionTitle: data.question,
           questionDescription: data.description,
-          type: data.type, // Use `type` consistently
+          type: data.type,
           isRequired: data.isRequired,
-          options: ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(data.type) ? data.option || [] : [], // Only include options if type allows
+          // Only include options if the type allows it.
+          options: ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(data.type)
+            ? data.option || []
+            : [],
         };
-
         setInitialQuestionData(formattedData);
         setQuestionData(formattedData);
       } catch (error) {
@@ -80,16 +76,28 @@ const EditOnBoardingQuestion = () => {
     fetchQuestionDetails();
   }, [slug]);
 
+  // Determine if there are unsaved changes.
+  const hasChanges = JSON.stringify(questionData) !== JSON.stringify(initialQuestionData);
+
+  // Reset the form to its original state.
+  const handleReset = () => {
+    setQuestionData(initialQuestionData);
+    setErrorMessage("");
+    setSuccessMessage("");
+  };
+
+  // Handle saving/updating the question.
   const handleSaveChanges = async () => {
+    // If no changes have been made, alert the user.
     if (JSON.stringify(questionData) === JSON.stringify(initialQuestionData)) {
       setSuccessMessage("No changes detected.");
       return;
     }
-
     setLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
 
+    // Prepare the question payload.
     const questionPayload = {
       question: questionData.questionTitle,
       description: questionData.questionDescription,
@@ -99,6 +107,7 @@ const EditOnBoardingQuestion = () => {
     };
 
     try {
+      // Update the main question details.
       await axios.put(`${API_BASE_URL}/questions/${slug}`, questionPayload, {
         headers: {
           "x-api-key": API_KEY,
@@ -106,7 +115,11 @@ const EditOnBoardingQuestion = () => {
         },
       });
 
-      if (["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type) && questionData.options.length > 0) {
+      // If the question uses options, update them via the separate endpoint.
+      if (
+        ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type) &&
+        questionData.options.length > 0
+      ) {
         await axios.put(`${API_BASE_URL}/questions/options/${slug}`, questionData.options, {
           headers: {
             "x-api-key": API_KEY,
@@ -115,6 +128,7 @@ const EditOnBoardingQuestion = () => {
         });
       }
 
+      // Update the "original" data.
       setInitialQuestionData(questionData);
       setSuccessMessage("Question updated successfully!");
     } catch (error) {
@@ -127,33 +141,29 @@ const EditOnBoardingQuestion = () => {
 
   if (loading) {
     return (
-      <Layout >
-       
-      </Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-lg font-medium text-gray-600">Loading...</p>
+        </div>
     );
   }
 
   return (
-    // <Layout title={"Add onBoarding"}>
     <>
-      {loading?( <div className="flex justify-center items-center h-screen">
-          <p className="text-lg font-medium text-gray-600">Loading...</p>
-        </div>):(
-          <>
-        <AddQuestionTemplate
+      <AddQuestionTemplate
         questionData={questionData}
         setQuestionData={setQuestionData}
         loading={loading}
         errorMessage={errorMessage}
         onSave={handleSaveChanges}
+        onReset={handleReset}
+        hasChanges={hasChanges}
       />
       {successMessage && (
         <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center">
           {successMessage}
         </div>
-      )}</>)}
-        
-        </> 
+      )}
+      </>
   );
 };
 

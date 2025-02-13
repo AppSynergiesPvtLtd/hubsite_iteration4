@@ -1,9 +1,8 @@
 import MainLayout from '@/layouts/MainLayout';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { FaCloudUploadAlt } from 'react-icons/fa';
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const ContactForm = () => {
@@ -11,7 +10,6 @@ const ContactForm = () => {
     name: '',
     email: '',
     message: '',
-    file: null,
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
@@ -19,18 +17,12 @@ const ContactForm = () => {
   const handleInputChange = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); 
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setFormData({ ...formData, file });
-    setErrors({ ...errors, file: '' }); 
+    setErrors({ ...errors, [id]: '' });
   };
 
   const validateForm = () => {
     const newErrors = {};
-    const { name, email, message, file } = formData;
+    const { name, email, message } = formData;
 
     if (!name) newErrors.name = 'Name is required';
     if (!email) {
@@ -42,7 +34,6 @@ const ContactForm = () => {
       }
     }
     if (!message) newErrors.message = 'Message is required';
-    if (!file) newErrors.file = 'File upload is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -57,9 +48,6 @@ const ContactForm = () => {
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('message', formData.message);
-      if (formData.file) {
-        formDataToSend.append('file', formData.file);
-      }
 
       const response = await fetch(`${API_BASE_URL}/contact-us/create`, {
         method: 'POST',
@@ -90,30 +78,25 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex flex-col mt-10 items-center justify-center  md:max-h-[650px] poppins p-3 overflow-x-hidden">
-
+    <div className="flex flex-col mt-10 items-center justify-center md:max-h-[650px] poppins p-3 overflow-x-hidden">
       {formSubmitted ? (
         <div className="flex flex-col items-center justify-center mt-8">
-          <div className='w-[250px] h-[250px] md:w-[500.6px] md:h-[450px]  relative'>
+          <div className="w-[250px] h-[250px] md:w-[500.6px] md:h-[450px] relative">
             <Image
               src="/contact-fianl.png"
               alt="Contact Illustration"
               layout="fill"
               objectFit="cover"
-              className=''
-
             />
           </div>
-
           <p className="md:text-2xl md:w-[630px] text-center font-medium mt-4">
-          Thank you for reaching out! We have received your message and will be in touch with you shortly.
+            Thank you for reaching out! We have received your message and will be in touch with you shortly.
           </p>
         </div>
       ) : (
         <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full space-y-6 md:space-y-0 md:space-x-12">
           <div className="w-full max-w-lg">
             <form className="space-y-4 mb-6" onSubmit={handleSubmit}>
-
               <div>
                 <label
                   htmlFor="name"
@@ -126,16 +109,13 @@ const ContactForm = () => {
                   id="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`mt-1 w-full border ${errors.name ? 'border-red-500' : 'border-gray-300'
-                    } rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                    }`}
+                  className={`mt-1 w-full border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                   placeholder="Enter name"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">{errors.name}</p>
                 )}
               </div>
-
 
               <div>
                 <label
@@ -149,46 +129,11 @@ const ContactForm = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`mt-1 w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'
-                    } rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                    }`}
+                  className={`mt-1 w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                   placeholder="Enter email"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="upload"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Upload
-                </label>
-                <div
-                  className={`mt-1 w-full border ${errors.file ? 'border-red-500' : 'border-gray-300'
-                    } border-dashed rounded-lg p-4 text-center h-[100px]`}
-                >
-                  <input
-                    type="file"
-                    id="upload"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                  <label
-                    htmlFor="upload"
-                    className="text-[#0057A1] m-auto cursor-pointer hover:underline"
-                  >
-                    {formData.file ? (
-                      <p className="text-gray-700">{formData.file.name}</p>
-                    ) : (
-                      <FaCloudUploadAlt className="w-12 h-12 m-auto text-[#0057A1]" />
-                    )}
-                  </label>
-                </div>
-                {errors.file && (
-                  <p className="text-red-500 text-sm mt-1">{errors.file}</p>
                 )}
               </div>
 
@@ -204,9 +149,7 @@ const ContactForm = () => {
                   rows="4"
                   value={formData.message}
                   onChange={handleInputChange}
-                  className={`mt-1 w-full border ${errors.message ? 'border-red-500' : 'border-gray-300'
-                    } rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                    }`}
+                  className={`mt-1 w-full border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                   placeholder="Enter message"
                 ></textarea>
                 {errors.message && (
@@ -223,9 +166,7 @@ const ContactForm = () => {
             </form>
           </div>
 
-          <div
-            className="w-[345px] h-[229px] md:w-[596.6px] md:h-[387px] relative"
-          >
+          <div className="w-[345px] h-[229px] md:w-[596.6px] md:h-[387px] relative">
             <Image
               src="/contact.png"
               alt="Description of the image"
@@ -239,6 +180,7 @@ const ContactForm = () => {
     </div>
   );
 };
+
 ContactForm.Layout = MainLayout;
 
 export default ContactForm;

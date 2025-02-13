@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const AddQuestionTemplate = ({
-  questionData = { questionTitle: "", questionDescription: "", type: "SINGLE_SELECTION", options: [] }, // Default structure
+  questionData = {
+    questionTitle: "",
+    questionDescription: "",
+    type: "SINGLE_SELECTION",
+    options: [],
+  },
   setQuestionData,
   loading,
   errorMessage,
   onSave,
+  onReset,
+  hasChanges, // Determines if unsaved changes exist
 }) => {
   const [optionInput, setOptionInput] = useState("");
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQuestionData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setQuestionData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAddOption = () => {
@@ -47,14 +52,6 @@ const AddQuestionTemplate = ({
     const updatedOptions = questionData.options.filter((_, i) => i !== index);
     setQuestionData((prev) => ({ ...prev, options: updatedOptions }));
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-lg font-medium text-gray-600">Loading...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="flex justify-center">
@@ -101,7 +98,7 @@ const AddQuestionTemplate = ({
             Type of Question*
           </label>
           <select
-            name="type" // Use `type` instead of `questionType`
+            name="type"
             value={questionData?.type || "SINGLE_SELECTION"}
             onChange={handleInputChange}
             className="p-3 border rounded-md w-full mt-2"
@@ -112,7 +109,7 @@ const AddQuestionTemplate = ({
           </select>
         </div>
 
-        {/* Options */}
+        {/* Options (only for selection-based questions) */}
         {questionData?.type !== "TEXT" && (
           <div className="mb-6">
             <label className="block text-lg font-medium text-gray-800">
@@ -154,13 +151,24 @@ const AddQuestionTemplate = ({
           </div>
         )}
 
-        {/* Save Button */}
-        <div className="w-full flex justify-center">
+        {/* Save and Reset Buttons */}
+        <div className="w-full flex justify-center gap-4">
           <button
             onClick={onSave}
             className="w-[10rem] py-3 bg-blue-700 text-white rounded-md"
           >
-            Save
+            {questionData.id ? "Update Question" : "Save Question"}
+          </button>
+          <button
+            onClick={onReset}
+            disabled={!hasChanges}
+            className={`w-[10rem] py-3 text-white rounded-md ${
+              hasChanges
+                ? "bg-gray-500 hover:bg-gray-600"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}
+          >
+            Reset
           </button>
         </div>
       </div>
