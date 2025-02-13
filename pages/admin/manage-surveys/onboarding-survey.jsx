@@ -5,9 +5,17 @@ import { useRouter } from "next/router";
 import Layout from "../layout";
 import AdminRoutes from "@/pages/adminRoutes";
 import { useDispatch } from "react-redux";
-import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle, showAdd, showRefresh } from "@/store/adminbtnSlice";
+import { 
+  clearTitle, 
+  hideAdd, 
+  hideExcel, 
+  hideRefresh, 
+  setTitle, 
+  showAdd, 
+  showRefresh 
+} from "@/store/adminbtnSlice";
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const OnBoardingSurvey = () => {
@@ -21,7 +29,6 @@ const OnBoardingSurvey = () => {
     dispatch(setTitle("Onboarding Surveys"));
     dispatch(showAdd({ label: "Add", redirectTo: "/admin/manage-surveys/addquestion-onboarding" }));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    // dispatch(showExcel({ label: "Generate Excel", redirectTo: "/admin/export-excel" }));
 
     // Clean up on unmount
     return () => {
@@ -37,16 +44,18 @@ const OnBoardingSurvey = () => {
       setLoading(true);
       try {
         const response = await axios.get(`${API_BASE_URL}/questions/onboarding`, {
-            headers: {
-                "x-api-key": API_KEY,
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
+          headers: {
+            "x-api-key": API_KEY,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
 
+        // Map the data and include isActive if provided (or default as needed)
         const fetchedData = response.data?.data?.map((item) => ({
           id: item.id,
           question: item.question,
           description: item.description,
+          isActive: item.isActive, // optional: default to true if needed (e.g. item.isActive ?? true)
         })) || [];
 
         setOnBoardingData(fetchedData);
@@ -83,14 +92,6 @@ const OnBoardingSurvey = () => {
     router.push(`/admin/manage-surveys/edit-onboarding-question/${id}`);
   };
 
-  const handleAddClick = () => {
-    router.push("/admin/manage-surveys/addquestion-onboarding");
-  };
-
-  const handleRefreshClick = () => {
-    window.location.reload();
-  };
-
   return (
     <>
       {loading ? (
@@ -102,6 +103,7 @@ const OnBoardingSurvey = () => {
           surveyData={onBoardingData}
           onDelete={handleDelete}
           editRedirect={handleEditRedirect}
+          showStatus={false}  // Hides the Active/Inactive pills for onboarding surveys
         />
       )}
     </>
