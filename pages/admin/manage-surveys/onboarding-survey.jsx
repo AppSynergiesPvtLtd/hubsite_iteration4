@@ -49,7 +49,7 @@ const OnBoardingSurvey = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-
+        console.log("resp",response)
         // Map the data and include isActive if provided (or default as needed)
         const fetchedData = response.data?.data?.map((item) => ({
           id: item.id,

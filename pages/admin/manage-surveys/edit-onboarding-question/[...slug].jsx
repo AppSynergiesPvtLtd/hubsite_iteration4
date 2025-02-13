@@ -93,6 +93,15 @@ const EditOnBoardingQuestion = () => {
       setSuccessMessage("No changes detected.");
       return;
     }
+
+    // Validate options if question type is SINGLE_SELECTION or MULTIPLE_SELECTION.
+    if (["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type)) {
+      if (!questionData.options || questionData.options.length < 2) {
+        setErrorMessage("At least 2 options are required for selection questions.");
+        return;
+      }
+    }
+
     setLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
@@ -141,9 +150,9 @@ const EditOnBoardingQuestion = () => {
 
   if (loading) {
     return (
-        <div className="flex justify-center items-center h-screen">
-          <p className="text-lg font-medium text-gray-600">Loading...</p>
-        </div>
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg font-medium text-gray-600">Loading...</p>
+      </div>
     );
   }
 
@@ -163,7 +172,7 @@ const EditOnBoardingQuestion = () => {
           {successMessage}
         </div>
       )}
-      </>
+    </>
   );
 };
 
