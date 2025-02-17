@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { SlCalender } from "react-icons/sl";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ import metadata from "libphonenumber-js/metadata.min.json";
 import Calendar from "../Calendar";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -44,6 +45,16 @@ const getCountryFlagUrl = (phoneNumber) => {
 const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user?.user);
+  const router = useRouter();
+
+  // Store the initial values to compare later for changes
+  const initialUserInfo = useRef({
+    fullName: user?.name || "-",
+    phoneNumber: user?.phone || "",
+    email: user?.email || "-",
+    dob: user?.dob ? new Date(user.dob) : null,
+    userDp: user?.userDp || "/dummyProfile.png",
+  });
 
   const [userInfo, setUserInfo] = useState({
     fullName: user?.name || "-",
@@ -61,6 +72,25 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ type: "", message: "" });
   const [showCalendar, setShowCalendar] = useState(false);
+
+  // Update local state if user changes (optional)
+  useEffect(() => {
+    setUserInfo({
+      fullName: user?.name || "-",
+      phoneNumber: user?.phone || "",
+      email: user?.email || "-",
+      dob: user?.dob ? new Date(user.dob) : null,
+    });
+    setProfileImage(user?.userDp || "/dummyProfile.png");
+    // Update the initial ref as well
+    initialUserInfo.current = {
+      fullName: user?.name || "-",
+      phoneNumber: user?.phone || "",
+      email: user?.email || "-",
+      dob: user?.dob ? new Date(user.dob) : null,
+      userDp: user?.userDp || "/dummyProfile.png",
+    };
+  }, [user]);
 
   const handleEditToggle = (field) => {
     setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -122,6 +152,16 @@ const Profile = () => {
       const updatedUser = await response.json();
       dispatch(setUser(updatedUser));
       setAlert({ type: "success", message: "Profile updated successfully!" });
+
+      // Reset the profileImageFile and update the initial ref so that no changes are pending
+      setProfileImageFile(null);
+      initialUserInfo.current = {
+        fullName: updatedUser.name || "-",
+        phoneNumber: updatedUser.phone || "",
+        email: updatedUser.email || "-",
+        dob: updatedUser.dob ? new Date(updatedUser.dob) : null,
+        userDp: updatedUser.userDp || "/dummyProfile.png",
+      };
     } catch (error) {
       console.error("Error updating profile:", error);
       setAlert({
@@ -133,13 +173,27 @@ const Profile = () => {
     }
   };
 
-  const router = useRouter()
-   const handleLogout = async () => {
-      localStorage.removeItem("user_token");
-      // sessionStorage.clear();
-      await signOut({ redirect: false });
-      router.reload();
-    };
+  const handleLogout = async () => {
+    localStorage.removeItem("user_token");
+    await signOut({ redirect: false });
+    router.reload();
+  };
+
+  // Compute if there are changes compared to the initial state
+  const hasChanges = useMemo(() => {
+    // Compare full name and phone number
+    if (userInfo.fullName !== initialUserInfo.current.fullName) return true;
+    if (userInfo.phoneNumber !== initialUserInfo.current.phoneNumber) return true;
+    // Compare dates (if one exists and the other doesn't, or both exist but are different)
+    const initialDob = initialUserInfo.current.dob;
+    const currentDob = userInfo.dob;
+    if ((initialDob && !currentDob) || (!initialDob && currentDob)) return true;
+    if (initialDob && currentDob && initialDob.getTime() !== currentDob.getTime())
+      return true;
+    // Check if a new profile image has been selected
+    if (profileImageFile) return true;
+    return false;
+  }, [userInfo, profileImageFile]);
 
   return (
     <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative">
@@ -256,13 +310,18 @@ const Profile = () => {
           <button
             onClick={handleSave}
             className={`w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded ${
-              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+              loading || !hasChanges
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-blue-600"
             }`}
-            disabled={loading}
+            disabled={loading || !hasChanges}
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
-          <button onClick={handleLogout} className="w-4/6 md:w-2/6 bg-red-500 text-white font-semibold py-2 rounded">
+          <button
+            onClick={handleLogout}
+            className="w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded"
+          >
             Logout
           </button>
         </div>

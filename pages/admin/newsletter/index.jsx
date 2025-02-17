@@ -271,7 +271,7 @@ const Newsletter = () => {
             }}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none"
           >
-            Filter &amp; Sort
+          Sort
             {sortOrder && (
               <span className="absolute top-0 right-0 mt-1 mr-1 w-2 h-2 bg-red-600 rounded-full"></span>
             )}

@@ -209,11 +209,11 @@ const Admindashboard = () => {
       </div>
 
       {/* Google Analytics Button */}
-      <div className="text-center mt-12">
+      {/* <div className="text-center mt-12">
         <button className="bg-[#0057A1] text-white text-lg py-4 px-8 rounded-lg shadow-lg hover:bg-[#0056a1e9]">
           Visit Google Analytics
         </button>
-      </div>
+      </div> */}
 
       {/* Charts */}
       <div className="flex flex-wrap justify-center gap-24 mt-16">
