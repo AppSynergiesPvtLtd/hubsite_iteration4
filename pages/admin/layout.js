@@ -171,14 +171,14 @@ const Layout = ({ children, isLoading = false }) => {
         <div className="p-5 flex flex-col justify-between h-full">
           <div>
             <div className="flex justify-between items-center mb-6">
-              <a href="/">
+              <div>
                 <Image
                   src="/navbar_logo.png"
                   alt="Logo"
                   width={120}
                   height={24}
                 />
-              </a>
+              </div>
               <button
                 onClick={toggleSidebar}
                 className="text-2xl md:hidden focus:outline-none"
