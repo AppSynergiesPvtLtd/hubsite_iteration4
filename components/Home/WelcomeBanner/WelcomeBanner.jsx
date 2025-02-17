@@ -30,11 +30,16 @@ const Welcome = ({heading}) => {
   
      
   
-      const openModal = (type) => {
-          setIsOpen(true);
-          router.push({ pathname: router.pathname, query: { modal: type } }, undefined    );
-      };
+    
   
+      const openModal = (type) => {
+        // setIsOpen(true);
+        router.push({
+            // pathname: "/",
+            query: { modal: "login" }
+          }, undefined);
+    };
+
       const closeModal = () => {
           setIsOpen(false);
           router.push(router.pathname, undefined, { shallow: true });
