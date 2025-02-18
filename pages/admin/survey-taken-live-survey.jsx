@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const SurveyTaken = () => {
+const SurveyTakenLiveSurvey = () => {
   const [surveyData, setSurveyData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
@@ -37,7 +37,7 @@ const SurveyTaken = () => {
 
   // Set header configuration on mount.
   useEffect(() => {
-    dispatch(setTitle("Profile Surveys Lists"));
+    dispatch(setTitle("Live Surveys Lists"));
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
@@ -69,7 +69,7 @@ const SurveyTaken = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/profile-survey/?isActive=true&page=${currentPage}&limit=${itemsPerPage}`,
+        `${API_BASE_URL}/live-survey/?isActive=true&page=${currentPage}&limit=${itemsPerPage}`,
         {
           headers: {
             "x-api-key": API_KEY,
@@ -128,7 +128,7 @@ const SurveyTaken = () => {
   // Action button handler.
   const handleActionClick = (id) => {
     console.log(`Action clicked for survey ID: ${id}`);
-    router.push(`/admin/profile-survey-completions/${id}`);
+    router.push(`/admin/live-survey-completions/${id}`);
   };
 
   return (
@@ -359,4 +359,4 @@ const SurveyTaken = () => {
   );
 };
 
-export default AdminRoutes(SurveyTaken);
+export default AdminRoutes(SurveyTakenLiveSurvey);

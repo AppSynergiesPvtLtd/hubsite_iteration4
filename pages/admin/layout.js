@@ -17,6 +17,8 @@ import {
   FaClipboardList,
   FaRegClock,
   FaUserPlus,
+  FaListAlt,
+  FaBolt,
 } from "react-icons/fa";
 import { PiMicrosoftExcelLogo } from "react-icons/pi";
 import {
@@ -42,27 +44,34 @@ const Layout = ({ children, isLoading = false }) => {
     await signOut({ callbackUrl: "/admin/auth/login" });
   };
 
-  // Local state for sidebar, dropdown, and submenu.
+  // Pre-initialize openSubmenu from sessionStorage (if available)
+  const [openSubmenu, setOpenSubmenu] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("openSubmenu") || null;
+    }
+    return null;
+  });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null);
+
   const dropdownRef = useRef(null);
 
   // Retrieve header configuration from Redux.
   const adminBtn = useSelector((state) => state.adminbtn);
 
   // Toggle sidebar open/closed.
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  // Toggle dropdown open/closed.
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   const handleSubmenuToggle = (menuName) => {
-    setOpenSubmenu((prev) => (prev === menuName ? null : menuName));
+    setOpenSubmenu((prev) => {
+      const newValue = prev === menuName ? null : menuName;
+      sessionStorage.setItem("openSubmenu", newValue || "");
+      return newValue;
+    });
   };
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
+      // Additional dropdown logic if needed.
     }
   };
 
@@ -72,24 +81,37 @@ const Layout = ({ children, isLoading = false }) => {
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Mapping between sidebar item labels and icon components.
+  // Main icon mapping for top-level sidebar items.
   const iconMapping = {
-    "Dashboard": <MdDashboard size={20} className="mr-2" />,
+    Dashboard: <MdDashboard size={20} className="mr-2" />,
     "User Management": <FaUsers size={20} className="mr-2" />,
     "Survey Taken": <FaPoll size={20} className="mr-2" />,
     "Manage Surveys": <FaTasks size={20} className="mr-2" />,
-    "Profiling Survey": <FaClipboardList size={20} className="mr-2" />,
-    "Live Survey": <FaRegClock size={20} className="mr-2" />,
-    "OnBoarding Survey": <FaUserPlus size={20} className="mr-2" />,
     "Contact Us": <ContactRound size={20} className="mr-2" />,
-    "Newsletter": <NewspaperIcon size={20} className="mr-2" />,
-    "Testimonials": <MessageSquareQuote size={20} className="mr-2" />,
-    "Logout": <LogOut size={20} className="mr-2" />,
+    Newsletter: <NewspaperIcon size={20} className="mr-2" />,
+    Testimonials: <MessageSquareQuote size={20} className="mr-2" />,
+    Logout: <LogOut size={20} className="mr-2" />,
+  };
+
+  // Icon mapping for nested submenu items.
+  const subIconMapping = {
+    // For Survey Taken nested options.
+    Profile: <FaListAlt size={16} className="mr-2" />,
+    Live: <FaBolt size={16} className="mr-2" />,
+    // For Manage Surveys nested options.
+    Profiling: <FaClipboardList size={16} className="mr-2" />,
+    LiveSurvey: <FaRegClock size={16} className="mr-2" />,
+    Onboarding: <FaUserPlus size={16} className="mr-2" />,
   };
 
   // Define your sidebar items.
   const sidebarItems = [
-    { name: "dashboard", label: "Dashboard", path: "/admin", icon: "Dashboard" },
+    {
+      name: "dashboard",
+      label: "Dashboard",
+      path: "/admin",
+      icon: "Dashboard",
+    },
     {
       name: "User Management",
       label: "User Management",
@@ -99,8 +121,21 @@ const Layout = ({ children, isLoading = false }) => {
     {
       name: "Survey Taken",
       label: "Survey Taken",
-      path: "/admin/survey-taken",
       icon: "Survey Taken",
+      subItems: [
+        {
+          name: "Profile Survey Completions",
+          label: "Profile-Survey-Completions",
+          path: "/admin/survey-taken",
+          icon: "Profile",
+        },
+        {
+          name: "Live-Survey-Completions",
+          label: "Live-Survey-Completions",
+          path: "/admin/survey-taken-live-survey",
+          icon: "Live",
+        },
+      ],
     },
     {
       name: "Manage Surveys",
@@ -111,16 +146,19 @@ const Layout = ({ children, isLoading = false }) => {
           name: "Profiling Surveys",
           label: "Profiling Survey",
           path: "/admin/manage-surveys/profiling-survey",
+          icon: "Profiling",
         },
         {
           name: "Live Survey",
           label: "Live Survey",
           path: "/admin/manage-surveys/live-survey",
+          icon: "LiveSurvey",
         },
         {
           name: "Onboarding Survey",
           label: "OnBoarding Survey",
           path: "/admin/manage-surveys/onboarding-survey",
+          icon: "Onboarding",
         },
       ],
     },
@@ -150,16 +188,6 @@ const Layout = ({ children, isLoading = false }) => {
     },
   ];
 
-  // Open a submenu if one of its items matches the current URL.
-  useEffect(() => {
-    const matchingSubmenu = sidebarItems.find(
-      (item) =>
-        item.subItems &&
-        item.subItems.some((subItem) => subItem.path === router.pathname)
-    );
-    setOpenSubmenu(matchingSubmenu ? matchingSubmenu.name : null);
-  }, [router.pathname]);
-
   return (
     <div className="poppins flex h-screen">
       {/* Sidebar */}
@@ -186,28 +214,33 @@ const Layout = ({ children, isLoading = false }) => {
                 ✕
               </button>
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-4 ">
               {sidebarItems.map((item) => (
                 <li key={item.name}>
+                  {/* Items without subItems */}
                   {!item.subItems ? (
-                    <div
-                      className={`flex rounded-lg p-2 items-center cursor-pointer ${
-                        router.pathname === item.path
-                          ? "text-white bg-[#0057A1]"
-                          : "text-gray-700 hover:text-[#0057A1]"
-                      }`}
-                      onClick={() => {
-                        if (item.label === "Logout") {
-                          // Instead of directly logging out, show confirmation modal
-                          setShowLogoutModal(true);
-                        } else {
-                          router.push(item.path);
-                        }
-                      }}
-                    >
-                      {iconMapping[item.icon] || null}
-                      {item.label}
-                    </div>
+                    item.label === "Logout" ? (
+                      <div
+                        className="flex rounded-lg p-2 items-center cursor-pointer text-gray-700 hover:text-[#0057A1]"
+                        onClick={() => setShowLogoutModal(true)}
+                      >
+                        {iconMapping[item.icon] || null}
+                        {item.label}
+                      </div>
+                    ) : (
+                      <Link href={item.path} legacyBehavior>
+                        <a
+                          className={`flex rounded-lg  p-2 items-center cursor-pointer ${
+                            router.pathname === item.path
+                              ? "text-white bg-[#0057A1]"
+                              : "text-gray-700 hover:text-[#0057A1]"
+                          }`}
+                        >
+                          {iconMapping[item.icon] || null}
+                          {item.label}
+                        </a>
+                      </Link>
+                    )
                   ) : (
                     <>
                       <div
@@ -224,23 +257,34 @@ const Layout = ({ children, isLoading = false }) => {
                         </div>
                         <span>{openSubmenu === item.name ? "−" : "+"}</span>
                       </div>
-                      {openSubmenu === item.name && (
-                        <ul className="ml-6 mt-2 space-y-2">
-                          {item.subItems.map((subItem) => (
-                            <li
-                              key={subItem.name}
-                              className={`flex rounded-lg p-2 items-center cursor-pointer ${
-                                router.pathname === subItem.path
-                                  ? "text-white bg-[#0057A1]"
-                                  : "text-gray-700 hover:text-[#0057A1]"
-                              }`}
-                              onClick={() => router.push(subItem.path)}
-                            >
-                              {subItem.label}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      {/* Smooth transition for nested submenu */}
+                      <ul
+                        className={`ml-3 space-y-2 overflow-hidden transition-all duration-300 ${
+                          openSubmenu === item.name
+                            ? "max-h-96 mt-2"
+                            : "max-h-0 mt-0"
+                        }`}
+                      >
+                        {item.subItems.map((subItem) => (
+                          <li key={subItem.name}>
+                            <Link href={subItem.path} legacyBehavior>
+                              <a
+                                className={`flex rounded-lg p-2 items-center cursor-pointer ${
+                                  router.pathname === subItem.path
+                                    ? "text-white bg-[#0057A1]"
+                                    : "text-gray-700 hover:text-[#0057A1]"
+                                }`}
+                              >
+                                {/* Show nested icon if provided */}
+                                {subItem.icon &&
+                                  subIconMapping[subItem.icon] !== undefined &&
+                                  subIconMapping[subItem.icon]}
+                                {subItem.label}
+                              </a>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </>
                   )}
                 </li>
@@ -300,7 +344,9 @@ const Layout = ({ children, isLoading = false }) => {
                 }}
               >
                 <MdRefresh size={20} className="mr-1" />
-                {adminBtn.refresh.label || "Refresh"}
+                <span className="hidden md:inline">
+                  {adminBtn.refresh.label || "Refresh"}
+                </span>
               </button>
             )}
             {adminBtn.excel && (
