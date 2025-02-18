@@ -51,7 +51,7 @@ const LiveSurvey = () => {
       try {
         // Use dynamic page state in query params
         const response = await axios.get(
-          `${API_BASE_URL}/live-survey/?page=${page}&isActive=true`,
+          `${API_BASE_URL}/live-survey/?page=${page}&isActive=false`,
           {
             headers: {
               "x-api-key": API_KEY,

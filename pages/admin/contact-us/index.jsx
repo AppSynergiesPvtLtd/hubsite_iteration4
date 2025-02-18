@@ -320,7 +320,7 @@ const Contactus = () => {
             }}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none"
           >
-            Filter &amp; Sort
+            Sort
             {(selectedSubjects.length > 0 || sortOrder) && (
               <span className="absolute top-0 right-0 mt-1 mr-1 w-2 h-2 bg-red-600 rounded-full"></span>
             )}
@@ -350,7 +350,7 @@ const Contactus = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
           <div className="w-96 bg-white rounded-lg shadow-lg">
             <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-lg font-semibold">Filter &amp; Sort</h3>
+              <h3 className="text-lg font-semibold">Sort</h3>
               <button
                 onClick={() => setIsSortModalOpen(false)}
                 className="text-gray-500 hover:text-gray-700"

@@ -13,6 +13,7 @@ import {
   resetExcel,
   setTitle,
   showExcel,
+  showRefresh,
 } from "@/store/adminbtnSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -53,6 +54,8 @@ const UserManagement = () => {
   // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("User Management"));
+    dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
+    
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );

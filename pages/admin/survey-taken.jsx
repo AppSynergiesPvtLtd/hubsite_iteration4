@@ -11,6 +11,7 @@ import {
   resetExcel,
   setTitle,
   showExcel,
+  showRefresh,
 } from "@/store/adminbtnSlice";
 import { useRouter } from "next/router";
 
@@ -38,6 +39,7 @@ const SurveyTaken = () => {
   // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("Profile Surveys Lists"));
+    dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );

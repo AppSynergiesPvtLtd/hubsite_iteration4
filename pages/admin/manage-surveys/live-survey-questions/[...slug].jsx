@@ -202,7 +202,7 @@ const EditLiveSurveyQuestion = () => {
             </div>
 
             {/* HubCoins */}
-            <div className="mb-6 flex items-center gap-4">
+            <div className="mb-6 sm:flex items-center gap-4">
               <label className="block text-lg font-medium text-gray-700">HubCoins*</label>
               <input
                 type="number"
