@@ -11,7 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { useDispatch } from "react-redux";
-import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle } from "@/store/adminbtnSlice";
+import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle, showRefresh } from "@/store/adminbtnSlice";
 import { useRouter } from "next/router";
 // If you need the AdminRoutes import for route protection, uncomment the next line
 // import AdminRoutes from "../adminRoutes";
@@ -31,6 +31,8 @@ const Admindashboard = () => {
   const router = useRouter()
    useEffect(() => {
       dispatch(setTitle("Dashboard"))
+      dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
+      
       
   
       return () => {

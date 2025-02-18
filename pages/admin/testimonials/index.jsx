@@ -233,10 +233,10 @@ const TestimonialManagement = () => {
             value={itemsPerPage}
             onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
           >
-            <option value={10}>Fetch 10</option>
-            <option value={30}>Fetch 30</option>
-            <option value={100}>Fetch 100</option>
-            <option value={200}>Fetch 200</option>
+            <option value={10}>View 10</option>
+            <option value={30}>View 30</option>
+            <option value={100}>View 100</option>
+            <option value={200}>View 200</option>
           </select>
 
           {/* Sort Button */}

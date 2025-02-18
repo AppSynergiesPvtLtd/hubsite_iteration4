@@ -55,7 +55,7 @@ const AddQuestionTemplate = ({
 
   return (
     <div className="flex justify-center">
-      <div className="w-full p-6 border rounded-md shadow-md bg-white">
+      <div className="w-full p-2 sm:p-6 border rounded-md shadow-md bg-white ">
         {errorMessage && (
           <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
             {errorMessage}
@@ -115,7 +115,7 @@ const AddQuestionTemplate = ({
             <label className="block text-lg font-medium text-gray-800">
               Options
             </label>
-            <div className="border p-4 rounded-md">
+            <div className="border sm:p-4 rounded-md ">
               {questionData?.options?.map((option, index) => (
                 <div key={index} className="flex items-center gap-4 mb-2">
                   <input
@@ -142,7 +142,7 @@ const AddQuestionTemplate = ({
                 />
                 <button
                   onClick={handleAddOption}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md"
+                  className="text-[0.8rem] sm:px-4 py-2 bg-blue-600 text-white rounded-md"
                 >
                   Add Option
                 </button>
