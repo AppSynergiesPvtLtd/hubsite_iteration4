@@ -1,7 +1,6 @@
 import SurveyTemplate from "@/components/AuthComps/ManageSurveys/Surveydetails";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "../layout";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
@@ -24,6 +23,9 @@ const ProfileSurvey = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [notification, setNotification] = useState({ type: "", message: "" });
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const ProfileSurvey = () => {
       setErrorMessage("");
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/profile-survey/?isActive=false`,
+          `${API_BASE_URL}/profile-survey/?isActive=false&page=${page}`,
           {
             headers: {
               "x-api-key": API_KEY,
@@ -57,11 +59,11 @@ const ProfileSurvey = () => {
           }
         );
 
-        const data = response.data?.data || [];
-        console.log("data", data);
+        // API response expected to include totalPages along with the data array
+        const surveys = response.data?.data || [];
+        setTotalPages(response.data?.totalPages || 1);
 
-        // Include isActive property along with other fields
-        const formattedData = data.map((survey) => ({
+        const formattedData = surveys.map((survey) => ({
           id: survey.id,
           question: survey.title,
           description: survey.description,
@@ -78,7 +80,7 @@ const ProfileSurvey = () => {
     };
 
     fetchProfileSurveys();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (id) => {
     try {
@@ -89,9 +91,7 @@ const ProfileSurvey = () => {
         },
       });
 
-      // Remove deleted survey from state
       setProfilingData(profilingData.filter((q) => q.id !== id));
-
       setNotification({ type: "success", message: "Survey deleted successfully." });
     } catch (error) {
       console.error("Error deleting profile survey:", error);
@@ -105,6 +105,12 @@ const ProfileSurvey = () => {
   const handleEditRedirect = (id) => {
     console.log(`Redirecting to edit profile survey ${id}`);
     window.location.href = `/admin/manage-surveys/add-profilesurvey?id=${id}`;
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
   };
 
   if (loading) {
@@ -124,7 +130,7 @@ const ProfileSurvey = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4">
       {/* Notification Section */}
       {notification.message && (
         <div
@@ -141,6 +147,39 @@ const ProfileSurvey = () => {
         onDelete={handleDelete}
         editRedirect={handleEditRedirect}
       />
+
+      {/* Enhanced Pagination Controls */}
+      <div className="flex justify-center mt-8">
+        <nav className="inline-flex -space-x-px">
+          <button
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page === 1}
+            className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              className={`px-4 py-2 leading-tight border border-gray-300 bg-white hover:bg-gray-100 ${
+                pageNumber === page
+                  ? "text-blue-600 bg-blue-50 font-medium"
+                  : "text-gray-500"
+              }`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page === totalPages}
+            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </nav>
+      </div>
     </div>
   );
 };

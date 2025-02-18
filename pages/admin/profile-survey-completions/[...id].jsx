@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
-import AdminRoutes from "../adminRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearTitle,
@@ -13,31 +12,32 @@ import {
   showExcel,
 } from "@/store/adminbtnSlice";
 import { useRouter } from "next/router";
+import AdminRoutes from "@/pages/adminRoutes";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const SurveyTaken = () => {
-  const [surveyData, setSurveyData] = useState([]);
+const Profile_Survey_Completions = () => {
+  // State for user data from API
+  const [userData, setUserData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
-  // Default sort order "Descending" shows latest surveys on top.
   const [sortOrder, setSortOrder] = useState("Descending");
-  // tempSortOrder holds the selection in modal before applying.
   const [tempSortOrder, setTempSortOrder] = useState("Descending");
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
-
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header configuration on mount.
+  // Extract survey id from URL parameters
+  const { id } = router.query;
+
   useEffect(() => {
-    dispatch(setTitle("Profile Surveys Lists"));
+    dispatch(setTitle("Profile Survey Completions"));
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
@@ -50,12 +50,12 @@ const SurveyTaken = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Generate Excel file from surveyData.
+  // Generate Excel file from userData
   const handleGenerateExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(surveyData);
+    const worksheet = XLSX.utils.json_to_sheet(userData);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "SurveyTaken");
-    XLSX.writeFile(workbook, "SurveyTaken.xlsx");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "UsersTakenSurvey");
+    XLSX.writeFile(workbook, "UsersTakenSurvey.xlsx");
   };
 
   useEffect(() => {
@@ -65,11 +65,13 @@ const SurveyTaken = () => {
     }
   }, [excelClicked, dispatch]);
 
-  const fetchSurveys = async () => {
+  // Fetch user survey data based on id param
+  const fetchUsers = async () => {
+    if (!id) return; // Wait until id is available
     setLoading(true);
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/profile-survey/?isActive=true&page=${currentPage}&limit=${itemsPerPage}`,
+        `${API_BASE_URL}/profile-survey/usersTakenSurvey/${id}`,
         {
           headers: {
             "x-api-key": API_KEY,
@@ -77,69 +79,76 @@ const SurveyTaken = () => {
           },
         }
       );
-      const { data } = response.data;
-      // Sort fetched data by createdAt descending by default.
-      const sortedData = [...data].sort(
+      const { listOfUsers } = response.data;
+      const sortedData = [...listOfUsers].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
-      setSurveyData(sortedData);
+      setUserData(sortedData);
     } catch (error) {
-      console.error("Error fetching survey data:", error);
+      console.error("Error fetching users data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSurveys();
-  }, [currentPage, itemsPerPage]);
+    fetchUsers();
+  }, [id]);
 
-  const handleSearch = (e) => setSearchTerm(e.target.value);
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
 
-  // Apply the sort filter when clicking "Apply" in the modal.
+  // Sorting methods
   const handleApplySort = () => {
     setSortOrder(tempSortOrder);
-    const sortedData = [...surveyData].sort((a, b) => {
+    const sortedData = [...userData].sort((a, b) => {
       const dateA = new Date(a.createdAt);
       const dateB = new Date(b.createdAt);
       return tempSortOrder === "Ascending" ? dateA - dateB : dateB - dateA;
     });
-    setSurveyData(sortedData);
+    setUserData(sortedData);
     setIsSortModalOpen(false);
   };
 
-  // Clear the sort filter (reset to default "Descending").
   const handleClearSort = () => {
     setTempSortOrder("Descending");
     setSortOrder("Descending");
-    const sortedData = [...surveyData].sort(
+    const sortedData = [...userData].sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
-    setSurveyData(sortedData);
+    setUserData(sortedData);
   };
 
-  // Filter surveys by title or description.
-  const filteredData = surveyData.filter(
+  // Filter users by name or email
+  const filteredData = userData.filter(
     (item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase())
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Action button handler.
-  const handleActionClick = (id) => {
-    console.log(`Action clicked for survey ID: ${id}`);
-    router.push(`/admin/profile-survey-completions/${id}`);
+  // Client-side pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Action handler (visible in all views)
+  const handleActionClick = (userId) => {
+    console.log(`Action clicked for user ID: ${userId}`);
+    router.push(`/admin/userinformation/${userId}`);
   };
 
   return (
     <div className="p-4 max-w-full">
-      {/* Filters and Controls */}
+      {/* Controls */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
+        {/* Search */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
-            placeholder="Search by title or description"
+            placeholder="Search by name or email"
             className="w-full px-4 py-2 text-sm border border-gray-300 rounded-full bg-white focus:outline-none"
             value={searchTerm}
             onChange={handleSearch}
@@ -156,7 +165,6 @@ const SurveyTaken = () => {
 
         {/* View and Sort Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
-          {/* View Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={viewStyle}
@@ -167,18 +175,19 @@ const SurveyTaken = () => {
             <option>List View</option>
           </select>
 
-          {/* Items per Page Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+            onChange={(e) => {
+              setItemsPerPage(parseInt(e.target.value));
+              setCurrentPage(1);
+            }}
           >
             <option value={10}>View 10</option>
             <option value={50}>View 50</option>
             <option value={100}>View 100</option>
           </select>
 
-          {/* Sort Button */}
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
@@ -206,9 +215,7 @@ const SurveyTaken = () => {
               </button>
             </div>
             <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-3">
-                Sort By (Created Date)
-              </p>
+              <p className="text-sm text-gray-600 mb-3">Sort By (Created Date)</p>
               <div className="flex flex-col gap-3">
                 <label className="flex items-center gap-2">
                   <input
@@ -248,7 +255,7 @@ const SurveyTaken = () => {
         </div>
       )}
 
-      {/* Survey Data */}
+      {/* Data Display */}
       <div className="overflow-auto">
         {loading ? (
           <div className="flex justify-center items-center h-32">
@@ -261,19 +268,23 @@ const SurveyTaken = () => {
                 <thead>
                   <tr className="text-sm text-gray-600 font-medium">
                     <th className="py-3 px-4">S. NO</th>
-                    <th className="py-3 px-4">Title</th>
-                    <th className="py-3 px-4">Description</th>
+                    <th className="py-3 px-4">Name</th>
+                    <th className="py-3 px-4">Email</th>
+                    <th className="py-3 px-4">Phone</th>
                     <th className="py-3 px-4">Hub Coins</th>
                     <th className="py-3 px-4">Created At</th>
                     <th className="py-3 px-4">Action</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
+                  {currentItems.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">{item.title}</td>
-                      <td className="py-3 px-4">{item.description}</td>
+                      <td className="py-3 px-4">
+                        {index + 1 + (currentPage - 1) * itemsPerPage}
+                      </td>
+                      <td className="py-3 px-4">{item.name}</td>
+                      <td className="py-3 px-4">{item.email}</td>
+                      <td className="py-3 px-4">{item.phone}</td>
                       <td className="py-3 px-4">{item.hubCoins}</td>
                       <td className="py-3 px-4">
                         {new Date(item.createdAt).toLocaleDateString()}
@@ -281,7 +292,7 @@ const SurveyTaken = () => {
                       <td className="py-3 px-4 text-center">
                         <button
                           onClick={() => handleActionClick(item.id)}
-                          className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
+                          className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center"
                         >
                           i
                         </button>
@@ -290,43 +301,73 @@ const SurveyTaken = () => {
                   ))}
                 </tbody>
               </table>
+              {/* Pagination */}
+              <div className="flex justify-between items-center mt-4">
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 text-sm bg-gray-200 rounded disabled:opacity-50"
+                >
+                  Prev
+                </button>
+                <span className="text-sm">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) =>
+                      Math.min(prev + 1, totalPages)
+                    )
+                  }
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 text-sm bg-gray-200 rounded disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           ) : viewStyle === "Grid View" ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredData.map((item) => (
+              {currentItems.map((item) => (
                 <div
                   key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
+                  className="relative border rounded-lg p-4 shadow-md hover:shadow-lg"
                 >
-                  {/* Action button on top-right */}
+                  {/* Action Icon at top-right */}
                   <button
                     onClick={() => handleActionClick(item.id)}
                     className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
                   >
                     i
                   </button>
-                  <h2 className="font-bold text-lg mb-2">{item.title}</h2>
-                  <p className="text-gray-600 mb-1">
-                    <b>Description:</b> {item.description}
-                  </p>
-                  <p className="text-gray-600 mb-1">
-                    <b>Hub Coins:</b> {item.hubCoins}
-                  </p>
-                  <p className="text-gray-600">
-                    <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
-                  </p>
+                  <div className="mt-2">
+                    <h2 className="font-bold text-lg mb-2">{item.name}</h2>
+                    <p className="text-gray-600 mb-1">
+                      <b>Email:</b> {item.email}
+                    </p>
+                    <p className="text-gray-600 mb-1">
+                      <b>Phone:</b> {item.phone}
+                    </p>
+                    <p className="text-gray-600 mb-1">
+                      <b>Hub Coins:</b> {item.hubCoins}
+                    </p>
+                    <p className="text-gray-600">
+                      <b>Created:</b>{" "}
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
             // List View
             <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
+              {currentItems.map((item) => (
                 <div
                   key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
+                  className="relative border rounded-lg p-4 shadow-md hover:shadow-lg flex flex-col sm:flex-row justify-between items-start"
                 >
-                  {/* Action button on top-right */}
+                  {/* Action Icon at top-right */}
                   <button
                     onClick={() => handleActionClick(item.id)}
                     className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
@@ -334,15 +375,19 @@ const SurveyTaken = () => {
                     i
                   </button>
                   <div>
-                    <h2 className="font-bold text-lg mb-1">{item.title}</h2>
+                    <h2 className="font-bold text-lg mb-1">{item.name}</h2>
                     <p className="text-gray-600 mb-1">
-                      <b>Description:</b> {item.description}
+                      <b>Email:</b> {item.email}
+                    </p>
+                    <p className="text-gray-600 mb-1">
+                      <b>Phone:</b> {item.phone}
                     </p>
                     <p className="text-gray-600 mb-1">
                       <b>Hub Coins:</b> {item.hubCoins}
                     </p>
                     <p className="text-gray-600">
-                      <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
+                      <b>Created:</b>{" "}
+                      {new Date(item.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -351,7 +396,7 @@ const SurveyTaken = () => {
           )
         ) : (
           <div className="flex justify-center items-center h-32">
-            <p className="text-gray-500 text-lg">No surveys found</p>
+            <p className="text-gray-500 text-lg">No users found</p>
           </div>
         )}
       </div>
@@ -359,4 +404,4 @@ const SurveyTaken = () => {
   );
 };
 
-export default AdminRoutes(SurveyTaken);
+export default AdminRoutes(Profile_Survey_Completions);

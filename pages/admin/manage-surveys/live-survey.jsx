@@ -1,7 +1,6 @@
 import SurveyTemplate from "@/components/AuthComps/ManageSurveys/Surveydetails";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "../layout";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
@@ -20,12 +19,16 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const LiveSurvey = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [liveSurveyData, setLiveSurveyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [notification, setNotification] = useState({ type: "", message: "" });
 
-  const dispatch = useDispatch();
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     dispatch(setTitle("Live Survey"));
@@ -46,8 +49,9 @@ const LiveSurvey = () => {
       setLoading(true);
       setErrorMessage("");
       try {
+        // Use dynamic page state in query params
         const response = await axios.get(
-          `${API_BASE_URL}/live-survey/?page=1&isActive=true`,
+          `${API_BASE_URL}/live-survey/?page=${page}&isActive=true`,
           {
             headers: {
               "x-api-key": API_KEY,
@@ -55,9 +59,10 @@ const LiveSurvey = () => {
             },
           }
         );
+        console.log("Resp", response);
 
+        // Map the survey data as needed
         const data = response.data?.data || [];
-        console.log("Data", data);
         const formattedData = data.map((survey) => ({
           id: survey.id,
           question: survey.title,
@@ -66,6 +71,7 @@ const LiveSurvey = () => {
         }));
 
         setLiveSurveyData(formattedData);
+        setTotalPages(response.data?.totalPages || 1);
       } catch (error) {
         console.error("Error fetching live surveys:", error);
         setErrorMessage("Failed to load live surveys. Please try again later.");
@@ -75,7 +81,7 @@ const LiveSurvey = () => {
     };
 
     fetchLiveSurveys();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (id) => {
     try {
@@ -88,7 +94,6 @@ const LiveSurvey = () => {
 
       // Remove deleted survey from state
       setLiveSurveyData(liveSurveyData.filter((q) => q.id !== id));
-
       setNotification({ type: "success", message: "Survey deleted successfully." });
     } catch (error) {
       console.error("Error deleting live survey:", error);
@@ -102,6 +107,12 @@ const LiveSurvey = () => {
   const handleEditRedirect = (id) => {
     console.log(`Redirecting to edit live survey ${id}`);
     window.location.href = `/admin/manage-surveys/live-survey-questions/${id}`;
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
   };
 
   if (loading) {
@@ -121,7 +132,7 @@ const LiveSurvey = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4">
       {/* Notification Section */}
       {notification.message && (
         <div
@@ -138,6 +149,39 @@ const LiveSurvey = () => {
         onDelete={handleDelete}
         editRedirect={handleEditRedirect}
       />
+
+      {/* Enhanced Pagination UI */}
+      <div className="flex justify-center mt-8">
+        <nav className="inline-flex -space-x-px">
+          <button
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page === 1}
+            className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              className={`px-4 py-2 leading-tight border border-gray-300 bg-white hover:bg-gray-100 ${
+                pageNumber === page
+                  ? "text-blue-600 bg-blue-50 font-medium"
+                  : "text-gray-500"
+              }`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page === totalPages}
+            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </nav>
+      </div>
     </div>
   );
 };
