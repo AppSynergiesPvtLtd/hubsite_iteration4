@@ -36,7 +36,6 @@ const OnBoarding = () => {
   };
 
   const handleCompleteQuestions = () => {
-    console.log("hit hit")
     if (user) {
         const updatedUser = { ...user, boarding: true }; // Ensure boarding is set to true
       console.log("Updating user onboarding state:", updatedUser);
