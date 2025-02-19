@@ -103,9 +103,25 @@ const EditLiveSurveyQuestion = () => {
 
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
+    let newValue = type === "checkbox" ? checked : value;
+
+    // If the field is hubCoins, ensure the value is between 0 and 100
+    if (name === "hubCoins") {
+      let numValue = parseInt(newValue, 10);
+      if (isNaN(numValue)) {
+        numValue = 0;
+      }
+      if (numValue > 100) {
+        numValue = 100;
+      } else if (numValue < 0) {
+        numValue = 0;
+      }
+      newValue = numValue;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     }));
     setNotification({ type: "", message: "" });
   };
@@ -209,6 +225,8 @@ const EditLiveSurveyQuestion = () => {
                 name="hubCoins"
                 value={formData.hubCoins}
                 onChange={handleFormChange}
+                min="0"
+                max="100"
                 className="w-fit p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter hubcoins"
               />

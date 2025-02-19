@@ -142,7 +142,7 @@ const Reviews = () => {
                 swiperRef.current.swiper.slidePrev();
               }
             }}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 rounded-full  p-2 z-20 hover:bg-gray-200"
             aria-label="Previous slide"
           >
             <svg
@@ -199,7 +199,7 @@ const Reviews = () => {
             ) : (
               testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <div className="bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
+                  <div className="bg-white sm:bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
                     <div className="flex items-center mb-2">
                       <span className="text-yellow-500 text-xl">
                         {"★".repeat(testimonial.rating).padEnd(5, "☆")}
@@ -232,7 +232,7 @@ const Reviews = () => {
                 swiperRef.current.swiper.slideNext();
               }
             }}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-2 z-20 hover:bg-gray-200"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2  rounded-full  p-2 z-20 hover:bg-gray-200"
             aria-label="Next slide"
           >
             <svg
