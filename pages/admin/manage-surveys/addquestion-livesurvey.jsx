@@ -5,10 +5,8 @@ import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
 import { setTitle } from "@/store/adminbtnSlice";
 
-
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
 
 const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect }) => {
   const initialFormData = {
@@ -19,8 +17,10 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
     link: "",
     profileSurveyId: "",
   };
-  const dispatch = useDispatch()
-dispatch(setTitle("Add LiveSurvey Question"));
+  
+  const dispatch = useDispatch();
+  dispatch(setTitle("Add LiveSurvey Question"));
+
   const [formData, setFormData] = useState(initialFormData);
   const [profileSurveys, setProfileSurveys] = useState([]); // Ensure it's initialized as an array
   const [notification, setNotification] = useState({ type: "", message: "" });
@@ -63,10 +63,27 @@ dispatch(setTitle("Add LiveSurvey Question"));
 
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
+    let newValue = type === "checkbox" ? checked : value;
+
+    // If the field is hubCoins, ensure the value is between 0 and 100
+    if (name === "hubCoins") {
+      let numValue = parseInt(newValue, 10);
+      if (isNaN(numValue)) {
+        numValue = 0;
+      }
+      if (numValue > 100) {
+        numValue = 100;
+      } else if (numValue < 0) {
+        numValue = 0;
+      }
+      newValue = numValue;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     }));
+
     setNotification({ type: "", message: "" });
   };
 
@@ -121,103 +138,103 @@ dispatch(setTitle("Add LiveSurvey Question"));
   };
 
   return (
-    <>
-      <div className="flex justify-center">
-        <div className="w-full p-6 border rounded-md shadow-md bg-white">
-          {/* Notification Section */}
-          {notification.message && (
-            <div
-              className={`mb-4 p-4 rounded-md text-white ${
-                notification.type === "success" ? "bg-green-500" : "bg-red-500"
-              }`}
-            >
-              {notification.message}
-            </div>
-          )}
-
-          {/* Title */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-800">Title*</label>
-            <input
-              name="title"
-              value={formData.title}
-              onChange={handleFormChange}
-              className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter the survey title..."
-            />
+    <div className="flex justify-center">
+      <div className="w-full p-6 border rounded-md shadow-md bg-white">
+        {/* Notification Section */}
+        {notification.message && (
+          <div
+            className={`mb-4 p-4 rounded-md text-white ${
+              notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            {notification.message}
           </div>
+        )}
 
-          {/* Description */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-800">Description</label>
-            <textarea
-              name="description"
-              rows="2"
-              value={formData.description}
-              onChange={handleFormChange}
-              className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter the survey description..."
-            ></textarea>
-          </div>
+        {/* Title */}
+        <div className="mb-6">
+          <label className="block text-lg font-medium text-gray-800">Title*</label>
+          <input
+            name="title"
+            value={formData.title}
+            onChange={handleFormChange}
+            className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the survey title..."
+          />
+        </div>
 
-          {/* HubCoins */}
-          <div className="mb-6 block sm:flex items-center gap-4 overflow-hidden">
-            <label className="block text-lg font-medium text-gray-700">HubCoins*</label>
-            <input
-              type="number"
-              name="hubCoins"
-              value={formData.hubCoins}
-              onChange={handleFormChange}
-              className="w-fit p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter hubcoins"
-            />
-          </div>
+        {/* Description */}
+        <div className="mb-6">
+          <label className="block text-lg font-medium text-gray-800">Description</label>
+          <textarea
+            name="description"
+            rows="2"
+            value={formData.description}
+            onChange={handleFormChange}
+            className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the survey description..."
+          ></textarea>
+        </div>
 
-          {/* Link */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-800">Link*</label>
-            <input
-              name="link"
-              value={formData.link}
-              onChange={handleFormChange}
-              className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter the survey link..."
-            />
-          </div>
+        {/* HubCoins */}
+        <div className="mb-6 block sm:flex items-center gap-4 overflow-hidden">
+          <label className="block text-lg font-medium text-gray-700">HubCoins*</label>
+          <input
+            type="number"
+            name="hubCoins"
+            value={formData.hubCoins}
+            onChange={handleFormChange}
+            min="0"
+            max="100"
+            className="w-fit p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter hubcoins"
+          />
+        </div>
 
-          {/* Profile Survey ID */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-800">Profile Survey ID</label>
-            <select
-              name="profileSurveyId"
-              value={formData.profileSurveyId}
-              onChange={handleFormChange}
-              className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select a profile survey</option>
-              {profileSurveys.map((survey) => (
-                <option key={survey.id} value={survey.id}>
-                  {survey.title}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Link */}
+        <div className="mb-6">
+          <label className="block text-lg font-medium text-gray-800">Link*</label>
+          <input
+            name="link"
+            value={formData.link}
+            onChange={handleFormChange}
+            className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the survey link..."
+          />
+        </div>
 
-          {/* Save Button */}
-          <div className="w-full flex justify-center">
-            <button
-              onClick={handleSaveLiveSurvey}
-              className={`w-[10rem] py-3 ${
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-600"
-              } text-white text-lg font-semibold rounded-md shadow-sm transition`}
-              disabled={loading}
-            >
-              {loading ? "Saving..." : "Save"}
-            </button>
-          </div>
+        {/* Profile Survey ID */}
+        <div className="mb-6">
+          <label className="block text-lg font-medium text-gray-800">Profile Survey ID</label>
+          <select
+            name="profileSurveyId"
+            value={formData.profileSurveyId}
+            onChange={handleFormChange}
+            className="w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select a profile survey</option>
+            {profileSurveys.map((survey) => (
+              <option key={survey.id} value={survey.id}>
+                {survey.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Save Button */}
+        <div className="w-full flex justify-center">
+          <button
+            onClick={handleSaveLiveSurvey}
+            className={`w-[10rem] py-3 ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-600"
+            } text-white text-lg font-semibold rounded-md shadow-sm transition`}
+            disabled={loading}
+          >
+            {loading ? "Saving..." : "Save"}
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

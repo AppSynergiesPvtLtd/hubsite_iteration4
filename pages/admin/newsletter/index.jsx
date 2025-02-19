@@ -15,6 +15,7 @@ import {
   resetExcel,
   setTitle,
   showExcel,
+  showRefresh,
 } from "@/store/adminbtnSlice";
 
 const Newsletter = () => {
@@ -49,7 +50,8 @@ const Newsletter = () => {
   useEffect(() => {
     dispatch(setTitle("Newsletter"));
     dispatch(showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" }));
-
+    dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
+    
     return () => {
       dispatch(hideAdd());
       dispatch(hideRefresh());
@@ -301,7 +303,7 @@ const Newsletter = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
           <div className="w-96 bg-white rounded-lg shadow-lg">
             <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-lg font-semibold">Filter &amp; Sort</h3>
+              <h3 className="text-lg font-semibold">Sort</h3>
               <button
                 onClick={() => setIsSortModalOpen(false)}
                 className="text-gray-500 hover:text-gray-700"

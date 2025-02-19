@@ -14,6 +14,7 @@ import {
   resetExcel,
   setTitle,
   showExcel,
+  showRefresh,
 } from "@/store/adminbtnSlice";
 
 // Reusable confirmation modal component.
@@ -77,6 +78,8 @@ const Contactus = () => {
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
+    dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
+    
 
     return () => {
       dispatch(hideAdd());

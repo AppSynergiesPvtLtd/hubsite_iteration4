@@ -186,7 +186,7 @@ const SurveyDetails = () => {
 
   return (
     <div className="flex justify-center p-1 sm:p-4">
-      <div className="w-full  sm:p-6 bg-white md:border rounded-md shadow-md">
+      <div className="w-full  sm:p-6 bg-white md:border rounded-md shadow-md flex flex-col gap-5">
         {/* Alert Section */}
         {alert.message && (
           <div
@@ -199,7 +199,7 @@ const SurveyDetails = () => {
         )}
 
         {/* Survey Details */}
-        <div className="mb-6">
+        <div className="">
           <label className="block text-lg font-medium text-gray-700">
             Title*
           </label>
@@ -218,7 +218,7 @@ const SurveyDetails = () => {
           )}
         </div>
 
-        <div className="mb-6">
+        <div className="">
           <label className="block text-lg font-medium text-gray-700">
             Description*
           </label>
@@ -237,7 +237,7 @@ const SurveyDetails = () => {
           )}
         </div>
 
-        <div className="mb-6">
+        <div className="">
           <label className="block text-lg font-medium text-gray-700">
             Status
           </label>
@@ -252,7 +252,7 @@ const SurveyDetails = () => {
           </select>
         </div>
 
-        <div className="mb-6 flex flex-col">
+        <div className="flex flex-col">
           <label className="block text-lg font-medium text-gray-700">
             HUBCOINS (0 - 100)
           </label>
@@ -301,7 +301,7 @@ const SurveyDetails = () => {
         {/* Questions List */}
         <div>
           {questions.length > 0 ? (
-            <ul className="space-y-4">
+            <ul className="space-y-4 ">
               {questions.map((question, index) => (
                 <li
                   key={index}
@@ -335,7 +335,7 @@ const SurveyDetails = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-center text-gray-600">
+            <p className="text-center text-gray-600 md:w-[90%] items-center">
               No questions added yet.
             </p>
           )}
