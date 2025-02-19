@@ -36,9 +36,9 @@ const OnBoarding = () => {
   };
 
   const handleCompleteQuestions = () => {
-  
+    console.log("hit hit")
     if (user) {
-      const updatedUser = { ...user, boarding: true }; // Ensure boarding is set to true
+        const updatedUser = { ...user, boarding: true }; // Ensure boarding is set to true
       console.log("Updating user onboarding state:", updatedUser);
       localStorage.setItem("onBoarding", JSON.stringify(true));
       const changeStatus = async()=>{
@@ -52,7 +52,8 @@ const OnBoarding = () => {
       }
       changeStatus();
     } else {
-      console.error("User data is not available. Ensure user is logged in.");
+    console.log("error")
+      console.error("User data is not available. Ensure user is logged in.",error);
     }
   };
   

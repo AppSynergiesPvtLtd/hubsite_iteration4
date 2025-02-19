@@ -25,92 +25,117 @@ const Questions = ({ onComplete }) => {
       try {
         setLoading(true);
 
-        // Fetch questions
-        const questionsResponse = await axios.get(
-          `${API_BASE_URL}/questions/onboarding`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": API_KEY,
-              Authorization: `Bearer ${localStorage.getItem("user_token")}`,
-            },
+        // --- Fetch all pages of questions ---
+        let page = 1;
+        let allQuestionsData = [];
+        let totalPages = 1; // default to 1 in case pagination info is missing
+
+        do {
+          const questionsResponse = await axios.get(
+            `${API_BASE_URL}/questions/onboarding?page=${page}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "x-api-key": API_KEY,
+                Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+              },
+            }
+          );
+
+          // Assuming your API response structure is like:
+          // {
+          //   data: {
+          //     data: [Array of questions],
+          //     hasNextPage: true/false,
+          //     page: number,
+          //     totalPages: number,
+          //     ...
+          //   },
+          //   status: 200, ...
+          // }
+          if (questionsResponse.data && questionsResponse.data.data) {
+            const pageQuestions = questionsResponse.data.data;
+            totalPages = questionsResponse.data.totalPages || totalPages;
+            allQuestionsData = [...allQuestionsData, ...pageQuestions];
           }
-        );
+          page++;
+        } while (page <= totalPages);
+        // --- End fetching pages ---
 
-        if (questionsResponse.data && questionsResponse.data.data) {
-          const fetchedQuestions = questionsResponse.data.data.map((q) => ({
-            id: q.id,
-            title: q.question,
-            description: q.description,
-            // Convert API types to local types; note that "TEXT" becomes "textarea"
-            type:
-              q.type === "TEXT"
-                ? "textarea"
-                : q.type === "SINGLE_SELECTION"
-                ? "single"
-                : "multi",
-            fields:
-              q.type === "TEXT"
-                ? [{ name: "response", placeholder: "Enter your response here" }]
-                : [],
-            options:
-              q.option?.map((opt) => ({
-                id: opt.id,
-                label: opt.label,
-              })) || [],
-            // Use the API's isRequired flag if available; otherwise, assume required
-            isRequired: q.isRequired !== undefined ? q.isRequired : true,
-          }));
+        // Process the combined questions data
+        const fetchedQuestions = allQuestionsData.map((q) => ({
+          id: q.id,
+          title: q.question,
+          description: q.description,
+          // Convert API types to local types; note that "TEXT" becomes "textarea"
+          type:
+            q.type === "TEXT"
+              ? "textarea"
+              : q.type === "SINGLE_SELECTION"
+              ? "single"
+              : "multi",
+          fields:
+            q.type === "TEXT"
+              ? [{ name: "response", placeholder: "Enter your response here" }]
+              : [],
+          options:
+            q.option?.map((opt) => ({
+              id: opt.id,
+              label: opt.label,
+            })) || [],
+          // Use the API's isRequired flag if available; otherwise, assume required
+          isRequired: q.isRequired !== undefined ? q.isRequired : true,
+        }));
 
-          setQuestions(fetchedQuestions);
+        setQuestions(fetchedQuestions);
 
-          // Fetch saved responses for all questions
-          const savedResponses = [];
-          for (const question of fetchedQuestions) {
-            try {
-              const response = await axios.get(
-                `${API_BASE_URL}/response/${u_id}/question/${question.id}`,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": API_KEY,
-                    Authorization: `Bearer ${localStorage.getItem("user_token")}`,
-                  },
-                }
-              );
-
-              if (response.data) {
-                savedResponses.push({
-                  id: question.id,
-                  type: question.type,
-                  data: {
-                    selectedOptions:
-                      response.data.selectedOptions?.map((opt) => opt.optionId) || [],
-                    textAnswer: response.data.textAnswer || "",
-                  },
-                });
-              } else {
-                savedResponses.push({
-                  id: question.id,
-                  type: question.type,
-                  data: { selectedOptions: [], textAnswer: "" },
-                });
+        // Fetch saved responses for all questions
+        const savedResponses = [];
+        for (const question of fetchedQuestions) {
+          try {
+            const response = await axios.get(
+              `${API_BASE_URL}/response/${u_id}/question/${question.id}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-api-key": API_KEY,
+                  Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+                },
               }
-            } catch (error) {
-              console.error(
-                `Error fetching saved response for question ${question.id}:`,
-                error
-              );
+            );
+
+            if (response.data) {
+              savedResponses.push({
+                id: question.id,
+                type: question.type,
+                data: {
+                  selectedOptions:
+                    response.data.selectedOptions?.map((opt) => opt.optionId) ||
+                    [],
+                  textAnswer: response.data.textAnswer || "",
+                },
+              });
+            } else {
               savedResponses.push({
                 id: question.id,
                 type: question.type,
                 data: { selectedOptions: [], textAnswer: "" },
               });
             }
+          } catch (error) {
+            console.error(
+              `Error fetching saved response for question ${question.id}:`,
+              error
+            );
+            savedResponses.push({
+              id: question.id,
+              type: question.type,
+              data: { selectedOptions: [], textAnswer: "" },
+            });
           }
-
-          setResponses(savedResponses);
         }
+
+        setResponses(savedResponses);
       } catch (error) {
         console.error("Error fetching questions or responses:", error);
       } finally {
@@ -315,4 +340,3 @@ const Questions = ({ onComplete }) => {
 };
 
 export default Questions;
-
