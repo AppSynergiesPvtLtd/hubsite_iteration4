@@ -194,7 +194,7 @@ const Layout = ({ children, isLoading = false }) => {
       <div
         className={`fixed inset-y-0 left-0 z-50 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out w-[250px] h-screen md:relative bg-white border-r shadow-lg`}
+        } md:translate-x-0 transition-transform duration-300 ease-in-out w-[250px] min-h-screen md:relative `}
       >
         <div className="p-5 flex flex-col justify-between h-full">
           <div>
