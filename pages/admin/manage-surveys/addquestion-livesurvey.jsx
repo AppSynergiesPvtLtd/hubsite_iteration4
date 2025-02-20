@@ -97,10 +97,12 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
       hubCoins: parseInt(formData.hubCoins, 10),
       isActive: formData.isActive,
       link: formData.link,
-      profileSurveyId: formData.profileSurveyId,
+      ...(formData.profileSurveyId !== null && formData.profileSurveyId !== "" && { profileSurveyId: formData.profileSurveyId }),
     };
 
     try {
+      console.log("payload",payload)
+      console.log("hitt")
       const response = await axios.post(`${API_BASE_URL}/live-survey/`, payload, {
         headers: {
           "Content-Type": "application/json",

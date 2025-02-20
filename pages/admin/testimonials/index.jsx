@@ -100,6 +100,8 @@ const TestimonialManagement = () => {
 
   useEffect(() => {
     dispatch(setTitle("Testimonials"));
+    dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
+
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );

@@ -254,7 +254,7 @@ const SurveyDetails = () => {
 
         <div className="flex flex-col">
           <label className="block text-lg font-medium text-gray-700">
-            HUBCOINS (0 - 100)
+            HUBCOINS (0 - 100)*
           </label>
           <input
             type="number"

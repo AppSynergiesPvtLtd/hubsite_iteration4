@@ -25,12 +25,29 @@ export default function UserLogin() {
   const [alert, setAlert] = useState({ message: "", type: "" });
   const [showPassword, setShowPassword] = useState(false);
 
+  // Regular expression to validate email pattern
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleLogin = async () => {
     setLoading(true);
     setError("");
 
     if (!email || !password) {
       setError("Please fill in both email and password.");
+      setLoading(false);
+      return;
+    }
+
+    // Validate email format before hitting the API
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
       setLoading(false);
       return;
     }
@@ -63,6 +80,7 @@ export default function UserLogin() {
       dispatch(setUser(userData));
       router.push("/dashboard");
     } catch (err) {
+      console.log("err",err)
       setError(err.response?.data?.message || "Login failed.");
     } finally {
       setLoading(false);
