@@ -37,20 +37,21 @@ const SurveyTemplate = ({ surveyData, onDelete, editRedirect, showStatus = true 
           className="flex justify-between items-center border-b border-gray-300 py-4"
         >
           <div>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2">
               <h4 className="text-lg font-semibold">{item.question}</h4>
-              {/* Conditionally render pill UI for Active/Inactive */}
               {showStatus && (
-                <div className="flex gap-2"><span>status: </span><div
-                className={`px-2 py-1 text-xs w-fit  font-semibold rounded-full ${
-                  item.isActive
-                    ? "bg-green-200 text-green-800"
-                    : "bg-red-200 text-red-800"
-                }`}
-              >
-                {item.isActive ? "Active" : "Inactive"}
-              </div></div>
-               
+                <div className="flex gap-2">
+                  <span>status: </span>
+                  <div
+                    className={`px-2 py-1 text-xs w-fit font-semibold rounded-full ${
+                      item.isActive
+                        ? "bg-green-200 text-green-800"
+                        : "bg-red-200 text-red-800"
+                    }`}
+                  >
+                    {item.isActive ? "Active" : "Inactive"}
+                  </div>
+                </div>
               )}
             </div>
             <p className="text-md text-gray-600 mt-3">{item.description}</p>
@@ -76,10 +77,19 @@ const SurveyTemplate = ({ surveyData, onDelete, editRedirect, showStatus = true 
 
       {/* Modal for deletion confirmation */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg lg:w-[35%] lg:h-[15rem] flex flex-col items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Semi-transparent backdrop */}
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={closeModal}
+          />
+          {/* Modal content */}
+          <div className="relative bg-white p-6 rounded-lg shadow-lg lg:w-[35%] lg:h-[15rem] flex flex-col items-center justify-center">
             <h2 className="poppins-bold text-[1.3rem]">
-              {surveyQuestions.find((q) => q.id === selectedQuestion)?.question}
+              {
+                surveyQuestions.find((q) => q.id === selectedQuestion)
+                  ?.question
+              }
             </h2>
             <p className="text-[1.3rem] text-gray-600 mb-4">
               Are you sure you want to delete this question?
