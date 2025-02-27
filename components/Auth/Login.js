@@ -80,7 +80,7 @@ export default function UserLogin() {
       dispatch(setUser(userData));
       router.push("/dashboard");
     } catch (err) {
-      console.log("err",err)
+      console.log("err", err);
       setError(err.response?.data?.message || "Login failed.");
     } finally {
       setLoading(false);
@@ -189,6 +189,17 @@ export default function UserLogin() {
     await signIn("google");
   };
 
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (currentStep === 1) {
+        handleLogin();
+      } else if (currentStep === 2) {
+        handleVerifyOtp();
+      }
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 poppins">
       <div className="flex flex-col justify-center space-y-6">
@@ -224,6 +235,7 @@ export default function UserLogin() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
             <div className="w-[80%] relative">
@@ -233,6 +245,7 @@ export default function UserLogin() {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
               <span
                 className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
@@ -265,6 +278,7 @@ export default function UserLogin() {
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
