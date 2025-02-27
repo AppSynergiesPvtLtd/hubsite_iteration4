@@ -55,8 +55,9 @@ export default function AdminLogin() {
       router.push("/admin");
     } catch (error) {
       console.error("Admin login failed:", error);
-    } finally {
       setLoading(false);
+    } finally {
+      // setLoading(false);
     }
   };
 
@@ -68,6 +69,17 @@ export default function AdminLogin() {
     if (!validateEmail()) return;
     alert("Password reset instructions sent to your email.");
     setIsForgotPassword(false);
+  };
+
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (isForgotPassword) {
+        handleResetPassword();
+      } else {
+        handleLogin();
+      }
+    }
   };
 
   return (
@@ -110,6 +122,7 @@ export default function AdminLogin() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
             {emailError && (
               <p className="text-red-500 text-sm mt-1">
@@ -133,6 +146,7 @@ export default function AdminLogin() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 />
                 <button
                   type="button"

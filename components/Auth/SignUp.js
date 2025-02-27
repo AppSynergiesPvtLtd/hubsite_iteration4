@@ -236,16 +236,23 @@ export default function SignUp() {
     await signIn("google");
   };
 
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (currentStep === 1) {
+        handleNext();
+      } else if (currentStep === 2) {
+        handleSubmit();
+      }
+    }
+  };
+
   return (
     <div className="poppins flex flex-col md:flex-row justify-center items-center min-fit text-black">
       <div className="w-full max-w-md bg-white rounded-lg space-y-6 p-6 shadow-lg z-50">
         {alert.message && (
           <div
-            className={`p-4 text-center z-50 ${
-              alert.type === "success"
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            } rounded`}
+            className={`p-4 text-center z-50 ${alert.type === "success" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"} rounded`}
           >
             {alert.message}
           </div>
@@ -269,6 +276,7 @@ export default function SignUp() {
                   placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 {errors.firstName && (
                   <p className="text-red-500 text-sm mt-1">
@@ -288,6 +296,7 @@ export default function SignUp() {
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 {errors.lastName && (
                   <p className="text-red-500 text-sm mt-1">
@@ -308,6 +317,7 @@ export default function SignUp() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -329,6 +339,7 @@ export default function SignUp() {
                     placeholder="Enter Password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                   />
                   <button
                     type="button"
@@ -361,6 +372,7 @@ export default function SignUp() {
                     placeholder="Confirm Password"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                   />
                   <button
                     type="button"
@@ -461,6 +473,7 @@ export default function SignUp() {
               name="otp"
               value={formData.otp}
               onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
             {errors.otp && (
               <p className="text-red-500 text-sm mt-1">

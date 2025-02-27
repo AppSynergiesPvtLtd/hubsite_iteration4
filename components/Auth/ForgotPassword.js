@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function ForgotPassword({ onSwitchTab }) {
@@ -81,6 +81,18 @@ export default function ForgotPassword({ onSwitchTab }) {
     onSwitchTab("signup");
   };
 
+  // Handle Enter key press and prevent form submission
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission
+      if (currentStep === 1) {
+        handleNextStep();
+      } else if (currentStep === 2) {
+        handleVerifyOtp();
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[100%] ">
       {currentStep === 1 && (
@@ -98,11 +110,12 @@ export default function ForgotPassword({ onSwitchTab }) {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeyDown} // Add the key down handler here
               />
               {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
             <button
-              type="button"
+              type="button" // Make sure the button type is "button" to prevent form submission
               onClick={handleNextStep}
               className="w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]"
               disabled={loading}
@@ -138,6 +151,7 @@ export default function ForgotPassword({ onSwitchTab }) {
                 placeholder="Enter the OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
+                onKeyDown={handleKeyDown} // Add the key down handler here
               />
             </div>
             <div>
@@ -154,11 +168,12 @@ export default function ForgotPassword({ onSwitchTab }) {
                 placeholder="Enter a new password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown} // Add the key down handler here
               />
             </div>
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             <button
-              type="button"
+              type="button" // Make sure the button type is "button" to prevent form submission
               onClick={handleVerifyOtp}
               className="w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]"
               disabled={loading}
