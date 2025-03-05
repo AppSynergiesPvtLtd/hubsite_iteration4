@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminRoutes from "@/pages/adminRoutes";
-import { CheckCircle, AlertCircle } from "lucide-react"; // Import icons
+import { CheckCircle, AlertCircle } from "lucide-react";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -55,7 +55,6 @@ const TestimonialForm = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState("");
 
-
   const [modalConfig, setModalConfig] = useState({
     visible: false,
     type: "",
@@ -86,7 +85,7 @@ const TestimonialForm = () => {
               city: data.city || "",
               comment: data.comment || "",
               rating: data.rating ? data.rating.toString() : "",
-              file: null, 
+              file: null,
             });
             setImagePreview(data.image || null);
           } else {
@@ -110,7 +109,6 @@ const TestimonialForm = () => {
     }
   };
 
-  // Handle file input changes.
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -125,7 +123,7 @@ const TestimonialForm = () => {
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.comment) newErrors.comment = "Comment is required";
     if (!formData.rating) newErrors.rating = "Rating is required";
-    if (!id && !formData.file) newErrors.file = "Image is required";
+    // Removed the image requirement: no validation for formData.file
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -250,7 +248,7 @@ const TestimonialForm = () => {
       />
       <form onSubmit={handleSubmit} className="w-full space-y-6">
         <div>
-          <label className="block mb-2">Upload Image here*</label>
+          <label className="block mb-2">Upload Image (Optional)</label>
           {imagePreview && (
             <div className="mb-2">
               <img

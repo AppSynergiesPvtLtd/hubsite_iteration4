@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaLocationDot } from "react-icons/fa6";
 import { MdOutlineMail } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaLinkedin, FaPhoneAlt } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaMeta } from "react-icons/fa6";
@@ -121,16 +121,16 @@ const Footer = () => {
                         </li>
 
                         <div className="flex gap-6 mt-8 justify-center items-start lg:justify-start">
-                            <a href="https://www.threads.net" target="_blank" rel="noopener noreferrer">
-                                <FaThreads className="text-[24px]" />
+                            <a href="https://www.linkedin.com/company/hubsitesocial/" target="_blank" rel="noopener noreferrer">
+                                <FaLinkedin className="text-[24px]" />
                             </a>
-                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.instagram.com/hubsitesocial/" target="_blank" rel="noopener noreferrer">
                                 <FaInstagram className="text-[24px]" />
                             </a>
-                            <a href="https://www.meta.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.facebook.com/share/1FGtL2pkX7/" target="_blank" rel="noopener noreferrer">
                                 <FaMeta className="text-[24px]" />
                             </a>
-                            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://x.com/hubsitesocial?t=0qqC_VhDcmVExHAYTMbgxg&s=08" target="_blank" rel="noopener noreferrer">
                                 <FaXTwitter className="text-[24px]" />
                             </a>
                         </div>
