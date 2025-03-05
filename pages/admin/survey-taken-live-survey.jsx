@@ -25,18 +25,14 @@ const SurveyTakenLiveSurvey = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
-  // Default sort order "Descending" shows latest surveys on top.
   const [sortOrder, setSortOrder] = useState("Descending");
-  // tempSortOrder holds the selection in modal before applying.
   const [tempSortOrder, setTempSortOrder] = useState("Descending");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("Live Surveys Lists"));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
@@ -52,7 +48,6 @@ const SurveyTakenLiveSurvey = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Generate Excel file from surveyData.
   const handleGenerateExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(surveyData);
     const workbook = XLSX.utils.book_new();
@@ -80,7 +75,6 @@ const SurveyTakenLiveSurvey = () => {
         }
       );
       const { data } = response.data;
-      // Sort fetched data by createdAt descending by default.
       const sortedData = [...data].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
@@ -98,7 +92,6 @@ const SurveyTakenLiveSurvey = () => {
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Apply the sort filter when clicking "Apply" in the modal.
   const handleApplySort = () => {
     setSortOrder(tempSortOrder);
     const sortedData = [...surveyData].sort((a, b) => {
@@ -110,7 +103,6 @@ const SurveyTakenLiveSurvey = () => {
     setIsSortModalOpen(false);
   };
 
-  // Clear the sort filter (reset to default "Descending").
   const handleClearSort = () => {
     setTempSortOrder("Descending");
     setSortOrder("Descending");
@@ -120,14 +112,12 @@ const SurveyTakenLiveSurvey = () => {
     setSurveyData(sortedData);
   };
 
-  // Filter surveys by title or description.
   const filteredData = surveyData.filter(
     (item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Action button handler.
   const handleActionClick = (id) => {
     console.log(`Action clicked for survey ID: ${id}`);
     router.push(`/admin/live-survey-completions/${id}`);
@@ -137,7 +127,6 @@ const SurveyTakenLiveSurvey = () => {
     <div className="p-4 max-w-full">
       {/* Filters and Controls */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
@@ -156,9 +145,7 @@ const SurveyTakenLiveSurvey = () => {
           )}
         </div>
 
-        {/* View and Sort Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
-          {/* View Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={viewStyle}
@@ -169,7 +156,6 @@ const SurveyTakenLiveSurvey = () => {
             <option>List View</option>
           </select>
 
-          {/* Items per Page Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={itemsPerPage}
@@ -180,7 +166,6 @@ const SurveyTakenLiveSurvey = () => {
             <option value={100}>View 100</option>
           </select>
 
-          {/* Sort Button */}
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
@@ -263,6 +248,7 @@ const SurveyTakenLiveSurvey = () => {
                 <thead>
                   <tr className="text-sm text-gray-600 font-medium">
                     <th className="py-3 px-4">S. NO</th>
+                    <th className="py-3 px-4">ID</th>
                     <th className="py-3 px-4">Title</th>
                     <th className="py-3 px-4">Description</th>
                     <th className="py-3 px-4">Hub Coins</th>
@@ -274,6 +260,11 @@ const SurveyTakenLiveSurvey = () => {
                   {filteredData.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-100">
                       <td className="py-3 px-4">{index + 1}</td>
+                      <td className="py-3 px-4">
+                        <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
+                          {item.id}
+                        </span>
+                      </td>
                       <td className="py-3 px-4">{item.title}</td>
                       <td className="py-3 px-4">{item.description}</td>
                       <td className="py-3 px-4">{item.hubCoins}</td>
@@ -300,13 +291,17 @@ const SurveyTakenLiveSurvey = () => {
                   key={item.id}
                   className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
                 >
-                  {/* Action button on top-right */}
                   <button
                     onClick={() => handleActionClick(item.id)}
                     className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
                   >
                     i
                   </button>
+                  <div className="mb-2">
+                    <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
+                      ID: {item.id}
+                    </span>
+                  </div>
                   <h2 className="font-bold text-lg mb-2">{item.title}</h2>
                   <p className="text-gray-600 mb-1">
                     <b>Description:</b> {item.description}
@@ -328,15 +323,19 @@ const SurveyTakenLiveSurvey = () => {
                   key={item.id}
                   className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
                 >
-                  {/* Action button on top-right */}
                   <button
                     onClick={() => handleActionClick(item.id)}
                     className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
                   >
                     i
                   </button>
-                  <div>
-                    <h2 className="font-bold text-lg mb-1">{item.title}</h2>
+                  <div className="w-full">
+                    <div className="flex items-center justify-between mb-2">
+                      <h2 className="font-bold text-lg">{item.title}</h2>
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
+                        ID: {item.id}
+                      </span>
+                    </div>
                     <p className="text-gray-600 mb-1">
                       <b>Description:</b> {item.description}
                     </p>
