@@ -248,7 +248,7 @@ const SurveyTakenLiveSurvey = () => {
                 <thead>
                   <tr className="text-sm text-gray-600 font-medium">
                     <th className="py-3 px-4">S. NO</th>
-                    <th className="py-3 px-4">ID</th>
+                    
                     <th className="py-3 px-4">Title</th>
                     <th className="py-3 px-4">Description</th>
                     <th className="py-3 px-4">Hub Coins</th>
@@ -260,11 +260,6 @@ const SurveyTakenLiveSurvey = () => {
                   {filteredData.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-100">
                       <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">
-                        <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
-                          {item.id}
-                        </span>
-                      </td>
                       <td className="py-3 px-4">{item.title}</td>
                       <td className="py-3 px-4">{item.description}</td>
                       <td className="py-3 px-4">{item.hubCoins}</td>
@@ -297,11 +292,6 @@ const SurveyTakenLiveSurvey = () => {
                   >
                     i
                   </button>
-                  <div className="mb-2">
-                    <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
-                      ID: {item.id}
-                    </span>
-                  </div>
                   <h2 className="font-bold text-lg mb-2">{item.title}</h2>
                   <p className="text-gray-600 mb-1">
                     <b>Description:</b> {item.description}
@@ -330,12 +320,6 @@ const SurveyTakenLiveSurvey = () => {
                     i
                   </button>
                   <div className="w-full">
-                    <div className="flex items-center justify-between mb-2">
-                      <h2 className="font-bold text-lg">{item.title}</h2>
-                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
-                        ID: {item.id}
-                      </span>
-                    </div>
                     <p className="text-gray-600 mb-1">
                       <b>Description:</b> {item.description}
                     </p>

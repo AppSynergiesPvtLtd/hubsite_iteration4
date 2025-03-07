@@ -55,6 +55,9 @@ const SurveyTemplate = ({ surveyData, onDelete, editRedirect, showStatus = true 
               )}
             </div>
             <p className="text-md text-gray-600 mt-3">{item.description}</p>
+            <span className=",y-3 inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
+                        ID: {item.id}
+                      </span>
           </div>
           <div className="flex space-x-4 justify-center items-center">
             <button
