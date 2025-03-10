@@ -171,7 +171,7 @@ const TestimonialForm = () => {
             visible: true,
             type: "success",
             message: "Testimonial updated successfully!",
-            redirect: { pathname: router.pathname, query: { id } },
+            redirect: { pathname: `/admin/testimonials`},
           });
         } else {
           throw new Error(result.message || "Something went wrong");
@@ -199,7 +199,7 @@ const TestimonialForm = () => {
             visible: true,
             type: "success",
             message: "Testimonial created successfully!",
-            redirect: { pathname: router.pathname, query: { id: result.data.id } },
+            redirect: { pathname: `/admin/testimonials`},
           });
           setFormData(initialFormData);
           setImagePreview(null);
