@@ -32,6 +32,7 @@ const Reviews = () => {
           },
         });
         const data = await response.json();
+        console.log("data", data);
         setTestimonials(data);
       } catch (error) {
         console.error("Error fetching testimonials:", error);
@@ -142,7 +143,7 @@ const Reviews = () => {
                 swiperRef.current.swiper.slidePrev();
               }
             }}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 rounded-full  p-2 z-20 hover:bg-gray-200"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 rounded-full p-2 z-20 hover:bg-gray-200"
             aria-label="Previous slide"
           >
             <svg
@@ -182,11 +183,17 @@ const Reviews = () => {
                       </div>
                       <p className="text-gray-700 text-sm mb-4">{testimonial.comment}</p>
                       <div className="flex items-center">
-                        <img
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-14 h-14 rounded-full mr-4 border border-gray-200"
-                        />
+                        {testimonial.image ? (
+                          <img
+                            src={testimonial.image}
+                            alt={testimonial.name}
+                            className="w-14 h-14 rounded-full mr-4 border border-gray-200"
+                          />
+                        ) : (
+                          <div className="w-14 h-14 rounded-full mr-4 border border-gray-200 flex items-center justify-center text-lg font-semibold">
+                            {testimonial.name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
                         <div>
                           <h3 className="text-lg font-semibold">{testimonial.name}</h3>
                           <p className="text-gray-500 text-sm">{testimonial.city}</p>
@@ -207,11 +214,17 @@ const Reviews = () => {
                     </div>
                     <p className="text-gray-700 text-sm mb-4">{testimonial.comment}</p>
                     <div className="flex items-center">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-14 h-14 rounded-full mr-4 border border-gray-200"
-                      />
+                      {testimonial.image ? (
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-14 h-14 rounded-full mr-4 border border-gray-200"
+                        />
+                      ) : (
+                        <div className="w-14 h-14 rounded-full mr-4 border border-gray-200 flex items-center justify-center text-lg font-semibold">
+                          {testimonial.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                       <div>
                         <h3 className="text-lg font-semibold">{testimonial.name}</h3>
                         <p className="text-gray-500 text-sm">{testimonial.city}</p>
@@ -232,7 +245,7 @@ const Reviews = () => {
                 swiperRef.current.swiper.slideNext();
               }
             }}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2  rounded-full  p-2 z-20 hover:bg-gray-200"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 rounded-full p-2 z-20 hover:bg-gray-200"
             aria-label="Next slide"
           >
             <svg

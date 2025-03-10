@@ -4,11 +4,13 @@ import Layout from "../layout";
 import AdminRoutes from "../../adminRoutes";
 import { useDispatch } from "react-redux";
 import { setTitle } from "@/store/adminbtnSlice";
+import { useRouter } from "next/router";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect }) => {
+  const router = useRouter();
   const initialFormData = {
     title: "",
     description: "",
@@ -120,7 +122,7 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
 
       // Reset the form
       setFormData(initialFormData);
-
+      router.push("/admin/manage-surveys/live-survey")
       // Redirect on success
       if (onSuccessRedirect) {
         setTimeout(() => {

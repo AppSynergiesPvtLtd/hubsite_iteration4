@@ -125,7 +125,7 @@ const SurveyDetails = () => {
           }
         );
         setAlert({ type: "success", message: "Survey saved successfully!" });
-        router.push(`/admin/manage-surveys/add-profilesurvey?id=${response.data.id}`);
+        router.push(`/admin/manage-surveys/profiling-survey`);
       }
       setHasChanges(false);
     } catch (error) {

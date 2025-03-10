@@ -11,7 +11,7 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const SurveySuccess = () => {
   const router = useRouter();
     const {surveyId,userId} = router.query;
-
+  console.log(surveyId,userId)
     const success= async()=>{
       try{
         const apiResp = await axios.get(`${API_BASE_URL}/live-survey/completions/${surveyId}/${userId}`,{

@@ -198,7 +198,6 @@ const EditSurveyQuestion = () => {
         // Refresh the data from the API.
         await fetchQuestionData();
       } else {
-        // CREATE NEW QUESTION (include options if applicable).
         const newQuestionPayload = {
           ...questionPayload,
           options:
@@ -219,10 +218,9 @@ const EditSurveyQuestion = () => {
         });
 
         const newQuestionId = response.data.id;
-        // Update the URL with the new questionId as a query parameter.
         router.replace({
-          pathname: `/admin/manage-surveys/profilesurvey-question/${surveyId}`,
-          query: { questionId: newQuestionId },
+          pathname: `/admin/manage-surveys/add-profilesurvey`,
+          query: { id: surveyId },
         });
 
         setSuccessMessage("Question saved successfully!");
