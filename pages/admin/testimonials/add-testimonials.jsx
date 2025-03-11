@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminRoutes from "@/pages/adminRoutes";
-import { CheckCircle, AlertCircle } from "lucide-react";
+import { CheckCircle, AlertCircle, XCircle } from "lucide-react";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -46,6 +46,7 @@ const TestimonialForm = () => {
     comment: "",
     rating: "",
     file: null,
+    removeImage: false,
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -76,9 +77,10 @@ const TestimonialForm = () => {
             },
           });
           if (!response.ok) {
-            throw new Error("Failed to fetch testimonial");
+            throw new Error(`Failed to fetch testimonial: ${response.status}`);
           }
           const data = await response.json();
+          console.log("Fetched data:", data); // Debug log
           if (data && data.id) {
             setFormData({
               name: data.name || "",
@@ -86,6 +88,7 @@ const TestimonialForm = () => {
               comment: data.comment || "",
               rating: data.rating ? data.rating.toString() : "",
               file: null,
+              removeImage: false,
             });
             setImagePreview(data.image || null);
           } else {
@@ -93,7 +96,7 @@ const TestimonialForm = () => {
           }
         } catch (error) {
           console.error("Error fetching testimonial:", error);
-          setFetchError("Testimonial not found or invalid id.");
+          setFetchError(`Error fetching testimonial: ${error.message}`);
         } finally {
           setIsFetching(false);
         }
@@ -112,9 +115,14 @@ const TestimonialForm = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({ ...prev, file }));
+      setFormData((prev) => ({ ...prev, file, removeImage: false }));
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({ ...prev, file: null, removeImage: true }));
+    setImagePreview(null);
   };
 
   const validateForm = () => {
@@ -123,8 +131,6 @@ const TestimonialForm = () => {
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.comment) newErrors.comment = "Comment is required";
     if (!formData.rating) newErrors.rating = "Rating is required";
-    // Removed the image requirement: no validation for formData.file
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -148,6 +154,7 @@ const TestimonialForm = () => {
 
     try {
       if (id) {
+        // Update existing testimonial
         const updateFormData = new FormData();
         updateFormData.append("id", id);
         updateFormData.append("name", formData.name);
@@ -157,6 +164,13 @@ const TestimonialForm = () => {
         if (formData.file) {
           updateFormData.append("file", formData.file);
         }
+        updateFormData.append("removeImage", formData.removeImage.toString());
+
+        // Log FormData contents for debugging
+        for (let [key, value] of updateFormData.entries()) {
+          console.log(`${key}:`, value);
+        }
+
         const response = await fetch(`${API_BASE_URL}/testimonial/update`, {
           method: "PUT",
           headers: {
@@ -165,18 +179,22 @@ const TestimonialForm = () => {
           },
           body: updateFormData,
         });
+
         const result = await response.json();
-        if (response.ok) {
-          setModalConfig({
-            visible: true,
-            type: "success",
-            message: "Testimonial updated successfully!",
-            redirect: { pathname: `/admin/testimonials`},
-          });
-        } else {
-          throw new Error(result.message || "Something went wrong");
+        console.log("Update response:", result); // Debug log
+
+        if (!response.ok) {
+          throw new Error(result.message || `Update failed with status: ${response.status}`);
         }
+
+        setModalConfig({
+          visible: true,
+          type: "success",
+          message: "Testimonial updated successfully!",
+          redirect: { pathname: `/admin/testimonials` },
+        });
       } else {
+        // Create new testimonial
         const submitData = new FormData();
         submitData.append("name", formData.name);
         submitData.append("city", formData.city);
@@ -185,6 +203,7 @@ const TestimonialForm = () => {
         if (formData.file) {
           submitData.append("file", formData.file);
         }
+
         const response = await fetch(`${API_BASE_URL}/testimonial/create`, {
           method: "POST",
           headers: {
@@ -193,26 +212,29 @@ const TestimonialForm = () => {
           },
           body: submitData,
         });
+
         const result = await response.json();
-        if (response.ok) {
-          setModalConfig({
-            visible: true,
-            type: "success",
-            message: "Testimonial created successfully!",
-            redirect: { pathname: `/admin/testimonials`},
-          });
-          setFormData(initialFormData);
-          setImagePreview(null);
-        } else {
-          throw new Error(result.message || "Something went wrong");
+        console.log("Create response:", result); // Debug log
+
+        if (!response.ok) {
+          throw new Error(result.message || `Create failed with status: ${response.status}`);
         }
+
+        setModalConfig({
+          visible: true,
+          type: "success",
+          message: "Testimonial created successfully!",
+          redirect: { pathname: `/admin/testimonials` },
+        });
+        setFormData(initialFormData);
+        setImagePreview(null);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       setModalConfig({
         visible: true,
         type: "error",
-        message: error.message || "Something went wrong",
+        message: `Submission failed: ${error.message}`,
         redirect: null,
       });
     } finally {
@@ -250,21 +272,34 @@ const TestimonialForm = () => {
         <div>
           <label className="block mb-2">Upload Image (Optional)</label>
           {imagePreview && (
-            <div className="mb-2">
+            <div className="mb-4 relative inline-block">
               <img
                 src={imagePreview || "/placeholder.svg"}
                 alt="Preview"
                 className="w-32 h-32 object-cover rounded"
               />
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                title="Remove Image"
+              >
+                <XCircle className="w-5 h-5" />
+              </button>
             </div>
           )}
-          <button
-            type="button"
-            onClick={() => document.getElementById("file-upload").click()}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            + Image
-          </button>
+          {!imagePreview && (
+            <div className="flex items-center space-x-4">
+              <button
+                type="button"
+                onClick={() => document.getElementById("file-upload").click()}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                + Image
+              </button>
+              <span className="text-gray-500 text-sm">No image selected</span>
+            </div>
+          )}
           <input
             id="file-upload"
             type="file"
