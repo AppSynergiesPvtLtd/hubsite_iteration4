@@ -9,6 +9,12 @@ const GetStarted = ({ onComplete }) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(null); // Initialize as null to avoid flicker
 
+  useEffect(()=>{
+    const done = localStorage.getItem("onboardingstep1");
+    if(done){
+      onComplete()
+    }
+  },[])
   // Update currentStep when router.query.step changes
   useEffect(() => {
     const step = parseInt(router.query.step) || 1;
@@ -16,8 +22,9 @@ const GetStarted = ({ onComplete }) => {
   }, [router.query.step]);
 
   const navigateToStep = (step) => {
-    if (step > 1) {
+    if (step ==5) {
       onComplete(); // Trigger moving to Questions
+      localStorage.setItem("onboardingstep1",true)
     } else {
       router.push(`/onboarding?stage=getStarted&step=${step}`, undefined, {
         shallow: true,
@@ -29,12 +36,12 @@ const GetStarted = ({ onComplete }) => {
     switch (currentStep) {
       case 1:
         return <StepOne navigate={navigateToStep} />;
-      // case 2:
-      //   return <StepThree navigate={navigateToStep} />;
-      // case 3:
-      //   return <StepThree navigate={navigateToStep} />;
-      // case 4:
-      //   return <StepFour navigate={navigateToStep} />;
+        case 2:
+          return <StepTwo navigate={navigateToStep} />;
+      case 3:
+        return <StepThree navigate={navigateToStep} />;
+           case 4:
+        return <StepFour navigate={navigateToStep} />;
       default:
         return null; // Prevent flicker if currentStep is null
     }

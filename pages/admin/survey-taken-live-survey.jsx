@@ -28,6 +28,7 @@ const SurveyTakenLiveSurvey = () => {
   const [sortOrder, setSortOrder] = useState("Descending");
   const [tempSortOrder, setTempSortOrder] = useState("Descending");
   const [loading, setLoading] = useState(false);
+  const [totalSurveys, setTotalSurveys] = useState(0); // Added to track total surveys
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -74,11 +75,12 @@ const SurveyTakenLiveSurvey = () => {
           },
         }
       );
-      const { data } = response.data;
+      const { data, total } = response.data; // Assuming API returns total
       const sortedData = [...data].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setSurveyData(sortedData);
+      setTotalSurveys(total); // Set total surveys for pagination
     } catch (error) {
       console.error("Error fetching survey data:", error);
     } finally {
@@ -123,6 +125,32 @@ const SurveyTakenLiveSurvey = () => {
     router.push(`/admin/live-survey-completions/${id}`);
   };
 
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalSurveys / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers for display
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Adjust to show more/less pages
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
   return (
     <div className="p-4 max-w-full">
       {/* Filters and Controls */}
@@ -156,16 +184,7 @@ const SurveyTakenLiveSurvey = () => {
             <option>List View</option>
           </select>
 
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={50}>View 50</option>
-            <option value={100}>View 100</option>
-          </select>
-
+          
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
@@ -242,84 +261,59 @@ const SurveyTakenLiveSurvey = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-[90vw] md:w-full overflow-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    
-                    <th className="py-3 px-4">Title</th>
-                    <th className="py-3 px-4">Description</th>
-                    <th className="py-3 px-4">Hub Coins</th>
-                    <th className="py-3 px-4">Created At</th>
-                    <th className="py-3 px-4">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">{item.title}</td>
-                      <td className="py-3 px-4">{item.description}</td>
-                      <td className="py-3 px-4">{item.hubCoins}</td>
-                      <td className="py-3 px-4">
-                        {new Date(item.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <button
-                          onClick={() => handleActionClick(item.id)}
-                          className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
-                        >
-                          i
-                        </button>
-                      </td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-[90vw] md:w-full overflow-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
+                      <th className="py-3 px-4">Title</th>
+                      <th className="py-3 px-4">Description</th>
+                      <th className="py-3 px-4">Hub Coins</th>
+                      <th className="py-3 px-4">Created At</th>
+                      <th className="py-3 px-4">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
-                >
-                  <button
-                    onClick={() => handleActionClick(item.id)}
-                    className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        <td className="py-3 px-4">{item.title}</td>
+                        <td className="py-3 px-4">{item.description}</td>
+                        <td className="py-3 px-4">{item.hubCoins}</td>
+                        <td className="py-3 px-4">
+                          {new Date(item.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <button
+                            onClick={() => handleActionClick(item.id)}
+                            className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
+                          >
+                            i
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
                   >
-                    i
-                  </button>
-                  <h2 className="font-bold text-lg mb-2">{item.title}</h2>
-                  <p className="text-gray-600 mb-1">
-                    <b>Description:</b> {item.description}
-                  </p>
-                  <p className="text-gray-600 mb-1">
-                    <b>Hub Coins:</b> {item.hubCoins}
-                  </p>
-                  <p className="text-gray-600">
-                    <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            // List View
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
-                >
-                  <button
-                    onClick={() => handleActionClick(item.id)}
-                    className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
-                  >
-                    i
-                  </button>
-                  <div className="w-full">
+                    <button
+                      onClick={() => handleActionClick(item.id)}
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                    >
+                      i
+                    </button>
+                    <h2 className="font-bold text-lg mb-2">{item.title}</h2>
                     <p className="text-gray-600 mb-1">
                       <b>Description:</b> {item.description}
                     </p>
@@ -330,10 +324,72 @@ const SurveyTakenLiveSurvey = () => {
                       <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
                     </p>
                   </div>
-                </div>
+                ))}
+              </div>
+            ) : (
+              // List View
+              <div className="flex flex-col gap-4">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
+                  >
+                    <button
+                      onClick={() => handleActionClick(item.id)}
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                    >
+                      i
+                    </button>
+                    <div className="w-full">
+                      <h2 className="font-bold text-lg mb-1">{item.title}</h2>
+                      <p className="text-gray-600 mb-1">
+                        <b>Description:</b> {item.description}
+                      </p>
+                      <p className="text-gray-600 mb-1">
+                        <b>Hub Coins:</b> {item.hubCoins}
+                      </p>
+                      <p className="text-gray-600">
+                        <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-6">
+              <button
+               onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                «
+              </button>
+             
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 mx-1 text-sm border border-gray-300 rounded-md ${
+                    currentPage === page
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {page}
+                </button>
               ))}
+             
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                »
+              </button>
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No surveys found</p>

@@ -21,11 +21,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const UserManagement = () => {
-  // Default sortOrder is "Descending" so that the latest user appears on top.
   const [sortOrder, setSortOrder] = useState("Descending");
-  // tempSortOrder is used inside the modal before the user clicks Apply.
   const [tempSortOrder, setTempSortOrder] = useState("Descending");
-
   const [userData, setUserData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
@@ -36,7 +33,6 @@ const UserManagement = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // ─── Define the data fields to show/hide via pills ──────────────────────
   const dataFields = [
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },
@@ -47,15 +43,11 @@ const UserManagement = () => {
   ];
 
   const dispatch = useDispatch();
-
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("User Management"));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
@@ -68,7 +60,6 @@ const UserManagement = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Helper function to format dates as "day month year" (e.g. 14 Feb 2025)
   const formatDate = (dateString) => {
     if (!dateString) return "-";
     return new Date(dateString).toLocaleDateString("en-GB", {
@@ -78,9 +69,7 @@ const UserManagement = () => {
     });
   };
 
-  // Generate Excel file from userData.
   const handleGenerateExcel = () => {
-    // Optionally format dates before exporting
     const formattedData = userData.map((user) => ({
       ...user,
       createdAt: formatDate(user.createdAt),
@@ -99,12 +88,10 @@ const UserManagement = () => {
     }
   }, [excelClicked, dispatch]);
 
-  // All fields are visible by default
   const [visibleFields, setVisibleFields] = useState(
     dataFields.map((field) => field.key)
   );
 
-  // Toggle a field’s visibility
   const toggleVisibleField = (fieldKey) => {
     setVisibleFields((prev) =>
       prev.includes(fieldKey)
@@ -113,7 +100,6 @@ const UserManagement = () => {
     );
   };
 
-  // Fetch users from API and sort them according to the current sortOrder.
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -129,9 +115,8 @@ const UserManagement = () => {
       const { data, total } = response.data;
       const transformedData = data.map((user) => ({
         ...user,
-        dob: user.dob || "-", // Replace missing DOB with a placeholder
+        dob: user.dob || "-",
       }));
-      // Sort the fetched data based on the current sortOrder.
       const sortedData = [...transformedData].sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
@@ -146,15 +131,12 @@ const UserManagement = () => {
     }
   };
 
-  // Re-fetch users when pagination changes.
   useEffect(() => {
     fetchUsers();
   }, [currentPage, itemsPerPage]);
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // When the user clicks Apply in the sort modal,
-  // update sortOrder and re-sort the currently displayed data.
   const handleApplySort = () => {
     setSortOrder(tempSortOrder);
     const sortedData = [...userData].sort((a, b) => {
@@ -166,7 +148,6 @@ const UserManagement = () => {
     setIsSortModalOpen(false);
   };
 
-  // Filter the data using the search term.
   const filteredData = userData.filter(
     (item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -179,11 +160,36 @@ const UserManagement = () => {
     router.push(`/admin/userinformation/${id}`);
   };
 
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalUsers / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers for display
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Adjust this to show more/less pages
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
   return (
     <div className="p-4">
       {/* Filters and Controls */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
@@ -202,9 +208,7 @@ const UserManagement = () => {
           )}
         </div>
 
-        {/* View and Sort Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
-          {/* View Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={viewStyle}
@@ -215,18 +219,6 @@ const UserManagement = () => {
             <option>List View</option>
           </select>
 
-          {/* Items per Page Selector */}
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={50}>View 50</option>
-            <option value={100}>View 100</option>
-          </select>
-
-          {/* Sort Button with a red dot if a non-default filter is applied */}
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 gap-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
@@ -320,61 +312,120 @@ const UserManagement = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-full overflow-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    {dataFields
-                      .filter((field) => visibleFields.includes(field.key))
-                      .map((field) => (
-                        <th key={field.key} className="py-3 px-4">
-                          {field.label}
-                        </th>
-                      ))}
-                    <th className="py-3 px-4">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-full overflow-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
                       {dataFields
                         .filter((field) => visibleFields.includes(field.key))
                         .map((field) => (
-                          <td key={field.key} className="py-3 px-4 break-words">
-                            {field.key === "createdAt"
-                              ? formatDate(item.createdAt)
-                              : field.key === "dob" && item.dob !== "-"
-                              ? formatDate(item.dob)
-                              : item[field.key] || "-"}
-                          </td>
+                          <th key={field.key} className="py-3 px-4">
+                            {field.label}
+                          </th>
                         ))}
-                      <td className="py-3 px-4 text-right">
+                      <th className="py-3 px-4">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        {dataFields
+                          .filter((field) => visibleFields.includes(field.key))
+                          .map((field) => (
+                            <td
+                              key={field.key}
+                              className="py-3 px-4 break-words"
+                            >
+                              {field.key === "createdAt"
+                                ? formatDate(item.createdAt)
+                                : field.key === "dob" && item.dob !== "-"
+                                ? formatDate(item.dob)
+                                : item[field.key] || "-"}
+                            </td>
+                          ))}
+                        <td className="py-3 px-4 text-right">
+                          <button
+                            onClick={() => handleActionClick(item.id)}
+                            className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
+                          >
+                            i
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="overflow-x-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-2">
+                  {filteredData.map((item) => (
+                    <div
+                      key={item.id}
+                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col justify-between"
+                    >
+                      <div>
+                        {visibleFields.includes("name") && (
+                          <h2 className="font-bold text-lg mb-2 break-words">
+                            {item.name}
+                          </h2>
+                        )}
+                        {visibleFields.includes("email") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Email:</b> {item.email}
+                          </p>
+                        )}
+                        {visibleFields.includes("phone") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Mobile Number:</b> {item.phone || "N/A"}
+                          </p>
+                        )}
+                        {visibleFields.includes("dob") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Date of Birth:</b>{" "}
+                            {item.dob !== "-" ? formatDate(item.dob) : item.dob}
+                          </p>
+                        )}
+                        {visibleFields.includes("createdAt") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Created At:</b> {formatDate(item.createdAt)}
+                          </p>
+                        )}
+                        {visibleFields.includes("role") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Role:</b> {item.role}
+                          </p>
+                        )}
+                      </div>
+                      <div className="mt-4 flex justify-end">
                         <button
                           onClick={() => handleActionClick(item.id)}
                           className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
                         >
                           i
                         </button>
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="overflow-x-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-2">
+                </div>
+              </div>
+            ) : (
+              // List View
+              <div className="flex flex-col gap-4">
                 {filteredData.map((item) => (
                   <div
                     key={item.id}
-                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col justify-between"
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col md:flex-row md:items-center justify-between"
                   >
-                    <div>
+                    <div className="space-y-2">
                       {visibleFields.includes("name") && (
-                        <h2 className="font-bold text-lg mb-2 break-words">
+                        <h2 className="font-bold text-sm mb-2 break-words">
                           {item.name}
                         </h2>
                       )}
@@ -405,7 +456,7 @@ const UserManagement = () => {
                         </p>
                       )}
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-4 md:mt-0">
                       <button
                         onClick={() => handleActionClick(item.id)}
                         className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
@@ -416,60 +467,41 @@ const UserManagement = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          ) : (
-            // List View
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col md:flex-row md:items-center justify-between"
+            )}
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-6">
+              
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                &lt;
+              </button>
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 mx-1 text-sm border border-gray-300 rounded-md ${
+                    currentPage === page
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
                 >
-                  <div className="space-y-2">
-                    {visibleFields.includes("name") && (
-                      <h2 className="font-bold text-lg mb-2 break-words">
-                        {item.name}
-                      </h2>
-                    )}
-                    {visibleFields.includes("email") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Email:</b> {item.email}
-                      </p>
-                    )}
-                    {visibleFields.includes("phone") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Mobile Number:</b> {item.phone || "N/A"}
-                      </p>
-                    )}
-                    {visibleFields.includes("dob") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Date of Birth:</b>{" "}
-                        {item.dob !== "-" ? formatDate(item.dob) : item.dob}
-                      </p>
-                    )}
-                    {visibleFields.includes("createdAt") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Created At:</b> {formatDate(item.createdAt)}
-                      </p>
-                    )}
-                    {visibleFields.includes("role") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Role:</b> {item.role}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mt-4 md:mt-0">
-                    <button
-                      onClick={() => handleActionClick(item.id)}
-                      className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
-                    >
-                      i
-                    </button>
-                  </div>
-                </div>
+                  {page}
+                </button>
               ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                &gt;
+              </button>
+            
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No user found</p>
