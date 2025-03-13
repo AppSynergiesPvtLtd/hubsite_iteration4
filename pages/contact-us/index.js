@@ -78,7 +78,10 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex flex-col mt-10 items-center justify-center md:max-h-[650px] poppins p-3 overflow-x-hidden">
+    <div className="flex flex-col items-center justify-center md:min-h-[650px] poppins p-3 overflow-x-hidden">
+      <h1 className="text-xl md:w-[320px] font-medium text-[#333333] text-center mb-6 poppins-bold ">
+        Love to hear from you,<br/> Get in touch 👋
+      </h1>
       {formSubmitted ? (
         <div className="flex flex-col items-center justify-center mt-8">
           <div className="w-[250px] h-[250px] md:w-[500.6px] md:h-[450px] relative">

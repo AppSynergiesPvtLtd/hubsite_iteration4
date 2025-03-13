@@ -68,18 +68,14 @@ const Contactus = () => {
   ];
 
   const dispatch = useDispatch();
-
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("Contact Us"));
     dispatch(
       showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
     );
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    
 
     return () => {
       dispatch(hideAdd());
@@ -89,7 +85,6 @@ const Contactus = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Generate Excel file from userData.
   const handleGenerateExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(userData);
     const workbook = XLSX.utils.book_new();
@@ -97,7 +92,6 @@ const Contactus = () => {
     XLSX.writeFile(workbook, "ContactMessages.xlsx");
   };
 
-  // When the Excel trigger flag is set, generate Excel and then reset the flag.
   useEffect(() => {
     if (excelClicked) {
       handleGenerateExcel();
@@ -105,23 +99,18 @@ const Contactus = () => {
     }
   }, [excelClicked, dispatch]);
 
-  // All togglable fields visible by default.
   const [visibleFields, setVisibleFields] = useState(
     dataFields.map((field) => field.key)
   );
 
-  // Toggle a field’s visibility when its pill is clicked.
   const toggleVisibleField = (fieldKey) => {
-    setVisibleFields((prev) => {
-      if (prev.includes(fieldKey)) {
-        return prev.filter((key) => key !== fieldKey);
-      } else {
-        return [...prev, fieldKey];
-      }
-    });
+    setVisibleFields((prev) =>
+      prev.includes(fieldKey)
+        ? prev.filter((key) => key !== fieldKey)
+        : [...prev, fieldKey]
+    );
   };
 
-  // The list of subjects (for filtering).
   const subjects = [
     "General Inquiry",
     "Technical Support",
@@ -132,7 +121,6 @@ const Contactus = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-  // Fetch users (and pass applied filters to the API if supported).
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -147,16 +135,12 @@ const Contactus = () => {
         limit: itemsPerPage,
         page: currentPage,
       };
-      const response = await axios.post(
-        `${baseUrl}/contact-us/filter`,
-        payload,
-        {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axios.post(`${baseUrl}/contact-us/filter`, payload, {
+        headers: {
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const { data, total } = response.data;
       setUserData(data);
       setTotalUsers(total);
@@ -173,41 +157,33 @@ const Contactus = () => {
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Toggle a subject in the temporary filter state (used in the modal).
   const handleTempSubjectToggle = (subject) => {
-    setTempSelectedSubjects((prev) => {
-      if (prev.includes(subject)) {
-        return prev.filter((s) => s !== subject);
-      } else {
-        return [...prev, subject];
-      }
-    });
+    setTempSelectedSubjects((prev) =>
+      prev.includes(subject)
+        ? prev.filter((s) => s !== subject)
+        : [...prev, subject]
+    );
   };
 
-  // Clear temporary filters in the modal.
   const handleClearTempFilters = () => {
     setTempSelectedSubjects([]);
     setTempSortOrder("");
   };
 
-  // Apply the temporary filters to the applied state when clicking Apply.
   const handleApplyFilters = () => {
     setSelectedSubjects(tempSelectedSubjects);
     setSortOrder(tempSortOrder);
     setIsSortModalOpen(false);
   };
 
-  // Client-side filtering by search term.
   const filteredData = userData.filter(
     (item) =>
       (searchTerm === "" ||
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (selectedSubjects.length === 0 ||
-        selectedSubjects.includes(item.subject))
+      (selectedSubjects.length === 0 || selectedSubjects.includes(item.subject))
   );
 
-  // Delete the message from the API.
   const deleteMessage = async (id) => {
     try {
       await axios.delete(`${baseUrl}/contact-us/${id}`, {
@@ -232,7 +208,6 @@ const Contactus = () => {
     }
   };
 
-  // Called when the user confirms deletion in the modal.
   const confirmDeleteHandler = async () => {
     if (confirmDelete.id) {
       await deleteMessage(confirmDelete.id);
@@ -265,6 +240,32 @@ const Contactus = () => {
     </div>
   );
 
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalUsers / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers for display
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Adjust to show more/less pages
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
   return (
     <div className="p-4">
       {alert.show && (
@@ -273,7 +274,6 @@ const Contactus = () => {
 
       {/* Filters and Controls */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
@@ -292,7 +292,6 @@ const Contactus = () => {
           )}
         </div>
 
-        {/* View Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
@@ -304,19 +303,8 @@ const Contactus = () => {
             <option>List View</option>
           </select>
 
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={50}>View 50</option>
-            <option value={100}>View 100</option>
-          </select>
-
           <button
             onClick={() => {
-              // When opening the modal, initialize temporary filters with the applied ones.
               setTempSelectedSubjects(selectedSubjects);
               setTempSortOrder(sortOrder);
               setIsSortModalOpen(true);
@@ -362,7 +350,6 @@ const Contactus = () => {
               </button>
             </div>
             <div className="p-4 space-y-6">
-              {/* Sort Section */}
               <div>
                 <h4 className="text-sm font-medium mb-3">Sort By (Date)</h4>
                 <div className="space-y-3">
@@ -387,7 +374,6 @@ const Contactus = () => {
                 </div>
               </div>
             </div>
-            {/* Action Buttons */}
             <div className="flex items-center justify-center gap-3 p-4 border-t">
               <button
                 onClick={handleClearTempFilters}
@@ -413,59 +399,110 @@ const Contactus = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-full overflow-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    {dataFields
-                      .filter((field) => visibleFields.includes(field.key))
-                      .map((field) => (
-                        <th key={field.key} className="py-3 px-4">
-                          {field.label}
-                        </th>
-                      ))}
-                    <th className="py-3 px-4">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-full overflow-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
                       {dataFields
                         .filter((field) => visibleFields.includes(field.key))
                         .map((field) => (
-                          <td key={field.key} className="py-3 px-4 break-words">
-                            {field.key === "createdAt"
-                              ? new Date(item.createdAt).toLocaleDateString()
-                              : item[field.key]}
-                          </td>
+                          <th key={field.key} className="py-3 px-4">
+                            {field.label}
+                          </th>
                         ))}
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() =>
-                              setConfirmDelete({ show: true, id: item.id })
-                            }
-                            className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+                      <th className="py-3 px-4">Actions</th>
                     </tr>
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        {dataFields
+                          .filter((field) => visibleFields.includes(field.key))
+                          .map((field) => (
+                            <td
+                              key={field.key}
+                              className="py-3 px-4 break-words"
+                            >
+                              {field.key === "createdAt"
+                                ? new Date(item.createdAt).toLocaleDateString()
+                                : item[field.key]}
+                            </td>
+                          ))}
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() =>
+                                setConfirmDelete({ show: true, id: item.id })
+                              }
+                              className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="overflow-x-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-2">
+                  {filteredData.map((item) => (
+                    <div
+                      key={item.id}
+                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col justify-between"
+                    >
+                      <div className="space-y-2">
+                        {visibleFields.includes("name") && (
+                          <h2 className="font-bold text-lg break-words">
+                            {item.name}
+                          </h2>
+                        )}
+                        {visibleFields.includes("email") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Email:</b> {item.email}
+                          </p>
+                        )}
+                        {visibleFields.includes("message") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Message:</b> {item.message}
+                          </p>
+                        )}
+                        {visibleFields.includes("createdAt") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Created:</b>{" "}
+                            {new Date(item.createdAt).toLocaleDateString()}
+                          </p>
+                        )}
+                      </div>
+                      <div className="mt-4 flex justify-end">
+                        <button
+                          onClick={() =>
+                            setConfirmDelete({ show: true, id: item.id })
+                          }
+                          className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="overflow-x-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-2">
+                </div>
+              </div>
+            ) : (
+              // List View
+              <div className="flex flex-col gap-4">
                 {filteredData.map((item) => (
                   <div
                     key={item.id}
-                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col justify-between"
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col md:flex-row md:items-center justify-between"
                   >
                     <div className="space-y-2">
                       {visibleFields.includes("name") && (
@@ -490,7 +527,7 @@ const Contactus = () => {
                         </p>
                       )}
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-2 md:mt-0">
                       <button
                         onClick={() =>
                           setConfirmDelete({ show: true, id: item.id })
@@ -503,52 +540,41 @@ const Contactus = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          ) : (
-            // List View
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition w-full flex flex-col md:flex-row md:items-center justify-between"
+            )}
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-6">
+              
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                «
+              </button>
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 mx-1 text-sm border border-gray-300 rounded-md ${
+                    currentPage === page
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
                 >
-                  <div className="space-y-2">
-                    {visibleFields.includes("name") && (
-                      <h2 className="font-bold text-lg break-words">
-                        {item.name}
-                      </h2>
-                    )}
-                    {visibleFields.includes("email") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Email:</b> {item.email}
-                      </p>
-                    )}
-                    {visibleFields.includes("message") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Message:</b> {item.message}
-                      </p>
-                    )}
-                    {visibleFields.includes("createdAt") && (
-                      <p className="text-gray-600 break-words">
-                        <b>Created:</b>{" "}
-                        {new Date(item.createdAt).toLocaleDateString()}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mt-2 md:mt-0">
-                    <button
-                      onClick={() =>
-                        setConfirmDelete({ show: true, id: item.id })
-                      }
-                      className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
+                  {page}
+                </button>
               ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                »
+              </button>
+             
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No messages found</p>

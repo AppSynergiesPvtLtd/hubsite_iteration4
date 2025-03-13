@@ -26,10 +26,12 @@ const TestimonialManagement = () => {
   const [testimonialData, setTestimonialData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(2); // Fixed to 2 as per API requirement
+  const [currentPage, setCurrentPage] = useState(1);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
-  const [sortOrder, setSortOrder] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // Default empty, can be "Ascending" or "Descending"
   const [loading, setLoading] = useState(false);
+  const [totalTestimonials, setTotalTestimonials] = useState(0); // Added to track total testimonials
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -72,18 +74,13 @@ const TestimonialManagement = () => {
   const handleDelete = async () => {
     if (!testimonialToDelete) return;
     try {
-      await axios.delete(
-        `${API_BASE_URL}/testimonial/${testimonialToDelete}`,
-        {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setTestimonialData((prevData) =>
-        prevData.filter((item) => item.id !== testimonialToDelete)
-      );
+      await axios.delete(`${API_BASE_URL}/testimonial/${testimonialToDelete}`, {
+        headers: {
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      fetchTestimonials();
       closeDeleteModal();
     } catch (error) {
       console.error("Error deleting testimonial:", error);
@@ -94,7 +91,9 @@ const TestimonialManagement = () => {
   useEffect(() => {
     dispatch(setTitle("Testimonials"));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    dispatch(showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" }));
+    dispatch(
+      showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" })
+    );
     dispatch(
       showAdd({
         label: "Add",
@@ -126,8 +125,19 @@ const TestimonialManagement = () => {
   const fetchTestimonials = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/testimonial/random/${itemsPerPage}`,
+      const payload = {
+        sort:
+          sortOrder === "Ascending"
+            ? "asc"
+            : sortOrder === "Descending"
+            ? "desc"
+            : undefined,
+        limit: itemsPerPage,
+        page: currentPage,
+      };
+      const response = await axios.post(
+        `${API_BASE_URL}/testimonial/filter`,
+        payload,
         {
           headers: {
             "x-api-key": API_KEY,
@@ -135,13 +145,13 @@ const TestimonialManagement = () => {
           },
         }
       );
-      const { data } = response;
-      console.log("response",response)
+      const { data, total } = response.data; // Assuming API returns data and total
       const transformedData = data.map((testimonial) => ({
         ...testimonial,
         createdAt: testimonial.createdAt,
       }));
       setTestimonialData(transformedData);
+      setTotalTestimonials(total); // Set total testimonials for pagination
     } catch (error) {
       console.error("Error fetching testimonials:", error);
     } finally {
@@ -151,26 +161,32 @@ const TestimonialManagement = () => {
 
   useEffect(() => {
     fetchTestimonials();
-  }, [itemsPerPage]);
+  }, [currentPage, itemsPerPage, sortOrder]);
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
   const handleSort = (order) => {
-    const sortedData = [...testimonialData].sort((a, b) => {
-      const dateA = new Date(a.createdAt);
-      const dateB = new Date(b.createdAt);
-      return order === "Ascending" ? dateA - dateB : dateB - dateA;
-    });
-    setTestimonialData(sortedData);
     setSortOrder(order);
+    // Sorting is handled server-side via the API payload, so no need to sort locally
   };
 
   const filteredData = testimonialData.filter(
     (item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (item.city && item.city.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (item.comment && item.comment.toLowerCase().includes(searchTerm.toLowerCase()))
+      (item.city &&
+        item.city.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (item.comment &&
+        item.comment.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalTestimonials / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div className="p-4">
@@ -204,23 +220,15 @@ const TestimonialManagement = () => {
             <option>List View</option>
           </select>
 
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={30}>View 30</option>
-            <option value={100}>View 100</option>
-            <option value={200}>View 200</option>
-          </select>
-
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 gap-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
           >
             <Filter />
             Sort
+            {sortOrder && (
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            )}
           </button>
         </div>
       </div>
@@ -254,7 +262,9 @@ const TestimonialManagement = () => {
               </button>
             </div>
             <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-3">Sort By (Created Date)</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Sort By (Created Date)
+              </p>
               <div className="flex flex-col gap-3">
                 <label className="flex items-center gap-2">
                   <input
@@ -278,7 +288,10 @@ const TestimonialManagement = () => {
             </div>
             <div className="flex items-center justify-end gap-3">
               <button
-                onClick={() => setSortOrder("")}
+                onClick={() => {
+                  setSortOrder("");
+                  fetchTestimonials(); // Refetch with no sort order
+                }}
                 className="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-md bg-gray-50 hover:bg-gray-100"
               >
                 Clear
@@ -300,193 +313,223 @@ const TestimonialManagement = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-[90vw] md:w-full overflow-scroll md:overflow-hidden">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    {dataFields
-                      .filter((field) => visibleFields.includes(field.key))
-                      .map((field) => (
-                        <th key={field.key} className="py-3 px-4">
-                          {field.label}
-                        </th>
-                      ))}
-                    <th className="py-3 px-4">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-[90vw] md:w-full overflow-scroll md:overflow-hidden">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
                       {dataFields
                         .filter((field) => visibleFields.includes(field.key))
                         .map((field) => (
-                          <td key={field.key} className="py-3 px-4">
-                            {field.key === "createdAt"
-                              ? new Date(item.createdAt).toLocaleDateString()
-                              : field.key === "image" ? (
-                                  item.image ? (
-                                    <img
-                                      src={item.image}
-                                      alt={item.name}
-                                      className="w-10 h-10 object-cover rounded-full"
-                                    />
-                                  ) : (
-                                    "N/A"
-                                  )
-                                ) : (
-                                  item[field.key] || "-"
-                                )}
-                          </td>
+                          <th key={field.key} className="py-3 px-4">
+                            {field.label}
+                          </th>
                         ))}
-                      <td className="py-3 px-4 flex items-center">
-                        <button
-                          onClick={() =>
-                            router.push(
-                              `/admin/testimonials/add-testimonials?id=${item.id}`
-                            )
-                          }
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <Edit2 size={16} />
-                        </button>
-                        <button
-                          onClick={() => openDeleteModal(item.id)}
-                          className="ml-2 text-red-600 hover:text-red-800"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
+                      <th className="py-3 px-4">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
-                >
-                  <button
-                    onClick={() =>
-                      router.push(
-                        `/admin/testimonials/add-testimonials?id=${item.id}`
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        {dataFields
+                          .filter((field) => visibleFields.includes(field.key))
+                          .map((field) => (
+                            <td key={field.key} className="py-3 px-4">
+                              {field.key === "createdAt" ? (
+                                new Date(item.createdAt).toLocaleDateString()
+                              ) : field.key === "image" ? (
+                                item.image ? (
+                                  <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-10 h-10 object-cover rounded-full"
+                                  />
+                                ) : (
+                                  "N/A"
+                                )
+                              ) : (
+                                item[field.key] || "-"
+                              )}
+                            </td>
+                          ))}
+                        <td className="py-3 px-4 flex items-center">
+                          <button
+                            onClick={() =>
+                              router.push(
+                                `/admin/testimonials/add-testimonials?id=${item.id}`
+                              )
+                            }
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            <Edit2 size={16} />
+                          </button>
+                          <button
+                            onClick={() => openDeleteModal(item.id)}
+                            className="ml-2 text-red-600 hover:text-red-800"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
+                  >
+                    <button
+                      onClick={() =>
+                        router.push(
+                          `/admin/testimonials/add-testimonials?id=${item.id}`
+                        )
+                      }
+                      className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
+                    >
+                      <Edit2 size={20} />
+                    </button>
+                    <button
+                      onClick={() => openDeleteModal(item.id)}
+                      className="absolute top-2 right-2 text-red-600 hover:text-red-800"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                    {visibleFields.includes("image") && (
+                      item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover rounded-full mt-2"
+                        />
+                      ) : (
+                        <p className="text-gray-600 font-bold">Img: N/A</p>
                       )
-                    }
-                    className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
+                    )}
+                    {visibleFields.includes("name") && (
+                      <h2 className="font-bold text-lg mb-2">{item.name}</h2>
+                    )}
+                    {visibleFields.includes("city") && (
+                      <p className="text-gray-600">
+                        <b>City:</b> {item.city}
+                      </p>
+                    )}
+                    {visibleFields.includes("comment") && (
+                      <p className="text-gray-600">
+                        <b>Comment:</b> {item.comment}
+                      </p>
+                    )}
+                    {visibleFields.includes("createdAt") && (
+                      <p className="text-gray-600">
+                        <b>Created At:</b>{" "}
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    )}
+                    {visibleFields.includes("rating") && (
+                      <p className="text-gray-600">
+                        <b>Rating:</b> {item.rating}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
                   >
-                    <Edit2 size={20} />
-                  </button>
-                  <button
-                    onClick={() => openDeleteModal(item.id)}
-                    className="absolute top-2 right-2 text-red-600 hover:text-red-800"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                  {visibleFields.includes("image") && (
-                    item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-full mt-2"
-                      />
-                    ) : (
-                      <p className="text-gray-600 font-bold">Img: N/A</p>
-                    )
-                  )}
-                  {visibleFields.includes("name") && (
-                    <h2 className="font-bold text-lg mb-2">{item.name}</h2>
-                  )}
-                  {visibleFields.includes("city") && (
-                    <p className="text-gray-600">
-                      <b>City:</b> {item.city}
-                    </p>
-                  )}
-                  {visibleFields.includes("comment") && (
-                    <p className="text-gray-600">
-                      <b>Comment:</b> {item.comment}
-                    </p>
-                  )}
-                  {visibleFields.includes("createdAt") && (
-                    <p className="text-gray-600">
-                      <b>Created At:</b>{" "}
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
-                  )}
-                  {visibleFields.includes("rating") && (
-                    <p className="text-gray-600">
-                      <b>Rating:</b> {item.rating}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
-                >
-                  <button
-                    onClick={() =>
-                      router.push(
-                        `/admin/testimonials/add-testimonials?id=${item.id}`
+                    <button
+                      onClick={() =>
+                        router.push(
+                          `/admin/testimonials/add-testimonials?id=${item.id}`
+                        )
+                      }
+                      className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
+                    >
+                      <Edit2 size={20} />
+                    </button>
+                    <button
+                      onClick={() => openDeleteModal(item.id)}
+                      className="absolute top-2 right-2 text-red-600 hover:text-red-800"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                    {visibleFields.includes("image") && (
+                      item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover rounded-full mt-2"
+                        />
+                      ) : (
+                        <p className="text-gray-600 font-bold">Img: N/A</p>
                       )
-                    }
-                    className="absolute top-2 right-10 text-blue-600 hover:text-blue-800"
-                  >
-                    <Edit2 size={20} />
-                  </button>
-                  <button
-                    onClick={() => openDeleteModal(item.id)}
-                    className="absolute top-2 right-2 text-red-600 hover:text-red-800"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                  {visibleFields.includes("image") && (
-                    item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-full mt-2"
-                      />
-                    ) : (
-                      <p className="text-gray-600 font-bold">Img: N/A</p>
-                    )
-                  )}
-                  {visibleFields.includes("name") && (
-                    <h2 className="font-bold text-lg mb-2">{item.name}</h2>
-                  )}
-                  {visibleFields.includes("city") && (
-                    <p className="text-gray-600">
-                      <b>City:</b> {item.city}
-                    </p>
-                  )}
-                  {visibleFields.includes("comment") && (
-                    <p className="text-gray-600">
-                      <b>Comment:</b> {item.comment}
-                    </p>
-                  )}
-                  {visibleFields.includes("createdAt") && (
-                    <p className="text-gray-600">
-                      <b>Created At:</b>{" "}
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
-                  )}
-                  {visibleFields.includes("rating") && (
-                    <p className="text-gray-600">
-                      <b>Rating:</b> {item.rating}
-                    </p>
-                  )}
-                </div>
-              ))}
+                    )}
+                    {visibleFields.includes("name") && (
+                      <h2 className="font-bold text-lg mb-2">{item.name}</h2>
+                    )}
+                    {visibleFields.includes("city") && (
+                      <p className="text-gray-600">
+                        <b>City:</b> {item.city}
+                      </p>
+                    )}
+                    {visibleFields.includes("comment") && (
+                      <p className="text-gray-600">
+                        <b>Comment:</b> {item.comment}
+                      </p>
+                    )}
+                    {visibleFields.includes("createdAt") && (
+                      <p className="text-gray-600">
+                        <b>Created At:</b>{" "}
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    )}
+                    {visibleFields.includes("rating") && (
+                      <p className="text-gray-600">
+                        <b>Rating:</b> {item.rating}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Updated Pagination Controls */}
+            <div className="flex flex-col items-center mt-6">
+              <p className="text-sm text-gray-700 mb-2">Take survey 5 mins</p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md bg-white text-gray-600 hover:bg-gray-100 disabled:opacity-50"
+                >
+                  &lt;
+                </button>
+                <button
+                  className="w-8 h-8 flex items-center justify-center border border-blue-500 rounded-md bg-blue-500 text-white"
+                >
+                  {currentPage}
+                </button>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md bg-white text-gray-600 hover:bg-gray-100 disabled:opacity-50"
+                >
+                  &gt;
+                </button>
+              </div>
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No testimonial found</p>
@@ -498,7 +541,9 @@ const TestimonialManagement = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-96">
             <h2 className="text-xl font-semibold mb-4">Confirm Deletion</h2>
-            <p className="mb-6">Are you sure you want to delete this testimonial?</p>
+            <p className="mb-6">
+              Are you sure you want to delete this testimonial?
+            </p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={closeDeleteModal}

@@ -25,18 +25,15 @@ const SurveyTaken = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
-  // Default sort order "Descending" shows latest surveys on top.
   const [sortOrder, setSortOrder] = useState("Descending");
-  // tempSortOrder holds the selection in modal before applying.
   const [tempSortOrder, setTempSortOrder] = useState("Descending");
   const [loading, setLoading] = useState(false);
+  const [totalSurveys, setTotalSurveys] = useState(0); // Added to track total surveys
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header configuration on mount.
   useEffect(() => {
     dispatch(setTitle("Profile Surveys Lists"));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
@@ -52,7 +49,6 @@ const SurveyTaken = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Generate Excel file from surveyData.
   const handleGenerateExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(surveyData);
     const workbook = XLSX.utils.book_new();
@@ -79,12 +75,12 @@ const SurveyTaken = () => {
           },
         }
       );
-      const { data } = response.data;
-      // Sort fetched data by createdAt descending by default.
+      const { data, total } = response.data; // Assuming API returns total
       const sortedData = [...data].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setSurveyData(sortedData);
+      setTotalSurveys(total); // Set total surveys for pagination
     } catch (error) {
       console.error("Error fetching survey data:", error);
     } finally {
@@ -98,7 +94,6 @@ const SurveyTaken = () => {
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Apply the sort filter when clicking "Apply" in the modal.
   const handleApplySort = () => {
     setSortOrder(tempSortOrder);
     const sortedData = [...surveyData].sort((a, b) => {
@@ -110,7 +105,6 @@ const SurveyTaken = () => {
     setIsSortModalOpen(false);
   };
 
-  // Clear the sort filter (reset to default "Descending").
   const handleClearSort = () => {
     setTempSortOrder("Descending");
     setSortOrder("Descending");
@@ -120,24 +114,47 @@ const SurveyTaken = () => {
     setSurveyData(sortedData);
   };
 
-  // Filter surveys by title or description.
   const filteredData = surveyData.filter(
     (item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Action button handler.
   const handleActionClick = (id) => {
     console.log(`Action clicked for survey ID: ${id}`);
     router.push(`/admin/profile-survey-completions/${id}`);
+  };
+
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalSurveys / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers for display
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Adjust to show more/less pages
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
   };
 
   return (
     <div className="p-4 max-w-full">
       {/* Filters and Controls */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
@@ -156,9 +173,7 @@ const SurveyTaken = () => {
           )}
         </div>
 
-        {/* View and Sort Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
-          {/* View Selector */}
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
             value={viewStyle}
@@ -169,18 +184,8 @@ const SurveyTaken = () => {
             <option>List View</option>
           </select>
 
-          {/* Items per Page Selector */}
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={50}>View 50</option>
-            <option value={100}>View 100</option>
-          </select>
+         
 
-          {/* Sort Button */}
           <button
             onClick={() => setIsSortModalOpen(true)}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center focus:outline-none"
@@ -257,86 +262,59 @@ const SurveyTaken = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-[90vw] md:w-full overflow-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    <th className="py-3 px-4">Title</th>
-                    <th className="py-3 px-4">Description</th>
-                    <th className="py-3 px-4">Hub Coins</th>
-                    <th className="py-3 px-4">Created At</th>
-                    <th className="py-3 px-4">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">{item.title}</td>
-                      <td className="py-3 px-4">{item.description}</td>
-                      <td className="py-3 px-4">{item.hubCoins}</td>
-                      <td className="py-3 px-4">
-                        {new Date(item.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <button
-                          onClick={() => handleActionClick(item.id)}
-                          className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
-                        >
-                          i
-                        </button>
-                      </td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-[90vw] md:w-full overflow-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
+                      <th className="py-3 px-4">Title</th>
+                      <th className="py-3 px-4">Description</th>
+                      <th className="py-3 px-4">Hub Coins</th>
+                      <th className="py-3 px-4">Created At</th>
+                      <th className="py-3 px-4">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
-                >
-                  {/* Action button on top-right */}
-                  <button
-                    onClick={() => handleActionClick(item.id)}
-                    className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        <td className="py-3 px-4">{item.title}</td>
+                        <td className="py-3 px-4">{item.description}</td>
+                        <td className="py-3 px-4">{item.hubCoins}</td>
+                        <td className="py-3 px-4">
+                          {new Date(item.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <button
+                            onClick={() => handleActionClick(item.id)}
+                            className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center"
+                          >
+                            i
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition"
                   >
-                    i
-                  </button>
-                  <h2 className="font-bold text-lg mb-2">{item.title}</h2>
-                  <p className="text-gray-600 mb-1">
-                    <b>Description:</b> {item.description}
-                  </p>
-                  <p className="text-gray-600 mb-1">
-                    <b>Hub Coins:</b> {item.hubCoins}
-                  </p>
-                  <p className="text-gray-600">
-                    <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            // List View
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
-                >
-                  {/* Action button on top-right */}
-                  <button
-                    onClick={() => handleActionClick(item.id)}
-                    className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
-                  >
-                    i
-                  </button>
-                  <div>
-                    <h2 className="font-bold text-lg mb-1">{item.title}</h2>
+                    <button
+                      onClick={() => handleActionClick(item.id)}
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                    >
+                      i
+                    </button>
+                    <h2 className="font-bold text-lg mb-2">{item.title}</h2>
                     <p className="text-gray-600 mb-1">
                       <b>Description:</b> {item.description}
                     </p>
@@ -347,10 +325,71 @@ const SurveyTaken = () => {
                       <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
                     </p>
                   </div>
-                </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative border rounded-lg p-4 pt-10 shadow-md hover:shadow-lg transition flex flex-col sm:flex-row justify-between items-start"
+                  >
+                    <button
+                      onClick={() => handleActionClick(item.id)}
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs"
+                    >
+                      i
+                    </button>
+                    <div>
+                      <h2 className="font-bold text-lg mb-1">{item.title}</h2>
+                      <p className="text-gray-600 mb-1">
+                        <b>Description:</b> {item.description}
+                      </p>
+                      <p className="text-gray-600 mb-1">
+                        <b>Hub Coins:</b> {item.hubCoins}
+                      </p>
+                      <p className="text-gray-600">
+                        <b>Created:</b> {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-6">
+              
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+               &lt;
+              </button>
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 mx-1 text-sm border border-gray-300 rounded-md ${
+                    currentPage === page
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {page}
+                </button>
               ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                &gt;  
+              </button>
+              
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No surveys found</p>

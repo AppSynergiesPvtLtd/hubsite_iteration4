@@ -26,15 +26,7 @@ const StepThree = ({ navigate }) => {
       </motion.p>
 
       {/* Link */}
-      <motion.a
-        href="#"
-        className="text-[#0057A1] text-[16px] md:text-[18px] font-semibold underline mt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        Why do we ask this?
-      </motion.a>
+      
 
       {/* Button */}
       <motion.button

@@ -19,7 +19,6 @@ import {
 } from "@/store/adminbtnSlice";
 
 const Newsletter = () => {
-  // Main UI states
   const [userData, setUserData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
@@ -28,30 +27,20 @@ const Newsletter = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
-
-  // States for deletion confirmation
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [subscriberToDelete, setSubscriberToDelete] = useState(null);
-
-  // States for filter/sort modal
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
-  // This is the "applied" filter state used in API requests.
   const [sortOrder, setSortOrder] = useState("");
-  // This temporary state holds the sort filter inside the modal.
   const [tempSortOrder, setTempSortOrder] = useState("");
-
   const router = useRouter();
   const dispatch = useDispatch();
-
-  // Get the Excel trigger flag from Redux.
   const excelClicked = useSelector((state) => state.adminbtn.excelClicked);
 
-  // Set header title and show Excel button on mount.
   useEffect(() => {
     dispatch(setTitle("Newsletter"));
     dispatch(showExcel({ label: "Generate Excel", actionType: "GENERATE_EXCEL" }));
     dispatch(showRefresh({ label: "Refresh", redirectTo: router.asPath }));
-    
+
     return () => {
       dispatch(hideAdd());
       dispatch(hideRefresh());
@@ -60,7 +49,6 @@ const Newsletter = () => {
     };
   }, [dispatch, router.asPath]);
 
-  // Generate an Excel file from userData.
   const handleGenerateExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(userData);
     const workbook = XLSX.utils.book_new();
@@ -68,7 +56,6 @@ const Newsletter = () => {
     XLSX.writeFile(workbook, "NewsletterSubscribers.xlsx");
   };
 
-  // When Excel flag is active, generate the Excel file then reset the flag.
   useEffect(() => {
     if (excelClicked) {
       handleGenerateExcel();
@@ -76,13 +63,11 @@ const Newsletter = () => {
     }
   }, [excelClicked, dispatch]);
 
-  // For this newsletter, we display only email and subscription date.
   const dataFields = [
     { key: "email", label: "Email" },
     { key: "createdAt", label: "Subscribed At" },
   ];
 
-  // Allow toggling which columns are visible.
   const [visibleFields, setVisibleFields] = useState(
     dataFields.map((field) => field.key)
   );
@@ -94,11 +79,9 @@ const Newsletter = () => {
     );
   };
 
-  // API configuration
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-  // Fetch newsletter data with applied filters.
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -137,31 +120,26 @@ const Newsletter = () => {
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Clear temporary filters inside the modal.
   const handleClearTempFilters = () => {
     setTempSortOrder("");
   };
 
-  // Apply temporary filters to the actual filter state.
   const handleApplyFilters = () => {
     setSortOrder(tempSortOrder);
     setIsSortModalOpen(false);
   };
 
-  // Client-side filtering based on the search term.
   const filteredData = userData.filter(
     (item) =>
       searchTerm === "" ||
       item.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Open deletion modal.
   const handleDeleteClick = (id) => {
     setSubscriberToDelete(id);
     setIsDeleteModalOpen(true);
   };
 
-  // Delete a subscriber after confirmation.
   const handleConfirmDelete = async () => {
     try {
       await axios.delete(`${baseUrl}/newsletter/id/${subscriberToDelete}`, {
@@ -189,7 +167,6 @@ const Newsletter = () => {
     }
   };
 
-  // Cancel deletion.
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
     setSubscriberToDelete(null);
@@ -206,7 +183,6 @@ const Newsletter = () => {
     }
   }, [alert]);
 
-  // Simple Alert component.
   const Alert = ({ message, type }) => (
     <div
       className={`fixed top-4 right-4 p-4 rounded-md shadow-md flex items-center space-x-2 ${
@@ -218,13 +194,38 @@ const Newsletter = () => {
     </div>
   );
 
+  // Pagination Calculations
+  const totalPages = Math.ceil(totalUsers / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers for display
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Adjust to show more/less pages
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
   return (
     <div className="p-4">
       {alert.show && <Alert message={alert.message} type={alert.type} />}
 
       {/* Search and Control Bar */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Search Bar */}
         <div className="flex-grow relative w-full sm:w-auto">
           <input
             type="text"
@@ -243,7 +244,6 @@ const Newsletter = () => {
           )}
         </div>
 
-        {/* View Style, Items per Page, and Filter & Sort Controls */}
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
           <select
             className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
@@ -255,25 +255,16 @@ const Newsletter = () => {
             <option>List View</option>
           </select>
 
-          <select
-            className="px-4 py-2 text-sm border border-gray-300 rounded-full bg-gray-100 text-gray-600 focus:outline-none"
-            value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          >
-            <option value={10}>View 10</option>
-            <option value={50}>View 50</option>
-            <option value={100}>View 100</option>
-          </select>
+        
 
           <button
             onClick={() => {
-              // Initialize temporary filter with the current applied sortOrder.
               setTempSortOrder(sortOrder);
               setIsSortModalOpen(true);
             }}
             className="relative px-4 py-2 text-sm font-medium border border-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none"
           >
-          Sort
+            Sort
             {sortOrder && (
               <span className="absolute top-0 right-0 mt-1 mr-1 w-2 h-2 bg-red-600 rounded-full"></span>
             )}
@@ -313,7 +304,6 @@ const Newsletter = () => {
             </div>
 
             <div className="p-4 space-y-6">
-              {/* Sort Section (by Date) */}
               <div>
                 <h4 className="text-sm font-medium mb-3">Sort By (Date)</h4>
                 <div className="space-y-3">
@@ -339,7 +329,6 @@ const Newsletter = () => {
               </div>
             </div>
 
-            {/* Modal Action Buttons */}
             <div className="flex items-center justify-center gap-3 p-4 border-t">
               <button
                 onClick={handleClearTempFilters}
@@ -365,110 +354,146 @@ const Newsletter = () => {
             <p className="text-gray-500 text-lg">Loading...</p>
           </div>
         ) : filteredData.length > 0 ? (
-          viewStyle === "Table View" ? (
-            <div className="w-[90vw] md:w-full overflow-scroll md:overflow-hidden">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-sm text-gray-600 font-medium">
-                    <th className="py-3 px-4">S. NO</th>
-                    {dataFields
-                      .filter((field) => visibleFields.includes(field.key))
-                      .map((field) => (
-                        <th key={field.key} className="py-3 px-4">
-                          {field.label}
-                        </th>
-                      ))}
-                    <th className="py-3 px-4">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm text-gray-800">
-                  {filteredData.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
-                      <td className="py-3 px-4">{index + 1}</td>
+          <>
+            {viewStyle === "Table View" ? (
+              <div className="w-[90vw] md:w-full overflow-scroll md:overflow-hidden">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-sm text-gray-600 font-medium">
+                      <th className="py-3 px-4">S. NO</th>
                       {dataFields
                         .filter((field) => visibleFields.includes(field.key))
                         .map((field) => (
-                          <td key={field.key} className="py-3 px-4">
-                            {field.key === "createdAt"
-                              ? new Date(item.createdAt).toLocaleDateString()
-                              : item[field.key]}
-                          </td>
+                          <th key={field.key} className="py-3 px-4">
+                            {field.label}
+                          </th>
                         ))}
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleDeleteClick(item.id)}
-                            className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+                      <th className="py-3 px-4">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : viewStyle === "Grid View" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition"
-                >
-                  <div className="flex justify-end mb-2">
-                    <button
-                      onClick={() => handleDeleteClick(item.id)}
-                      className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                  </thead>
+                  <tbody className="text-sm text-gray-800">
+                    {filteredData.map((item, index) => (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="py-3 px-4">
+                          {(currentPage - 1) * itemsPerPage + index + 1}
+                        </td>
+                        {dataFields
+                          .filter((field) => visibleFields.includes(field.key))
+                          .map((field) => (
+                            <td key={field.key} className="py-3 px-4">
+                              {field.key === "createdAt"
+                                ? new Date(item.createdAt).toLocaleDateString()
+                                : item[field.key]}
+                            </td>
+                          ))}
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleDeleteClick(item.id)}
+                              className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : viewStyle === "Grid View" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition"
+                  >
+                    <div className="flex justify-end mb-2">
+                      <button
+                        onClick={() => handleDeleteClick(item.id)}
+                        className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    {visibleFields.includes("email") && (
+                      <p className="text-gray-800 mb-2">
+                        <strong>Email:</strong> {item.email}
+                      </p>
+                    )}
+                    {visibleFields.includes("createdAt") && (
+                      <p className="text-gray-600">
+                        <strong>Subscribed:</strong>{" "}
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    )}
                   </div>
-                  {visibleFields.includes("email") && (
-                    <p className="text-gray-800 mb-2">
-                      <strong>Email:</strong> {item.email}
-                    </p>
-                  )}
-                  {visibleFields.includes("createdAt") && (
-                    <p className="text-gray-600">
-                      <strong>Subscribed:</strong>{" "}
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            // List View
-            <div className="flex flex-col gap-4">
-              {filteredData.map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
-                >
-                  <div className="absolute top-4 right-4">
-                    <button
-                      onClick={() => handleDeleteClick(item.id)}
-                      className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                ))}
+              </div>
+            ) : (
+              // List View
+              <div className="flex flex-col gap-4">
+                {filteredData.map((item) => (
+                  <div
+                    key={item.id}
+                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition relative"
+                  >
+                    <div className="absolute top-4 right-4">
+                      <button
+                        onClick={() => handleDeleteClick(item.id)}
+                        className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    {visibleFields.includes("email") && (
+                      <p className="text-gray-800 mb-2">
+                        <strong>Email:</strong> {item.email}
+                      </p>
+                    )}
+                    {visibleFields.includes("createdAt") && (
+                      <p className="text-gray-600">
+                        <strong>Subscribed:</strong>{" "}
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </p>
+                    )}
                   </div>
-                  {visibleFields.includes("email") && (
-                    <p className="text-gray-800 mb-2">
-                      <strong>Email:</strong> {item.email}
-                    </p>
-                  )}
-                  {visibleFields.includes("createdAt") && (
-                    <p className="text-gray-600">
-                      <strong>Subscribed:</strong>{" "}
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
-                  )}
-                </div>
+                ))}
+              </div>
+            )}
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-6">
+              
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              >
+                «
+              </button>
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 mx-1 text-sm border border-gray-300 rounded-md ${
+                    currentPage === page
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {page}
+                </button>
               ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 mx-1 text-sm border border-gray-300 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+              > »
+              </button>
+             
             </div>
-          )
+          </>
         ) : (
           <div className="flex justify-center items-center h-32">
             <p className="text-gray-500 text-lg">No subscribers found</p>
