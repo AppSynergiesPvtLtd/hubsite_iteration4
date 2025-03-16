@@ -206,7 +206,7 @@ const Reviews = () => {
             ) : (
               testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <div className="bg-white sm:bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto">
+                  <div className="bg-white sm:bg-gray-50 md:max-w-[450px] shadow-2xl rounded-lg p-6 mx-auto lg:min-h-[240px]">
                     <div className="flex items-center mb-2">
                       <span className="text-yellow-500 text-xl">
                         {"★".repeat(testimonial.rating).padEnd(5, "☆")}
