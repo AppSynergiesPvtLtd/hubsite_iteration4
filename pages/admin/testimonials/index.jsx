@@ -26,7 +26,7 @@ const TestimonialManagement = () => {
   const [testimonialData, setTestimonialData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewStyle, setViewStyle] = useState("Table View");
-  const [itemsPerPage] = useState(2); // Fixed to 2 as per API requirement
+  const [itemsPerPage] = useState(10); // Fixed to 2 as per API requirement
   const [currentPage, setCurrentPage] = useState(1);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState(""); // Default empty, can be "Ascending" or "Descending"
