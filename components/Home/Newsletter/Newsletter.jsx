@@ -45,7 +45,7 @@ const Newsletter = () => {
 
   return (
     <motion.div
-      className="bg-[#0057A1] rounded-md md:rounded-3xl px-4 md:px-6 mx-auto h-auto py-6 w-[90%] sm:w-[85%] md:w-[70%] md:min-h-[30vh] lg:w-[60%] xl:w-[50%] flex justify-center items-center flex-col"
+      className="bg-[#0057A1] rounded-md md:rounded-3xl px-4 md:px-6 mx-auto h-auto py-6 w-[90%] sm:w-[85%] md:w-[70%] md:min-h-[30vh] lg:w-[60%] xl:w-[50%] flex justify-center items-center flex-col poppins"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

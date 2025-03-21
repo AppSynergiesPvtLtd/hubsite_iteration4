@@ -9,7 +9,7 @@ const Features = () => {
     <div className="p-6 bg-gray-50 text-center">
       {/* Title Section */}
       <motion.h1
-        className="text-4xl font-bold text-[#0057A1]"
+        className="text-4xl font-bold text-[#0057A1] poppins"
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -17,7 +17,7 @@ const Features = () => {
         Key Benefits
       </motion.h1>
       <motion.h2
-        className="text-2xl font-semibold text-[#0057A1] mt-8"
+        className="text-2xl font-semibold text-[#0057A1] mt-8 poppins"
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -25,7 +25,7 @@ const Features = () => {
         Share Your Insights, Earn Rewards, and Make an Impact
       </motion.h2>
       <motion.p
-        className="mt-6 text-lg text-[#828282] leading-snug mx-auto max-w-2xl"
+        className="mt-6 text-lg text-[#828282] leading-snug mx-auto max-w-2xl poppins"
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}

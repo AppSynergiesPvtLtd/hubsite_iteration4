@@ -57,7 +57,7 @@ const FAQWithMotion = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-[95%] md:w-[80%] mx-auto md:p-6"
+      className="w-[95%] md:w-[80%] mx-auto md:p-6 poppins"
     >
       <h1 className="text-3xl font-bold text-center mb-6">FAQ's</h1>
       <p className="text-center text-gray-600 md:w-[800px] md:leading-[35px] m-auto md:mt-10 mb-4 md:text-[20px]">

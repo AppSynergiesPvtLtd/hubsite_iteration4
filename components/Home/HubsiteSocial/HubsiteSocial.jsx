@@ -51,7 +51,7 @@ const HubsiteSocial = () => {
         What’s <span className={`text-[#FF7900] md:text-[#0057A1] w-[667px] ${heading_social}`}>Hubsite Social ?</span>
       </motion.h2>
       <motion.p
-        className={`text-[14px] text-center m-auto ${social_para} w-[90%] md:w-[745px]`}
+        className={`text-[14px] text-center m-auto ${social_para} w-[90%] md:w-[745px] 1`}
         variants={itemVariants}
       >
         Join Hubsite Social platform where your opinions matter! Earn coins for each completed survey and easily convert them into real money.
@@ -81,8 +81,8 @@ const HubsiteSocial = () => {
                   <div className='flex justify-center items-center mx-auto mb-4  rounded-full h-16 w-16 text-white bg-[#FF7900]'>
             {section.icon}
             </div>
-            <p className='text-[20px] mb-4 text-black'>{section?.title}</p>
-            <p className='text-black'>{section?.description}</p>
+            <p className='text-[20px] mb-4 text-black poppins-semibold'>{section?.title}</p>
+            <p className='text-black poppins'>{section?.description}</p>
           </motion.div>
         ))}
       </motion.div>

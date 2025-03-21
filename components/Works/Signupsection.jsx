@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SignUpSection = () => {
   return (
-    <div className="flex flex-wrap md:flex-nowrap items-center justify-between md:w-[90%] md:h-[450px] m-auto p-4 md:p-6 gap-10 md:gap-32">
+    <div className="flex flex-wrap md:flex-nowrap items-center justify-between md:w-[90%] md:h-[450px] m-auto p-4 md:p-6 gap-10 md:gap-32 ">
       <div className="w-full md:w-1/2 md:h-[250px] flex justify-center md:justify-start">
         <Image
           src="/signupContainer.png"
