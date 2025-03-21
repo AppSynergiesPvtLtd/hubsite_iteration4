@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import Icon7 from "../../public/nosurvey.svg"; 
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const DashboardLanding = () => {
   const user = useSelector((state) => state.user?.user);
   const router = useRouter();
-  const [selectedButton, setSelectedButton] = useState("LiveSurvey"); // Default tab
+  const [selectedButton, setSelectedButton] = useState("LiveSurvey");
   const [liveSurveys, setLiveSurveys] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -21,14 +22,12 @@ const DashboardLanding = () => {
     if (selectedButton === "LiveSurvey") {
       fetchLiveSurveys();
     } else if (selectedButton === "YourSurvey") {
-      // Ensure that the user object and its id exist before calling the API
       if (user && user.id) {
         fetchYourSurveys();
       } else {
         setLiveSurveys([]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedButton, user]);
 
   const fetchLiveSurveys = async () => {
@@ -47,7 +46,8 @@ const DashboardLanding = () => {
       );
 
       const data = await response.json();
-      console.log("live survey",response)
+      console.log("data1", data);
+      console.log("live survey", response);
       if (response.ok) {
         setLiveSurveys(data.data || []);
       } else {
@@ -128,11 +128,6 @@ const DashboardLanding = () => {
         </div>
       </div>
 
-      {/* 
-        (Commented-out sections remain unchanged.)
-      */}
-
-      {/* Dynamically Rendered Survey Cards */}
       <div className="w-[95%] md:w-[80%] m-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-6 rounded-lg">
         {loading ? (
           <p className="text-center col-span-2">Loading surveys...</p>
@@ -168,15 +163,29 @@ const DashboardLanding = () => {
                   <p className="text-xs font-semibold">HUBCOINS</p>
                 </div>
               </div>
-              <a href={survey.link} target="_blank" rel="noopener noreferrer">
-                <div className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer">
+              {survey.link && survey.link !== "" ? (
+                <a
+                  href={survey.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
+                >
+                  TAKE SURVEY
+                </a>
+              ) : (
+                <div
+                  className="mt-4 border text-gray-400 border-gray-300 w-full py-2 text-center cursor-not-allowed bg-gray-100"
+                >
                   TAKE SURVEY
                 </div>
-              </a>
+              )}
             </div>
           ))
         ) : (
-          <p className="text-center col-span-2">No surveys available.</p>
+          <p className="text-center col-span-2 flex items-center flex-col mt-5 gap-9">
+            <Icon7 />
+            <span className="text-2xl">No surveys available!</span>
+          </p>
         )}
       </div>
     </div>

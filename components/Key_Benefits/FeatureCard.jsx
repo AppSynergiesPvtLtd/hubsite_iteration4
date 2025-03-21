@@ -13,10 +13,10 @@ const FeatureCard = ({ icon, title, description }) => {
      <div className='flex justify-center items-center mx-auto mb-4  rounded-full h-16 w-16 text-white bg-[#FF7900]'>
             {icon}
             </div>
-      <h3 className="text-lg sm:text-xl font-semibold text-[#0057A1] mb-2">
+      <h3 className="text-lg sm:text-xl font-semibold text-[#0057A1] mb-2 poppins-semibold">
         {title}
       </h3>
-      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+      <p className="text-gray-600 text-sm sm:text-base leading-relaxed poppins">
         {description}
       </p>
     </motion.div>

@@ -129,8 +129,8 @@ const Reviews = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 relative">
-      <h2 className="text-2xl font-bold md:text-[#0057A1] md:text-3xl text-center mb-8">
+    <div className="container mx-auto px-4 py-12 relative poppins">
+      <h2 className="text-2xl font-bold md:text-[#0057A1] md:text-4xl text-center my-8">
         Our Happy Panelists Say About Us
       </h2>
 

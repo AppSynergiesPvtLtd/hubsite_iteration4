@@ -17,7 +17,7 @@ import {
   showRefresh,
 } from "@/store/adminbtnSlice";
 
-// Reusable confirmation modal component.
+// Reusable confirmation modal component
 export const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
@@ -59,12 +59,13 @@ const Contactus = () => {
   const [confirmDelete, setConfirmDelete] = useState({ show: false, id: null });
   const router = useRouter();
 
-  // Data fields to display.
+  // Updated data fields to include image
   const dataFields = [
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },
     { key: "message", label: "Message" },
     { key: "createdAt", label: "Created At" },
+    { key: "upload", label: "Image" },
   ];
 
   const dispatch = useDispatch();
@@ -226,7 +227,7 @@ const Contactus = () => {
     }
   }, [alert]);
 
-  // Alert component.
+  // Alert component
   const AlertComponent = ({ message, type }) => (
     <div
       className={`fixed top-4 right-4 p-4 rounded-md shadow-md flex items-center space-x-2 ${
@@ -249,10 +250,9 @@ const Contactus = () => {
     }
   };
 
-  // Generate page numbers for display
   const getPageNumbers = () => {
     const pageNumbers = [];
-    const maxVisiblePages = 5; // Adjust to show more/less pages
+    const maxVisiblePages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
@@ -264,6 +264,21 @@ const Contactus = () => {
       pageNumbers.push(i);
     }
     return pageNumbers;
+  };
+
+  // Component to render image or N/A with smaller size
+  const ImageDisplay = ({ uploadUrl }) => {
+    if (uploadUrl && uploadUrl !== "") {
+      return (
+        <img
+          src={uploadUrl}
+          alt="Uploaded content"
+          className="max-w-[50px] max-h-[50px] object-contain" // Reduced size from 100px to 50px
+          onError={(e) => (e.target.src = "/fallback-image.png")} // Optional: Add a fallback image
+        />
+      );
+    }
+    return <span className="text-gray-500">N/A</span>;
   };
 
   return (
@@ -429,9 +444,13 @@ const Contactus = () => {
                               key={field.key}
                               className="py-3 px-4 break-words"
                             >
-                              {field.key === "createdAt"
-                                ? new Date(item.createdAt).toLocaleDateString()
-                                : item[field.key]}
+                              {field.key === "createdAt" ? (
+                                new Date(item.createdAt).toLocaleDateString()
+                              ) : field.key === "upload" ? (
+                                <ImageDisplay uploadUrl={item.upload} />
+                              ) : (
+                                item[field.key]
+                              )}
                             </td>
                           ))}
                         <td className="py-3 px-4">
@@ -481,6 +500,11 @@ const Contactus = () => {
                             {new Date(item.createdAt).toLocaleDateString()}
                           </p>
                         )}
+                        {visibleFields.includes("upload") && (
+                          <p className="text-gray-600 break-words">
+                            <b>Image:</b> <ImageDisplay uploadUrl={item.upload} />
+                          </p>
+                        )}
                       </div>
                       <div className="mt-4 flex justify-end">
                         <button
@@ -526,6 +550,11 @@ const Contactus = () => {
                           {new Date(item.createdAt).toLocaleDateString()}
                         </p>
                       )}
+                      {visibleFields.includes("upload") && (
+                        <p className="text-gray-600 break-words">
+                          <b>Image:</b> <ImageDisplay uploadUrl={item.upload} />
+                        </p>
+                      )}
                     </div>
                     <div className="mt-2 md:mt-0">
                       <button
@@ -544,7 +573,6 @@ const Contactus = () => {
 
             {/* Pagination Controls */}
             <div className="flex justify-center items-center mt-6">
-              
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -572,7 +600,6 @@ const Contactus = () => {
               >
                 »
               </button>
-             
             </div>
           </>
         ) : (

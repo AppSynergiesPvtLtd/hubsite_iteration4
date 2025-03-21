@@ -196,7 +196,7 @@ const Profile = () => {
   }, [userInfo, profileImageFile]);
 
   return (
-    <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative">
+    <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative poppins">
       {/* User Information Section */}
       <div className="w-full md:w-2/3 space-y-6">
         {alert.message && (

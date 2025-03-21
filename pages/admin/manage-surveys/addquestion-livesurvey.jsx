@@ -14,7 +14,7 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
   const initialFormData = {
     title: "",
     description: "",
-    hubCoins: 0,
+    hubCoins: "",
     isActive: true,
     link: "",
     profileSurveyId: "",
@@ -24,11 +24,10 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
   dispatch(setTitle("Add LiveSurvey Question"));
 
   const [formData, setFormData] = useState(initialFormData);
-  const [profileSurveys, setProfileSurveys] = useState([]); // Ensure it's initialized as an array
+  const [profileSurveys, setProfileSurveys] = useState([]);
   const [notification, setNotification] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
 
-  // Fetch active profile surveys
   useEffect(() => {
     const fetchProfileSurveys = async () => {
       try {
@@ -40,11 +39,10 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           },
         });
 
-        // Extract the `data` array from the API response
         if (response.data && Array.isArray(response.data.data)) {
           setProfileSurveys(response.data.data);
         } else {
-          setProfileSurveys([]); // Fallback to an empty array if the response isn't as expected
+          setProfileSurveys([]);
           console.error("Unexpected response format:", response.data);
           setNotification({
             type: "error",
@@ -67,18 +65,19 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
     const { name, value, type, checked } = e.target;
     let newValue = type === "checkbox" ? checked : value;
 
-    // If the field is hubCoins, ensure the value is between 0 and 100
     if (name === "hubCoins") {
-      let numValue = parseInt(newValue, 10);
+      // Remove leading zeros and ensure it's a valid number
+      let numValue = value.replace(/^0+/, '') || "0";
+      numValue = parseInt(numValue, 10);
+      
       if (isNaN(numValue)) {
-        numValue = 0;
-      }
-      if (numValue > 100) {
+        numValue = "";
+      } else if (numValue > 100) {
         numValue = 100;
       } else if (numValue < 0) {
         numValue = 0;
       }
-      newValue = numValue;
+      newValue = numValue.toString();
     }
 
     setFormData((prev) => ({
@@ -96,15 +95,15 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
     const payload = {
       title: formData.title,
       description: formData.description,
-      hubCoins: parseInt(formData.hubCoins, 10),
+      hubCoins: parseInt(formData.hubCoins || 0, 10),
       isActive: formData.isActive,
       link: formData.link,
       ...(formData.profileSurveyId !== null && formData.profileSurveyId !== "" && { profileSurveyId: formData.profileSurveyId }),
     };
 
     try {
-      console.log("payload",payload)
-      console.log("hitt")
+      console.log("payload", payload);
+      console.log("hitt");
       const response = await axios.post(`${API_BASE_URL}/live-survey/`, payload, {
         headers: {
           "Content-Type": "application/json",
@@ -120,14 +119,12 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
         message: "Live survey created successfully!",
       });
 
-      // Reset the form
       setFormData(initialFormData);
-      router.push("/admin/manage-surveys/live-survey")
-      // Redirect on success
+      router.push("/admin/manage-surveys/live-survey");
       if (onSuccessRedirect) {
         setTimeout(() => {
           window.location.href = onSuccessRedirect;
-        }, 2000); // Redirect after 2 seconds
+        }, 2000);
       }
     } catch (error) {
       console.error("Error saving live survey:", error);
@@ -144,7 +141,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
   return (
     <div className="flex justify-center">
       <div className="w-full p-6 border rounded-md shadow-md bg-white">
-        {/* Notification Section */}
         {notification.message && (
           <div
             className={`mb-4 p-4 rounded-md text-white ${
@@ -155,7 +151,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           </div>
         )}
 
-        {/* Title */}
         <div className="mb-6">
           <label className="block text-lg font-medium text-gray-800">Title*</label>
           <input
@@ -167,7 +162,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           />
         </div>
 
-        {/* Description */}
         <div className="mb-6">
           <label className="block text-lg font-medium text-gray-800">Description</label>
           <textarea
@@ -180,7 +174,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           ></textarea>
         </div>
 
-        {/* HubCoins */}
         <div className="mb-6 block sm:flex items-center gap-4 overflow-hidden">
           <label className="block text-lg font-medium text-gray-700">HubCoins*</label>
           <input
@@ -195,7 +188,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           />
         </div>
 
-        {/* Link */}
         <div className="mb-6">
           <label className="block text-lg font-medium text-gray-800">Link*</label>
           <input
@@ -207,7 +199,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           />
         </div>
 
-        {/* Profile Survey ID */}
         <div className="mb-6">
           <label className="block text-lg font-medium text-gray-800">Profile Survey ID</label>
           <select
@@ -225,7 +216,6 @@ const LiveSurveyQuestions = ({ apiEndpoint = "/live-survey/", onSuccessRedirect 
           </select>
         </div>
 
-        {/* Save Button */}
         <div className="w-full flex justify-center">
           <button
             onClick={handleSaveLiveSurvey}

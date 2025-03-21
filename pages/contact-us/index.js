@@ -97,7 +97,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex flex-col mt-10 items-center justify-center max-h-[650px] poppins p-3">
+    <div className="flex flex-col mt-10 items-center justify-center px-3 poppins pt-3 2xl:min-h-[85vh]">
       {formSubmitted ? (
         <div className="flex flex-col items-center justify-center mt-8">
           <div className="w-[250px] h-[250px] md:w-[500.6px] md:h-[450px] relative">
@@ -114,7 +114,7 @@ const ContactForm = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-xl md:w-[320px] font-medium text-[#333333] text-center mb-6 poppins-bold">
+          <h1 className="text-3xl md:w-[330px] font-medium text-[#333333] text-center mb-6 poppins-bold ">
             Love to hear from you,<br /> Get in touch 👋
           </h1>
           <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full space-y-6 md:space-y-0 md:space-x-12">

@@ -28,7 +28,7 @@ const Accumulate = () => {
 
     return (
         <motion.div
-            className="bg-gray-100 p-8 flex justify-center flex-col items-center min-h-[60vh] relative z-10" 
+            className="bg-gray-100 p-8 flex justify-center flex-col items-center min-h-[60vh] relative z-10 poppins" 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }} 
@@ -41,7 +41,7 @@ const Accumulate = () => {
                 },
             }}
         >
-            <h2 className="text-[35px] md:text-[50px] text-center font-bold mb-6 text-[#0057A1]">
+            <h2 className="text-[28px] md:text-[40px] text-center font-bold my-6 text-[#0057A1] ">
                 Accumulate HUBCOINS with Hubsite Social
             </h2>
             <div className="mt-8 flex flex-wrap gap-4 justify-center">
