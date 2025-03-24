@@ -1,0 +1,23 @@
+{
+    "imgFinal": "Illustrazione di contatto",
+    "headingFinal": "Grazie per averci contattato! Abbiamo ricevuto il tuo messaggio e ti risponderemo a breve.",
+    "heading1": "Ci piacerebbe sentire la tua opinione,",
+    "heading2": "Mettiti in contatto con noi 👋",
+    "name": "Nome",
+    "namePlaceholder": "Inserisci il tuo nome",
+    "nameRequired": "Il nome è obbligatorio",
+    "email": "Email",
+    "emailPlaceholder": "Inserisci la tua email",
+    "emailRequired": "L'email è obbligatoria",
+    "emailInvalid": "Inserisci un indirizzo email valido",
+    "upload": " Carica (Opzionale)",
+    "uploadInvalid": "Sono ammesse solo immagini JPG e PNG",
+    "message": "Messaggio",
+    "messagePlaceholder": "Inserisci il tuo messaggio",
+    "messageRequired": "Il messaggio è obbligatorio",
+    "submit": "Invia messaggio",
+    "submitFail": "Impossibile inviare il modulo. Riprova.",
+    "submitError": "Si è verificato un errore. Riprova.",
+    "img": "Descrizione dell'immagine"
+  }
+  

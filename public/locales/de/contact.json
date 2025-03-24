@@ -1,0 +1,22 @@
+{
+    "imgFinal": "Kontakt-Illustration",
+    "headingFinal": "Vielen Dank für Ihre Kontaktaufnahme! Wir haben Ihre Nachricht erhalten und werden uns in Kürze bei Ihnen melden.",
+    "heading1": "Wir freuen uns, von Ihnen zu hören",
+    "heading2": "Nehmen Sie Kontakt auf 👋",
+    "name": "Name",
+    "namePlaceholder": "Geben Sie Ihren Namen ein",
+    "nameRequired": "Name ist erforderlich",
+    "email": "E-Mail",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+    "emailRequired": "E-Mail ist erforderlich",
+    "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "upload": " Hochladen (Optional)",
+    "uploadInvalid": "Es sind nur JPG- und PNG-Bilder zulässig",
+    "message": "Nachricht",
+    "messagePlaceholder": "Geben Sie Ihre Nachricht ein",
+    "messageRequired": "Nachricht ist erforderlich",
+    "submit": "Nachricht senden",
+    "submitFail": "Das Absenden des Formulars ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "submitError": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "img": "Beschreibung des Bildes"
+  }

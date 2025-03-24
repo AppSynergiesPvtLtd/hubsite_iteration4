@@ -1,0 +1,235 @@
+{
+  "welcome_heading": "Welcome to Hubsite Social",
+  "welcome_description": "Join Hubsite Social platform where your opinions matter! Earn coins for each completed survey and easily convert them into real money. Enjoy a seamless experience, tailored surveys, and the chance to share your insights while getting rewarded for your time. Start earning today!",
+  "dashboard_button": "Dashboard",
+  "get_started_button": "Get Started",
+  "hubsite_social_heading": "What’s Hubsite Social ?",
+  "hubsite_social_description": "Join Hubsite Social platform where your opinions matter! Earn coins for each completed survey and easily convert them into real money. Enjoy a seamless experience, tailored surveys, and the chance to share your insights while getting rewarded for your time. Start earning today!",
+  "view_all_button": "View All",
+  "benefits": {
+    "title": "Benefits of Hubsite social"
+  },
+  "accumulate": {
+    "title": "Accumulate HUBCOINS with Hubsite Social",
+    "cards": [
+      {
+        "heading": "Sign Up",
+        "btn": "STEP 1",
+        "paragraph": "Join our community and discover how your opinion can matter. We’ve paid over 1.2million rupees to our members in the last year alone!"
+      },
+      {
+        "heading": "Take Surveys",
+        "btn": "STEP 2",
+        "paragraph": "Take a survey and get paid for sharing your feedback on the products and brands we all know and love. It’s a win-win for everyone!"
+      },
+      {
+        "heading": "Get Rewarded",
+        "btn": "STEP 3",
+        "paragraph": "Get rewarded in virtual points (LPs) that can be redeemed as e-gift cards, PayPal, and much more. You choose how you get rewarded, so you choose how taking surveys benefits you!"
+      }
+    ],
+    "button": "How it works"
+  },
+  "navbar": {
+    "about": "About Us",
+    "features": "Key Benefits",
+    "works": "How it Works",
+    "contact": "Contact Us",
+    "faq": "FAQ's",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "ready_to_start": "Ready to get started?",
+    "login_button": "Login",
+    "terms_conditions": "Terms & Conditions",
+    "privacy_policy": "Privacy Policy",
+    "reward_policy": "Reward Policy",
+    "company": "Company",
+    "about_us": "About Us",
+    "key_benefits": "Key Benefits",
+    "how_it_works": "How it works",
+    "help": "Help",
+    "faqs": "FAQs",
+    "contact_us": "Contact Us",
+    "contact": "Contact",
+    "phone": "+260974314084",
+    "email": "hello@hubsitesocial.com",
+    "address": "A-46, Noida, Sector 2, Uttar Pradesh, India"
+  },
+  "reviews": {
+    "title": "Our Happy Panelists Say About Us"
+  },
+  "newsletter": {
+    "title": "Sign up to our newsletter",
+    "description": "Receive latest news, updates, and many other news every week.",
+    "email_placeholder": "Enter your email address",
+    "submit_button": "",
+    "error_message": "Please enter a valid email address.",
+    "success_title": "Thank You for Subscribing!",
+    "success_description": "We've received your email for Newsletter Updates."
+  },
+  "feature": {
+    "title": "Key Benefits",
+    "subtitle": "Share Your Insights, Earn Rewards, and Make an Impact",
+    "paragraph": "Join Hubsite Social to participate in engaging surveys that allow your voice to be heard. Earn exciting rewards while helping businesses understand consumer needs and shape the future of products and services. Your opinions matter—make a difference today!", 
+    "userFriendlyInterface": {
+      "title": "User-Friendly Interface",
+      "description": "Navigate the site with ease thanks to an intuitive design that simplifies the survey participation process."
+    },
+    "diverseSurveySelection": {
+      "title": "Diverse Survey Selection",
+      "description": "Access a wide array of surveys on various topics, allowing you to engage with content that interests you."
+    },
+    "personalizedSurveyInvitations": {
+      "title": "Personalized Survey Invitations",
+      "description": "Receive tailored invitations based on your profile and preferences, ensuring relevant and engaging survey opportunities."
+    },
+    "rewardSystem": {
+      "title": "Reward System",
+      "description": "Earn points and rewards for your participation, including gift cards and exclusive discounts, making your feedback valuable."
+    },
+    "realTimeFeedbackImpact": {
+      "title": "Real-Time Feedback Impact",
+      "description": "Contribute to market research that helps businesses gain immediate insights, influencing product development and service improvement."
+    },
+    "communityEngagement": {
+      "title": "Community Engagement",
+      "description": "Join a vibrant online community of like-minded individuals who share their opinions and contribute to meaningful market research."
+    },
+    "educationalResources": {
+      "title": "Educational Resources",
+      "description": "Access valuable insights and reports based on aggregated survey data, helping you stay informed about market trends."
+    },
+    "dashboardForAccountManagement": {
+      "title": "Dashboard for Account Management",
+      "description": "Easily manage your profile, track your survey participation, and monitor your rewards through a comprehensive dashboard."
+    },
+    "dataPrivacyAndSecurity": {
+      "title": "Data Privacy and Security",
+      "description": "Experience peace of mind with strong data protection measures that keep your personal information secure and confidential."
+    },
+    "supportAndHelpCenter": {
+      "title": "Support and Help Center",
+      "description": "Benefit from a dedicated support section that provides answers to frequently asked questions and assistance with account-related inquiries."
+    }
+  },
+  "stepTwo": {
+    "title": "Monetary Conversion",
+    "description": "Users can convert earned coins into actual money, enhancing the perceived value of participating in surveys."
+  },
+  "stepOne": {
+    "title": "Targeted Surveys",
+    "description": "Allows for segmentation and targeting of specific demographics to improve survey relevance."
+  },
+  "stepThree": {
+    "title": "Increased Participation",
+    "description": "Offering coins as rewards incentivizes users to take surveys, resulting in higher response rates."
+  },
+  "stepFour": {
+    "title": "Enhanced Engagement",
+    "description": "The prospect of earning coins encourages regular participation, fostering a habit of providing feedback."
+  },
+ "login": {
+    "title": "Login",
+    "verifyOtpTitle": "Verify OTP",
+    "loginContinue": "Login to continue to our website",
+    "verifyEmailProceed": "Verify your email to proceed",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "loading": "Loading...",
+    "loginButton": "Login",
+    "otpPlaceholder": "Enter OTP",
+    "verifying": "Verifying...",
+    "verifyOtpButton": "Verify OTP",
+    "resending": "Resending...",
+    "resendOtpButton": "Resend OTP",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don’t have an account? ",
+    "signUp": "Sign up",
+    "errors": {
+      "fillFields": "Please fill in both email and password.",
+      "validEmail": "Please enter a valid email address.",
+      "passwordLength": "Password must be at least 6 characters long.",
+      "loginFailed": "Login failed.",
+      "enterOtp": "Please enter the OTP.",
+      "otpVerificationFailed": "OTP verification failed.",
+      "resendOtpFailed": "Failed to resend OTP. Please try again.",
+      "googleLoginFailed": "Google login failed. Please try again."
+    },
+    "messages":{
+        "emailNotVerified": "Email not verified. OTP sent to your email.",
+        "otpVerified": "OTP verified successfully!",
+        "otpResent": "OTP has been resent to your email."
+    }
+  },
+  "signup": {
+    "signUp": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "rememberMe": "Remember Me",
+    "agreeTerms": "I agree to the",
+    "terms": "terms",
+    "privacyPolicy": "Privacy Policy",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login",
+    "processing": "Processing...",
+    "verifyEmail": "Verify Email",
+    "enterCode": "Enter the code sent to your email",
+    "enterOtpCode": "Enter OTP Code",
+    "verifying": "Verifying...",
+    "resendOtp": "Resend OTP",
+    "resending": "Resending...",
+    "allSet": "You're all set! Finish your profile to get started",
+    "createProfile": "Create Profile",
+    "otpRequired": "OTP is required",
+    "otpSentSuccess": "OTP sent successfully!",
+    "otpVerificationFailed": "OTP verification failed. Please try again.",
+    "otpVerifiedSuccess": "OTP verified successfully!",
+    "failedToSendOtp": "Failed to send OTP. Please try again.",
+    "otpResent": "OTP has been resent to your email.",
+    "failedResendOtp": "Failed to resend OTP. Please try again.",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "confirmPasswordRequired": "Confirm password is required",
+    "passwordsNotMatch": "Passwords do not match",
+    "agreeTermsRequired": "You must agree to the terms and conditions",
+    "enterPassword": "Enter Password",
+    "confirmPasswordPlaceholder": "Confirm Password"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Forgot Password",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "continue": "Continue",
+    "back": "Back",
+    "verifyOtp": "Verify OTP",
+    "otpInstruction": "Enter the code sent to your email and set a new password.",
+    "otp": "OTP",
+    "enterOtp": "Enter the OTP",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter a new password",
+    "verifyReset": "Verify & Reset Password",
+    "resetSuccess": "Password Reset Successful",
+    "resetMessage": "Your password has been reset successfully. You can now log in with your new password.",
+    "goToLogin": "Go to Login",
+    "invalidEmail": "Please enter a valid email address.",
+    "otpSendFailed": "Failed to send OTP. Please try again.",
+    "otpPasswordRequired": "Please enter the OTP and a new password.",
+    "otpResetFailed": "Invalid OTP or failed to reset password. Please try again.",
+    "sending": "Sending...",
+    "verifying": "Verifying..."
+  },
+  "notFound": {
+      "404_title": "404",
+      "page_not_found_heading": "Page Not Found",
+      "page_not_found_description": "The page you're looking for seems to have gone on an adventure of its own. But don't worry, we'll help you get back on track.",
+      "go_to_home_button": "Go to Home"
+    }
+}

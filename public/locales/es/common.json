@@ -1,0 +1,237 @@
+{
+    "welcome_heading": "Bienvenido a Hubsite Social",
+    "welcome_description": "¡Únete a la plataforma Hubsite Social donde tus opiniones importan! Gana monedas por cada encuesta completada y conviértelas fácilmente en dinero real. Disfruta de una experiencia perfecta, encuestas personalizadas y la oportunidad de compartir tus puntos de vista mientras te recompensan por tu tiempo. ¡Comienza a ganar hoy!",
+    "dashboard_button": "Tablero",
+    "get_started_button": "Empezar",
+    "hubsite_social_heading": "¿Qué es Hubsite Social?",
+    "hubsite_social_description": "¡Únete a la plataforma Hubsite Social donde tus opiniones importan! Gana monedas por cada encuesta completada y conviértelas fácilmente en dinero real. Disfruta de una experiencia perfecta, encuestas personalizadas y la oportunidad de compartir tus puntos de vista mientras te recompensan por tu tiempo. ¡Comienza a ganar hoy!",
+    "view_all_button": "Ver todo",
+    "benefits": {
+      "title": "Beneficios de Hubsite Social"
+    },
+    "accumulate": {
+      "title": "Acumula HUBCOINS con Hubsite Social",
+      "cards": [
+        {
+          "heading": "Inscribirse",
+          "btn": "PASO 1",
+          "paragraph": "Únete a nuestra comunidad y descubre cómo tu opinión puede importar. ¡Hemos pagado más de 1.2 millones de rupias a nuestros miembros solo en el último año!"
+        },
+        {
+          "heading": "Realizar encuestas",
+          "btn": "PASO 2",
+          "paragraph": "Realiza una encuesta y recibe un pago por compartir tus comentarios sobre los productos y las marcas que todos conocemos y amamos. ¡Es beneficioso para todos!"
+        },
+        {
+          "heading": "Ser recompensado",
+          "btn": "PASO 3",
+          "paragraph": "Sé recompensado con puntos virtuales (LPs) que se pueden canjear por tarjetas de regalo electrónicas, PayPal y mucho más. Tú eliges cómo ser recompensado, ¡así que tú eliges cómo te benefician las encuestas!"
+        }
+      ],
+      "button": "Cómo funciona"
+    },
+    "navbar": {
+      "about": "Acerca de nosotros",
+      "features": "Beneficios clave",
+      "works": "Cómo funciona",
+      "contact": "Contáctenos",
+      "faq": "Preguntas frecuentes",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "dashboard": "Tablero"
+    },
+    "footer": {
+      "ready_to_start": "¿Listo para comenzar?",
+      "login_button": "Iniciar sesión",
+      "terms_conditions": "Términos y condiciones",
+      "privacy_policy": "Política de privacidad",
+      "reward_policy": "Política de recompensas",
+      "company": "Empresa",
+      "about_us": "Acerca de nosotros",
+      "key_benefits": "Beneficios clave",
+      "how_it_works": "Cómo funciona",
+      "help": "Ayuda",
+      "faqs": "Preguntas frecuentes",
+      "contact_us": "Contáctenos",
+      "contact": "Contacto",
+      "phone": "+260974314084",
+      "email": "hello@hubsitesocial.com",
+      "address": "A-46, Noida, Sector 2, Uttar Pradesh, India"
+    },
+    "reviews": {
+      "title": "Lo que nuestros felices panelistas dicen de nosotros"
+    },
+    "newsletter": {
+      "title": "Suscríbete a nuestro boletín",
+      "description": "Recibe las últimas noticias, actualizaciones y muchas otras noticias cada semana.",
+      "email_placeholder": "Ingrese su dirección de correo electrónico",
+      "submit_button": "",
+      "error_message": "Por favor, ingrese una dirección de correo electrónico válida.",
+      "success_title": "¡Gracias por suscribirse!",
+      "success_description": "Hemos recibido su correo electrónico para las actualizaciones del boletín."
+    },
+    "feature": {
+      "title": "Beneficios clave",
+      "subtitle": "Comparte tus ideas, gana recompensas y genera un impacto",
+      "paragraph": "Únete a Hubsite Social para participar en encuestas atractivas que permiten que se escuche tu voz. Gana recompensas emocionantes mientras ayudas a las empresas a comprender las necesidades de los consumidores y a dar forma al futuro de los productos y servicios. Tus opiniones importan, ¡haz la diferencia hoy!",
+      "userFriendlyInterface": {
+        "title": "Interfaz fácil de usar",
+        "description": "Navega por el sitio con facilidad gracias a un diseño intuitivo que simplifica el proceso de participación en encuestas."
+      },
+      "diverseSurveySelection": {
+        "title": "Selección diversa de encuestas",
+        "description": "Accede a una amplia gama de encuestas sobre diversos temas, lo que te permite participar en contenido que te interesa."
+      },
+      "personalizedSurveyInvitations": {
+        "title": "Invitaciones personalizadas a encuestas",
+        "description": "Recibe invitaciones personalizadas basadas en tu perfil y preferencias, lo que garantiza oportunidades de encuestas relevantes y atractivas."
+      },
+      "rewardSystem": {
+        "title": "Sistema de recompensas",
+        "description": "Gana puntos y recompensas por tu participación, incluyendo tarjetas de regalo y descuentos exclusivos, haciendo que tus comentarios sean valiosos."
+      },
+      "realTimeFeedbackImpact": {
+        "title": "Impacto de la retroalimentación en tiempo real",
+        "description": "Contribuye a estudios de mercado que ayudan a las empresas a obtener información inmediata, influyendo en el desarrollo de productos y la mejora de servicios."
+      },
+      "communityEngagement": {
+        "title": "Compromiso comunitario",
+        "description": "Únete a una comunidad en línea vibrante de personas con ideas afines que comparten sus opiniones y contribuyen a estudios de mercado significativos."
+      },
+      "educationalResources": {
+        "title": "Recursos educativos",
+        "description": "Accede a información e informes valiosos basados en datos de encuestas agregados, lo que te ayuda a mantenerte informado sobre las tendencias del mercado."
+      },
+      "dashboardForAccountManagement": {
+        "title": "Tablero para la gestión de cuentas",
+        "description": "Gestiona fácilmente tu perfil, realiza un seguimiento de tu participación en encuestas y supervisa tus recompensas a través de un tablero completo."
+      },
+      "dataPrivacyAndSecurity": {
+        "title": "Privacidad y seguridad de los datos",
+        "description": "Experimenta tranquilidad con medidas sólidas de protección de datos que mantienen tu información personal segura y confidencial."
+      },
+      "supportAndHelpCenter": {
+        "title": "Soporte y centro de ayuda",
+        "description": "Benefíciate de una sección de soporte dedicada que proporciona respuestas a preguntas frecuentes y asistencia con consultas relacionadas con la cuenta."
+      }
+    },
+    "stepTwo": {
+      "title": "Conversión monetaria",
+      "description": "Los usuarios pueden convertir las monedas ganadas en dinero real, lo que aumenta el valor percibido de participar en encuestas."
+    },
+    "stepOne": {
+      "title": "Encuestas dirigidas",
+      "description": "Permite la segmentación y la orientación a datos demográficos específicos para mejorar la relevancia de la encuesta."
+    },
+    "stepThree": {
+      "title": "Mayor participación",
+      "description": "Ofrecer monedas como recompensa incentiva a los usuarios a realizar encuestas, lo que resulta en mayores tasas de respuesta."
+    },
+    "stepFour": {
+      "title": "Compromiso mejorado",
+      "description": "La perspectiva de ganar monedas fomenta la participación regular, fomentando el hábito de proporcionar comentarios."
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "verifyOtpTitle": "Verificar OTP",
+      "loginContinue": "Inicie sesión para continuar a nuestro sitio web",
+      "verifyEmailProceed": "Verifique su correo electrónico para continuar",
+      "emailPlaceholder": "Ingrese su correo electrónico",
+      "passwordPlaceholder": "Ingrese su contraseña",
+      "loading": "Cargando...",
+      "loginButton": "Iniciar sesión",
+      "otpPlaceholder": "Ingrese OTP",
+      "verifying": "Verificando...",
+      "verifyOtpButton": "Verificar OTP",
+      "resending": "Reenviando...",
+      "resendOtpButton": "Reenviar OTP",
+      "forgotPassword": "¿Olvidó su contraseña?",
+      "noAccount": "¿No tiene una cuenta? ",
+      "signUp": "Inscribirse",
+      "errors": {
+        "fillFields": "Por favor, complete tanto el correo electrónico como la contraseña.",
+        "validEmail": "Por favor, ingrese una dirección de correo electrónico válida.",
+        "passwordLength": "La contraseña debe tener al menos 6 caracteres de largo.",
+        "loginFailed": "Inicio de sesión fallido.",
+        "enterOtp": "Por favor, ingrese el OTP.",
+        "otpVerificationFailed": "Verificación de OTP fallida.",
+        "resendOtpFailed": "Error al reenviar OTP. Por favor, intente de nuevo.",
+        "googleLoginFailed": "Inicio de sesión de Google fallido. Por favor, intente de nuevo."
+      },
+      "messages": {
+        "emailNotVerified": "Correo electrónico no verificado. OTP enviado a su correo electrónico.",
+        "otpVerified": "¡OTP verificado con éxito!",
+        "otpResent": "OTP ha sido reenviado a su correo electrónico."
+      }
+    },
+    "signup": {
+      "signUp": "Inscribirse",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "rememberMe": "Recordarme",
+      "agreeTerms": "Acepto los",
+      "terms": "términos",
+      "privacyPolicy": "Política de privacidad",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión",
+      "processing": "Procesando...",
+      "verifyEmail": "Verificar correo electrónico",
+      "enterCode": "Ingrese el código enviado a su correo electrónico",
+      "enterOtpCode": "Ingrese el código OTP",
+      "verifying": "Verificando...",
+      "resendOtp": "Reenviar OTP",
+      "resending": "Reenviando...",
+      "allSet": "¡Estás listo! Termina tu perfil para comenzar",
+      "createProfile": "Crear perfil",
+      "otpRequired": "OTP es requerido",
+      "otpSentSuccess": "¡OTP enviado con éxito!",
+      "otpVerificationFailed": "Verificación de OTP fallida. Por favor, intente de nuevo.",
+      "otpVerifiedSuccess": "¡OTP verificado con éxito!",
+      "failedToSendOtp": "Error al enviar OTP. Por favor, intente de nuevo.",
+      "otpResent": "OTP ha sido reenviado a su correo electrónico.",
+      "failedResendOtp": "Error al reenviar OTP. Por favor, intente de nuevo.",
+      "firstNameRequired": "El nombre es requerido",
+      "lastNameRequired": "El apellido es requerido",
+      "emailRequired": "El correo electrónico es requerido",
+      "passwordRequired": "La contraseña es requerida",
+      "confirmPasswordRequired": "Se requiere confirmar la contraseña",
+      "passwordsNotMatch": "Las contraseñas no coinciden",
+      "agreeTermsRequired": "Debes aceptar los términos y condiciones",
+      "enterPassword": "Ingrese la contraseña",
+      "confirmPasswordPlaceholder": "Confirmar contraseña"
+    },
+    "forgotPassword": {
+      "forgotPassword": "Olvidó su contraseña",
+      "email": "Correo electrónico",
+      "enterEmail": "Ingrese su correo electrónico",
+      "continue": "Continuar",
+      "back": "Atrás",
+      "verifyOtp": "Verificar OTP",
+      "otpInstruction": "Ingrese el código enviado a su correo electrónico y establezca una nueva contraseña.",
+      "otp": "OTP",
+      "enterOtp": "Ingrese el OTP",
+      "newPassword": "Nueva contraseña",
+      "enterNewPassword": "Ingrese una nueva contraseña",
+      "verifyReset": "Verificar y restablecer contraseña",
+      "resetSuccess": "Restablecimiento de contraseña exitoso",
+      "resetMessage": "Su contraseña ha sido restablecida con éxito. Ahora puede iniciar sesión con su nueva contraseña.",
+      "goToLogin": "Ir al inicio de sesión",
+      "invalidEmail": "Por favor, ingrese una dirección de correo electrónico válida.",
+      "otpSendFailed": "Error al enviar OTP. Por favor, intente de nuevo.",
+      "otpPasswordRequired": "Por favor, ingrese el OTP y una nueva contraseña.",
+      "otpResetFailed": "OTP inválido o error al restablecer la contraseña. Por favor, intente de nuevo.",
+      "sending": "Enviando...",
+      "verifying": "Verificando..."
+    },
+    "notFound": {
+        "404_title": "404",
+        "page_not_found_heading": "Página no encontrada",
+        "page_not_found_description": "Parece que la página que buscas se ha ido de aventura por su cuenta. Pero no te preocupes, te ayudaremos a volver al camino.",
+        "go_to_home_button": "Ir a la página de inicio"
+      }
+  }
+  
+  

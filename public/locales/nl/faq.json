@@ -1,0 +1,38 @@
+{
+    "title": "Veelgestelde vragen",
+    "description": "Vind antwoorden op de meest gestelde vragen over Hubsite Social. Als je hulp nodig hebt, kun je contact met ons opnemen via {{email}} of ons contactformulier invullen. We zijn 24/7 bereikbaar om je te helpen.",
+    "questions": {
+      "0": {
+        "question": "Wat is Hubsite Social?",
+        "answer": "Hubsite Social is een marktonderzoeksbureau dat bedrijven in contact brengt met individuen om meningen en inzichten te verzamelen via enquêtes. Deelnemers kunnen beloningen verdienen voor hun deelname."
+      },
+      "1": {
+        "question": "Hoe kan ik lid worden van Hubsite Social?",
+        "answer": "Je kunt lid worden door je aan te melden op onze website, de vereiste informatie te verstrekken en je e-mailadres te bevestigen."
+      },
+      "2": {
+        "question": "Wat zijn de toelatingseisen om lid te worden?",
+        "answer": "De toelatingseisen zijn dat je minimaal 18 jaar oud bent en woonachtig bent in een regio waar Hubsite Social actief is."
+      },
+      "3": {
+        "question": "Hoe kan ik deelnemen aan enquêtes?",
+        "answer": "Zodra je lid bent, ontvang je uitnodigingen voor enquêtes via e-mail of via je dashboard. Klik eenvoudig op de link om de enquête te starten."
+      },
+      "4": {
+        "question": "Hoe worden de deelnemers aan de enquête geselecteerd?",
+        "answer": "Deelnemers worden geselecteerd op basis van hun profiel en de vereisten van elke enquête. Dit zorgt ervoor dat de antwoorden relevant en waardevol zijn."
+      },
+      "5": {
+        "question": "Hoe verdien ik beloningen?",
+        "answer": "Je kunt beloningen verdienen door enquêtes in te vullen. Bij elke enquête wordt het aantal punten of beloningen vermeld dat je na voltooiing ontvangt."
+      },
+      "6": {
+        "question": "Hoe kan ik mijn beloningen inwisselen?",
+        "answer": "Beloningen kunnen worden ingewisseld voor cadeaubonnen, contant geld of andere opties die beschikbaar zijn in je accountdashboard."
+      },
+      "7": {
+        "question": "Is er een minimumdrempel voor het inwisselen van beloningen?",
+        "answer": "Ja, er is een minimumdrempel die moet worden bereikt voordat je je beloningen kunt inwisselen. Controleer je dashboard voor meer informatie."
+      }
+    }
+  }

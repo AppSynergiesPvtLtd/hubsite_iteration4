@@ -1,0 +1,22 @@
+{
+    "imgFinal": "Contact Illustration",
+    "headingFinal": "Thank you for reaching out! We have received your message and will be in touch with you shortly.",
+    "heading1": "Love to hear from you,",
+    "heading2": "Get in touch 👋",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "nameRequired": "Name is required",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "upload": " Upload (Optional)",
+    "uploadInvalid": "Only JPG and PNG images are allowed",
+    "message": "Message",
+    "messagePlaceholder": "Enter your message",
+    "messageRequired": "Message is required",
+    "submit": "Send Message",
+    "submitFail": "Failed to submit the form. Please try again.",
+    "submitError": "An error occurred. Please try again.",
+    "img": "Description of the image"
+}

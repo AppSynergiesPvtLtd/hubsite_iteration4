@@ -1,0 +1,235 @@
+{
+  "welcome_heading": "Bienvenue sur Hubsite Social",
+  "welcome_description": "Rejoignez la plateforme Hubsite Social où vos opinions comptent ! Gagnez des pièces pour chaque sondage complété et convertissez-les facilement en argent réel. Profitez d'une expérience fluide, de sondages personnalisés et de la chance de partager vos idées tout en étant récompensé pour votre temps. Commencez à gagner dès aujourd'hui !",
+  "dashboard_button": "Tableau de bord",
+  "get_started_button": "Commencer",
+  "hubsite_social_heading": "Qu'est-ce que Hubsite Social ?",
+  "hubsite_social_description": "Rejoignez la plateforme Hubsite Social où vos opinions comptent ! Gagnez des pièces pour chaque sondage complété et convertissez-les facilement en argent réel. Profitez d'une expérience fluide, de sondages personnalisés et de la chance de partager vos idées tout en étant récompensé pour votre temps. Commencez à gagner dès aujourd'hui !",
+  "view_all_button": "Voir tout",
+  "benefits": {
+    "title": "Avantages de Hubsite Social"
+  },
+  "accumulate": {
+    "title": "Accumulez des HUBCOINS avec Hubsite Social",
+    "cards": [
+      {
+        "heading": "S'inscrire",
+        "btn": "ÉTAPE 1",
+        "paragraph": "Rejoignez notre communauté et découvrez comment votre opinion peut compter. Nous avons versé plus de 1,2 million de roupies à nos membres rien que l'année dernière !"
+      },
+      {
+        "heading": "Répondre aux sondages",
+        "btn": "ÉTAPE 2",
+        "paragraph": "Répondez à un sondage et soyez payé pour partager vos commentaires sur les produits et les marques que nous connaissons et aimons tous. C'est gagnant-gagnant pour tout le monde !"
+      },
+      {
+        "heading": "Être récompensé",
+        "btn": "ÉTAPE 3",
+        "paragraph": "Soyez récompensé en points virtuels (LPs) qui peuvent être échangés contre des cartes-cadeaux électroniques, PayPal, et bien plus encore. Vous choisissez comment vous êtes récompensé, vous choisissez donc comment les sondages vous profitent !"
+      }
+    ],
+    "button": "Comment ça marche"
+  },
+  "navbar": {
+    "about": "À propos de nous",
+    "features": "Avantages clés",
+    "works": "Comment ça marche",
+    "contact": "Contactez-nous",
+    "faq": "FAQ",
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "dashboard": "Tableau de bord"
+  },
+  "footer": {
+    "ready_to_start": "Prêt à commencer ?",
+    "login_button": "Se connecter",
+    "terms_conditions": "Conditions générales",
+    "privacy_policy": "Politique de confidentialité",
+    "reward_policy": "Politique de récompense",
+    "company": "Entreprise",
+    "about_us": "À propos de nous",
+    "key_benefits": "Avantages clés",
+    "how_it_works": "Comment ça marche",
+    "help": "Aide",
+    "faqs": "FAQs",
+    "contact_us": "Contactez-nous",
+    "contact": "Contact",
+    "phone": "+260974314084",
+    "email": "hello@hubsitesocial.com",
+    "address": "A-46, Noida, Sector 2, Uttar Pradesh, Inde"
+  },
+  "reviews": {
+    "title": "Ce que nos heureux panélistes disent de nous"
+  },
+  "newsletter": {
+    "title": "Inscrivez-vous à notre newsletter",
+    "description": "Recevez les dernières nouvelles, mises à jour et bien d'autres chaque semaine.",
+    "email_placeholder": "Entrez votre adresse email",
+    "submit_button": "",
+    "error_message": "Veuillez entrer une adresse email valide.",
+    "success_title": "Merci de votre inscription !",
+    "success_description": "Nous avons reçu votre email pour les mises à jour de la newsletter."
+  },
+  "feature": {
+    "title": "Avantages clés",
+    "subtitle": "Partagez vos idées, gagnez des récompenses et ayez un impact",
+    "paragraph": "Rejoignez Hubsite Social pour participer à des sondages captivants qui permettent à votre voix d'être entendue. Gagnez des récompenses intéressantes tout en aidant les entreprises à comprendre les besoins des consommateurs et à façonner l'avenir des produits et services. Vos opinions comptent, faites la différence dès aujourd'hui !",
+    "userFriendlyInterface": {
+      "title": "Interface conviviale",
+      "description": "Naviguez sur le site avec facilité grâce à une conception intuitive qui simplifie le processus de participation aux sondages."
+    },
+    "diverseSurveySelection": {
+      "title": "Sélection variée de sondages",
+      "description": "Accédez à un large éventail de sondages sur divers sujets, vous permettant de vous engager avec un contenu qui vous intéresse."
+    },
+    "personalizedSurveyInvitations": {
+      "title": "Invitations personnalisées aux sondages",
+      "description": "Recevez des invitations personnalisées basées sur votre profil et vos préférences, garantissant des opportunités de sondages pertinentes et engageantes."
+    },
+    "rewardSystem": {
+      "title": "Système de récompense",
+      "description": "Gagnez des points et des récompenses pour votre participation, y compris des cartes-cadeaux et des réductions exclusives, rendant votre feedback précieux."
+    },
+    "realTimeFeedbackImpact": {
+      "title": "Impact du feedback en temps réel",
+      "description": "Contribuez à des études de marché qui aident les entreprises à obtenir des informations immédiates, influençant le développement de produits et l'amélioration des services."
+    },
+    "communityEngagement": {
+      "title": "Engagement communautaire",
+      "description": "Rejoignez une communauté en ligne dynamique de personnes partageant les mêmes idées qui partagent leurs opinions et contribuent à des études de marché significatives."
+    },
+    "educationalResources": {
+      "title": "Ressources éducatives",
+      "description": "Accédez à des informations et des rapports précieux basés sur des données de sondages agrégées, vous aidant à rester informé des tendances du marché."
+    },
+    "dashboardForAccountManagement": {
+      "title": "Tableau de bord pour la gestion de compte",
+      "description": "Gérez facilement votre profil, suivez votre participation aux sondages et surveillez vos récompenses grâce à un tableau de bord complet."
+    },
+    "dataPrivacyAndSecurity": {
+      "title": "Confidentialité et sécurité des données",
+      "description": "Profitez d'une tranquillité d'esprit grâce à des mesures de protection des données robustes qui garantissent la sécurité et la confidentialité de vos informations personnelles."
+    },
+    "supportAndHelpCenter": {
+      "title": "Support et centre d'aide",
+      "description": "Bénéficiez d'une section d'assistance dédiée qui fournit des réponses aux questions fréquemment posées et de l'aide pour les demandes liées au compte."
+    }
+  },
+  "stepTwo": {
+    "title": "Conversion monétaire",
+    "description": "Les utilisateurs peuvent convertir les pièces gagnées en argent réel, ce qui augmente la valeur perçue de la participation aux sondages."
+  },
+  "stepOne": {
+    "title": "Sondages ciblés",
+    "description": "Permet la segmentation et le ciblage de données démographiques spécifiques pour améliorer la pertinence des sondages."
+  },
+  "stepThree": {
+    "title": "Participation accrue",
+    "description": "Offrir des pièces comme récompenses incite les utilisateurs à répondre aux sondages, ce qui entraîne des taux de réponse plus élevés."
+  },
+  "stepFour": {
+    "title": "Engagement amélioré",
+    "description": "La perspective de gagner des pièces encourage la participation régulière, favorisant l'habitude de fournir des commentaires."
+  },
+  "login": {
+    "title": "Se connecter",
+    "verifyOtpTitle": "Vérifier le OTP",
+    "loginContinue": "Connectez-vous pour continuer vers notre site web",
+    "verifyEmailProceed": "Vérifiez votre email pour continuer",
+    "emailPlaceholder": "Entrez votre email",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "loading": "Chargement...",
+    "loginButton": "Se connecter",
+    "otpPlaceholder": "Entrez le OTP",
+    "verifying": "Vérification...",
+    "verifyOtpButton": "Vérifier le OTP",
+    "resending": "Renvoyer...",
+    "resendOtpButton": "Renvoyer le OTP",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ? ",
+    "signUp": "S'inscrire",
+    "errors": {
+      "fillFields": "Veuillez remplir l'email et le mot de passe.",
+      "validEmail": "Veuillez entrer une adresse email valide.",
+      "passwordLength": "Le mot de passe doit contenir au moins 6 caractères.",
+      "loginFailed": "Échec de la connexion.",
+      "enterOtp": "Veuillez entrer le OTP.",
+      "otpVerificationFailed": "Échec de la vérification du OTP.",
+      "resendOtpFailed": "Échec du renvoi du OTP. Veuillez réessayer.",
+      "googleLoginFailed": "La connexion Google a échoué. Veuillez réessayer."
+    },
+    "messages": {
+      "emailNotVerified": "Email non vérifié. OTP envoyé à votre email.",
+      "otpVerified": "OTP vérifié avec succès !",
+      "otpResent": "OTP a été renvoyé à votre email."
+    }
+  },
+  "signup": {
+    "signUp": "S'inscrire",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "agreeTerms": "J'accepte les",
+    "terms": "conditions",
+    "privacyPolicy": "Politique de confidentialité",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "login": "Se connecter",
+    "processing": "Traitement...",
+    "verifyEmail": "Vérifier l'email",
+    "enterCode": "Entrez le code envoyé à votre email",
+    "enterOtpCode": "Entrez le code OTP",
+    "verifying": "Vérification...",
+    "resendOtp": "Renvoyer le OTP",
+    "resending": "Renvoyer...",
+    "allSet": "Vous êtes prêt ! Terminez votre profil pour commencer",
+    "createProfile": "Créer un profil",
+    "otpRequired": "OTP est requis",
+    "otpSentSuccess": "OTP envoyé avec succès !",
+    "otpVerificationFailed": "Échec de la vérification du OTP. Veuillez réessayer.",
+    "otpVerifiedSuccess": "OTP vérifié avec succès !",
+    "failedToSendOtp": "Échec de l'envoi du OTP. Veuillez réessayer.",
+    "otpResent": "OTP a été renvoyé à votre email.",
+    "failedResendOtp": "Échec du renvoi du OTP. Veuillez réessayer.",
+    "firstNameRequired": "Le prénom est requis",
+    "lastNameRequired": "Le nom de famille est requis",
+    "emailRequired": "L'email est requis",
+    "passwordRequired": "Le mot de passe est requis",
+    "confirmPasswordRequired": "La confirmation du mot de passe est requise",
+    "passwordsNotMatch": "Les mots de passe ne correspondent pas",
+    "agreeTermsRequired": "Vous devez accepter les termes et conditions",
+    "enterPassword": "Entrez le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmer le mot de passe"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Mot de passe oublié",
+    "email": "Email",
+    "enterEmail": "Entrez votre email",
+    "continue": "Continuer",
+    "back": "Retour",
+    "verifyOtp": "Vérifier le OTP",
+    "otpInstruction": "Entrez le code envoyé à votre email et définissez un nouveau mot de passe.",
+    "otp": "OTP",
+    "enterOtp": "Entrez le OTP",
+    "newPassword": "Nouveau mot de passe",
+    "enterNewPassword": "Entrez un nouveau mot de passe",
+    "verifyReset": "Vérifier et réinitialiser le mot de passe",
+    "resetSuccess": "Réinitialisation du mot de passe réussie",
+    "resetMessage": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "goToLogin": "Aller à la connexion",
+    "invalidEmail": "Veuillez entrer une adresse email valide.",
+    "otpSendFailed": "Échec de l'envoi du OTP. Veuillez réessayer.",
+    "otpPasswordRequired": "Veuillez entrer le OTP et un nouveau mot de passe.",
+    "otpResetFailed": "OTP invalide ou échec de la réinitialisation du mot de passe. Veuillez réessayer.",
+    "sending": "Envoi...",
+    "verifying": "Vérification..."
+  },
+  "notFound": {
+    "404_title": "404",
+    "page_not_found_heading": "Page introuvable",
+    "page_not_found_description": "La page que vous recherchez semble être partie à l'aventure. Mais ne vous inquiétez pas, nous allons vous aider à revenir sur la bonne voie.",
+    "go_to_home_button": "Retour à l'accueil"
+  }
+}

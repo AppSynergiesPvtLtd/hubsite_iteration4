@@ -1,0 +1,39 @@
+{
+    "title": "Preguntas Frecuentes",
+    "description": "Encuentre respuestas a las preguntas más frecuentes sobre Hubsite Social. Si necesita ayuda, contáctenos en {{email}} o complete nuestro formulario de contacto. Estamos aquí para ayudarlo las 24 horas, los 7 días de la semana.",
+    "questions": {
+      "0": {
+        "question": "¿Qué es Hubsite Social?",
+        "answer": "Hubsite Social es un panel de investigación de mercado que conecta a empresas con personas para recopilar opiniones e ideas a través de encuestas. Los participantes pueden ganar recompensas por su participación."
+      },
+      "1": {
+        "question": "¿Cómo me uno a Hubsite Social?",
+        "answer": "Puede unirse registrándose en nuestro sitio web, proporcionando la información requerida y confirmando su dirección de correo electrónico."
+      },
+      "2": {
+        "question": "¿Cuáles son los requisitos de elegibilidad para unirse?",
+        "answer": "Los requisitos de elegibilidad incluyen tener al menos 18 años y residir en una región donde opera Hubsite Social."
+      },
+      "3": {
+        "question": "¿Cómo puedo participar en las encuestas?",
+        "answer": "Una vez que sea miembro, recibirá invitaciones a encuestas por correo electrónico o a través de su tablero. Simplemente haga clic en el enlace para comenzar la encuesta."
+      },
+      "4": {
+        "question": "¿Cómo se selecciona a los participantes de la encuesta?",
+        "answer": "Los participantes son seleccionados en función de sus perfiles y los requisitos de cada encuesta. Esto asegura que las respuestas sean relevantes y valiosas."
+      },
+      "5": {
+        "question": "¿Cómo gano recompensas?",
+        "answer": "Puede ganar recompensas completando encuestas. Cada encuesta indicará la cantidad de puntos o recompensas que recibirá al completarla."
+      },
+      "6": {
+        "question": "¿Cómo canjeo mis recompensas?",
+        "answer": "Las recompensas se pueden canjear por tarjetas de regalo, efectivo u otras opciones disponibles en el tablero de su cuenta."
+      },
+      "7": {
+        "question": "¿Hay un umbral mínimo para canjear recompensas?",
+        "answer": "Sí, hay un umbral mínimo que debe alcanzarse antes de poder canjear sus recompensas. Consulte su tablero para obtener más detalles."
+      }
+    }
+  }
+  

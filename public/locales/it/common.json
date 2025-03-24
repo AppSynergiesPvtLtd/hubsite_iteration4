@@ -1,0 +1,236 @@
+{
+    "welcome_heading": "Benvenuto su Hubsite Social",
+    "welcome_description": "Unisciti alla piattaforma Hubsite Social, dove le tue opinioni contano! Guadagna monete per ogni sondaggio completato e convertile facilmente in denaro reale. Goditi un'esperienza senza interruzioni, sondaggi personalizzati e la possibilità di condividere le tue intuizioni mentre vieni premiato per il tuo tempo. Inizia a guadagnare oggi!",
+    "dashboard_button": "Dashboard",
+    "get_started_button": "Inizia",
+    "hubsite_social_heading": "Cos'è Hubsite Social?",
+    "hubsite_social_description": "Unisciti alla piattaforma Hubsite Social, dove le tue opinioni contano! Guadagna monete per ogni sondaggio completato e convertile facilmente in denaro reale. Goditi un'esperienza senza interruzioni, sondaggi personalizzati e la possibilità di condividere le tue intuizioni mentre vieni premiato per il tuo tempo. Inizia a guadagnare oggi!",
+    "view_all_button": "Visualizza tutto",
+    "benefits": {
+      "title": "Vantaggi di Hubsite Social"
+    },
+    "accumulate": {
+      "title": "Accumula HUBCOINS con Hubsite Social",
+      "cards": [
+        {
+          "heading": "Iscriviti",
+          "btn": "PASSAGGIO 1",
+          "paragraph": "Unisciti alla nostra community e scopri come la tua opinione può contare. Abbiamo pagato oltre 1,2 milioni di rupie ai nostri membri solo l'anno scorso!"
+        },
+        {
+          "heading": "Fai sondaggi",
+          "btn": "PASSAGGIO 2",
+          "paragraph": "Fai un sondaggio e fatti pagare per condividere i tuoi commenti sui prodotti e sui marchi che tutti conosciamo e amiamo. È una vittoria per tutti!"
+        },
+        {
+          "heading": "Essere ricompensati",
+          "btn": "PASSAGGIO 3",
+          "paragraph": "Ricevi in premio punti virtuali (LP) che possono essere riscattati come buoni regalo elettronici, PayPal e molto altro. Tu scegli come essere ricompensato, quindi tu scegli come i sondaggi ti avvantaggiano!"
+        }
+      ],
+      "button": "Come funziona"
+    },
+    "navbar": {
+      "about": "Chi siamo",
+      "features": "Vantaggi principali",
+      "works": "Come funziona",
+      "contact": "Contattaci",
+      "faq": "Domande frequenti",
+      "login": "Accedi",
+      "logout": "Disconnetti",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "ready_to_start": "Pronto per iniziare?",
+      "login_button": "Accedi",
+      "terms_conditions": "Termini e condizioni",
+      "privacy_policy": "Informativa sulla privacy",
+      "reward_policy": "Politica sui premi",
+      "company": "Azienda",
+      "about_us": "Chi siamo",
+      "key_benefits": "Vantaggi principali",
+      "how_it_works": "Come funziona",
+      "help": "Aiuto",
+      "faqs": "Domande frequenti",
+      "contact_us": "Contattaci",
+      "contact": "Contatto",
+      "phone": "+260974314084",
+      "email": "hello@hubsitesocial.com",
+      "address": "A-46, Noida, Settore 2, Uttar Pradesh, India"
+    },
+    "reviews": {
+      "title": "Cosa dicono di noi i nostri felici membri del panel"
+    },
+    "newsletter": {
+      "title": "Iscriviti alla nostra newsletter",
+      "description": "Ricevi ogni settimana le ultime notizie, aggiornamenti e molte altre novità.",
+      "email_placeholder": "Inserisci il tuo indirizzo email",
+      "submit_button": "",
+      "error_message": "Inserisci un indirizzo email valido.",
+      "success_title": "Grazie per esserti iscritto!",
+      "success_description": "Abbiamo ricevuto la tua email per gli aggiornamenti della newsletter."
+    },
+    "feature": {
+      "title": "Vantaggi principali",
+      "subtitle": "Condividi le tue intuizioni, guadagna ricompense e crea un impatto",
+      "paragraph": "Unisciti a Hubsite Social per partecipare a sondaggi coinvolgenti che permettono alla tua voce di essere ascoltata. Guadagna entusiasmanti ricompense mentre aiuti le aziende a capire le esigenze dei consumatori e a plasmare il futuro di prodotti e servizi. Le tue opinioni contano: fai la differenza oggi!",
+      "userFriendlyInterface": {
+        "title": "Interfaccia user-friendly",
+        "description": "Naviga nel sito con facilità grazie a un design intuitivo che semplifica il processo di partecipazione al sondaggio."
+      },
+      "diverseSurveySelection": {
+        "title": "Selezione diversificata di sondaggi",
+        "description": "Accedi a un'ampia varietà di sondaggi su vari argomenti, che ti consente di interagire con contenuti che ti interessano."
+      },
+      "personalizedSurveyInvitations": {
+        "title": "Inviti a sondaggi personalizzati",
+        "description": "Ricevi inviti personalizzati in base al tuo profilo e alle tue preferenze, garantendo opportunità di sondaggio pertinenti e coinvolgenti."
+      },
+      "rewardSystem": {
+        "title": "Sistema di ricompense",
+        "description": "Guadagna punti e premi per la tua partecipazione, inclusi buoni regalo e sconti esclusivi, rendendo prezioso il tuo feedback."
+      },
+      "realTimeFeedbackImpact": {
+        "title": "Impatto del feedback in tempo reale",
+        "description": "Contribuisci a ricerche di mercato che aiutano le aziende a ottenere informazioni immediate, influenzando lo sviluppo del prodotto e il miglioramento del servizio."
+      },
+      "communityEngagement": {
+        "title": "Coinvolgimento della community",
+        "description": "Unisciti a una vivace community online di persone con idee simili che condividono le loro opinioni e contribuiscono a ricerche di mercato significative."
+      },
+      "educationalResources": {
+        "title": "Risorse educative",
+        "description": "Accedi a preziose informazioni e rapporti basati su dati di sondaggi aggregati, aiutandoti a rimanere informato sulle tendenze del mercato."
+      },
+      "dashboardForAccountManagement": {
+        "title": "Dashboard per la gestione dell'account",
+        "description": "Gestisci facilmente il tuo profilo, monitora la partecipazione ai sondaggi e monitora i tuoi premi attraverso un dashboard completo."
+      },
+      "dataPrivacyAndSecurity": {
+        "title": "Privacy e sicurezza dei dati",
+        "description": "Prova la tranquillità con robuste misure di protezione dei dati che mantengono le tue informazioni personali al sicuro e riservate."
+      },
+      "supportAndHelpCenter": {
+        "title": "Supporto e centro assistenza",
+        "description": "Approfitta di una sezione di supporto dedicata che fornisce risposte alle domande frequenti e assistenza con domande relative all'account."
+      }
+    },
+    "stepTwo": {
+      "title": "Conversione di denaro",
+      "description": "Gli utenti possono convertire le monete guadagnate in denaro reale, aumentando il valore percepito della partecipazione ai sondaggi."
+    },
+    "stepOne": {
+      "title": "Sondaggi mirati",
+      "description": "Consente la segmentazione e il targeting di dati demografici specifici per migliorare la pertinenza del sondaggio."
+    },
+    "stepThree": {
+      "title": "Maggiore partecipazione",
+      "description": "Offrire monete come ricompensa incentiva gli utenti a fare sondaggi, con conseguenti tassi di risposta più elevati."
+    },
+    "stepFour": {
+      "title": "Coinvolgimento migliorato",
+      "description": "La prospettiva di guadagnare monete incoraggia la partecipazione regolare, promuovendo l'abitudine di fornire feedback."
+    },
+    "login": {
+      "title": "Accedi",
+      "verifyOtpTitle": "Verifica OTP",
+      "loginContinue": "Accedi per continuare sul nostro sito",
+      "verifyEmailProceed": "Verifica la tua email per procedere",
+      "emailPlaceholder": "Inserisci la tua email",
+      "passwordPlaceholder": "Inserisci la tua password",
+      "loading": "Caricamento...",
+      "loginButton": "Accedi",
+      "otpPlaceholder": "Inserisci OTP",
+      "verifying": "Verifica...",
+      "verifyOtpButton": "Verifica OTP",
+      "resending": "Invio di nuovo...",
+      "resendOtpButton": "Invia di nuovo OTP",
+      "forgotPassword": "Password dimenticata?",
+      "noAccount": "Non hai un account? ",
+      "signUp": "Iscriviti",
+      "errors": {
+        "fillFields": "Inserisci sia l'email che la password.",
+        "validEmail": "Inserisci un indirizzo email valido.",
+        "passwordLength": "La password deve essere lunga almeno 6 caratteri.",
+        "loginFailed": "Accesso fallito.",
+        "enterOtp": "Inserisci OTP.",
+        "otpVerificationFailed": "Verifica OTP fallita.",
+        "resendOtpFailed": "Impossibile inviare di nuovo l'OTP. Riprova.",
+        "googleLoginFailed": "Accesso con Google fallito. Riprova."
+      },
+      "messages": {
+        "emailNotVerified": "Email non verificata. OTP inviato alla tua email.",
+        "otpVerified": "OTP verificato con successo!",
+        "otpResent": "OTP è stato inviato di nuovo alla tua email."
+      }
+    },
+    "signup": {
+      "signUp": "Iscriviti",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma password",
+      "rememberMe": "Ricordami",
+      "agreeTerms": "Accetto i",
+      "terms": "termini",
+      "privacyPolicy": "Informativa sulla privacy",
+      "alreadyHaveAccount": "Hai già un account?",
+      "login": "Accedi",
+      "processing": "Elaborazione in corso...",
+      "verifyEmail": "Verifica email",
+      "enterCode": "Inserisci il codice inviato alla tua email",
+      "enterOtpCode": "Inserisci il codice OTP",
+      "verifying": "Verifica...",
+      "resendOtp": "Invia di nuovo OTP",
+      "resending": "Invio di nuovo...",
+      "allSet": "Sei pronto! Completa il tuo profilo per iniziare",
+      "createProfile": "Crea profilo",
+      "otpRequired": "OTP richiesto",
+      "otpSentSuccess": "OTP inviato con successo!",
+      "otpVerificationFailed": "Verifica OTP fallita. Riprova.",
+      "otpVerifiedSuccess": "OTP verificato con successo!",
+      "failedToSendOtp": "Impossibile inviare OTP. Riprova.",
+      "otpResent": "OTP è stato inviato di nuovo alla tua email.",
+      "failedResendOtp": "Impossibile inviare di nuovo OTP. Riprova.",
+      "firstNameRequired": "Il nome è obbligatorio",
+      "lastNameRequired": "Il cognome è obbligatorio",
+      "emailRequired": "L'email è obbligatoria",
+      "passwordRequired": "La password è obbligatoria",
+      "confirmPasswordRequired": "La conferma della password è obbligatoria",
+      "passwordsNotMatch": "Le password non corrispondono",
+      "agreeTermsRequired": "Devi accettare i termini e le condizioni",
+      "enterPassword": "Inserisci la password",
+      "confirmPasswordPlaceholder": "Conferma password"
+    },
+    "forgotPassword": {
+      "forgotPassword": "Password dimenticata",
+      "email": "Email",
+      "enterEmail": "Inserisci la tua email",
+      "continue": "Continua",
+      "back": "Indietro",
+      "verifyOtp": "Verifica OTP",
+      "otpInstruction": "Inserisci il codice inviato alla tua email e imposta una nuova password.",
+      "otp": "OTP",
+      "enterOtp": "Inserisci OTP",
+      "newPassword": "Nuova password",
+      "enterNewPassword": "Inserisci una nuova password",
+      "verifyReset": "Verifica e reimposta password",
+      "resetSuccess": "Reimpostazione password riuscita",
+      "resetMessage": "La tua password è stata reimpostata con successo. Ora puoi accedere con la tua nuova password.",
+      "goToLogin": "Vai al login",
+      "invalidEmail": "Inserisci un indirizzo email valido.",
+      "otpSendFailed": "Impossibile inviare OTP. Riprova.",
+      "otpPasswordRequired": "Inserisci OTP e una nuova password.",
+      "otpResetFailed": "OTP non valido o reimpostazione password fallita. Riprova.",
+      "sending": "Invio...",
+      "verifying": "Verifica..."
+    },
+    "notFound": {
+        "404_title": "404",
+        "page_not_found_heading": "Pagina non trovata",
+        "page_not_found_description": "La pagina che stai cercando sembra essere andata per conto suo all'avventura. Ma non preoccuparti, ti aiuteremo a tornare sulla strada giusta.",
+        "go_to_home_button": "Vai alla home page"
+      }
+  }
+  

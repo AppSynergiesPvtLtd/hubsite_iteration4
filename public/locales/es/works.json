@@ -1,0 +1,30 @@
+{
+    "heading": "Cómo funcionan las encuestas pagadas de Hubsite Social",
+    "title": "Accede a Hubsite Social en 5 sencillos pasos",
+    "description": "¡Prepárate para unirte a la comunidad de Hubsite Social! Sigue estos cinco sencillos pasos para configurar tu cuenta, completar tu perfil y comenzar a participar en encuestas atractivas. ¡Comparte tus ideas, influye en el mercado y gana emocionantes recompensas, todo con solo unos clics!",
+    "signup": {
+        "img": "Ilustración de registro",
+        "heading": "1. Regístrate",
+        "description": "¡Desbloquea un mundo de oportunidades uniéndote a nuestra comunidad hoy! Como miembro, tendrás la oportunidad de compartir tus pensamientos, influir en las principales marcas y ganar recompensas por tus valiosos conocimientos. Es rápido y fácil: ¡regístrate y haz que tu voz cuente!"
+    },
+    "profile": {
+        "img": "Avatar del usuario",
+        "heading": "2. Completa tu perfil",
+        "description": "Completa tu perfil para mejorar tu experiencia y asegurarte de recibir oportunidades de encuestas personalizadas y adaptadas a tus intereses. ¡Esta información nos ayuda a conectarte con encuestas que realmente resuenan contigo, haciendo que tus comentarios sean aún más impactantes!"
+    },
+    "onboarding": {
+        "img": "Ilustración de registro",
+        "heading": "3. Finaliza tu cuestionario de incorporación",
+        "description": "Tómate unos momentos para finalizar tu cuestionario de incorporación, lo que nos permitirá comprender mejor tus intereses y preferencias. Esto nos ayudará a conectarte con encuestas relevantes que se ajusten a tus experiencias, ¡asegurando que tu participación sea agradable e impactante!"
+    },
+    "start": {
+        "img": "Avatar del usuario",
+        "heading": "4. Comienza a realizar encuestas",
+        "description": "Sumérgete en una variedad de encuestas atractivas donde tus opiniones importan. Al compartir tus ideas, no solo influirás en los productos y servicios que te interesan, ¡sino que también ganarás emocionantes recompensas con cada encuesta que completes!"
+    },
+    "rewards": {
+        "img": "Ilustración de registro",
+        "heading": "5. Reclama tus recompensas",
+        "description": "¡Disfruta de las recompensas que has ganado compartiendo tus valiosos conocimientos! Desde tarjetas de regalo hasta descuentos exclusivos, tu participación aporta beneficios tangibles. ¡Explora tus opciones y celebra tu impacto en el mercado!"
+    }
+}

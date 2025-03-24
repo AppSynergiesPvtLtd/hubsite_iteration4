@@ -1,0 +1,38 @@
+{
+    "title": "Domande frequenti",
+    "description": "Trova le risposte alle domande più frequenti su Hubsite Social. Se hai bisogno di assistenza, contattaci all'indirizzo {{email}} o compila il nostro modulo di contatto. Siamo qui per aiutarti 24 ore su 24, 7 giorni su 7.",
+    "questions": {
+      "0": {
+        "question": "Cos'è Hubsite Social?",
+        "answer": "Hubsite Social è un panel di ricerche di mercato che mette in contatto le aziende con i singoli per raccogliere opinioni e approfondimenti attraverso i sondaggi. I partecipanti possono guadagnare premi per la loro partecipazione."
+      },
+      "1": {
+        "question": "Come mi iscrivo a Hubsite Social?",
+        "answer": "Puoi iscriverti registrandoti sul nostro sito web, fornendo le informazioni richieste e confermando il tuo indirizzo e-mail."
+      },
+      "2": {
+        "question": "Quali sono i requisiti di ammissibilità per l'iscrizione?",
+        "answer": "I requisiti di ammissibilità includono avere almeno 18 anni e risiedere in una regione in cui opera Hubsite Social."
+      },
+      "3": {
+        "question": "Come posso partecipare ai sondaggi?",
+        "answer": "Una volta che sei un membro, riceverai inviti ai sondaggi via e-mail o tramite la tua dashboard. Clicca semplicemente sul link per iniziare il sondaggio."
+      },
+      "4": {
+        "question": "Come vengono selezionati i partecipanti al sondaggio?",
+        "answer": "I partecipanti vengono selezionati in base ai loro profili e ai requisiti di ciascun sondaggio. Ciò garantisce che le risposte siano pertinenti e preziose."
+      },
+      "5": {
+        "question": "Come posso guadagnare premi?",
+        "answer": "Puoi guadagnare premi completando i sondaggi. Ogni sondaggio indicherà il numero di punti o premi che riceverai al completamento."
+      },
+      "6": {
+        "question": "Come posso riscattare i miei premi?",
+        "answer": "I premi possono essere riscattati con carte regalo, denaro contante o altre opzioni disponibili nella dashboard del tuo account."
+      },
+      "7": {
+        "question": "Esiste una soglia minima per il riscatto dei premi?",
+        "answer": "Sì, esiste una soglia minima che deve essere raggiunta prima di poter riscattare i premi. Controlla la tua dashboard per i dettagli."
+      }
+    }
+  }

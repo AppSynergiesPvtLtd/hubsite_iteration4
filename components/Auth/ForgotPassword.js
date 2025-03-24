@@ -1,27 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function ForgotPassword({ onSwitchTab }) {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation('common')
+  const [currentStep, setCurrentStep] = useState(1)
+  const [email, setEmail] = useState('')
+  const [otp, setOtp] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleNextStep = async () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
-      return;
+      setError(t('forgotPassword.invalidEmail'))
+      return
     }
 
     try {
-      setLoading(true);
-      setError("");
+      setLoading(true)
+      setError('')
 
       // Call Forgot Password API
       await axios.post(
@@ -29,29 +31,29 @@ export default function ForgotPassword({ onSwitchTab }) {
         { email },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
+      )
 
-      setCurrentStep(2);
+      setCurrentStep(2)
     } catch (error) {
-      setError("Failed to send OTP. Please try again.");
+      setError(t('forgotPassword.otpSendFailed'))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleVerifyOtp = async () => {
     if (!otp || !password) {
-      setError("Please enter the OTP and a new password.");
-      return;
+      setError(t('forgotPassword.otpPasswordRequired'))
+      return
     }
 
     try {
-      setLoading(true);
-      setError("");
+      setLoading(true)
+      setError('')
 
       // Call Reset Password API
       await axios.post(
@@ -63,92 +65,104 @@ export default function ForgotPassword({ onSwitchTab }) {
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
+      )
 
-      setCurrentStep(3); // Success step
+      setCurrentStep(3) // Success step
     } catch (error) {
-      setError("Invalid OTP or failed to reset password. Please try again.");
+      setError(t('forgotPassword.otpResetFailed'))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleBackToSignUp = () => {
-    onSwitchTab("signup");
-  };
+    onSwitchTab('signup')
+  }
 
   // Handle Enter key press and prevent form submission
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Prevent form submission
+    if (e.key === 'Enter') {
+      e.preventDefault() // Prevent form submission
       if (currentStep === 1) {
-        handleNextStep();
+        handleNextStep()
       } else if (currentStep === 2) {
-        handleVerifyOtp();
+        handleVerifyOtp()
       }
     }
-  };
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100%] ">
+    <div className='flex flex-col items-center justify-center min-h-[100%] '>
       {currentStep === 1 && (
-        <div className="max-w-md flex flex-col justify-center w-full bg-white shadow-md p-6 rounded">
-          <h2 className="text-2xl font-semibold text-center mb-4">Forgot Password</h2>
-          <form className="space-y-4">
+        <div className='max-w-md flex flex-col justify-center w-full bg-white shadow-md p-6 rounded'>
+          <h2 className='text-2xl font-semibold text-center mb-4'>
+            {t('forgotPassword.forgotPassword')}
+          </h2>
+          <form className='space-y-4'>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+              <label
+                htmlFor='email'
+                className='block text-sm font-medium text-gray-700'
+              >
+                {t('forgotPassword.email')}
               </label>
               <input
-                type="email"
-                id="email"
-                className="w-full border rounded px-4 py-2 mt-1 focus:outline-none"
-                placeholder="Enter your email"
+                type='email'
+                id='email'
+                className='w-full border rounded px-4 py-2 mt-1 focus:outline-none'
+                placeholder={t('forgotPassword.enterEmail')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={handleKeyDown} // Add the key down handler here
               />
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
             </div>
             <button
-              type="button" // Make sure the button type is "button" to prevent form submission
+              type='button' // Make sure the button type is "button" to prevent form submission
               onClick={handleNextStep}
-              className="w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]"
+              className='w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]'
               disabled={loading}
             >
-              {loading ? "Sending..." : "Continue"}
+              {loading
+                ? t('forgotPassword.sending')
+                : t('forgotPassword.continue')}
             </button>
           </form>
           <button
-            type="button"
+            type='button'
             onClick={handleBackToSignUp}
-            className="text-[#0057A1] mt-4 text-sm"
+            className='text-[#0057A1] mt-4 text-sm'
           >
-            Back
+            {t('forgotPassword.back')}
           </button>
         </div>
       )}
 
       {currentStep === 2 && (
-        <div className="max-w-md w-full bg-white shadow-md p-6 rounded">
-          <h2 className="text-2xl font-semibold text-center mb-4">Verify OTP</h2>
-          <form className="space-y-4">
-            <p className="text-gray-600 text-sm text-center">
-              Enter the code sent to your email and set a new password.
+        <div className='max-w-md w-full bg-white shadow-md p-6 rounded'>
+          <h2 className='text-2xl font-semibold text-center mb-4'>
+            {t('forgotPassword.verifyOtp')}
+          </h2>
+          <form className='space-y-4'>
+            <p className='text-gray-600 text-sm text-center'>
+              {t('forgotPassword.otpInstruction')}
             </p>
             <div>
-              <label htmlFor="otp" className="block text-sm font-medium text-gray-700">
-                OTP
+              <label
+                htmlFor='otp'
+                className='block text-sm font-medium text-gray-700'
+              >
+                {t('forgotPassword.otp')}
               </label>
               <input
-                type="text"
-                id="otp"
-                className="w-full border rounded px-4 py-2 mt-1 focus:outline-none"
-                placeholder="Enter the OTP"
+                type='text'
+                id='otp'
+                className='w-full border rounded px-4 py-2 mt-1 focus:outline-none'
+                placeholder={t('forgotPassword.enterOtp')}
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 onKeyDown={handleKeyDown} // Add the key down handler here
@@ -156,49 +170,53 @@ export default function ForgotPassword({ onSwitchTab }) {
             </div>
             <div>
               <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                htmlFor='password'
+                className='block text-sm font-medium text-gray-700'
               >
-                New Password
+                {t('forgotPassword.newPassword')}
               </label>
               <input
-                type="password"
-                id="password"
-                className="w-full border rounded px-4 py-2 mt-1 focus:outline-none"
-                placeholder="Enter a new password"
+                type='password'
+                id='password'
+                className='w-full border rounded px-4 py-2 mt-1 focus:outline-none'
+                placeholder={t('forgotPassword.enterNewPassword')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={handleKeyDown} // Add the key down handler here
               />
             </div>
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
             <button
-              type="button" // Make sure the button type is "button" to prevent form submission
+              type='button' // Make sure the button type is "button" to prevent form submission
               onClick={handleVerifyOtp}
-              className="w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]"
+              className='w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1]'
               disabled={loading}
             >
-              {loading ? "Verifying..." : "Verify & Reset Password"}
+              {loading
+                ? t('forgotPassword.verifying')
+                : t('forgotPassword.verifyReset')}
             </button>
           </form>
         </div>
       )}
 
       {currentStep === 3 && (
-        <div className="max-w-md w-full bg-white shadow-md p-6 rounded">
-          <h2 className="text-2xl font-semibold text-center mb-4">Password Reset Successful</h2>
-          <p className="text-gray-600 text-sm text-center">
-            Your password has been reset successfully. You can now log in with your new password.
+        <div className='max-w-md w-full bg-white shadow-md p-6 rounded'>
+          <h2 className='text-2xl font-semibold text-center mb-4'>
+            {t('forgotPassword.resetSuccess')}
+          </h2>
+          <p className='text-gray-600 text-sm text-center'>
+            {t('forgotPassword.resetMessage')}
           </p>
           <button
-            type="button"
-            onClick={() => onSwitchTab("login")}
-            className="w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1] mt-4"
+            type='button'
+            onClick={() => onSwitchTab('login')}
+            className='w-full bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#0056a1f1] mt-4'
           >
-            Go to Login
+            {t('forgotPassword.goToLogin')}
           </button>
         </div>
       )}
     </div>
-  );
+  )
 }

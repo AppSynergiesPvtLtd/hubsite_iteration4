@@ -1,0 +1,236 @@
+{
+    "welcome_heading": "Welkom bij Hubsite Social",
+    "welcome_description": "Word lid van het Hubsite Social platform waar uw mening telt! Verdien munten voor elke voltooide enquête en zet ze eenvoudig om in echt geld. Geniet van een naadloze ervaring, op maat gemaakte enquêtes en de kans om uw inzichten te delen terwijl u wordt beloond voor uw tijd. Begin vandaag nog met verdienen!",
+    "dashboard_button": "Dashboard",
+    "get_started_button": "Aan de slag",
+    "hubsite_social_heading": "Wat is Hubsite Social?",
+    "hubsite_social_description": "Word lid van het Hubsite Social platform waar uw mening telt! Verdien munten voor elke voltooide enquête en zet ze eenvoudig om in echt geld. Geniet van een naadloze ervaring, op maat gemaakte enquêtes en de kans om uw inzichten te delen terwijl u wordt beloond voor uw tijd. Begin vandaag nog met verdienen!",
+    "view_all_button": "Bekijk alles",
+    "benefits": {
+      "title": "Voordelen van Hubsite Social"
+    },
+    "accumulate": {
+      "title": "Verzamel HUBCOINS met Hubsite Social",
+      "cards": [
+        {
+          "heading": "Aanmelden",
+          "btn": "STAP 1",
+          "paragraph": "Word lid van onze community en ontdek hoe uw mening ertoe kan doen. We hebben het afgelopen jaar al meer dan 1,2 miljoen roepies aan onze leden uitbetaald!"
+        },
+        {
+          "heading": "Neem deel aan enquêtes",
+          "btn": "STAP 2",
+          "paragraph": "Neem deel aan een enquête en word betaald voor het delen van uw feedback over de producten en merken die we allemaal kennen en waarderen. Het is een win-win voor iedereen!"
+        },
+        {
+          "heading": "Word beloond",
+          "btn": "STAP 3",
+          "paragraph": "Word beloond met virtuele punten (LP's) die kunnen worden ingewisseld voor e-cadeaubonnen, PayPal en nog veel meer. U kiest hoe u wordt beloond, dus u kiest hoe het invullen van enquêtes u ten goede komt!"
+        }
+      ],
+      "button": "Hoe het werkt"
+    },
+    "navbar": {
+      "about": "Over ons",
+      "features": "Belangrijkste voordelen",
+      "works": "Hoe het werkt",
+      "contact": "Contact",
+      "faq": "Veelgestelde vragen",
+      "login": "Inloggen",
+      "logout": "Uitloggen",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "ready_to_start": "Klaar om aan de slag te gaan?",
+      "login_button": "Inloggen",
+      "terms_conditions": "Algemene voorwaarden",
+      "privacy_policy": "Privacybeleid",
+      "reward_policy": "Beloningsbeleid",
+      "company": "Bedrijf",
+      "about_us": "Over ons",
+      "key_benefits": "Belangrijkste voordelen",
+      "how_it_works": "Hoe het werkt",
+      "help": "Help",
+      "faqs": "Veelgestelde vragen",
+      "contact_us": "Contact",
+      "contact": "Contact",
+      "phone": "+260974314084",
+      "email": "hello@hubsitesocial.com",
+      "address": "A-46, Noida, Sector 2, Uttar Pradesh, India"
+    },
+    "reviews": {
+      "title": "Wat onze tevreden panelleden over ons zeggen"
+    },
+    "newsletter": {
+      "title": "Meld u aan voor onze nieuwsbrief",
+      "description": "Ontvang elke week het laatste nieuws, updates en vele andere nieuwtjes.",
+      "email_placeholder": "Vul uw e-mailadres in",
+      "submit_button": "",
+      "error_message": "Voer een geldig e-mailadres in.",
+      "success_title": "Bedankt voor uw aanmelding!",
+      "success_description": "We hebben uw e-mail ontvangen voor nieuwsbriefupdates."
+    },
+    "feature": {
+      "title": "Belangrijkste voordelen",
+      "subtitle": "Deel uw inzichten, verdien beloningen en maak een impact",
+      "paragraph": "Word lid van Hubsite Social om deel te nemen aan boeiende enquêtes waarmee uw stem gehoord kan worden. Verdien opwindende beloningen terwijl u bedrijven helpt de behoeften van consumenten te begrijpen en de toekomst van producten en diensten vorm te geeft. Uw mening telt - maak vandaag nog een verschil!",
+      "userFriendlyInterface": {
+        "title": "Gebruiksvriendelijke interface",
+        "description": "Navigeer eenvoudig door de site dankzij een intuïtief ontwerp dat het deelnemen aan enquêtes vereenvoudigt."
+      },
+      "diverseSurveySelection": {
+        "title": "Diverse enquêtekeuze",
+        "description": "Krijg toegang tot een breed scala aan enquêtes over verschillende onderwerpen, zodat u zich kunt bezighouden met inhoud die u interesseert."
+      },
+      "personalizedSurveyInvitations": {
+        "title": "Gepersonaliseerde enquête-uitnodigingen",
+        "description": "Ontvang uitnodigingen op maat op basis van uw profiel en voorkeuren, waardoor relevante en boeiende enquêtemogelijkheden worden gegarandeerd."
+      },
+      "rewardSystem": {
+        "title": "Beloningssysteem",
+        "description": "Verdien punten en beloningen voor uw deelname, waaronder cadeaubonnen en exclusieve kortingen, waardoor uw feedback waardevol wordt."
+      },
+      "realTimeFeedbackImpact": {
+        "title": "Realtime feedback-impact",
+        "description": "Draag bij aan marktonderzoek dat bedrijven helpt direct inzicht te krijgen, wat de productontwikkeling en serviceverbetering beïnvloedt."
+      },
+      "communityEngagement": {
+        "title": "Betrokkenheid van de community",
+        "description": "Sluit u aan bij een levendige online community van gelijkgestemde individuen die hun mening delen en bijdragen aan zinvol marktonderzoek."
+      },
+      "educationalResources": {
+        "title": "Educatieve bronnen",
+        "description": "Krijg toegang tot waardevolle inzichten en rapporten op basis van geaggregeerde enquêtegegevens, zodat u op de hoogte blijft van markttrends."
+      },
+      "dashboardForAccountManagement": {
+        "title": "Dashboard voor accountbeheer",
+        "description": "Beheer eenvoudig uw profiel, volg uw deelname aan enquêtes en bewaak uw beloningen via een uitgebreid dashboard."
+      },
+      "dataPrivacyAndSecurity": {
+        "title": "Gegevensprivacy en -beveiliging",
+        "description": "Ervaar gemoedsrust met sterke gegevensbeschermingsmaatregelen die uw persoonlijke gegevens veilig en vertrouwelijk houden."
+      },
+      "supportAndHelpCenter": {
+        "title": "Ondersteuning en helpcentrum",
+        "description": "Profiteer van een speciale ondersteuningssectie die antwoorden geeft op veelgestelde vragen en hulp biedt bij accountgerelateerde vragen."
+      }
+    },
+    "stepTwo": {
+      "title": "Monetaire conversie",
+      "description": "Gebruikers kunnen verdiende munten omzetten in echt geld, waardoor de waargenomen waarde van deelname aan enquêtes toeneemt."
+    },
+    "stepOne": {
+      "title": "Gerichte enquêtes",
+      "description": "Maakt segmentatie en targeting van specifieke demografische groepen mogelijk om de relevantie van enquêtes te verbeteren."
+    },
+    "stepThree": {
+      "title": "Verhoogde deelname",
+      "description": "Het aanbieden van munten als beloning stimuleert gebruikers om deel te nemen aan enquêtes, wat resulteert in hogere responspercentages."
+    },
+    "stepFour": {
+      "title": "Verbeterde betrokkenheid",
+      "description": "Het vooruitzicht om munten te verdienen, moedigt regelmatige deelname aan en bevordert een gewoonte om feedback te geven."
+    },
+    "login": {
+      "title": "Inloggen",
+      "verifyOtpTitle": "Verifieer OTP",
+      "loginContinue": "Log in om door te gaan naar onze website",
+      "verifyEmailProceed": "Verifieer uw e-mail om verder te gaan",
+      "emailPlaceholder": "Vul uw e-mailadres in",
+      "passwordPlaceholder": "Vul uw wachtwoord in",
+      "loading": "Laden...",
+      "loginButton": "Inloggen",
+      "otpPlaceholder": "Voer OTP in",
+      "verifying": "Verifiëren...",
+      "verifyOtpButton": "OTP verifiëren",
+      "resending": "Opnieuw verzenden...",
+      "resendOtpButton": "OTP opnieuw verzenden",
+      "forgotPassword": "Wachtwoord vergeten?",
+      "noAccount": "Heeft u geen account? ",
+      "signUp": "Aanmelden",
+      "errors": {
+        "fillFields": "Vul zowel e-mail als wachtwoord in.",
+        "validEmail": "Voer een geldig e-mailadres in.",
+        "passwordLength": "Het wachtwoord moet minstens 6 tekens lang zijn.",
+        "loginFailed": "Inloggen mislukt.",
+        "enterOtp": "Voer de OTP in.",
+        "otpVerificationFailed": "OTP-verificatie mislukt.",
+        "resendOtpFailed": "Verzenden van OTP mislukt. Probeer het opnieuw.",
+        "googleLoginFailed": "Inloggen met Google mislukt. Probeer het opnieuw."
+      },
+      "messages": {
+        "emailNotVerified": "E-mail niet geverifieerd. OTP verzonden naar uw e-mailadres.",
+        "otpVerified": "OTP succesvol geverifieerd!",
+        "otpResent": "OTP is opnieuw verzonden naar uw e-mailadres."
+      }
+    },
+    "signup": {
+      "signUp": "Aanmelden",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "confirmPassword": "Bevestig wachtwoord",
+      "rememberMe": "Onthoud mij",
+      "agreeTerms": "Ik ga akkoord met de",
+      "terms": "voorwaarden",
+      "privacyPolicy": "Privacybeleid",
+      "alreadyHaveAccount": "Heeft u al een account?",
+      "login": "Inloggen",
+      "processing": "Verwerken...",
+      "verifyEmail": "Verifieer e-mail",
+      "enterCode": "Voer de code in die naar uw e-mail is verzonden",
+      "enterOtpCode": "Voer OTP-code in",
+      "verifying": "Verifiëren...",
+      "resendOtp": "OTP opnieuw verzenden",
+      "resending": "Opnieuw verzenden...",
+      "allSet": "U bent er helemaal klaar voor! Voltooi uw profiel om aan de slag te gaan",
+      "createProfile": "Profiel aanmaken",
+      "otpRequired": "OTP is vereist",
+      "otpSentSuccess": "OTP succesvol verzonden!",
+      "otpVerificationFailed": "OTP-verificatie mislukt. Probeer het opnieuw.",
+      "otpVerifiedSuccess": "OTP succesvol geverifieerd!",
+      "failedToSendOtp": "Verzenden van OTP mislukt. Probeer het opnieuw.",
+      "otpResent": "OTP is opnieuw verzonden naar uw e-mailadres.",
+      "failedResendOtp": "Verzenden van OTP mislukt. Probeer het opnieuw.",
+      "firstNameRequired": "Voornaam is vereist",
+      "lastNameRequired": "Achternaam is vereist",
+      "emailRequired": "E-mail is vereist",
+      "passwordRequired": "Wachtwoord is vereist",
+      "confirmPasswordRequired": "Bevestig wachtwoord is vereist",
+      "passwordsNotMatch": "Wachtwoorden komen niet overeen",
+      "agreeTermsRequired": "U moet akkoord gaan met de algemene voorwaarden",
+      "enterPassword": "Voer wachtwoord in",
+      "confirmPasswordPlaceholder": "Bevestig wachtwoord"
+    },
+    "forgotPassword": {
+      "forgotPassword": "Wachtwoord vergeten",
+      "email": "E-mail",
+      "enterEmail": "Voer uw e-mailadres in",
+      "continue": "Doorgaan",
+      "back": "Terug",
+      "verifyOtp": "OTP verifiëren",
+      "otpInstruction": "Voer de code in die naar uw e-mail is verzonden en stel een nieuw wachtwoord in.",
+      "otp": "OTP",
+      "enterOtp": "Voer de OTP in",
+      "newPassword": "Nieuw wachtwoord",
+      "enterNewPassword": "Voer een nieuw wachtwoord in",
+      "verifyReset": "Verifiëren en wachtwoord opnieuw instellen",
+      "resetSuccess": "Wachtwoord succesvol opnieuw ingesteld",
+      "resetMessage": "Uw wachtwoord is succesvol opnieuw ingesteld. U kunt nu inloggen met uw nieuwe wachtwoord.",
+      "goToLogin": "Ga naar inloggen",
+      "invalidEmail": "Voer een geldig e-mailadres in.",
+      "otpSendFailed": "Verzenden van OTP mislukt. Probeer het opnieuw.",
+      "otpPasswordRequired": "Voer de OTP en een nieuw wachtwoord in.",
+      "otpResetFailed": "Ongeldige OTP of het opnieuw instellen van het wachtwoord is mislukt. Probeer het opnieuw.",
+      "sending": "Verzenden...",
+      "verifying": "Verifiëren..."
+    },
+    "notFound": {
+        "404_title": "404",
+        "page_not_found_heading": "Pagina niet gevonden",
+        "page_not_found_description": "De pagina die u zoekt, lijkt op eigen avontuur te zijn gegaan. Maar maak u geen zorgen, we helpen u weer op de goede weg.",
+        "go_to_home_button": "Ga naar de startpagina"
+      }
+  }
+  

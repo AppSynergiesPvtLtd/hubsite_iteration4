@@ -1,0 +1,237 @@
+{
+    "welcome_heading": "Willkommen bei Hubsite Social",
+    "welcome_description": "Treten Sie der Hubsite Social Plattform bei, wo Ihre Meinungen zählen! Verdienen Sie Münzen für jede abgeschlossene Umfrage und wandeln Sie diese einfach in echtes Geld um. Genießen Sie ein nahtloses Erlebnis, personalisierte Umfragen und die Möglichkeit, Ihre Erkenntnisse zu teilen, während Sie für Ihre Zeit belohnt werden. Beginnen Sie noch heute mit dem Verdienen!",
+    "dashboard_button": "Dashboard",
+    "get_started_button": "Loslegen",
+    "hubsite_social_heading": "Was ist Hubsite Social?",
+    "hubsite_social_description": "Treten Sie der Hubsite Social Plattform bei, wo Ihre Meinungen zählen! Verdienen Sie Münzen für jede abgeschlossene Umfrage und wandeln Sie diese einfach in echtes Geld um. Genießen Sie ein nahtloses Erlebnis, personalisierte Umfragen und die Möglichkeit, Ihre Erkenntnisse zu teilen, während Sie für Ihre Zeit belohnt werden. Beginnen Sie noch heute mit dem Verdienen!",
+    "view_all_button": "Alle anzeigen",
+    "benefits": {
+      "title": "Vorteile von Hubsite Social"
+    },
+    "accumulate": {
+      "title": "Sammeln Sie HUBCOINS mit Hubsite Social",
+      "cards": [
+        {
+          "heading": "Anmelden",
+          "btn": "SCHRITT 1",
+          "paragraph": "Treten Sie unserer Community bei und entdecken Sie, wie Ihre Meinung wichtig sein kann. Wir haben allein im letzten Jahr über 1,2 Millionen Rupien an unsere Mitglieder ausgezahlt!"
+        },
+        {
+          "heading": "Umfragen durchführen",
+          "btn": "SCHRITT 2",
+          "paragraph": "Nehmen Sie an einer Umfrage teil und lassen Sie sich dafür bezahlen, dass Sie Ihr Feedback zu den Produkten und Marken teilen, die wir alle kennen und lieben. Es ist ein Gewinn für alle!"
+        },
+        {
+          "heading": "Belohnt werden",
+          "btn": "SCHRITT 3",
+          "paragraph": "Lassen Sie sich mit virtuellen Punkten (LPs) belohnen, die gegen elektronische Geschenkkarten, PayPal und vieles mehr eingelöst werden können. Sie wählen, wie Sie belohnt werden, also wählen Sie, wie Umfragen Ihnen zugute kommen!"
+        }
+      ],
+      "button": "Wie es funktioniert"
+    },
+    "navbar": {
+      "about": "Über uns",
+      "features": "Hauptvorteile",
+      "works": "Wie es funktioniert",
+      "contact": "Kontaktieren Sie uns",
+      "faq": "Häufig gestellte Fragen",
+      "login": "Anmelden",
+      "logout": "Abmelden",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "ready_to_start": "Bereit loszulegen?",
+      "login_button": "Anmelden",
+      "terms_conditions": "Bedingungen",
+      "privacy_policy": "Datenschutzrichtlinie",
+      "reward_policy": "Prämienrichtlinie",
+      "company": "Unternehmen",
+      "about_us": "Über uns",
+      "key_benefits": "Hauptvorteile",
+      "how_it_works": "Wie es funktioniert",
+      "help": "Hilfe",
+      "faqs": "Häufig gestellte Fragen",
+      "contact_us": "Kontaktieren Sie uns",
+      "contact": "Kontakt",
+      "phone": "+260974314084",
+      "email": "hello@hubsitesocial.com",
+      "address": "A-46, Noida, Sektor 2, Uttar Pradesh, Indien"
+    },
+    "reviews": {
+      "title": "Was unsere glücklichen Panelteilnehmer über uns sagen"
+    },
+    "newsletter": {
+      "title": "Abonnieren Sie unseren Newsletter",
+      "description": "Erhalten Sie jede Woche die neuesten Nachrichten, Updates und viele andere Neuigkeiten.",
+      "email_placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+      "submit_button": "",
+      "error_message": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "success_title": "Danke für Ihre Anmeldung!",
+      "success_description": "Wir haben Ihre E-Mail für Newsletter-Updates erhalten."
+    },
+    "feature": {
+      "title": "Hauptvorteile",
+      "subtitle": "Teilen Sie Ihre Erkenntnisse, verdienen Sie Belohnungen und bewirken Sie etwas",
+      "paragraph": "Treten Sie Hubsite Social bei, um an spannenden Umfragen teilzunehmen, die es ermöglichen, Ihre Stimme zu hören. Verdienen Sie aufregende Belohnungen, während Sie Unternehmen helfen, die Bedürfnisse der Verbraucher zu verstehen und die Zukunft von Produkten und Dienstleistungen zu gestalten. Ihre Meinungen sind wichtig - machen Sie noch heute einen Unterschied!",
+      "userFriendlyInterface": {
+        "title": "Benutzerfreundliche Oberfläche",
+        "description": "Navigieren Sie mit Leichtigkeit durch die Website dank eines intuitiven Designs, das den Umfrageteilnahmeprozess vereinfacht."
+      },
+      "diverseSurveySelection": {
+        "title": "Vielfältige Auswahl an Umfragen",
+        "description": "Greifen Sie auf eine breite Palette von Umfragen zu verschiedenen Themen zu, sodass Sie sich mit Inhalten beschäftigen können, die Sie interessieren."
+      },
+      "personalizedSurveyInvitations": {
+        "title": "Personalisierte Umfrageeinladungen",
+        "description": "Erhalten Sie maßgeschneiderte Einladungen basierend auf Ihrem Profil und Ihren Vorlieben, um relevante und ansprechende Umfragemöglichkeiten sicherzustellen."
+      },
+      "rewardSystem": {
+        "title": "Belohnungssystem",
+        "description": "Sammeln Sie Punkte und Prämien für Ihre Teilnahme, einschließlich Geschenkkarten und exklusiver Rabatte, die Ihr Feedback wertvoll machen."
+      },
+      "realTimeFeedbackImpact": {
+        "title": "Echtzeit-Feedback-Auswirkung",
+        "description": "Tragen Sie zu Marktforschungen bei, die Unternehmen dabei helfen, sofortige Einblicke zu gewinnen und die Produktentwicklung und Serviceverbesserungen zu beeinflussen."
+      },
+      "communityEngagement": {
+        "title": "Community-Engagement",
+        "description": "Treten Sie einer lebendigen Online-Community von Gleichgesinnten bei, die ihre Meinungen austauschen und zu aussagekräftigen Marktforschungen beitragen."
+      },
+      "educationalResources": {
+        "title": "Bildungsressourcen",
+        "description": "Greifen Sie auf wertvolle Einblicke und Berichte zu, die auf aggregierten Umfragedaten basieren, und helfen Sie Ihnen, über Markttrends informiert zu bleiben."
+      },
+      "dashboardForAccountManagement": {
+        "title": "Dashboard für die Kontoverwaltung",
+        "description": "Verwalten Sie Ihr Profil einfach, verfolgen Sie Ihre Umfrageteilnahme und überwachen Sie Ihre Prämien über ein umfassendes Dashboard."
+      },
+      "dataPrivacyAndSecurity": {
+        "title": "Datenschutz und Sicherheit",
+        "description": "Erleben Sie Sicherheit mit robusten Datenschutzmaßnahmen, die Ihre persönlichen Daten sicher und vertraulich behandeln."
+      },
+      "supportAndHelpCenter": {
+        "title": "Support- und Hilfecenter",
+        "description": "Profitieren Sie von einem speziellen Supportbereich, der Antworten auf häufig gestellte Fragen und Unterstützung bei kontobezogenen Anfragen bietet."
+      }
+    },
+    "stepTwo": {
+      "title": "Geldumwandlung",
+      "description": "Benutzer können verdiente Münzen in echtes Geld umwandeln, wodurch der wahrgenommene Wert der Teilnahme an Umfragen steigt."
+    },
+    "stepOne": {
+      "title": "Gezielte Umfragen",
+      "description": "Ermöglicht die Segmentierung und Ausrichtung auf bestimmte demografische Gruppen, um die Relevanz der Umfrage zu verbessern."
+    },
+    "stepThree": {
+      "title": "Erhöhte Beteiligung",
+      "description": "Das Anbieten von Münzen als Belohnung motiviert Benutzer zur Teilnahme an Umfragen, was zu höheren Antwortraten führt."
+    },
+    "stepFour": {
+      "title": "Verbessertes Engagement",
+      "description": "Die Aussicht, Münzen zu verdienen, fördert die regelmäßige Teilnahme und fördert die Gewohnheit, Feedback zu geben."
+    },
+    "login": {
+      "title": "Anmelden",
+      "verifyOtpTitle": "OTP überprüfen",
+      "loginContinue": "Melden Sie sich an, um auf unserer Website fortzufahren",
+      "verifyEmailProceed": "Überprüfen Sie Ihre E-Mail, um fortzufahren",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "loading": "Wird geladen...",
+      "loginButton": "Anmelden",
+      "otpPlaceholder": "OTP eingeben",
+      "verifying": "Wird überprüft...",
+      "verifyOtpButton": "OTP überprüfen",
+      "resending": "Wird erneut gesendet...",
+      "resendOtpButton": "OTP erneut senden",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Kein Konto? ",
+      "signUp": "Registrieren",
+      "errors": {
+        "fillFields": "Bitte füllen Sie sowohl E-Mail als auch Passwort aus.",
+        "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+        "passwordLength": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "loginFailed": "Anmeldung fehlgeschlagen.",
+        "enterOtp": "Bitte geben Sie das OTP ein.",
+        "otpVerificationFailed": "OTP-Verifizierung fehlgeschlagen.",
+        "resendOtpFailed": "Fehler beim erneuten Senden des OTP. Bitte versuchen Sie es erneut.",
+        "googleLoginFailed": "Google-Login fehlgeschlagen. Bitte versuchen Sie es erneut."
+      },
+      "messages": {
+        "emailNotVerified": "E-Mail nicht verifiziert. OTP an Ihre E-Mail gesendet.",
+        "otpVerified": "OTP erfolgreich verifiziert!",
+        "otpResent": "OTP wurde erneut an Ihre E-Mail gesendet."
+      }
+    },
+    "signup": {
+      "signUp": "Registrieren",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "rememberMe": "Angemeldet bleiben",
+      "agreeTerms": "Ich stimme den",
+      "terms": "Bedingungen",
+      "privacyPolicy": "Datenschutzrichtlinie",
+      "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+      "login": "Anmelden",
+      "processing": "Wird verarbeitet...",
+      "verifyEmail": "E-Mail überprüfen",
+      "enterCode": "Geben Sie den Code ein, der an Ihre E-Mail gesendet wurde",
+      "enterOtpCode": "OTP-Code eingeben",
+      "verifying": "Wird überprüft...",
+      "resendOtp": "OTP erneut senden",
+      "resending": "Wird erneut gesendet...",
+      "allSet": "Sie sind startklar! Schließen Sie Ihr Profil ab, um zu beginnen",
+      "createProfile": "Profil erstellen",
+      "otpRequired": "OTP erforderlich",
+      "otpSentSuccess": "OTP erfolgreich gesendet!",
+      "otpVerificationFailed": "OTP-Verifizierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "otpVerifiedSuccess": "OTP erfolgreich verifiziert!",
+      "failedToSendOtp": "Fehler beim Senden des OTP. Bitte versuchen Sie es erneut.",
+      "otpResent": "OTP wurde erneut an Ihre E-Mail gesendet.",
+      "failedResendOtp": "Fehler beim erneuten Senden des OTP. Bitte versuchen Sie es erneut.",
+      "firstNameRequired": "Vorname erforderlich",
+      "lastNameRequired": "Nachname erforderlich",
+      "emailRequired": "E-Mail erforderlich",
+      "passwordRequired": "Passwort erforderlich",
+      "confirmPasswordRequired": "Bestätigung des Passworts erforderlich",
+      "passwordsNotMatch": "Passwörter stimmen nicht überein",
+      "agreeTermsRequired": "Sie müssen den Bedingungen zustimmen",
+      "enterPassword": "Passwort eingeben",
+      "confirmPasswordPlaceholder": "Passwort bestätigen"
+    },
+    "forgotPassword": {
+      "forgotPassword": "Passwort vergessen",
+      "email": "E-Mail",
+      "enterEmail": "Geben Sie Ihre E-Mail-Adresse ein",
+      "continue": "Weiter",
+      "back": "Zurück",
+      "verifyOtp": "OTP überprüfen",
+      "otpInstruction": "Geben Sie den Code ein, der an Ihre E-Mail gesendet wurde, und legen Sie ein neues Passwort fest.",
+      "otp": "OTP",
+      "enterOtp": "OTP eingeben",
+      "newPassword": "Neues Passwort",
+      "enterNewPassword": "Geben Sie ein neues Passwort ein",
+      "verifyReset": "Passwort überprüfen und zurücksetzen",
+      "resetSuccess": "Passwort erfolgreich zurückgesetzt",
+      "resetMessage": "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
+      "goToLogin": "Zur Anmeldung gehen",
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "otpSendFailed": "Fehler beim Senden des OTP. Bitte versuchen Sie es erneut.",
+      "otpPasswordRequired": "Bitte geben Sie das OTP und ein neues Passwort ein.",
+      "otpResetFailed": "Ungültiges OTP oder Fehler beim Zurücksetzen des Passworts. Bitte versuchen Sie es erneut.",
+      "sending": "Senden...",
+      "verifying": "Wird überprüft..."
+    },
+    "notFound": {
+        "404_title": "404",
+        "page_not_found_heading": "Seite nicht gefunden",
+        "page_not_found_description": "Die Seite, die Sie suchen, scheint sich auf ein eigenes Abenteuer begeben zu haben. Aber keine Sorge, wir helfen Ihnen, wieder auf den richtigen Weg zu kommen.",
+        "go_to_home_button": "Zur Startseite"
+      }
+      
+  }
+  

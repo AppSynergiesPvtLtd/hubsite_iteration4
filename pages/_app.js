@@ -6,27 +6,29 @@ import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import store from "@/store";
 import AppInitializer from "@/layouts/AppInitializer";
+import { appWithTranslation } from 'next-i18next'
+import nextI18NextConfig from '../next-i18next.config.js'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  const [hasMounted, setHasMounted] = useState(false);
-  const router = useRouter();
+  const [hasMounted, setHasMounted] = useState(false)
+  const router = useRouter()
 
   // Set mounted flag on client-side mount
   useEffect(() => {
-    setHasMounted(true);
-  }, []);
+    setHasMounted(true)
+  }, [])
 
   // Until the client has mounted, render nothing (prevents mismatches)
   if (!hasMounted) {
-    return null;
+    return null
   }
 
   // Determine if this route is for admin pages.
   // You can also add a flag on the component (e.g., Component.adminRoute = true)
   const isAdminRoute =
-    Component.adminRoute || router.pathname.startsWith("/admin");
+    Component.adminRoute || router.pathname.startsWith('/admin')
 
-  const Layout = Component.Layout || (({ children }) => <>{children}</>);
+  const Layout = Component.Layout || (({ children }) => <>{children}</>)
 
   return (
     <SessionProvider session={session}>
@@ -46,7 +48,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         )}
       </ReduxProvider>
     </SessionProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp, {
+  i18n: nextI18NextConfig,
+  localePath: './public/locales',
+})
