@@ -1,38 +1,39 @@
 {
-    "title": "FAQ's",
-    "description": "Find answers to the most frequently asked questions about Hubsite Social. If you need assistance, contact us at {{email}} or fill out our contact form. We're here to help 24/7.",
-    "questions": {
-      "0": {
-        "question": "What is Hubsite Social?",
-        "answer": "Hubsite Social is a market research panel that connects businesses with individuals to gather opinions and insights through surveys. Participants can earn rewards for their participation."
-      },
-      "1": {
-        "question": "How do I join Hubsite Social?",
-        "answer": "You can join by signing up on our website, providing the required information, and confirming your email address."
-      },
-      "2": {
-        "question": "What are the eligibility requirements for joining?",
-        "answer": "Eligibility requirements include being at least 18 years old and residing in a region where Hubsite Social operates."
-      },
-      "3": {
-        "question": "How can I participate in surveys?",
-        "answer": "Once you're a member, you'll receive survey invitations via email or through your dashboard. Simply click the link to start the survey."
-      },
-      "4": {
-        "question": "How are survey participants selected?",
-        "answer": "Participants are selected based on their profiles and the requirements of each survey. This ensures that responses are relevant and valuable."
-      },
-      "5": {
-        "question": "How do I earn rewards?",
-        "answer": "You can earn rewards by completing surveys. Each survey will indicate the number of points or rewards you'll receive upon completion."
-      },
-      "6": {
-        "question": "How can I redeem my rewards?",
-        "answer": "Rewards can be redeemed for gift cards, cash, or other options available in your account dashboard."
-      },
-      "7": {
-        "question": "Is there a minimum threshold for redeeming rewards?",
-        "answer": "Yes, there is a minimum threshold that must be reached before you can redeem your rewards. Check your dashboard for details."
-      }
+  "title": "FAQ's",
+  "description1": "Find answers to the most frequently asked questions about Hubsite Social. If you need assistance, contact us at",
+  "description2": " or fill out our contact form. We're here to help 24/7.",
+  "questions": {
+    "0": {
+      "question": "What is Hubsite Social?",
+      "answer": "Hubsite Social is a market research panel that connects businesses with individuals to gather opinions and insights through surveys. Participants can earn rewards for their participation."
+    },
+    "1": {
+      "question": "How do I join Hubsite Social?",
+      "answer": "You can join by signing up on our website, providing the required information, and confirming your email address."
+    },
+    "2": {
+      "question": "What are the eligibility requirements for joining?",
+      "answer": "Eligibility requirements include being at least 18 years old and residing in a region where Hubsite Social operates."
+    },
+    "3": {
+      "question": "How can I participate in surveys?",
+      "answer": "Once you're a member, you'll receive survey invitations via email or through your dashboard. Simply click the link to start the survey."
+    },
+    "4": {
+      "question": "How are survey participants selected?",
+      "answer": "Participants are selected based on their profiles and the requirements of each survey. This ensures that responses are relevant and valuable."
+    },
+    "5": {
+      "question": "How do I earn rewards?",
+      "answer": "You can earn rewards by completing surveys. Each survey will indicate the number of points or rewards you'll receive upon completion."
+    },
+    "6": {
+      "question": "How can I redeem my rewards?",
+      "answer": "Rewards can be redeemed for gift cards, cash, or other options available in your account dashboard."
+    },
+    "7": {
+      "question": "Is there a minimum threshold for redeeming rewards?",
+      "answer": "Yes, there is a minimum threshold that must be reached before you can redeem your rewards. Check your dashboard for details."
     }
   }
+}

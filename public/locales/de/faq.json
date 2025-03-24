@@ -1,38 +1,39 @@
 {
-    "title": "FAQ",
-    "description": "Hier finden Sie Antworten auf die am häufigsten gestellten Fragen zu Hubsite Social. Wenn Sie Hilfe benötigen, kontaktieren Sie uns unter {{email}} oder füllen Sie unser Kontaktformular aus. Wir sind rund um die Uhr für Sie da.",
-    "questions": {
-      "0": {
-        "question": "Was ist Hubsite Social?",
-        "answer": "Hubsite Social ist ein Marktforschungspanel, das Unternehmen mit Einzelpersonen verbindet, um Meinungen und Erkenntnisse durch Umfragen zu sammeln. Die Teilnehmer können für ihre Teilnahme belohnt werden."
-      },
-      "1": {
-        "question": "Wie trete ich Hubsite Social bei?",
-        "answer": "Sie können beitreten, indem Sie sich auf unserer Website anmelden, die erforderlichen Informationen angeben und Ihre E-Mail-Adresse bestätigen."
-      },
-      "2": {
-        "question": "Was sind die Voraussetzungen für die Teilnahme?",
-        "answer": "Zu den Teilnahmevoraussetzungen gehört, dass Sie mindestens 18 Jahre alt sind und in einer Region leben, in der Hubsite Social tätig ist."
-      },
-      "3": {
-        "question": "Wie kann ich an Umfragen teilnehmen?",
-        "answer": "Sobald Sie Mitglied sind, erhalten Sie Einladungen zu Umfragen per E-Mail oder über Ihr Dashboard. Klicken Sie einfach auf den Link, um die Umfrage zu starten."
-      },
-      "4": {
-        "question": "Wie werden die Umfrageteilnehmer ausgewählt?",
-        "answer": "Die Teilnehmer werden auf der Grundlage ihrer Profile und der Anforderungen der jeweiligen Umfrage ausgewählt. Dadurch wird sichergestellt, dass die Antworten relevant und wertvoll sind."
-      },
-      "5": {
-        "question": "Wie verdiene ich Belohnungen?",
-        "answer": "Sie können Belohnungen verdienen, indem Sie Umfragen ausfüllen. Jede Umfrage gibt die Anzahl der Punkte oder Belohnungen an, die Sie nach Abschluss erhalten."
-      },
-      "6": {
-        "question": "Wie kann ich meine Belohnungen einlösen?",
-        "answer": "Belohnungen können gegen Geschenkkarten, Bargeld oder andere Optionen eingelöst werden, die in Ihrem Konto-Dashboard verfügbar sind."
-      },
-      "7": {
-        "question": "Gibt es einen Mindestschwellenwert für das Einlösen von Belohnungen?",
-        "answer": "Ja, es gibt einen Mindestschwellenwert, der erreicht werden muss, bevor Sie Ihre Belohnungen einlösen können. Weitere Informationen finden Sie in Ihrem Dashboard."
-      }
+  "title": "FAQ",
+  "description1": "Hier finden Sie Antworten auf die am häufigsten gestellten Fragen zu Hubsite Social. Wenn Sie Hilfe benötigen, kontaktieren Sie uns unter",
+  "description2": " oder füllen Sie unser Kontaktformular aus. Wir sind rund um die Uhr für Sie da.",
+  "questions": {
+    "0": {
+      "question": "Was ist Hubsite Social?",
+      "answer": "Hubsite Social ist ein Marktforschungspanel, das Unternehmen mit Einzelpersonen verbindet, um Meinungen und Erkenntnisse durch Umfragen zu sammeln. Die Teilnehmer können für ihre Teilnahme belohnt werden."
+    },
+    "1": {
+      "question": "Wie trete ich Hubsite Social bei?",
+      "answer": "Sie können beitreten, indem Sie sich auf unserer Website anmelden, die erforderlichen Informationen angeben und Ihre E-Mail-Adresse bestätigen."
+    },
+    "2": {
+      "question": "Was sind die Voraussetzungen für die Teilnahme?",
+      "answer": "Zu den Teilnahmevoraussetzungen gehört, dass Sie mindestens 18 Jahre alt sind und in einer Region leben, in der Hubsite Social tätig ist."
+    },
+    "3": {
+      "question": "Wie kann ich an Umfragen teilnehmen?",
+      "answer": "Sobald Sie Mitglied sind, erhalten Sie Einladungen zu Umfragen per E-Mail oder über Ihr Dashboard. Klicken Sie einfach auf den Link, um die Umfrage zu starten."
+    },
+    "4": {
+      "question": "Wie werden die Umfrageteilnehmer ausgewählt?",
+      "answer": "Die Teilnehmer werden auf der Grundlage ihrer Profile und der Anforderungen der jeweiligen Umfrage ausgewählt. Dadurch wird sichergestellt, dass die Antworten relevant und wertvoll sind."
+    },
+    "5": {
+      "question": "Wie verdiene ich Belohnungen?",
+      "answer": "Sie können Belohnungen verdienen, indem Sie Umfragen ausfüllen. Jede Umfrage gibt die Anzahl der Punkte oder Belohnungen an, die Sie nach Abschluss erhalten."
+    },
+    "6": {
+      "question": "Wie kann ich meine Belohnungen einlösen?",
+      "answer": "Belohnungen können gegen Geschenkkarten, Bargeld oder andere Optionen eingelöst werden, die in Ihrem Konto-Dashboard verfügbar sind."
+    },
+    "7": {
+      "question": "Gibt es einen Mindestschwellenwert für das Einlösen von Belohnungen?",
+      "answer": "Ja, es gibt einen Mindestschwellenwert, der erreicht werden muss, bevor Sie Ihre Belohnungen einlösen können. Weitere Informationen finden Sie in Ihrem Dashboard."
     }
   }
+}

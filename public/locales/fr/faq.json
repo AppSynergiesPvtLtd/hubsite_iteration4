@@ -1,39 +1,40 @@
 {
-    "title": "FAQ",
-    "description": "Trouvez les réponses aux questions les plus fréquemment posées sur Hubsite Social. Si vous avez besoin d'aide, contactez-nous à {{email}} ou remplissez notre formulaire de contact. Nous sommes là pour vous aider 24h/24 et 7j/7.",
-    "questions": {
-      "0": {
-        "question": "Qu'est-ce que Hubsite Social ?",
-        "answer": "Hubsite Social est un panel d'étude de marché qui met en relation les entreprises et les particuliers pour recueillir des opinions et des idées par le biais de sondages. Les participants peuvent gagner des récompenses pour leur participation."
-      },
-      "1": {
-        "question": "Comment puis-je rejoindre Hubsite Social ?",
-        "answer": "Vous pouvez vous inscrire sur notre site web, en fournissant les informations requises et en confirmant votre adresse e-mail."
-      },
-      "2": {
-        "question": "Quelles sont les conditions d'admissibilité pour s'inscrire ?",
-        "answer": "Les conditions d'admissibilité comprennent avoir au moins 18 ans et résider dans une région où Hubsite Social opère."
-      },
-      "3": {
-        "question": "Comment puis-je participer à des sondages ?",
-        "answer": "Une fois que vous êtes membre, vous recevrez des invitations à des sondages par e-mail ou via votre tableau de bord. Cliquez simplement sur le lien pour commencer le sondage."
-      },
-      "4": {
-        "question": "Comment les participants aux sondages sont-ils sélectionnés ?",
-        "answer": "Les participants sont sélectionnés en fonction de leur profil et des exigences de chaque sondage. Cela garantit que les réponses sont pertinentes et utiles."
-      },
-      "5": {
-        "question": "Comment puis-je gagner des récompenses ?",
-        "answer": "Vous pouvez gagner des récompenses en répondant à des sondages. Chaque sondage indiquera le nombre de points ou de récompenses que vous recevrez une fois terminé."
-      },
-      "6": {
-        "question": "Comment puis-je échanger mes récompenses ?",
-        "answer": "Les récompenses peuvent être échangées contre des cartes-cadeaux, de l'argent ou d'autres options disponibles dans le tableau de bord de votre compte."
-      },
-      "7": {
-        "question": "Y a-t-il un seuil minimum pour échanger des récompenses ?",
-        "answer": "Oui, il existe un seuil minimum qui doit être atteint avant de pouvoir échanger vos récompenses. Consultez votre tableau de bord pour plus de détails."
-      }
+  "title": "FAQ",
+  "description1": "Trouvez les réponses aux questions les plus fréquemment posées sur Hubsite Social. Si vous avez besoin d'aide, contactez-nous à",
+  "description2": " ou remplissez notre formulaire de contact. Nous sommes là pour vous aider 24h/24 et 7j/7.",
+  "questions": {
+    "0": {
+      "question": "Qu'est-ce que Hubsite Social ?",
+      "answer": "Hubsite Social est un panel d'étude de marché qui met en relation les entreprises et les particuliers pour recueillir des opinions et des idées par le biais de sondages. Les participants peuvent gagner des récompenses pour leur participation."
+    },
+    "1": {
+      "question": "Comment puis-je rejoindre Hubsite Social ?",
+      "answer": "Vous pouvez vous inscrire sur notre site web, en fournissant les informations requises et en confirmant votre adresse e-mail."
+    },
+    "2": {
+      "question": "Quelles sont les conditions d'admissibilité pour s'inscrire ?",
+      "answer": "Les conditions d'admissibilité comprennent avoir au moins 18 ans et résider dans une région où Hubsite Social opère."
+    },
+    "3": {
+      "question": "Comment puis-je participer à des sondages ?",
+      "answer": "Une fois que vous êtes membre, vous recevrez des invitations à des sondages par e-mail ou via votre tableau de bord. Cliquez simplement sur le lien pour commencer le sondage."
+    },
+    "4": {
+      "question": "Comment les participants aux sondages sont-ils sélectionnés ?",
+      "answer": "Les participants sont sélectionnés en fonction de leur profil et des exigences de chaque sondage. Cela garantit que les réponses sont pertinentes et utiles."
+    },
+    "5": {
+      "question": "Comment puis-je gagner des récompenses ?",
+      "answer": "Vous pouvez gagner des récompenses en répondant à des sondages. Chaque sondage indiquera le nombre de points ou de récompenses que vous recevrez une fois terminé."
+    },
+    "6": {
+      "question": "Comment puis-je échanger mes récompenses ?",
+      "answer": "Les récompenses peuvent être échangées contre des cartes-cadeaux, de l'argent ou d'autres options disponibles dans le tableau de bord de votre compte."
+    },
+    "7": {
+      "question": "Y a-t-il un seuil minimum pour échanger des récompenses ?",
+      "answer": "Oui, il existe un seuil minimum qui doit être atteint avant de pouvoir échanger vos récompenses. Consultez votre tableau de bord pour plus de détails."
     }
   }
+}
   

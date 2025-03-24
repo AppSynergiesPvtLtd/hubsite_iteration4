@@ -1,39 +1,40 @@
 {
-    "title": "Perguntas Frequentes",
-    "description": "Encontre respostas para as perguntas mais frequentes sobre o Hubsite Social. Se precisar de ajuda, entre em contato conosco em {{email}} ou preencha nosso formulário de contato. Estamos aqui para ajudar 24 horas por dia, 7 dias por semana.",
-    "questions": {
-      "0": {
-        "question": "O que é o Hubsite Social?",
-        "answer": "O Hubsite Social é um painel de pesquisa de mercado que conecta empresas a indivíduos para coletar opiniões e insights por meio de pesquisas. Os participantes podem ganhar recompensas por sua participação."
-      },
-      "1": {
-        "question": "Como faço para participar do Hubsite Social?",
-        "answer": "Você pode participar inscrevendo-se em nosso site, fornecendo as informações necessárias e confirmando seu endereço de e-mail."
-      },
-      "2": {
-        "question": "Quais são os requisitos de elegibilidade para participar?",
-        "answer": "Os requisitos de elegibilidade incluem ter pelo menos 18 anos de idade e residir em uma região onde o Hubsite Social opera."
-      },
-      "3": {
-        "question": "Como posso participar de pesquisas?",
-        "answer": "Depois de se tornar um membro, você receberá convites para pesquisas por e-mail ou através do seu painel. Basta clicar no link para iniciar a pesquisa."
-      },
-      "4": {
-        "question": "Como os participantes da pesquisa são selecionados?",
-        "answer": "Os participantes são selecionados com base em seus perfis e nos requisitos de cada pesquisa. Isso garante que as respostas sejam relevantes e valiosas."
-      },
-      "5": {
-        "question": "Como ganho recompensas?",
-        "answer": "Você pode ganhar recompensas ao concluir pesquisas. Cada pesquisa indicará o número de pontos ou recompensas que você receberá ao concluir."
-      },
-      "6": {
-        "question": "Como posso resgatar minhas recompensas?",
-        "answer": "As recompensas podem ser resgatadas por vales-presente, dinheiro ou outras opções disponíveis no painel da sua conta."
-      },
-      "7": {
-        "question": "Existe um limite mínimo para resgatar recompensas?",
-        "answer": "Sim, existe um limite mínimo que deve ser atingido antes de poder resgatar suas recompensas. Verifique seu painel para obter detalhes."
-      }
+  "title": "Perguntas Frequentes",
+  "description1": "Encontre respostas para as perguntas mais frequentes sobre o Hubsite Social. Se precisar de ajuda, entre em contato conosco em",
+  "description2": " ou preencha nosso formulário de contato. Estamos aqui para ajudar 24 horas por dia, 7 dias por semana.",
+  "questions": {
+    "0": {
+      "question": "O que é o Hubsite Social?",
+      "answer": "O Hubsite Social é um painel de pesquisa de mercado que conecta empresas a indivíduos para coletar opiniões e insights por meio de pesquisas. Os participantes podem ganhar recompensas por sua participação."
+    },
+    "1": {
+      "question": "Como faço para participar do Hubsite Social?",
+      "answer": "Você pode participar inscrevendo-se em nosso site, fornecendo as informações necessárias e confirmando seu endereço de e-mail."
+    },
+    "2": {
+      "question": "Quais são os requisitos de elegibilidade para participar?",
+      "answer": "Os requisitos de elegibilidade incluem ter pelo menos 18 anos de idade e residir em uma região onde o Hubsite Social opera."
+    },
+    "3": {
+      "question": "Como posso participar de pesquisas?",
+      "answer": "Depois de se tornar um membro, você receberá convites para pesquisas por e-mail ou através do seu painel. Basta clicar no link para iniciar a pesquisa."
+    },
+    "4": {
+      "question": "Como os participantes da pesquisa são selecionados?",
+      "answer": "Os participantes são selecionados com base em seus perfis e nos requisitos de cada pesquisa. Isso garante que as respostas sejam relevantes e valiosas."
+    },
+    "5": {
+      "question": "Como ganho recompensas?",
+      "answer": "Você pode ganhar recompensas ao concluir pesquisas. Cada pesquisa indicará o número de pontos ou recompensas que você receberá ao concluir."
+    },
+    "6": {
+      "question": "Como posso resgatar minhas recompensas?",
+      "answer": "As recompensas podem ser resgatadas por vales-presente, dinheiro ou outras opções disponíveis no painel da sua conta."
+    },
+    "7": {
+      "question": "Existe um limite mínimo para resgatar recompensas?",
+      "answer": "Sim, existe um limite mínimo que deve ser atingido antes de poder resgatar suas recompensas. Verifique seu painel para obter detalhes."
     }
   }
+}
   

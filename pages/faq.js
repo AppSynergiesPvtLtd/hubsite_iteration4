@@ -56,16 +56,14 @@ const FAQWithMotion = () => {
     >
       <h1 className='text-3xl font-bold text-center mb-6'>{t('faq:title')}</h1>
       <p className='text-center text-gray-600 md:w-[800px] md:leading-[35px] m-auto md:mt-10 mb-4 md:text-[20px]'>
-        {t('faq:description', {
-          email: (
-            <a
-              href='mailto:support@hubsitesocial.com'
-              className='text-blue-600 underline'
-            >
-              support@hubsitesocial.com
-            </a>
-          ),
-        })}
+        {t('faq:description1')}
+        <a
+          href='mailto:support@hubsitesocial.com'
+          className='text-blue-600 underline'
+        >
+          support@hubsitesocial.com
+        </a>
+        {t('faq:description2')}
       </p>
       <div className='border border-gray-300 rounded-2xl'>
         {faqs.map((faq, index) => (
