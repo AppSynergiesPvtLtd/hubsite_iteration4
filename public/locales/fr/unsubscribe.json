@@ -1,0 +1,14 @@
+{
+    "email": "Courriel",
+    "enterEmailAddress": "Entrez votre adresse courriel",
+    "unsubscribe": "Se désabonner",
+    "pleaseEnterEmail": "Veuillez entrer votre adresse courriel.",
+    "stopReceivingEmails": "Vous ne recevrez plus de courriels de notre part.",
+    "areYouSureUnsubscribe": "Êtes-vous sûr de vouloir vous désabonner?",
+    "currentlySubscribed": "Vous êtes actuellement abonné à :",
+    "yesUnsubscribe": "Oui, se désabonner",
+    "noNotYet": "Non, pas encore",
+    "successfullyUnsubscribed": "Vous êtes désabonné",
+    "noLongerReceiveEmails": "Vous ne recevrez plus de courriels de notre part.",
+    "changeMindSubscribeBack": "Si vous changez d'avis, vous pouvez vous <a>réabonner</a> à tout moment."
+  }

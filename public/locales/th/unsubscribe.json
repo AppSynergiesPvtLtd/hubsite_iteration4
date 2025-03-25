@@ -1,0 +1,14 @@
+{
+    "email": "อีเมล",
+    "enterEmailAddress": "ใส่อีเมลของคุณ",
+    "unsubscribe": "ยกเลิกการรับข่าวสาร",
+    "pleaseEnterEmail": "กรุณาใส่อีเมลของคุณ",
+    "stopReceivingEmails": "คุณจะไม่ได้รับอีเมลจากเราอีก",
+    "areYouSureUnsubscribe": "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการรับข่าวสาร",
+    "currentlySubscribed": "คุณกำลังรับข่าวสารจาก:",
+    "yesUnsubscribe": "ใช่ ยกเลิกการรับข่าวสาร",
+    "noNotYet": "ไม่ ยังก่อน",
+    "successfullyUnsubscribed": "คุณยกเลิกการรับข่าวสารเรียบร้อยแล้ว",
+    "noLongerReceiveEmails": "คุณจะไม่ได้รับอีเมลจากเราอีก",
+    "changeMindSubscribeBack": "หากคุณเปลี่ยนใจ คุณสามารถ<a>กลับมาสมัครรับข่าวสาร</a>ได้ทุกเมื่อ"
+  }
