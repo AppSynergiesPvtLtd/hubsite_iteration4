@@ -105,6 +105,11 @@ export default function Navbar() {
     )
   }
 
+  const languageSelect = (lang) => {
+    localStorage.setItem('preferredLanguage', lang)
+    setLanguageDropdownOpen(false)
+  }
+
   const isActiveLink = (path) => router.pathname === path
 
   if (!isMounted) {
@@ -264,7 +269,7 @@ export default function Navbar() {
                       as={asPath}
                       locale={lang.code}
                       key={lang.code}
-                      onClick={() => setLanguageDropdownOpen(false)}
+                      onClick={() => languageSelect(lang.code)}
                       className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
                     >
                       {lang.name}
@@ -392,7 +397,7 @@ export default function Navbar() {
                         as={asPath}
                         locale={lang.code}
                         key={lang.code}
-                        onClick={() => setLanguageDropdownOpen(false)}
+                        onClick={() => languageSelect(lang.code)}
                         className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
                       >
                         {lang.name}
