@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "読み込み中...",
+      "textAnswerPlaceholder": "ここに回答を入力してください",
+      "answerRequired": "回答を入力してください。",
+      "surveyCompletedTitle": "アンケート完了！",
+      "surveyCompletedMessage": "{{surveyId}} Hubcoins を正常に受け取りました。",
+      "goToDashboard": "ダッシュボードへ移動",
+      "question": "質問",
+      "previous": "← 前へ",
+      "next": "次へ →",
+      "submit": "送信"
+    }
+  }

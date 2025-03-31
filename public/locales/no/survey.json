@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "Laster...",
+      "textAnswerPlaceholder": "Skriv inn svaret ditt her",
+      "answerRequired": "Vennligst oppgi et svar.",
+      "surveyCompletedTitle": "Undersøkelse fullført!",
+      "surveyCompletedMessage": "{{surveyId}} Hubcoins mottatt.",
+      "goToDashboard": "Gå til dashbordet",
+      "question": "Spørsmål",
+      "previous": "← Forrige",
+      "next": "Neste →",
+      "submit": "Send inn"
+    }
+  }
