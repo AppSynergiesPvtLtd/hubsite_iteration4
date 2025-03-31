@@ -14,56 +14,63 @@ import {
   showAdd,
   showRefresh,
 } from "@/store/adminbtnSlice";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
 // Default question structure for new questions.
 const defaultQuestionData = {
-  questionTitle: "",
-  questionDescription: "",
+  questionTitle: '',
+  questionDescription: '',
   isRequired: true,
   forOnboarding: false,
-  type: "SINGLE_SELECTION",
+  type: 'SINGLE_SELECTION',
   options: [],
-};
+}
 
 const EditSurveyQuestion = () => {
-  const router = useRouter();
-  const { slug: surveyId, questionId } = router.query;
+  const router = useRouter()
+  const { slug: surveyId, questionId } = router.query
+  const { t } = useTranslation('admin')
 
   // Manage both current question data and its initial state (for change detection).
-  const [questionData, setQuestionData] = useState(defaultQuestionData);
-  const [initialQuestionData, setInitialQuestionData] = useState(defaultQuestionData);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [questionData, setQuestionData] = useState(defaultQuestionData)
+  const [initialQuestionData, setInitialQuestionData] =
+    useState(defaultQuestionData)
+  const [loading, setLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setTitle("Add Profile Survey Question"));
+    dispatch(setTitle('Add Profile Survey Question'))
     // Clean up on unmount.
     return () => {
-      dispatch(hideAdd());
-      dispatch(hideRefresh());
-      dispatch(hideExcel());
-      dispatch(clearTitle());
-    };
-  }, [dispatch, router.asPath]);
+      dispatch(hideAdd())
+      dispatch(hideRefresh())
+      dispatch(hideExcel())
+      dispatch(clearTitle())
+    }
+  }, [dispatch, router.asPath])
 
   // Helper function to fetch question data from the API.
   const fetchQuestionData = async () => {
-    if (!questionId) return;
+    if (!questionId) return
     try {
-      setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/questions/${questionId}`, {
-        headers: {
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const data = response.data;
+      setLoading(true)
+      const response = await axios.get(
+        `${API_BASE_URL}/questions/${questionId}`,
+        {
+          headers: {
+            'x-api-key': API_KEY,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
+      const data = response.data
       const formattedData = {
         questionTitle: data.question,
         questionDescription: data.description,
@@ -75,88 +82,90 @@ const EditSurveyQuestion = () => {
           label: opt.label,
           order: opt.order,
         })),
-      };
-      setQuestionData(formattedData);
+      }
+      setQuestionData(formattedData)
       // Save a deep copy for resetting later.
-      setInitialQuestionData(JSON.parse(JSON.stringify(formattedData)));
+      setInitialQuestionData(JSON.parse(JSON.stringify(formattedData)))
     } catch (error) {
-      console.error("Error fetching question details:", error);
-      setErrorMessage("Failed to load question details.");
+      console.error('Error fetching question details:', error)
+      setErrorMessage(t('manageSurveys.profileSurveyQuestion.loadError'))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     const initialize = async () => {
       if (questionId) {
-        await fetchQuestionData();
+        await fetchQuestionData()
       } else {
         // New question: use default data.
-        setQuestionData(defaultQuestionData);
-        setInitialQuestionData(defaultQuestionData);
-        setLoading(false);
+        setQuestionData(defaultQuestionData)
+        setInitialQuestionData(defaultQuestionData)
+        setLoading(false)
       }
-    };
+    }
 
-    initialize();
-  }, [questionId]);
+    initialize()
+  }, [questionId, t])
 
   // Calculate whether the form has unsaved changes.
-  const hasChanges = JSON.stringify(questionData) !== JSON.stringify(initialQuestionData);
+  const hasChanges =
+    JSON.stringify(questionData) !== JSON.stringify(initialQuestionData)
 
   // Update a specific field in questionData.
   const handleFieldChange = (field, value) => {
     setQuestionData((prev) => ({
       ...prev,
       [field]: value,
-    }));
-  };
+    }))
+  }
 
   // Update options specifically.
   const handleOptionsChange = (newOptions) => {
     setQuestionData((prev) => ({
       ...prev,
       options: newOptions,
-    }));
-  };
+    }))
+  }
 
   // Reset the form: if editing, re-fetch the data from API; if new, revert to default.
   const handleReset = async () => {
     if (questionId) {
-      await fetchQuestionData();
+      await fetchQuestionData()
     } else {
-      setQuestionData(defaultQuestionData);
+      setQuestionData(defaultQuestionData)
     }
-  };
+  }
 
   // Handle Save or Update.
   const handleSaveOrUpdate = async () => {
-    setLoading(true);
-    setErrorMessage("");
-    setSuccessMessage("");
+    setLoading(true)
+    setErrorMessage('')
+    setSuccessMessage('')
 
     // In update mode, if no changes have been made, alert the user.
     if (questionId && !hasChanges) {
-      setErrorMessage("No changes made to update.");
-      setLoading(false);
-      return;
+      setErrorMessage(t('manageSurveys.profileSurveyQuestion.noChanges'))
+      setLoading(false)
+      return
     }
 
     if (!surveyId[0]) {
-      setErrorMessage("Survey ID is missing. Cannot save the question.");
-      setLoading(false);
-      return;
+      setErrorMessage('Survey ID is missing. Cannot save the question.')
+      setLoading(false)
+      return
     }
 
     // Validation: For selection-based questions, require at least two options.
     if (
-      (questionData.type === "SINGLE_SELECTION" || questionData.type === "MULTIPLE_SELECTION") &&
+      (questionData.type === 'SINGLE_SELECTION' ||
+        questionData.type === 'MULTIPLE_SELECTION') &&
       (!questionData.options || questionData.options.length < 2)
     ) {
-      setErrorMessage("At least two options are required for selection-based questions.");
-      setLoading(false);
-      return;
+      setErrorMessage(t('manageSurveys.profileSurveyQuestion.optionError'))
+      setLoading(false)
+      return
     }
 
     // Prepare payload for the question details (excluding options).
@@ -167,80 +176,96 @@ const EditSurveyQuestion = () => {
       forOnboarding: questionData.forOnboarding,
       type: questionData.type,
       profileSurveyId: surveyId[0],
-    };
+    }
 
     try {
       if (questionId) {
         // UPDATE EXISTING QUESTION (without options).
-        await axios.put(`${API_BASE_URL}/questions/${questionId}`, questionPayload, {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        await axios.put(
+          `${API_BASE_URL}/questions/${questionId}`,
+          questionPayload,
+          {
+            headers: {
+              'x-api-key': API_KEY,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
 
         // For non-text questions, update options using the separate endpoint.
-        if (questionData.type !== "TEXT") {
+        if (questionData.type !== 'TEXT') {
           const optionsPayload = questionData.options.map((option, index) => ({
             value: option.value,
             label: option.label,
             order: index,
-          }));
-          await axios.put(`${API_BASE_URL}/questions/options/${questionId}`, optionsPayload, {
-            headers: {
-              "x-api-key": API_KEY,
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
+          }))
+          await axios.put(
+            `${API_BASE_URL}/questions/options/${questionId}`,
+            optionsPayload,
+            {
+              headers: {
+                'x-api-key': API_KEY,
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
         }
 
-        setSuccessMessage("Question updated successfully!");
+        setSuccessMessage(
+          t('manageSurveys.profileSurveyQuestion.updateSuccess')
+        )
         // Refresh the data from the API.
-        await fetchQuestionData();
+        await fetchQuestionData()
       } else {
         const newQuestionPayload = {
           ...questionPayload,
           options:
-            questionData.type !== "TEXT"
+            questionData.type !== 'TEXT'
               ? questionData.options.map((option, index) => ({
                   value: option.value,
                   label: option.label,
                   order: index,
                 }))
               : [],
-        };
+        }
 
-        const response = await axios.post(`${API_BASE_URL}/questions/`, newQuestionPayload, {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/questions/`,
+          newQuestionPayload,
+          {
+            headers: {
+              'x-api-key': API_KEY,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
 
-        const newQuestionId = response.data.id;
+        const newQuestionId = response.data.id
         router.replace({
           pathname: `/admin/manage-surveys/add-profilesurvey`,
           query: { id: surveyId },
-        });
+        })
 
-        setSuccessMessage("Question saved successfully!");
+        setSuccessMessage(t('manageSurveys.profileSurveyQuestion.saveSuccess'))
         // After creation, fetch the new data.
-        await fetchQuestionData();
+        await fetchQuestionData()
       }
     } catch (error) {
-      console.error("Error saving/updating question:", error);
-      setErrorMessage("Failed to save question. Please try again.");
+      console.error('Error saving/updating question:', error)
+      setErrorMessage(t('manageSurveys.profileSurveyQuestion.updateError'))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-lg font-medium text-gray-600">Loading...</p>
+      <div className='flex justify-center items-center h-screen'>
+        <p className='text-lg font-medium text-gray-600'>
+          {t('manageSurveys.profileSurveyQuestion.loading')}
+        </p>
       </div>
-    );
+    )
   }
 
   return (
@@ -252,21 +277,29 @@ const EditSurveyQuestion = () => {
         onOptionsChange={handleOptionsChange}
         onReset={handleReset}
         onSave={handleSaveOrUpdate}
-        buttonLabel={questionId ? "Update Question" : "Save Question"}
+        buttonLabel={questionId ? 'Update Question' : 'Save Question'}
         hasChanges={hasChanges}
       />
       {errorMessage && (
-        <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-md text-center">
+        <div className='mt-4 p-4 bg-red-100 text-red-700 rounded-md text-center'>
           {errorMessage}
         </div>
       )}
       {successMessage && (
-        <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center">
+        <div className='mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center'>
           {successMessage}
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default AdminRoutes(EditSurveyQuestion);
+export default AdminRoutes(EditSurveyQuestion)
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'admin'])),
+    },
+  }
+}

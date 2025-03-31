@@ -3,37 +3,40 @@ import AddQuestionTemplate from "@/components/AuthComps/ManageSurveys/QuestionTe
 import axios from "axios";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
 const AddOnBoardingQuestion = () => {
-  const router = useRouter();
+  const router = useRouter()
+  const { t } = useTranslation('admin')
 
   const [questionData, setQuestionData] = useState({
-    questionTitle: "",
-    questionDescription: "",
-    type: "SINGLE_SELECTION", // Consistent field name
+    questionTitle: '',
+    questionDescription: '',
+    type: 'SINGLE_SELECTION', // Consistent field name
     isRequired: true,
     options: [],
-  });
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [validationErrors, setValidationErrors] = useState([]);
+  })
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleSaveChanges = async () => {
-    setLoading(true);
-    setErrorMessage("");
-    setValidationErrors([]);
+    setLoading(true)
+    setErrorMessage('')
+    setValidationErrors([])
 
     // Validation: Ensure at least 2 options for selection types
     if (
-      ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type) &&
+      ['SINGLE_SELECTION', 'MULTIPLE_SELECTION'].includes(questionData.type) &&
       questionData.options.length < 2
     ) {
-      setErrorMessage("Selection type questions must have at least 2 options.");
-      setLoading(false);
-      return;
+      setErrorMessage(t('manageSurveys.addQuestionOnboarding.minOptionsError'))
+      setLoading(false)
+      return
     }
 
     // Prepare payload
@@ -43,35 +46,37 @@ const AddOnBoardingQuestion = () => {
       type: questionData.type,
       isRequired: questionData.isRequired,
       forOnboarding: true,
-      options: ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type)
+      options: ['SINGLE_SELECTION', 'MULTIPLE_SELECTION'].includes(
+        questionData.type
+      )
         ? questionData.options
         : undefined,
-    };
+    }
 
     try {
       // Save question with options directly in one request
       await axios.post(`${API_BASE_URL}/questions`, questionPayload, {
         headers: {
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'x-api-key': API_KEY,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      });
-      
+      })
+
       // Redirect to onboarding survey list on success
-      router.push("/admin/manage-surveys/onboarding-survey");
+      router.push('/admin/manage-surveys/onboarding-survey')
     } catch (error) {
-      console.error("Error saving question:", error);
+      console.error('Error saving question:', error)
 
       if (error.response && error.response.data && error.response.data.errors) {
         // Handle validation errors from the server
-        setValidationErrors(error.response.data.errors);
+        setValidationErrors(error.response.data.errors)
       } else {
-        setErrorMessage("Failed to save question. Please try again.");
+        setErrorMessage(t('manageSurveys.addQuestionOnboarding.saveError'))
       }
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -84,7 +89,7 @@ const AddOnBoardingQuestion = () => {
       />
       {/* Display validation errors */}
       {validationErrors.length > 0 && (
-        <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-md">
+        <div className='mt-4 p-4 bg-red-100 text-red-700 rounded-md'>
           <ul>
             {validationErrors.map((err, index) => (
               <li key={index}>
@@ -95,7 +100,15 @@ const AddOnBoardingQuestion = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default AdminRoutes(AddOnBoardingQuestion);
+export default AdminRoutes(AddOnBoardingQuestion)
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'admin'])),
+    },
+  }
+}
