@@ -73,7 +73,7 @@
   "feature": {
     "title": "Key Benefits",
     "subtitle": "Share Your Insights, Earn Rewards, and Make an Impact",
-    "paragraph": "Join Hubsite Social to participate in engaging surveys that allow your voice to be heard. Earn exciting rewards while helping businesses understand consumer needs and shape the future of products and services. Your opinions matter—make a difference today!", 
+    "paragraph": "Join Hubsite Social to participate in engaging surveys that allow your voice to be heard. Earn exciting rewards while helping businesses understand consumer needs and shape the future of products and services. Your opinions matter—make a difference today!",
     "userFriendlyInterface": {
       "title": "User-Friendly Interface",
       "description": "Navigate the site with ease thanks to an intuitive design that simplifies the survey participation process."
@@ -131,7 +131,7 @@
     "title": "Enhanced Engagement",
     "description": "The prospect of earning coins encourages regular participation, fostering a habit of providing feedback."
   },
- "login": {
+  "login": {
     "title": "Login",
     "verifyOtpTitle": "Verify OTP",
     "loginContinue": "Login to continue to our website",
@@ -158,10 +158,10 @@
       "resendOtpFailed": "Failed to resend OTP. Please try again.",
       "googleLoginFailed": "Google login failed. Please try again."
     },
-    "messages":{
-        "emailNotVerified": "Email not verified. OTP sent to your email.",
-        "otpVerified": "OTP verified successfully!",
-        "otpResent": "OTP has been resent to your email."
+    "messages": {
+      "emailNotVerified": "Email not verified. OTP sent to your email.",
+      "otpVerified": "OTP verified successfully!",
+      "otpResent": "OTP has been resent to your email."
     }
   },
   "signup": {
@@ -227,9 +227,25 @@
     "verifying": "Verifying..."
   },
   "notFound": {
-      "404_title": "404",
-      "page_not_found_heading": "Page Not Found",
-      "page_not_found_description": "The page you're looking for seems to have gone on an adventure of its own. But don't worry, we'll help you get back on track.",
-      "go_to_home_button": "Go to Home"
-    }
+    "404_title": "404",
+    "page_not_found_heading": "Page Not Found",
+    "page_not_found_description": "The page you're looking for seems to have gone on an adventure of its own. But don't worry, we'll help you get back on track.",
+    "go_to_home_button": "Go to Home"
+  },
+  "googleAuth": {
+    "signInWithGoogle": "Sign in with Google",
+    "signInToContinue": "Sign in to continue to your dashboard",
+    "googleLoginFailed": "Google login failed. Please try again."
+  },
+  "profile": {
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "emailAddress": "Email Address",
+    "dateOfBirth": "Date of Birth",
+    "edit": "Edit",
+    "set": "Set",
+    "save": "Save",
+    "logout": "Logout",
+    "displayPicture": "Display Picture"
+  }
 }

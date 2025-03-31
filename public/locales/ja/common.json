@@ -73,7 +73,7 @@
   "feature": {
     "title": "主なメリット",
     "subtitle": "あなたの洞察を共有し、報酬を獲得し、影響を与える",
-    "paragraph": "Hubsite Socialに参加して、あなたの声を届けることができる魅力的なアンケートに参加しましょう。企業が消費者のニーズを理解し、製品やサービスの未来を形作るのを助けながら、魅力的な報酬を獲得しましょう。あなたの意見は重要です—今日から違いを生み出しましょう！", 
+    "paragraph": "Hubsite Socialに参加して、あなたの声を届けることができる魅力的なアンケートに参加しましょう。企業が消費者のニーズを理解し、製品やサービスの未来を形作るのを助けながら、魅力的な報酬を獲得しましょう。あなたの意見は重要です—今日から違いを生み出しましょう！",
     "userFriendlyInterface": {
       "title": "ユーザーフレンドリーなインターフェース",
       "description": "アンケート参加プロセスを簡素化する直感的なデザインのおかげで、サイトを簡単に操作できます。"
@@ -131,7 +131,7 @@
     "title": "エンゲージメントの強化",
     "description": "コインを獲得する見込みは定期的な参加を促し、フィードバックを提供する習慣を育みます。"
   },
- "login": {
+  "login": {
     "title": "ログイン",
     "verifyOtpTitle": "OTP確認",
     "loginContinue": "ウェブサイトを続けるにはログインしてください",
@@ -158,10 +158,10 @@
       "resendOtpFailed": "OTPの再送信に失敗しました。もう一度お試しください。",
       "googleLoginFailed": "Googleログインに失敗しました。もう一度お試しください。"
     },
-    "messages":{
-        "emailNotVerified": "メールが確認されていません。OTPがメールに送信されました。",
-        "otpVerified": "OTPが正常に確認されました！",
-        "otpResent": "OTPがメールに再送信されました。"
+    "messages": {
+      "emailNotVerified": "メールが確認されていません。OTPがメールに送信されました。",
+      "otpVerified": "OTPが正常に確認されました！",
+      "otpResent": "OTPがメールに再送信されました。"
     }
   },
   "signup": {
@@ -231,5 +231,21 @@
     "page_not_found_heading": "ページが見つかりません",
     "page_not_found_description": "お探しのページは見当たらないようです。でも心配しないでください。すぐに元の場所に戻れるようにご案内します。",
     "go_to_home_button": "ホームへ移動"
+  },
+  "googleAuth": {
+    "signInWithGoogle": "Googleでサインイン",
+    "signInToContinue": "ダッシュボードに進むためにサインインしてください",
+    "googleLoginFailed": "Googleログインに失敗しました。再度お試しください。"
+  },
+  "profile": {
+    "fullName": "氏名",
+    "phoneNumber": "電話番号",
+    "emailAddress": "メールアドレス",
+    "dateOfBirth": "生年月日",
+    "edit": "編集",
+    "set": "設定",
+    "save": "保存",
+    "logout": "ログアウト",
+    "displayPicture": "プロフィール画像"
   }
 }

@@ -231,5 +231,21 @@
     "page_not_found_heading": "Page introuvable",
     "page_not_found_description": "La page que vous recherchez semble être partie à l'aventure. Mais ne vous inquiétez pas, nous allons vous aider à revenir sur la bonne voie.",
     "go_to_home_button": "Retour à l'accueil"
+  },
+  "googleAuth": {
+    "signInWithGoogle": "Se connecter avec Google",
+    "signInToContinue": "Connectez-vous pour accéder à votre tableau de bord",
+    "googleLoginFailed": "Échec de la connexion Google. Veuillez réessayer."
+  },
+  "profile": {
+    "fullName": "Nom complet",
+    "phoneNumber": "Numéro de téléphone",
+    "emailAddress": "Adresse e-mail",
+    "dateOfBirth": "Date de naissance",
+    "edit": "Modifier",
+    "set": "Définir",
+    "save": "Enregistrer",
+    "logout": "Se déconnecter",
+    "displayPicture": "Photo de profil"
   }
 }

@@ -1,236 +1,252 @@
 {
-    "welcome_heading": "Velkommen til Hubsite Social",
-    "welcome_description": "Bli med i Hubsite Social-plattformen hvor din mening teller! Tjen mynter for hver fullførte undersøkelse og konverter dem enkelt til ekte penger. Nyt en sømløs opplevelse, skreddersydde undersøkelser og muligheten til å dele dine innsikter mens du blir belønnet for din tid. Begynn å tjene i dag!",
-    "dashboard_button": "Dashboard",
-    "get_started_button": "Kom i gang",
-    "hubsite_social_heading": "Hva er Hubsite Social?",
-    "hubsite_social_description": "Bli med i Hubsite Social-plattformen hvor din mening teller! Tjen mynter for hver fullførte undersøkelse og konverter dem enkelt til ekte penger. Nyt en sømløs opplevelse, skreddersydde undersøkelser og muligheten til å dele dine innsikter mens du blir belønnet for din tid. Begynn å tjene i dag!",
-    "view_all_button": "Se alle",
-    "benefits": {
-      "title": "Fordeler med Hubsite Social"
-    },
-    "accumulate": {
-      "title": "Samle HUBCOINS med Hubsite Social",
-      "cards": [
-        {
-          "heading": "Registrer deg",
-          "btn": "TRINN 1",
-          "paragraph": "Bli med i fellesskapet vårt og oppdag hvordan din mening kan telle. Vi har utbetalt over 1,2 millioner rupi til våre medlemmer det siste året alene!"
-        },
-        {
-          "heading": "Ta undersøkelser",
-          "btn": "TRINN 2",
-          "paragraph": "Ta en undersøkelse og bli betalt for å dele din tilbakemelding om produktene og merkene vi alle kjenner og elsker. Det er en vinn-vinn-situasjon for alle!"
-        },
-        {
-          "heading": "Bli belønnet",
-          "btn": "TRINN 3",
-          "paragraph": "Bli belønnet med virtuelle poeng (LP-er) som kan løses inn som e-gavekort, PayPal og mye mer. Du velger hvordan du blir belønnet, så du velger hvordan det å ta undersøkelser gagner deg!"
-        }
-      ],
-      "button": "Hvordan det fungerer"
-    },
-    "navbar": {
-      "about": "Om oss",
-      "features": "Viktige fordeler",
-      "works": "Hvordan det fungerer",
-      "contact": "Kontakt oss",
-      "faq": "Vanlige spørsmål",
-      "login": "Logg inn",
-      "logout": "Logg ut",
-      "dashboard": "Dashboard"
-    },
-    "footer": {
-      "ready_to_start": "Klar til å komme i gang?",
-      "login_button": "Logg inn",
-      "terms_conditions": "Vilkår og betingelser",
-      "privacy_policy": "Personvernregler",
-      "reward_policy": "Belønningspolicy",
-      "company": "Selskap",
-      "about_us": "Om oss",
-      "key_benefits": "Viktige fordeler",
-      "how_it_works": "Hvordan det fungerer",
-      "help": "Hjelp",
-      "faqs": "Vanlige spørsmål",
-      "contact_us": "Kontakt oss",
-      "contact": "Kontakt",
-      "phone": "+260974314084",
-      "email": "hello@hubsitesocial.com",
-      "address": "A-46, Noida, Sector 2, Uttar Pradesh, India"
-    },
-    "reviews": {
-      "title": "Våre fornøyde panelister sier om oss"
-    },
-    "newsletter": {
-      "title": "Meld deg på vårt nyhetsbrev",
-      "description": "Motta de siste nyhetene, oppdateringene og mange andre nyheter hver uke.",
-      "email_placeholder": "Skriv inn din e-postadresse",
-      "submit_button": "",
-      "error_message": "Vennligst skriv inn en gyldig e-postadresse.",
-      "success_title": "Takk for at du abonnerer!",
-      "success_description": "Vi har mottatt din e-post for nyhetsbrevoppdateringer."
-    },
-    "feature": {
-      "title": "Viktige fordeler",
-      "subtitle": "Del dine innsikter, tjen belønninger og gjør en innvirkning",
-      "paragraph": "Bli med i Hubsite Social for å delta i engasjerende undersøkelser som lar din stemme bli hørt. Tjen spennende belønninger mens du hjelper bedrifter med å forstå forbrukerbehov og forme fremtiden for produkter og tjenester. Dine meninger teller - gjør en forskjell i dag!",
-      "userFriendlyInterface": {
-        "title": "Brukervennlig grensesnitt",
-        "description": "Naviger enkelt på nettstedet takket være et intuitivt design som forenkler undersøkelsesprosessen."
+  "welcome_heading": "Velkommen til Hubsite Social",
+  "welcome_description": "Bli med i Hubsite Social-plattformen hvor din mening teller! Tjen mynter for hver fullførte undersøkelse og konverter dem enkelt til ekte penger. Nyt en sømløs opplevelse, skreddersydde undersøkelser og muligheten til å dele dine innsikter mens du blir belønnet for din tid. Begynn å tjene i dag!",
+  "dashboard_button": "Dashboard",
+  "get_started_button": "Kom i gang",
+  "hubsite_social_heading": "Hva er Hubsite Social?",
+  "hubsite_social_description": "Bli med i Hubsite Social-plattformen hvor din mening teller! Tjen mynter for hver fullførte undersøkelse og konverter dem enkelt til ekte penger. Nyt en sømløs opplevelse, skreddersydde undersøkelser og muligheten til å dele dine innsikter mens du blir belønnet for din tid. Begynn å tjene i dag!",
+  "view_all_button": "Se alle",
+  "benefits": {
+    "title": "Fordeler med Hubsite Social"
+  },
+  "accumulate": {
+    "title": "Samle HUBCOINS med Hubsite Social",
+    "cards": [
+      {
+        "heading": "Registrer deg",
+        "btn": "TRINN 1",
+        "paragraph": "Bli med i fellesskapet vårt og oppdag hvordan din mening kan telle. Vi har utbetalt over 1,2 millioner rupi til våre medlemmer det siste året alene!"
       },
-      "diverseSurveySelection": {
-        "title": "Mangfoldig undersøkelsesutvalg",
-        "description": "Få tilgang til et bredt spekter av undersøkelser om forskjellige emner, slik at du kan engasjere deg i innhold som interesserer deg."
+      {
+        "heading": "Ta undersøkelser",
+        "btn": "TRINN 2",
+        "paragraph": "Ta en undersøkelse og bli betalt for å dele din tilbakemelding om produktene og merkene vi alle kjenner og elsker. Det er en vinn-vinn-situasjon for alle!"
       },
-      "personalizedSurveyInvitations": {
-        "title": "Personlig tilpassede undersøkelsesinvitasjoner",
-        "description": "Motta skreddersydde invitasjoner basert på din profil og dine preferanser, noe som sikrer relevante og engasjerende undersøkelsesmuligheter."
-      },
-      "rewardSystem": {
-        "title": "Belønningssystem",
-        "description": "Tjen poeng og belønninger for din deltakelse, inkludert gavekort og eksklusive rabatter, noe som gjør din tilbakemelding verdifull."
-      },
-      "realTimeFeedbackImpact": {
-        "title": "Sanntids tilbakemeldingsinnvirkning",
-        "description": "Bidra til markedsundersøkelser som hjelper bedrifter med å få umiddelbar innsikt, noe som påvirker produktutvikling og serviceforbedring."
-      },
-      "communityEngagement": {
-        "title": "Fellesskapsengasjement",
-        "description": "Bli med i et levende nettfellesskap av likesinnede individer som deler sine meninger og bidrar til meningsfull markedsundersøkelse."
-      },
-      "educationalResources": {
-        "title": "Pedagogiske ressurser",
-        "description": "Få tilgang til verdifulle innsikter og rapporter basert på aggregerte undersøkelsesdata, og hjelper deg med å holde deg informert om markedstrender."
-      },
-      "dashboardForAccountManagement": {
-        "title": "Dashboard for kontoadministrasjon",
-        "description": "Administrer enkelt din profil, følg din deltakelse i undersøkelser og overvåk dine belønninger via et omfattende dashboard."
-      },
-      "dataPrivacyAndSecurity": {
-        "title": "Dataprivathet og sikkerhet",
-        "description": "Opplev trygghet med sterke databeskyttelsestiltak som holder din personlige informasjon sikker og konfidensiell."
-      },
-      "supportAndHelpCenter": {
-        "title": "Støtte og hjelpesenter",
-        "description": "Dra nytte av en dedikert støtteseksjon som gir svar på vanlige spørsmål og hjelp med kontorelaterte henvendelser."
+      {
+        "heading": "Bli belønnet",
+        "btn": "TRINN 3",
+        "paragraph": "Bli belønnet med virtuelle poeng (LP-er) som kan løses inn som e-gavekort, PayPal og mye mer. Du velger hvordan du blir belønnet, så du velger hvordan det å ta undersøkelser gagner deg!"
       }
+    ],
+    "button": "Hvordan det fungerer"
+  },
+  "navbar": {
+    "about": "Om oss",
+    "features": "Viktige fordeler",
+    "works": "Hvordan det fungerer",
+    "contact": "Kontakt oss",
+    "faq": "Vanlige spørsmål",
+    "login": "Logg inn",
+    "logout": "Logg ut",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "ready_to_start": "Klar til å komme i gang?",
+    "login_button": "Logg inn",
+    "terms_conditions": "Vilkår og betingelser",
+    "privacy_policy": "Personvernregler",
+    "reward_policy": "Belønningspolicy",
+    "company": "Selskap",
+    "about_us": "Om oss",
+    "key_benefits": "Viktige fordeler",
+    "how_it_works": "Hvordan det fungerer",
+    "help": "Hjelp",
+    "faqs": "Vanlige spørsmål",
+    "contact_us": "Kontakt oss",
+    "contact": "Kontakt",
+    "phone": "+260974314084",
+    "email": "hello@hubsitesocial.com",
+    "address": "A-46, Noida, Sector 2, Uttar Pradesh, India"
+  },
+  "reviews": {
+    "title": "Våre fornøyde panelister sier om oss"
+  },
+  "newsletter": {
+    "title": "Meld deg på vårt nyhetsbrev",
+    "description": "Motta de siste nyhetene, oppdateringene og mange andre nyheter hver uke.",
+    "email_placeholder": "Skriv inn din e-postadresse",
+    "submit_button": "",
+    "error_message": "Vennligst skriv inn en gyldig e-postadresse.",
+    "success_title": "Takk for at du abonnerer!",
+    "success_description": "Vi har mottatt din e-post for nyhetsbrevoppdateringer."
+  },
+  "feature": {
+    "title": "Viktige fordeler",
+    "subtitle": "Del dine innsikter, tjen belønninger og gjør en innvirkning",
+    "paragraph": "Bli med i Hubsite Social for å delta i engasjerende undersøkelser som lar din stemme bli hørt. Tjen spennende belønninger mens du hjelper bedrifter med å forstå forbrukerbehov og forme fremtiden for produkter og tjenester. Dine meninger teller - gjør en forskjell i dag!",
+    "userFriendlyInterface": {
+      "title": "Brukervennlig grensesnitt",
+      "description": "Naviger enkelt på nettstedet takket være et intuitivt design som forenkler undersøkelsesprosessen."
     },
-    "stepTwo": {
-      "title": "Monetær konvertering",
-      "description": "Brukere kan konvertere opptjente mynter til faktiske penger, noe som øker den opplevde verdien av å delta i undersøkelser."
+    "diverseSurveySelection": {
+      "title": "Mangfoldig undersøkelsesutvalg",
+      "description": "Få tilgang til et bredt spekter av undersøkelser om forskjellige emner, slik at du kan engasjere deg i innhold som interesserer deg."
     },
-    "stepOne": {
-      "title": "Målrettede undersøkelser",
-      "description": "Muliggjør segmentering og målretting av spesifikke demografiske grupper for å forbedre relevansen av undersøkelser."
+    "personalizedSurveyInvitations": {
+      "title": "Personlig tilpassede undersøkelsesinvitasjoner",
+      "description": "Motta skreddersydde invitasjoner basert på din profil og dine preferanser, noe som sikrer relevante og engasjerende undersøkelsesmuligheter."
     },
-    "stepThree": {
-      "title": "Økt deltakelse",
-      "description": "Å tilby mynter som belønning stimulerer brukere til å ta undersøkelser, noe som resulterer i høyere svarprosent."
+    "rewardSystem": {
+      "title": "Belønningssystem",
+      "description": "Tjen poeng og belønninger for din deltakelse, inkludert gavekort og eksklusive rabatter, noe som gjør din tilbakemelding verdifull."
     },
-    "stepFour": {
-      "title": "Økt engasjement",
-      "description": "Muligheten til å tjene mynter oppmuntrer til regelmessig deltakelse og fremmer en vane med å gi tilbakemelding."
+    "realTimeFeedbackImpact": {
+      "title": "Sanntids tilbakemeldingsinnvirkning",
+      "description": "Bidra til markedsundersøkelser som hjelper bedrifter med å få umiddelbar innsikt, noe som påvirker produktutvikling og serviceforbedring."
     },
-    "login": {
-      "title": "Logg inn",
-      "verifyOtpTitle": "Verifiser OTP",
-      "loginContinue": "Logg inn for å fortsette til nettstedet vårt",
-      "verifyEmailProceed": "Verifiser e-posten din for å fortsette",
-      "emailPlaceholder": "Skriv inn din e-postadresse",
-      "passwordPlaceholder": "Skriv inn ditt passord",
-      "loading": "Laster...",
-      "loginButton": "Logg inn",
-      "otpPlaceholder": "Skriv inn OTP",
-      "verifying": "Verifiserer...",
-      "verifyOtpButton": "Verifiser OTP",
-      "resending": "Sender på nytt...",
-      "resendOtpButton": "Send OTP på nytt",
-      "forgotPassword": "Glemt passord?",
-      "noAccount": "Har du ingen konto? ",
-      "signUp": "Registrer deg",
-      "errors": {
-        "fillFields": "Vennligst fyll ut både e-post og passord.",
-        "validEmail": "Vennligst skriv inn en gyldig e-postadresse.",
-        "passwordLength": "Passordet må være minst 6 tegn langt.",
-        "loginFailed": "Innlogging mislyktes.",
-        "enterOtp": "Vennligst skriv inn OTP.",
-        "otpVerificationFailed": "OTP-verifisering mislyktes.",
-        "resendOtpFailed": "Kunne ikke sende OTP på nytt. Prøv igjen.",
-        "googleLoginFailed": "Innlogging med Google mislyktes. Prøv igjen."
-      },
-      "messages": {
-        "emailNotVerified": "E-post ikke bekreftet. OTP sendt til din e-postadresse.",
-        "otpVerified": "OTP bekreftet!",
-        "otpResent": "OTP er sendt på nytt til din e-postadresse."
-      }
+    "communityEngagement": {
+      "title": "Fellesskapsengasjement",
+      "description": "Bli med i et levende nettfellesskap av likesinnede individer som deler sine meninger og bidrar til meningsfull markedsundersøkelse."
     },
-    "signup": {
-      "signUp": "Registrer deg",
-      "firstName": "Fornavn",
-      "lastName": "Etternavn",
-      "email": "E-post",
-      "password": "Passord",
-      "confirmPassword": "Bekreft passord",
-      "rememberMe": "Husk meg",
-      "agreeTerms": "Jeg godtar",
-      "terms": "vilkårene",
-      "privacyPolicy": "Personvernregler",
-      "alreadyHaveAccount": "Har du allerede en konto?",
-      "login": "Logg inn",
-      "processing": "Behandler...",
-      "verifyEmail": "Bekreft e-post",
-      "enterCode": "Skriv inn koden som er sendt til din e-post",
-      "enterOtpCode": "Skriv inn OTP-kode",
-      "verifying": "Verifiserer...",
-      "resendOtp": "Send OTP på nytt",
-      "resending": "Sender på nytt...",
-      "allSet": "Du er klar! Fullfør profilen din for å komme i gang",
-      "createProfile": "Opprett profil",
-      "otpRequired": "OTP er nødvendig",
-      "otpSentSuccess": "OTP sendt!",
-      "otpVerificationFailed": "OTP-verifisering mislyktes. Prøv igjen.",
-      "otpVerifiedSuccess": "OTP bekreftet!",
-      "failedToSendOtp": "Kunne ikke sende OTP. Prøv igjen.",
-      "otpResent": "OTP er sendt på nytt til din e-postadresse.",
-      "failedResendOtp": "Kunne ikke sende OTP på nytt. Prøv igjen.",
-      "firstNameRequired": "Fornavn er nødvendig",
-      "lastNameRequired": "Etternavn er nødvendig",
-      "emailRequired": "E-post er nødvendig",
-      "passwordRequired": "Passord er nødvendig",
-      "confirmPasswordRequired": "Bekreft passord er nødvendig",
-      "passwordsNotMatch": "Passordene stemmer ikke overens",
-      "agreeTermsRequired": "Du må godta vilkårene og betingelsene",
-      "enterPassword": "Skriv inn passord",
-      "confirmPasswordPlaceholder": "Bekreft passord"
+    "educationalResources": {
+      "title": "Pedagogiske ressurser",
+      "description": "Få tilgang til verdifulle innsikter og rapporter basert på aggregerte undersøkelsesdata, og hjelper deg med å holde deg informert om markedstrender."
     },
-    "forgotPassword": {
-      "forgotPassword": "Glemt passord",
-      "email": "E-post",
-      "enterEmail": "Skriv inn din e-postadresse",
-      "continue": "Fortsett",
-      "back": "Tilbake",
-      "verifyOtp": "Verifiser OTP",
-      "otpInstruction": "Skriv inn koden som er sendt til din e-post og angi et nytt passord.",
-      "otp": "OTP",
-      "enterOtp": "Skriv inn OTP",
-      "newPassword": "Nytt passord",
-      "enterNewPassword": "Skriv inn et nytt passord",
-      "verifyReset": "Verifiser og tilbakestill passord",
-      "resetSuccess": "Passord tilbakestilt",
-      "resetMessage": "Passordet ditt er tilbakestilt. Du kan nå logge inn med ditt nye passord.",
-      "goToLogin": "Gå til logg inn",
-      "invalidEmail": "Vennligst skriv inn en gyldig e-postadresse.",
-      "otpSendFailed": "Kunne ikke sende OTP. Prøv igjen.",
-      "otpPasswordRequired": "Vennligst skriv inn OTP og et nytt passord.",
-      "otpResetFailed": "Ugyldig OTP eller kunne ikke tilbakestille passord. Prøv igjen.",
-      "sending": "Sender...",
-      "verifying": "Verifiserer..."
+    "dashboardForAccountManagement": {
+      "title": "Dashboard for kontoadministrasjon",
+      "description": "Administrer enkelt din profil, følg din deltakelse i undersøkelser og overvåk dine belønninger via et omfattende dashboard."
     },
-    "notFound": {
-        "404_title": "404",
-        "page_not_found_heading": "Siden ble ikke funnet",
-        "page_not_found_description": "Siden du leter etter ser ut til å ha dratt på et eget eventyr. Men ikke bekymre deg, vi hjelper deg med å komme tilbake på sporet.",
-        "go_to_home_button": "Gå til hjemmesiden"
-      }
+    "dataPrivacyAndSecurity": {
+      "title": "Dataprivathet og sikkerhet",
+      "description": "Opplev trygghet med sterke databeskyttelsestiltak som holder din personlige informasjon sikker og konfidensiell."
+    },
+    "supportAndHelpCenter": {
+      "title": "Støtte og hjelpesenter",
+      "description": "Dra nytte av en dedikert støtteseksjon som gir svar på vanlige spørsmål og hjelp med kontorelaterte henvendelser."
+    }
+  },
+  "stepTwo": {
+    "title": "Monetær konvertering",
+    "description": "Brukere kan konvertere opptjente mynter til faktiske penger, noe som øker den opplevde verdien av å delta i undersøkelser."
+  },
+  "stepOne": {
+    "title": "Målrettede undersøkelser",
+    "description": "Muliggjør segmentering og målretting av spesifikke demografiske grupper for å forbedre relevansen av undersøkelser."
+  },
+  "stepThree": {
+    "title": "Økt deltakelse",
+    "description": "Å tilby mynter som belønning stimulerer brukere til å ta undersøkelser, noe som resulterer i høyere svarprosent."
+  },
+  "stepFour": {
+    "title": "Økt engasjement",
+    "description": "Muligheten til å tjene mynter oppmuntrer til regelmessig deltakelse og fremmer en vane med å gi tilbakemelding."
+  },
+  "login": {
+    "title": "Logg inn",
+    "verifyOtpTitle": "Verifiser OTP",
+    "loginContinue": "Logg inn for å fortsette til nettstedet vårt",
+    "verifyEmailProceed": "Verifiser e-posten din for å fortsette",
+    "emailPlaceholder": "Skriv inn din e-postadresse",
+    "passwordPlaceholder": "Skriv inn ditt passord",
+    "loading": "Laster...",
+    "loginButton": "Logg inn",
+    "otpPlaceholder": "Skriv inn OTP",
+    "verifying": "Verifiserer...",
+    "verifyOtpButton": "Verifiser OTP",
+    "resending": "Sender på nytt...",
+    "resendOtpButton": "Send OTP på nytt",
+    "forgotPassword": "Glemt passord?",
+    "noAccount": "Har du ingen konto? ",
+    "signUp": "Registrer deg",
+    "errors": {
+      "fillFields": "Vennligst fyll ut både e-post og passord.",
+      "validEmail": "Vennligst skriv inn en gyldig e-postadresse.",
+      "passwordLength": "Passordet må være minst 6 tegn langt.",
+      "loginFailed": "Innlogging mislyktes.",
+      "enterOtp": "Vennligst skriv inn OTP.",
+      "otpVerificationFailed": "OTP-verifisering mislyktes.",
+      "resendOtpFailed": "Kunne ikke sende OTP på nytt. Prøv igjen.",
+      "googleLoginFailed": "Innlogging med Google mislyktes. Prøv igjen."
+    },
+    "messages": {
+      "emailNotVerified": "E-post ikke bekreftet. OTP sendt til din e-postadresse.",
+      "otpVerified": "OTP bekreftet!",
+      "otpResent": "OTP er sendt på nytt til din e-postadresse."
+    }
+  },
+  "signup": {
+    "signUp": "Registrer deg",
+    "firstName": "Fornavn",
+    "lastName": "Etternavn",
+    "email": "E-post",
+    "password": "Passord",
+    "confirmPassword": "Bekreft passord",
+    "rememberMe": "Husk meg",
+    "agreeTerms": "Jeg godtar",
+    "terms": "vilkårene",
+    "privacyPolicy": "Personvernregler",
+    "alreadyHaveAccount": "Har du allerede en konto?",
+    "login": "Logg inn",
+    "processing": "Behandler...",
+    "verifyEmail": "Bekreft e-post",
+    "enterCode": "Skriv inn koden som er sendt til din e-post",
+    "enterOtpCode": "Skriv inn OTP-kode",
+    "verifying": "Verifiserer...",
+    "resendOtp": "Send OTP på nytt",
+    "resending": "Sender på nytt...",
+    "allSet": "Du er klar! Fullfør profilen din for å komme i gang",
+    "createProfile": "Opprett profil",
+    "otpRequired": "OTP er nødvendig",
+    "otpSentSuccess": "OTP sendt!",
+    "otpVerificationFailed": "OTP-verifisering mislyktes. Prøv igjen.",
+    "otpVerifiedSuccess": "OTP bekreftet!",
+    "failedToSendOtp": "Kunne ikke sende OTP. Prøv igjen.",
+    "otpResent": "OTP er sendt på nytt til din e-postadresse.",
+    "failedResendOtp": "Kunne ikke sende OTP på nytt. Prøv igjen.",
+    "firstNameRequired": "Fornavn er nødvendig",
+    "lastNameRequired": "Etternavn er nødvendig",
+    "emailRequired": "E-post er nødvendig",
+    "passwordRequired": "Passord er nødvendig",
+    "confirmPasswordRequired": "Bekreft passord er nødvendig",
+    "passwordsNotMatch": "Passordene stemmer ikke overens",
+    "agreeTermsRequired": "Du må godta vilkårene og betingelsene",
+    "enterPassword": "Skriv inn passord",
+    "confirmPasswordPlaceholder": "Bekreft passord"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Glemt passord",
+    "email": "E-post",
+    "enterEmail": "Skriv inn din e-postadresse",
+    "continue": "Fortsett",
+    "back": "Tilbake",
+    "verifyOtp": "Verifiser OTP",
+    "otpInstruction": "Skriv inn koden som er sendt til din e-post og angi et nytt passord.",
+    "otp": "OTP",
+    "enterOtp": "Skriv inn OTP",
+    "newPassword": "Nytt passord",
+    "enterNewPassword": "Skriv inn et nytt passord",
+    "verifyReset": "Verifiser og tilbakestill passord",
+    "resetSuccess": "Passord tilbakestilt",
+    "resetMessage": "Passordet ditt er tilbakestilt. Du kan nå logge inn med ditt nye passord.",
+    "goToLogin": "Gå til logg inn",
+    "invalidEmail": "Vennligst skriv inn en gyldig e-postadresse.",
+    "otpSendFailed": "Kunne ikke sende OTP. Prøv igjen.",
+    "otpPasswordRequired": "Vennligst skriv inn OTP og et nytt passord.",
+    "otpResetFailed": "Ugyldig OTP eller kunne ikke tilbakestille passord. Prøv igjen.",
+    "sending": "Sender...",
+    "verifying": "Verifiserer..."
+  },
+  "notFound": {
+    "404_title": "404",
+    "page_not_found_heading": "Siden ble ikke funnet",
+    "page_not_found_description": "Siden du leter etter ser ut til å ha dratt på et eget eventyr. Men ikke bekymre deg, vi hjelper deg med å komme tilbake på sporet.",
+    "go_to_home_button": "Gå til hjemmesiden"
+  },
+  "googleAuth": {
+    "signInWithGoogle": "Logg inn med Google",
+    "signInToContinue": "Logg inn for å fortsette til dashbordet ditt",
+    "googleLoginFailed": "Google-innlogging mislyktes. Prøv igjen."
+  },
+  "profile": {
+    "fullName": "Fullt navn",
+    "phoneNumber": "Telefonnummer",
+    "emailAddress": "E-postadresse",
+    "dateOfBirth": "Fødselsdato",
+    "edit": "Rediger",
+    "set": "Sett",
+    "save": "Lagre",
+    "logout": "Logg ut",
+    "displayPicture": "Profilbilde"
   }
+}
   
