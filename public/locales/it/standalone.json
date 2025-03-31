@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Sondaggio completato con successo",
+      "message": "Fantastico! Le tue risposte sono state inviate.\nGrazie per aver condiviso i tuoi pensieri!",
+      "goToDashboard": "Vai alla Dashboard",
+      "giveFeedback": "Invia Feedback"
+    },
+    "issue": {
+      "heading": "Problema di qualità",
+      "message": "Per motivi di sicurezza, non possiamo elaborare la tua risposta. Contatta l'assistenza se ritieni che si tratti di un errore."
+    },
+    "screenout": {
+      "heading": "Escluso",
+      "message": "Sembra che questo sondaggio non fosse adatto a te, ma apprezziamo il tuo tempo! Resta sintonizzato per ulteriori opportunità."
+    },
+    "reached": {
+      "heading": "Obiettivo raggiunto",
+      "message": "Ops! Questo sondaggio si è riempito velocemente. Ma non preoccuparti: altri sondaggi arriveranno presto!"
+    }
+  }

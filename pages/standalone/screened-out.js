@@ -1,16 +1,26 @@
 "use client";
 
 import StandAloneTemplate from "@/components/StandAlone.template";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const ScreenOut = () => {
+  const { t } = useTranslation('standalone')
+
   return (
     <StandAloneTemplate
-      heading="Screened Out"
-      message={
-        "Looks like this one wasn’t the right fit for you, but we appreciate your time! Stay tuned for more opportunities."
-      }
+      heading={t('screenout.heading')}
+      message={t('screenout.message')}
     />
-  );
-};
+  )
+}
 
-export default ScreenOut;
+export default ScreenOut
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'standalone'])),
+    },
+  }
+}

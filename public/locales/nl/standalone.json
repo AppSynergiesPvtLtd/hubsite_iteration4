@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Enquête succesvol afgerond",
+      "message": "Geweldig! Je antwoorden zijn verzonden.\nBedankt voor het delen van je gedachten!",
+      "goToDashboard": "Naar Dashboard",
+      "giveFeedback": "Feedback geven"
+    },
+    "issue": {
+      "heading": "Kwaliteitsprobleem",
+      "message": "Om veiligheidsredenen kunnen we je antwoord niet verwerken. Neem contact op met ondersteuning als je denkt dat dit een fout is."
+    },
+    "screenout": {
+      "heading": "Uitgescreend",
+      "message": "Het lijkt erop dat deze niet geschikt voor je was, maar we waarderen je tijd! Blijf op de hoogte voor meer mogelijkheden."
+    },
+    "reached": {
+      "heading": "Doel bereikt",
+      "message": "Oeps! Deze enquête vulde snel op. Maar maak je geen zorgen - er komen binnenkort meer enquêtes op je af!"
+    }
+  }
