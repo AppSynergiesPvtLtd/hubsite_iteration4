@@ -1,0 +1,38 @@
+{
+    "user_data_unavailable": "Dados do usuário não disponíveis. Certifique-se de que o usuário está logado.",
+    "error_completing_onboarding": "Erro ao concluir a integração.",
+    "step1": {
+      "almost_there": "Quase lá!",
+      "first_hubcoins": "Seus primeiros 10 Hubcoins estão esperando por você!",
+      "get_started": "Começar"
+    },
+    "step2": {
+      "hey": "Ei",
+      "welcome_message": "Bem-vindo ao Hubsite Social?",
+      "next_button": "Próximo"
+    },
+    "step3": {
+      "heading": "Vamos personalizar nossas pesquisas para você",
+      "paragraph": "Conte-nos mais sobre você para que possamos saber quem você é, entender melhor sua perspectiva e trazer pesquisas relevantes para você.",
+      "getStartedButton": "Começar"
+    },
+    "step4": {
+      "heading": "Por que fazemos estas perguntas?",
+      "paragraph1": "Isso é para que possamos trazer pesquisas relevantes para você. Significa que os alunos não serão questionados sobre como é ser professor ou alguém em Estocolmo não será questionado sobre o transporte público em Nova York.",
+      "paragraph2": "Lembre-se de que só podemos encontrar pesquisas para você depois que você responder a estas perguntas. E você também receberá <b>30 HUBCOINS</b>.",
+      "continueButton": "Ok, vamos continuar"
+    },
+    "questions": {
+      "textAnswerPlaceholder": "Insira sua resposta aqui",
+      "textAnswerRequired": "Por favor, forneça uma resposta.",
+      "selectionRequired": "Por favor, selecione uma opção.",
+      "surveyCompleteImageAlt": "Pesquisa concluída",
+      "surveyCompleteTitle": "Pesquisa concluída!",
+      "surveyCompleteMessage": "10 HUBCOINS recebidos com sucesso.",
+      "goToDashboardButton": "Ir para o painel",
+      "question": "Pergunta",
+      "previousButton": "← Anterior",
+      "nextButton": "Próximo →",
+      "submitButton": "Enviar"
+    }
+  }
