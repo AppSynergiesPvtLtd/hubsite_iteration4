@@ -1,0 +1,193 @@
+{
+    "index": {
+      "LiveSurvey": "Direkte undersøkelse",
+      "YourSurvey": "Din undersøkelse",
+      "LoadingSurveys": "Laster inn undersøkelser...",
+      "NoSurveysAvailable": "Ingen tilgjengelige undersøkelser.",
+      "Active": "Aktiv",
+      "Inactive": "Inaktiv",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "TA UNDERSØKELSEN",
+      "FailedToFetchLiveSurveys": "Kunne ikke hente direkte undersøkelser: {{message}}",
+      "ErrorFetchingLiveSurveys": "Feil ved henting av direkte undersøkelser: {{error}}",
+      "FailedToFetchYourSurveys": "Kunne ikke hente dine undersøkelser: {{message}}",
+      "ErrorFetchingYourSurveys": "Feil ved henting av dine undersøkelser: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Dashboard",
+        "surveys": "Profilundersøkelser",
+        "rewards": "Belønninger"
+      },
+      "profile": {
+        "editProfile": "Rediger profil",
+        "logout": "Logg ut"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Dashboard",
+        "profile": "Profil"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Bank",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Fullt navn",
+        "contactNumber": "Ditt kontaktnummer",
+        "bankName": "Banknavn",
+        "accountNumber": "Kontonummer",
+        "confirmAccountNumber": "Bekreft kontonummer",
+        "ifscCode": "IFSC-kode",
+        "upiId": "Din UPI-ID"
+      },
+      "errors": {
+        "fullName": "Fullt navn er obligatorisk.",
+        "contactNumber": "Kontaktnummer er obligatorisk.",
+        "bankName": "Banknavn er obligatorisk.",
+        "accountNumber": "Kontonummer er obligatorisk.",
+        "accountNumberMismatch": "Kontonumrene må samsvare.",
+        "ifscCode": "IFSC-kode er obligatorisk.",
+        "upiId": "UPI-ID er obligatorisk.",
+        "amount": {
+          "required": "Beløp er obligatorisk.",
+          "minimum": "Minimumsbeløpet for innløsning er 100 HUBCOINS.",
+          "insufficientBalance": "Utilstrekkelig saldo. Du har bare {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Tilgjengelig saldo:",
+      "minimumRedemption": "Minimum 100 HUBCOINS",
+      "steps": {
+        "next": "Neste",
+        "redeem": "Løs inn",
+        "okay": "Ok"
+      },
+      "confirmationMessage": "Pengene dine vil bli synlige på kontoen din snart"
+    },
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Sjekk kontoinformasjonen din her!",
+      "fields": {
+        "fullName": {
+          "label": "Fullt navn"
+        },
+        "phoneNumber": {
+          "label": "Telefonnummer"
+        },
+        "emailAddress": {
+          "label": "E-postadresse"
+        },
+        "dateOfBirth": {
+          "label": "Fødselsdato"
+        }
+      },
+      "buttons": {
+        "edit": "Rediger",
+        "cancel": "Avbryt",
+        "saveChanges": "Lagre endringer",
+        "logout": "Logg ut"
+      },
+      "displayPicture": "Profilbilde",
+      "alerts": {
+        "missingUserId": "Bruker-ID mangler",
+        "profileUpdateSuccess": "Profil oppdatert!",
+        "profileUpdateError": "Feil ved oppdatering av profil. Prøv igjen."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Opptjente mynter",
+        "buttonText": "Løs inn poeng"
+      },
+      "form": {
+        "title": "Fullfør detaljer",
+        "labels": {
+          "name": "Navn",
+          "date": "Dato",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "Navn er obligatorisk.",
+          "dateRequired": "Dato er obligatorisk.",
+          "hubscoreRequired": "Hubscore er obligatorisk."
+        },
+        "submitButton": "Send"
+      },
+      "spinner": {
+        "title": "Snurr hjulet",
+        "meta": "Snurr hjulet for å vinne Hubscore!",
+        "prizes": {
+          "prize1": "Premie 1",
+          "prize2": "Premie 2",
+          "prize3": "Premie 3",
+          "prize4": "Premie 4",
+          "prize5": "Premie 5",
+          "prize6": "Premie 6",
+          "prize7": "Premie 7",
+          "prize8": "Premie 8"
+        },
+        "buttons": {
+          "spin": "Snurr"
+        },
+        "buttonText": "Trykk for å snurre",
+        "spinButton": "Snurr",
+        "heading": "Snurr belønningshjulet!",
+        "description": "Snurr hjulet for spennende belønninger og oppdag eksklusive tilbud bare for deg!",
+        "reward": {
+          "title": "Belønningene dine venter!",
+          "hubscoreLabel": "Hubscore",
+          "hubcore": "Hubcore",
+          "claimButton": "Gjør krav på"
+        },
+        "nextRewards": {
+          "title": "Gratulerer!",
+          "description": "Lås opp ekstra gaver for hver undersøkelse du fullfører!",
+          "day": "Dag",
+          "confirmButton": "Ok"
+        }
+      }
+    },
+    "survey": {
+      "loading": "Laster inn undersøkelser...",
+      "noSurveys": "Ingen tilgjengelige undersøkelser.",
+      "status": {
+        "active": "Aktiv"
+      },
+      "time": {
+        "minutes": "min"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS MOTATT"
+      },
+      "actions": {
+        "takeSurvey": "TA UNDERSØKELSEN",
+        "completed": "Fullført"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Direkte undersøkelse",
+        "yourSurvey": "Din undersøkelse"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Samle 190 TIL FOR Å LØSE INN $ 200"
+      },
+      "earningSection": {
+        "title": "Mer om deg",
+        "earnLabel": "TJEN HUBCOINS"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "Er du klar for denne undersøkelsen?",
+        "timeLabel": "min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "TA UNDERSØKELSEN"
+      }
+    }
+  }

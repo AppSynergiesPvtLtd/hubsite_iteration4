@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import React, { useState } from "react";
+import { useTranslation } from 'next-i18next'
 
 const PaymentComp = () => {
+  const { t } = useTranslation('dashboard')
   const [selectedMethod, setSelectedMethod] = useState("bank");
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -39,49 +41,51 @@ const PaymentComp = () => {
 
     if (selectedMethod === "bank") {
       if (!formData.fullName) {
-        newErrors.fullName = "Full name is required.";
+        newErrors.fullName = t('payment.errors.fullName')
         isValid = false;
       } else {
         newErrors.fullName = "";
       }
 
       if (!formData.contactNumber) {
-        newErrors.contactNumber = "Contact number is required.";
+        newErrors.contactNumber = t('payment.errors.contactNumber')
         isValid = false;
       } else {
         newErrors.contactNumber = "";
       }
 
       if (!formData.bankName) {
-        newErrors.bankName = "Bank name is required.";
+        newErrors.bankName = t('payment.errors.bankName')
         isValid = false;
       } else {
         newErrors.bankName = "";
       }
 
       if (!formData.accountNumber) {
-        newErrors.accountNumber = "Account number is required.";
+        newErrors.accountNumber = t('payment.errors.accountNumber')
         isValid = false;
       } else {
         newErrors.accountNumber = "";
       }
 
       if (formData.accountNumber !== formData.confirmAccountNumber) {
-        newErrors.confirmAccountNumber = "Account numbers must match.";
+        newErrors.confirmAccountNumber = t(
+          'payment.errors.accountNumberMismatch'
+        )
         isValid = false;
       } else {
         newErrors.confirmAccountNumber = "";
       }
 
       if (!formData.ifscCode) {
-        newErrors.ifscCode = "IFSC code is required.";
+        newErrors.ifscCode = t('payment.errors.ifscCode')
         isValid = false;
       } else {
         newErrors.ifscCode = "";
       }
     } else {
       if (!formData.upiId) {
-        newErrors.upiId = "UPI ID is required.";
+        newErrors.upiId = t('payment.errors.upiId')
         isValid = false;
       } else {
         newErrors.upiId = "";
@@ -99,13 +103,15 @@ const PaymentComp = () => {
     const amount = parseFloat(formData.amount);
 
     if (!formData.amount) {
-      newErrors.amount = "Amount is required.";
+      newErrors.amount = t('payment.errors.amount.required')
       isValid = false;
     } else if (isNaN(amount) || amount < 100) {
-      newErrors.amount = "Minimum amount to redeem is 100 HUBCOINS.";
+      newErrors.amount = t('payment.errors.amount.minimum')
       isValid = false;
     } else if (amount > availableBalance) {
-      newErrors.amount = `Insufficient balance. You only have ${availableBalance} HUBCOINS.`;
+      newErrors.amount = t('payment.errors.amount.insufficientBalance', {
+        balance: availableBalance,
+      })
       isValid = false;
     } else {
       newErrors.amount = "";
@@ -118,13 +124,13 @@ const PaymentComp = () => {
   const nextStep = () => {
     if (step === 1) {
       if (!validateStep1()) {
-        return; // Don't proceed to the next step if validation fails
+        return
       }
     }
 
     if (step === 2) {
       if (!validateStep2()) {
-        return; // Don't proceed to the next step if validation fails
+        return
       }
     }
 
@@ -134,66 +140,83 @@ const PaymentComp = () => {
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
   return (
-    <div className="md:w-[85%] mx-auto p-6 mt-10 rounded-lg poppins">
+    <div className='md:w-[85%] mx-auto p-6 mt-10 rounded-lg poppins'>
       {step === 1 && (
-        <div className="flex justify-center mb-6">
+        <div className='flex justify-center mb-6'>
           <button
-            onClick={() => setSelectedMethod("bank")}
+            onClick={() => setSelectedMethod('bank')}
             className={`px-4 py-2 ${
-              selectedMethod === "bank" ? "bg-[#0057A1] text-white" : "bg-gray-200"
+              selectedMethod === 'bank'
+                ? 'bg-[#0057A1] text-white'
+                : 'bg-gray-200'
             } rounded-l`}
           >
-            🏦 Bank
+            {t('payment.paymentMethods.bank')}
           </button>
           <button
-            onClick={() => setSelectedMethod("upi")}
+            onClick={() => setSelectedMethod('upi')}
             className={`px-4 py-2 ${
-              selectedMethod === "upi" ? "bg-[#0057A1] text-white" : "bg-gray-200"
+              selectedMethod === 'upi'
+                ? 'bg-[#0057A1] text-white'
+                : 'bg-gray-200'
             } rounded-r`}
           >
-            💳 UPI
+            {t('payment.paymentMethods.upi')}
           </button>
         </div>
       )}
 
-      <div className="min-h-[320px] flex flex-col justify-between">
-        {selectedMethod === "bank" && step === 1 && (
+      <div className='min-h-[320px] flex flex-col justify-between'>
+        {selectedMethod === 'bank' && step === 1 && (
           <div>
             {[
-              { name: "fullName", placeholder: "Full Name" },
-              { name: "contactNumber", placeholder: "Your Contact Number" },
-              { name: "bankName", placeholder: "Bank Name" },
-              { name: "accountNumber", placeholder: "Account Number" },
-              { name: "confirmAccountNumber", placeholder: "Confirm Account Number" },
-              { name: "ifscCode", placeholder: "IFSC Code" },
+              { name: 'fullName', placeholder: t('payment.fields.fullName') },
+              {
+                name: 'contactNumber',
+                placeholder: t('payment.fields.contactNumber'),
+              },
+              { name: 'bankName', placeholder: t('payment.fields.bankName') },
+              {
+                name: 'accountNumber',
+                placeholder: t('payment.fields.accountNumber'),
+              },
+              {
+                name: 'confirmAccountNumber',
+                placeholder: t('payment.fields.confirmAccountNumber'),
+              },
+              { name: 'ifscCode', placeholder: t('payment.fields.ifscCode') },
             ].map((field) => (
-              <div key={field.name} className="mb-4">
+              <div key={field.name} className='mb-4'>
                 <input
                   name={field.name}
                   placeholder={field.placeholder}
                   onChange={handleChange}
-                  className="border p-2 w-full"
+                  className='border p-2 w-full'
                 />
-                {errors[field.name] && <p className="text-red-500 text-sm">{errors[field.name]}</p>}
+                {errors[field.name] && (
+                  <p className='text-red-500 text-sm'>{errors[field.name]}</p>
+                )}
               </div>
             ))}
           </div>
         )}
 
-        {selectedMethod === "upi" && step === 1 && (
+        {selectedMethod === 'upi' && step === 1 && (
           <div>
-            <div className="mb-4">
+            <div className='mb-4'>
               <input
-                name="upiId"
-                placeholder="Your UPI ID"
+                name='upiId'
+                placeholder={t('payment.fields.upiId')}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className='border p-2 w-full'
               />
-              {errors.upiId && <p className="text-red-500 text-sm">{errors.upiId}</p>}
+              {errors.upiId && (
+                <p className='text-red-500 text-sm'>{errors.upiId}</p>
+              )}
             </div>
 
-            <div className="flex space-x-2 mb-4">
-              {["@paytm", "@apl", "@upi", "@ybl"].map((tag) => (
+            <div className='flex space-x-2 mb-4'>
+              {['@paytm', '@apl', '@upi', '@ybl'].map((tag) => (
                 <button
                   key={tag}
                   onClick={() =>
@@ -202,7 +225,7 @@ const PaymentComp = () => {
                       upiId: prevState.upiId + tag,
                     }))
                   }
-                  className="bg-blue-200 px-3 py-1 rounded"
+                  className='bg-blue-200 px-3 py-1 rounded'
                 >
                   {tag}
                 </button>
@@ -213,60 +236,65 @@ const PaymentComp = () => {
 
         {step === 2 && (
           <div>
-            <p className="mb-4">
-              <strong>Available Balance:</strong> {availableBalance} HUBCOINS
+            <p className='mb-4'>
+              <strong>{t('payment.availableBalance')}</strong>{' '}
+              {availableBalance} HUBCOINS
             </p>
-            <div className="mb-4">
+            <div className='mb-4'>
               <input
-                name="amount"
-                placeholder="Enter Amount"
+                name='amount'
+                placeholder='Enter Amount'
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className='border p-2 w-full'
               />
-              {errors.amount && <p className="text-red-500 text-sm">{errors.amount}</p>}
+              {errors.amount && (
+                <p className='text-red-500 text-sm'>{errors.amount}</p>
+              )}
             </div>
-            <p className="text-gray-500 mb-4">Minimum 100 HUBCOINS</p>
+            <p className='text-gray-500 mb-4'>
+              {t('payment.minimumRedemption')}
+            </p>
           </div>
         )}
 
         {step === 3 && (
-          <div className="text-center">
-            <div className="mb-4">
+          <div className='text-center'>
+            <div className='mb-4'>
               <Image
-                src="/finalpayment.png"
-                alt="Money transfer illustration"
+                src='/finalpayment.png'
+                alt='Money transfer illustration'
                 width={500}
                 height={500}
-                className="mx-auto"
+                className='mx-auto'
               />
-              <p className="text-lg font-medium mt-2 text-center w-72 m-auto">
-                Your money will reflect in your account soon
+              <p className='text-lg font-medium mt-2 text-center w-72 m-auto'>
+                {t('payment.confirmationMessage')}
               </p>
             </div>
           </div>
         )}
 
-        <div className="w-[300px] flex justify-center items-center m-auto">
+        <div className='w-[300px] flex justify-center items-center m-auto'>
           {step < 3 && (
             <button
               onClick={nextStep}
-              className="bg-[#0057A1] hover:bg-[#0056a1f2] text-white w-[200px] py-2 rounded mt-4"
+              className='bg-[#0057A1] hover:bg-[#0056a1f2] text-white w-[200px] py-2 rounded mt-4'
             >
-              {step === 2 ? "Redeem" : "Next"}
+              {step === 2 ? t('payment.steps.redeem') : t('payment.steps.next')}
             </button>
           )}
           {step === 3 && (
             <button
               onClick={() => setStep(1)}
-              className="bg-[#0057A1] hover:bg-[#0056a1f2] text-white px-4 w-[200px] py-2 rounded mt-4"
+              className='bg-[#0057A1] hover:bg-[#0056a1f2] text-white px-4 w-[200px] py-2 rounded mt-4'
             >
-              Okay
+              {t('payment.steps.okay')}
             </button>
           )}
         </div>
       </div>
     </div>
-  );
+  )
 };
 
-export default PaymentComp;
+export default PaymentComp

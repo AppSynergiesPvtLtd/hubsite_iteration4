@@ -1,0 +1,193 @@
+{
+    "index": {
+      "LiveSurvey": "Live-Umfrage",
+      "YourSurvey": "Deine Umfrage",
+      "LoadingSurveys": "Umfragen werden geladen...",
+      "NoSurveysAvailable": "Keine Umfragen verfügbar.",
+      "Active": "Aktiv",
+      "Inactive": "Inaktiv",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "AN UMFRAGE TEILNEHMEN",
+      "FailedToFetchLiveSurveys": "Live-Umfragen konnten nicht abgerufen werden: {{message}}",
+      "ErrorFetchingLiveSurveys": "Fehler beim Abrufen von Live-Umfragen: {{error}}",
+      "FailedToFetchYourSurveys": "Deine Umfragen konnten nicht abgerufen werden: {{message}}",
+      "ErrorFetchingYourSurveys": "Fehler beim Abrufen deiner Umfragen: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Dashboard",
+        "surveys": "Profil-Umfragen",
+        "rewards": "Belohnungen"
+      },
+      "profile": {
+        "editProfile": "Profil bearbeiten",
+        "logout": "Abmelden"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Dashboard",
+        "profile": "Profil"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Bank",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Vollständiger Name",
+        "contactNumber": "Deine Kontaktnummer",
+        "bankName": "Bankname",
+        "accountNumber": "Kontonummer",
+        "confirmAccountNumber": "Kontonummer bestätigen",
+        "ifscCode": "IFSC-Code",
+        "upiId": "Deine UPI-ID"
+      },
+      "errors": {
+        "fullName": "Vollständiger Name ist erforderlich.",
+        "contactNumber": "Kontaktnummer ist erforderlich.",
+        "bankName": "Bankname ist erforderlich.",
+        "accountNumber": "Kontonummer ist erforderlich.",
+        "accountNumberMismatch": "Kontonummern müssen übereinstimmen.",
+        "ifscCode": "IFSC-Code ist erforderlich.",
+        "upiId": "UPI-ID ist erforderlich.",
+        "amount": {
+          "required": "Betrag ist erforderlich.",
+          "minimum": "Mindestbetrag für die Einlösung beträgt 100 HUBCOINS.",
+          "insufficientBalance": "Unzureichendes Guthaben. Du hast nur {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Verfügbares Guthaben:",
+      "minimumRedemption": "Mindestens 100 HUBCOINS",
+      "steps": {
+        "next": "Weiter",
+        "redeem": "Einlösen",
+        "okay": "Okay"
+      },
+      "confirmationMessage": "Dein Geld wird in Kürze auf deinem Konto erscheinen"
+    },
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Sieh dir hier deine Kontoinformationen an!",
+      "fields": {
+        "fullName": {
+          "label": "Vollständiger Name"
+        },
+        "phoneNumber": {
+          "label": "Telefonnummer"
+        },
+        "emailAddress": {
+          "label": "E-Mail-Adresse"
+        },
+        "dateOfBirth": {
+          "label": "Geburtsdatum"
+        }
+      },
+      "buttons": {
+        "edit": "Bearbeiten",
+        "cancel": "Abbrechen",
+        "saveChanges": "Änderungen speichern",
+        "logout": "Abmelden"
+      },
+      "displayPicture": "Profilbild",
+      "alerts": {
+        "missingUserId": "Benutzer-ID fehlt",
+        "profileUpdateSuccess": "Profil erfolgreich aktualisiert!",
+        "profileUpdateError": "Fehler beim Aktualisieren des Profils. Bitte versuche es erneut."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Verdiente Münzen",
+        "buttonText": "Punkte einlösen"
+      },
+      "form": {
+        "title": "Details ausfüllen",
+        "labels": {
+          "name": "Name",
+          "date": "Datum",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "Name ist erforderlich.",
+          "dateRequired": "Datum ist erforderlich.",
+          "hubscoreRequired": "Hubscore ist erforderlich."
+        },
+        "submitButton": "Absenden"
+      }
+    },
+    "spinner": {
+      "title": "Drehe das Rad",
+      "meta": "Drehe das Rad, um Hubscore zu gewinnen!",
+      "prizes": {
+        "prize1": "Preis 1",
+        "prize2": "Preis 2",
+        "prize3": "Preis 3",
+        "prize4": "Preis 4",
+        "prize5": "Preis 5",
+        "prize6": "Preis 6",
+        "prize7": "Preis 7",
+        "prize8": "Preis 8"
+      },
+      "buttons": {
+        "spin": "Drehen"
+      },
+      "buttonText": "Tippen zum Drehen",
+      "spinButton": "Drehen",
+      "heading": "Drehe das Belohnungsroulette!",
+      "description": "Drehe das Rad für aufregende Belohnungen und entdecke exklusive Angebote nur für dich!",
+      "reward": {
+        "title": "Deine Belohnungen warten!",
+        "hubscoreLabel": "Hubscore",
+        "hubcore": "Hubcore",
+        "claimButton": "Beanspruchen"
+      },
+      "nextRewards": {
+        "title": "Herzlichen Glückwunsch!",
+        "description": "Schalte zusätzliche Geschenke frei mit jeder Umfrage, die du abschließt!",
+        "day": "Tag",
+        "confirmButton": "Verstanden"
+      }
+    },
+    "survey": {
+      "loading": "Umfragen werden geladen...",
+      "noSurveys": "Keine Umfragen verfügbar.",
+      "status": {
+        "active": "Aktiv"
+      },
+      "time": {
+        "minutes": "Min"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "ERHALTENE HUBCOINS"
+      },
+      "actions": {
+        "takeSurvey": "AN UMFRAGE TEILNEHMEN",
+        "completed": "Abgeschlossen"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Live-Umfrage",
+        "yourSurvey": "Deine Umfrage"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Sammle 190 MEHR, UM $200 EINZULÖSEN"
+      },
+      "earningSection": {
+        "title": "Mehr über dich",
+        "earnLabel": "HUBCOINS VERDIENEN"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "Bist du bereit für diese Umfrage?",
+        "timeLabel": "Min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "AN UMFRAGE TEILNEHMEN"
+      }
+    }
+  }
