@@ -9,6 +9,8 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const DashboardLanding = () => {
   const user = useSelector((state) => state.user?.user);
+
+  console.log(user?.id, "user data from redux store");
   const router = useRouter();
   const [selectedButton, setSelectedButton] = useState("LiveSurvey");
   const [liveSurveys, setLiveSurveys] = useState([]);
@@ -88,6 +90,8 @@ const DashboardLanding = () => {
     }
   };
 
+
+  console.log(liveSurveys, "live surveys data");
   return (
     <div className="p-4 poppins">
       <div className="flex flex-wrap md:flex-row justify-center w-full md:w-[800px] m-auto gap-3 poppins">
@@ -165,8 +169,8 @@ const DashboardLanding = () => {
               </div>
               {survey.link && survey.link !== "" ? (
                 <a
-                  href={survey.link}
-                  target="_blank"
+                  href={`${survey.link}?userId=${user.id}&surveyId=${survey.id}`}
+                  // target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
                 >
