@@ -106,6 +106,8 @@ export default function Navbar() {
   }
 
   const languageSelect = (lang) => {
+    console.log('Selected language:', lang)
+
     localStorage.setItem('preferredLanguage', lang)
     setLanguageDropdownOpen(false)
   }
@@ -294,7 +296,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className='fixed inset-y-0 right-0 z-50 w-2/4 bg-white shadow-lg md:hidden poppins-semibolds '>
+        <div className='fixed inset-y-0 right-0 z-50 w-2/4 bg-white shadow-lg md:hidden poppins-semibolds max-h-screen overflow-y-auto'>
           <div className='flex flex-col h-full'>
             <div className='flex items-center justify-between p-4'>
               <Link href='/' onClick={() => setMobileMenuOpen(false)}>
@@ -390,7 +392,7 @@ export default function Navbar() {
                   />
                 </button>
                 {languageDropdownOpen && (
-                  <div className='absolute mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg'>
+                  <div className='absolute mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg -translate-x-1/3'>
                     {languages.map((lang) => (
                       <Link
                         href={{ pathname, query }}
@@ -398,6 +400,12 @@ export default function Navbar() {
                         locale={lang.code}
                         key={lang.code}
                         onClick={() => languageSelect(lang.code)}
+                        onTouchStart={() => {
+                          languageSelect(lang.code)
+                          router.push({ pathname, query }, asPath, {
+                            locale: lang.code,
+                          })
+                        }}
                         className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
                       >
                         {lang.name}
