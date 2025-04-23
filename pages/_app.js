@@ -98,4 +98,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 export default appWithTranslation(MyApp, {
   i18n: nextI18NextConfig,
   localePath: './public/locales',
+  defaultNS: 'common',
+  ns: ['common'],
+  fallbackLng: 'en',
 })
