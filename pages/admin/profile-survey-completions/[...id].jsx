@@ -440,7 +440,7 @@ const Profile_Survey_Completions = () => {
 
 export default AdminRoutes(Profile_Survey_Completions);
 
-export const getStaticProps = async ({ locale }) => ({
+export const getServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ['common', 'admin'])),
   },

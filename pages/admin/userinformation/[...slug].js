@@ -125,7 +125,7 @@ const Userinformation = () => {
 
 export default AdminRoutes(Userinformation);
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'admin'])),

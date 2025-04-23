@@ -296,7 +296,7 @@ const EditSurveyQuestion = () => {
 
 export default AdminRoutes(EditSurveyQuestion)
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'admin'])),

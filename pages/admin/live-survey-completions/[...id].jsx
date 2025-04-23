@@ -415,7 +415,7 @@ const Live_Survey_Completions = () => {
 
 export default AdminRoutes(Live_Survey_Completions);
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'admin'])),

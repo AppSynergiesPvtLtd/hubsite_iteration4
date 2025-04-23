@@ -36,7 +36,7 @@ const SurveySuccess = () => {
 
 export default SurveySuccess
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'standalone'])),
