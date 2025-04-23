@@ -428,7 +428,7 @@ const SurveyTakenLiveSurvey = () => {
 
 export default AdminRoutes(SurveyTakenLiveSurvey);
 
-export const getServerSideProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ['common', 'admin'])),
   },

@@ -65,7 +65,7 @@ const TermsOfUse = () => {
 TermsOfUse.Layout = MainLayout
 export default TermsOfUse;
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'terms'])),

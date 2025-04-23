@@ -10,7 +10,7 @@ const SurveyPage = () => {
 
 export default PrivateRoute(SurveyPage)
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
