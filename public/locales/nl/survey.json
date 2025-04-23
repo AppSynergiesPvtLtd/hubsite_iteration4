@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "Laden...",
+      "textAnswerPlaceholder": "Voer hier uw antwoord in",
+      "answerRequired": "Geef alstublieft een antwoord.",
+      "surveyCompletedTitle": "Enquête voltooid!",
+      "surveyCompletedMessage": "{{surveyId}} Hubcoins succesvol ontvangen.",
+      "goToDashboard": "Ga naar het dashboard",
+      "question": "Vraag",
+      "previous": "← Vorige",
+      "next": "Volgende →",
+      "submit": "Verzenden"
+    }
+  }

@@ -1,0 +1,22 @@
+{
+    "imgFinal": "Contactillustratie",
+    "headingFinal": "Bedankt voor uw bericht! We hebben uw bericht ontvangen en nemen zo snel mogelijk contact met u op.",
+    "heading1": "We horen graag van u,",
+    "heading2": "Neem contact op 👋",
+    "name": "Naam",
+    "namePlaceholder": "Voer uw naam in",
+    "nameRequired": "Naam is verplicht",
+    "email": "E-mail",
+    "emailPlaceholder": "Voer uw e-mailadres in",
+    "emailRequired": "E-mail is verplicht",
+    "emailInvalid": "Voer een geldig e-mailadres in",
+    "upload": " Uploaden (Optioneel)",
+    "uploadInvalid": "Alleen JPG- en PNG-afbeeldingen zijn toegestaan",
+    "message": "Bericht",
+    "messagePlaceholder": "Voer uw bericht in",
+    "messageRequired": "Bericht is verplicht",
+    "submit": "Bericht verzenden",
+    "submitFail": "Het verzenden van het formulier is mislukt. Probeer het opnieuw.",
+    "submitError": "Er is een fout opgetreden. Probeer het opnieuw.",
+    "img": "Beschrijving van de afbeelding"
+  }

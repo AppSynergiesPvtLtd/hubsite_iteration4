@@ -1,0 +1,14 @@
+{
+    "email": "E-mailadres",
+    "enterEmailAddress": "Voer uw e-mailadres in",
+    "unsubscribe": "Uitschrijven",
+    "pleaseEnterEmail": "Vul alstublieft uw e-mailadres in.",
+    "stopReceivingEmails": "U ontvangt geen e-mails meer van ons.",
+    "areYouSureUnsubscribe": "Weet u zeker dat u zich wilt uitschrijven?",
+    "currentlySubscribed": "U bent momenteel geabonneerd op:",
+    "yesUnsubscribe": "Ja, uitschrijven",
+    "noNotYet": "Nee, nog niet",
+    "successfullyUnsubscribed": "U bent succesvol uitgeschreven",
+    "noLongerReceiveEmails": "U ontvangt geen e-mails meer van ons.",
+    "changeMindSubscribeBack": "Als u van gedachten verandert, kunt u zich op elk moment <a>opnieuw abonneren</a>."
+  }

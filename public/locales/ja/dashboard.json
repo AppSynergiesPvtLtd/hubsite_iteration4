@@ -1,0 +1,194 @@
+{
+    "index": {
+      "LiveSurvey": "ライブ調査",
+      "YourSurvey": "あなたの調査",
+      "LoadingSurveys": "調査を読み込み中...",
+      "NoSurveysAvailable": "利用可能な調査はありません。",
+      "Active": "アクティブ",
+      "Inactive": "非アクティブ",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "アンケートに回答する",
+      "FailedToFetchLiveSurveys": "ライブ調査の取得に失敗しました: {{message}}",
+      "ErrorFetchingLiveSurveys": "ライブ調査の取得中にエラーが発生しました: {{error}}",
+      "FailedToFetchYourSurveys": "あなたの調査の取得に失敗しました: {{message}}",
+      "ErrorFetchingYourSurveys": "あなたの調査の取得中にエラーが発生しました: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "ダッシュボード",
+        "surveys": "プロフィール調査",
+        "rewards": "報酬"
+      },
+      "profile": {
+        "editProfile": "プロフィールを編集",
+        "logout": "ログアウト"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "ダッシュボード",
+        "profile": "プロフィール"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 銀行",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "フルネーム",
+        "contactNumber": "あなたの連絡先番号",
+        "bankName": "銀行名",
+        "accountNumber": "口座番号",
+        "confirmAccountNumber": "口座番号を確認",
+        "ifscCode": "IFSC コード",
+        "upiId": "あなたの UPI ID"
+      },
+      "errors": {
+        "fullName": "フルネームは必須です。",
+        "contactNumber": "連絡先番号は必須です。",
+        "bankName": "銀行名は必須です。",
+        "accountNumber": "口座番号は必須です。",
+        "accountNumberMismatch": "口座番号が一致する必要があります。",
+        "ifscCode": "IFSC コードは必須です。",
+        "upiId": "UPI ID は必須です。",
+        "amount": {
+          "required": "金額が必要です。",
+          "minimum": "引き換えの最小金額は 100 HUBCOINS です。",
+          "insufficientBalance": "残高が不足しています。 あなたの HUBCOINS は {{balance}} のみです。"
+        }
+      },
+      "availableBalance": "利用可能な残高:",
+      "minimumRedemption": "最低 100 HUBCOINS",
+      "steps": {
+        "next": "次へ",
+        "redeem": "引き換える",
+        "okay": "OK"
+      },
+      "confirmationMessage": "あなたのアカウントにまもなく反映されます"
+    },
+    "profile": {
+      "title": "プロフィール",
+      "subtitle": "こちらでアカウント情報を確認してください！",
+      "fields": {
+        "fullName": {
+          "label": "フルネーム"
+        },
+        "phoneNumber": {
+          "label": "電話番号"
+        },
+        "emailAddress": {
+          "label": "メールアドレス"
+        },
+        "dateOfBirth": {
+          "label": "生年月日"
+        }
+      },
+      "buttons": {
+        "edit": "編集",
+        "cancel": "キャンセル",
+        "saveChanges": "変更を保存",
+        "logout": "ログアウト"
+      },
+      "displayPicture": "プロフィール写真",
+      "alerts": {
+        "missingUserId": "ユーザー ID がありません",
+        "profileUpdateSuccess": "プロフィールが正常に更新されました!",
+        "profileUpdateError": "プロフィールの更新中にエラーが発生しました。 もう一度お試しください."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "獲得したコイン",
+        "buttonText": "ポイントを引き換える"
+      },
+      "form": {
+        "title": "詳細を入力してください",
+        "labels": {
+          "name": "名前",
+          "date": "日付",
+          "hubscore": "ハブスコア"
+        },
+        "errors": {
+          "nameRequired": "名前が必要です。",
+          "dateRequired": "日付が必要です。",
+          "hubscoreRequired": "ハブスコアが必要です。"
+        },
+        "submitButton": "送信"
+      },
+      "spinner": {
+        "title": "ルーレットを回す",
+        "meta": "ルーレットを回してハブスコアを獲得しましょう！",
+        "prizes": {
+          "prize1": "賞品 1",
+          "prize2": "賞品 2",
+          "prize3": "賞品 3",
+          "prize4": "賞品 4",
+          "prize5": "賞品 5",
+          "prize6": "賞品 6",
+          "prize7": "賞品 7",
+          "prize8": "賞品 8"
+        },
+        "buttons": {
+          "spin": "回す"
+        },
+        "buttonText": "タップして回す",
+        "spinButton": "回す",
+        "heading": "報酬ルーレットを回しましょう！",
+        "description": "ルーレットを回してエキサイティングな報酬を獲得し、あなただけの特別なオファーを見つけましょう！",
+        "reward": {
+          "title": "報酬があなたを待っています！",
+          "hubscoreLabel": "ハブスコア",
+          "hubcore": "ハブコア",
+          "claimButton": "申し込む"
+        },
+        "nextRewards": {
+          "title": "おめでとうございます！",
+          "description": "アンケートを完了するごとに、追加のギフトをアンロックしましょう！",
+          "day": "日",
+          "confirmButton": "OK"
+        }
+      }
+    },
+    "survey": {
+      "loading": "調査を読み込み中...",
+      "noSurveys": "利用可能な調査はありません。",
+      "status": {
+        "active": "アクティブ"
+      },
+      "time": {
+        "minutes": "分"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS 受け取りました"
+      },
+      "actions": {
+        "takeSurvey": "アンケートに回答する",
+        "completed": "完了"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "ライブ調査",
+        "yourSurvey": "あなたの調査"
+      },
+      "hubscore": {
+        "count": "ハブスコア",
+        "redeemMessage": "さらに 190 を集めて 200 ドルと交換しましょう"
+      },
+      "earningSection": {
+        "title": "あなたについてもっと知る",
+        "earnLabel": "HUBCOINS を獲得する"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "このアンケートに答える準備はできていますか？",
+        "timeLabel": "分",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "アンケートに回答する"
+      }
+    }
+  }
+  

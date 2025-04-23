@@ -1,0 +1,193 @@
+{
+  "index": {
+    "LiveSurvey": "Live Survey",
+    "YourSurvey": "Your Survey",
+    "LoadingSurveys": "Loading surveys...",
+    "NoSurveysAvailable": "No surveys available.",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "HUBCOINS": "HUBCOINS",
+    "TakeSurvey": "TAKE SURVEY",
+    "FailedToFetchLiveSurveys": "Failed to fetch live surveys: {{message}}",
+    "ErrorFetchingLiveSurveys": "Error fetching live surveys: {{error}}",
+    "FailedToFetchYourSurveys": "Failed to fetch your surveys: {{message}}",
+    "ErrorFetchingYourSurveys": "Error fetching your surveys: {{error}}"
+  },
+  "layout": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "surveys": "Profiling Surveys",
+      "rewards": "Rewards"
+    },
+    "profile": {
+      "editProfile": "Edit Profile",
+      "logout": "Logout"
+    },
+    "hubcoins": {
+      "tooltip": "{{count}} Hubcoins"
+    },
+    "pageTitle": {
+      "dashboard": "Dashboard",
+      "profile": "Profile"
+    }
+  },
+  "payment": {
+    "paymentMethods": {
+      "bank": "🏦 Bank",
+      "upi": "💳 UPI"
+    },
+    "fields": {
+      "fullName": "Full Name",
+      "contactNumber": "Your Contact Number",
+      "bankName": "Bank Name",
+      "accountNumber": "Account Number",
+      "confirmAccountNumber": "Confirm Account Number",
+      "ifscCode": "IFSC Code",
+      "upiId": "Your UPI ID"
+    },
+    "errors": {
+      "fullName": "Full name is required.",
+      "contactNumber": "Contact number is required.",
+      "bankName": "Bank name is required.",
+      "accountNumber": "Account number is required.",
+      "accountNumberMismatch": "Account numbers must match.",
+      "ifscCode": "IFSC code is required.",
+      "upiId": "UPI ID is required.",
+      "amount": {
+        "required": "Amount is required.",
+        "minimum": "Minimum amount to redeem is 100 HUBCOINS.",
+        "insufficientBalance": "Insufficient balance. You only have {{balance}} HUBCOINS."
+      }
+    },
+    "availableBalance": "Available Balance:",
+    "minimumRedemption": "Minimum 100 HUBCOINS",
+    "steps": {
+      "next": "Next",
+      "redeem": "Redeem",
+      "okay": "Okay"
+    },
+    "confirmationMessage": "Your money will reflect in your account soon"
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "See your account information in here!",
+    "fields": {
+      "fullName": {
+        "label": "Full Name"
+      },
+      "phoneNumber": {
+        "label": "Phone Number"
+      },
+      "emailAddress": {
+        "label": "Email Address"
+      },
+      "dateOfBirth": {
+        "label": "Date of Birth"
+      }
+    },
+    "buttons": {
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "saveChanges": "Save Changes",
+      "logout": "Logout"
+    },
+    "displayPicture": "Display Picture",
+    "alerts": {
+      "missingUserId": "User ID is missing",
+      "profileUpdateSuccess": "Profile updated successfully!",
+      "profileUpdateError": "Failed to update profile. Please try again."
+    }
+  },
+  "rewards": {
+    "coinsEarned": {
+      "title": "Coins Earned",
+      "buttonText": "Redeem Points"
+    },
+    "form": {
+      "title": "Fill Details",
+      "labels": {
+        "name": "Name",
+        "date": "Date",
+        "hubscore": "Hubscore"
+      },
+      "errors": {
+        "nameRequired": "Name is required.",
+        "dateRequired": "Date is required.",
+        "hubscoreRequired": "Hubscore is required."
+      },
+      "submitButton": "Submit"
+    }
+  },
+  "spinner": {
+    "title": "Spin the Wheel",
+    "meta": "Spin the wheel to win Hubscore!",
+    "prizes": {
+      "prize1": "Prize 1",
+      "prize2": "Prize 2",
+      "prize3": "Prize 3",
+      "prize4": "Prize 4",
+      "prize5": "Prize 5",
+      "prize6": "Prize 6",
+      "prize7": "Prize 7",
+      "prize8": "Prize 8"
+    },
+    "buttons": {
+      "spin": "Spin"
+    },
+    "buttonText": "Tap to Spin",
+    "spinButton": "Spin",
+    "heading": "Spin the Reward Roulette!",
+    "description": "Spin the wheel for exciting rewards and discover exclusive offers just for you!",
+    "reward": {
+      "title": "Your Rewards Await!",
+      "hubscoreLabel": "Hubscore",
+      "hubcore": "Hubcore",
+      "claimButton": "Claim"
+    },
+    "nextRewards": {
+      "title": "Congratulations!",
+      "description": "Unlock Additional Gifts with Each Survey You Complete!",
+      "day": "Day",
+      "confirmButton": "Got it"
+    }
+  },
+  "survey": {
+    "loading": "Loading surveys...",
+    "noSurveys": "No surveys available.",
+    "status": {
+      "active": "Active"
+    },
+    "time": {
+      "minutes": "min"
+    },
+    "coins": {
+      "label": "HUBCOINS",
+      "received": "HUBCOINS RECEIVED"
+    },
+    "actions": {
+      "takeSurvey": "TAKE SURVEY",
+      "completed": "Completed"
+    }
+  },
+  "yoursurvey": {
+    "tabs": {
+      "liveSurvey": "Live Survey",
+      "yourSurvey": "Your Survey"
+    },
+    "hubscore": {
+      "count": "Hubscore",
+      "redeemMessage": "Collect 190 MORE TO REDEEM $200"
+    },
+    "earningSection": {
+      "title": "More about you",
+      "earnLabel": "EARN HUBCOINS"
+    },
+    "surveyCard": {
+      "status": "Lorem",
+      "question": "Are you ready for this survey?",
+      "timeLabel": "min",
+      "coinsLabel": "HUBCOINS",
+      "actionButton": "TAKE SURVEY"
+    }
+  }
+}

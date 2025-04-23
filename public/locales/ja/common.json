@@ -1,0 +1,251 @@
+{
+  "welcome_heading": "Hubsite Socialへようこそ",
+  "welcome_description": "あなたの意見が重要なHubsite Socialプラットフォームに参加しましょう！完了したアンケートごとにコインを獲得し、簡単に現金に換金できます。シームレスな体験、あなたに合わせたアンケート、そしてあなたの洞察を共有しながら時間に対する報酬を得るチャンスをお楽しみください。今日から稼ぎ始めましょう！",
+  "dashboard_button": "ダッシュボード",
+  "get_started_button": "始める",
+  "hubsite_social_heading": "Hubsite Socialとは？",
+  "hubsite_social_description": "あなたの意見が重要なHubsite Socialプラットフォームに参加しましょう！完了したアンケートごとにコインを獲得し、簡単に現金に換金できます。シームレスな体験、あなたに合わせたアンケート、そしてあなたの洞察を共有しながら時間に対する報酬を得るチャンスをお楽しみください。今日から稼ぎ始めましょう！",
+  "view_all_button": "すべて表示",
+  "benefits": {
+    "title": "Hubsite Socialのメリット"
+  },
+  "accumulate": {
+    "title": "Hubsite SocialでHUBCOINSを貯める",
+    "cards": [
+      {
+        "heading": "サインアップ",
+        "btn": "ステップ1",
+        "paragraph": "私たちのコミュニティに参加して、あなたの意見がどのように重要であるかを発見しましょう。過去1年間だけで、メンバーに120万ルピー以上を支払っています！"
+      },
+      {
+        "heading": "アンケートに答える",
+        "btn": "ステップ2",
+        "paragraph": "アンケートに回答して、私たち全員が知っている製品やブランドについてのフィードバックを共有することで報酬を得ましょう。誰にとってもウィンウィンです！"
+      },
+      {
+        "heading": "報酬を獲得",
+        "btn": "ステップ3",
+        "paragraph": "eギフトカード、PayPal、その他多くのものに交換できる仮想ポイント（LP）で報酬を獲得できます。報酬の受け取り方法はあなたが選択するので、アンケート回答があなたにどのようなメリットをもたらすかもあなた次第です！"
+      }
+    ],
+    "button": "仕組み"
+  },
+  "navbar": {
+    "about": "私たちについて",
+    "features": "主なメリット",
+    "works": "仕組み",
+    "contact": "お問い合わせ",
+    "faq": "よくある質問",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "dashboard": "ダッシュボード"
+  },
+  "footer": {
+    "ready_to_start": "始める準備はできましたか？",
+    "login_button": "ログイン",
+    "terms_conditions": "利用規約",
+    "privacy_policy": "プライバシーポリシー",
+    "reward_policy": "報酬ポリシー",
+    "company": "会社",
+    "about_us": "私たちについて",
+    "key_benefits": "主なメリット",
+    "how_it_works": "仕組み",
+    "help": "ヘルプ",
+    "faqs": "よくある質問",
+    "contact_us": "お問い合わせ",
+    "contact": "連絡先",
+    "phone": "+260974314084",
+    "email": "hello@hubsitesocial.com",
+    "address": "A-46, ノイダ, セクター2, ウッタルプラデーシュ州, インド"
+  },
+  "reviews": {
+    "title": "満足しているパネリストの声"
+  },
+  "newsletter": {
+    "title": "ニュースレターに登録する",
+    "description": "最新ニュース、アップデート、その他多くのニュースを毎週受け取りましょう。",
+    "email_placeholder": "メールアドレスを入力",
+    "submit_button": "",
+    "error_message": "有効なメールアドレスを入力してください。",
+    "success_title": "購読ありがとうございます！",
+    "success_description": "ニュースレターの更新用にあなたのメールを受け取りました。"
+  },
+  "feature": {
+    "title": "主なメリット",
+    "subtitle": "あなたの洞察を共有し、報酬を獲得し、影響を与える",
+    "paragraph": "Hubsite Socialに参加して、あなたの声を届けることができる魅力的なアンケートに参加しましょう。企業が消費者のニーズを理解し、製品やサービスの未来を形作るのを助けながら、魅力的な報酬を獲得しましょう。あなたの意見は重要です—今日から違いを生み出しましょう！",
+    "userFriendlyInterface": {
+      "title": "ユーザーフレンドリーなインターフェース",
+      "description": "アンケート参加プロセスを簡素化する直感的なデザインのおかげで、サイトを簡単に操作できます。"
+    },
+    "diverseSurveySelection": {
+      "title": "多様なアンケート選択",
+      "description": "様々なトピックに関する幅広いアンケートにアクセスし、興味のあるコンテンツに取り組むことができます。"
+    },
+    "personalizedSurveyInvitations": {
+      "title": "パーソナライズされたアンケート招待",
+      "description": "あなたのプロフィールと好みに基づいてカスタマイズされた招待を受け取り、関連性が高く魅力的なアンケートの機会を確保します。"
+    },
+    "rewardSystem": {
+      "title": "報酬システム",
+      "description": "ギフトカードや限定割引など、参加に対してポイントや報酬を獲得し、あなたのフィードバックに価値を与えます。"
+    },
+    "realTimeFeedbackImpact": {
+      "title": "リアルタイムのフィードバックの影響",
+      "description": "企業が即時の洞察を得るのを助ける市場調査に貢献し、製品開発やサービス改善に影響を与えます。"
+    },
+    "communityEngagement": {
+      "title": "コミュニティエンゲージメント",
+      "description": "意見を共有し、有意義な市場調査に貢献する同じ志を持つ個人の活気あるオンラインコミュニティに参加しましょう。"
+    },
+    "educationalResources": {
+      "title": "教育リソース",
+      "description": "集計されたアンケートデータに基づく貴重な洞察やレポートにアクセスし、市場トレンドについての情報を常に入手できます。"
+    },
+    "dashboardForAccountManagement": {
+      "title": "アカウント管理用ダッシュボード",
+      "description": "包括的なダッシュボードを通じて、プロフィールの管理、アンケート参加の追跡、報酬の監視を簡単に行うことができます。"
+    },
+    "dataPrivacyAndSecurity": {
+      "title": "データプライバシーとセキュリティ",
+      "description": "個人情報を安全かつ機密に保つ強力なデータ保護対策により、安心感を得られます。"
+    },
+    "supportAndHelpCenter": {
+      "title": "サポートとヘルプセンター",
+      "description": "よくある質問への回答やアカウント関連の問い合わせに対する支援を提供する専用のサポートセクションから恩恵を受けられます。"
+    }
+  },
+  "stepTwo": {
+    "title": "金銭的な換金",
+    "description": "ユーザーは獲得したコインを実際のお金に換金でき、アンケートへの参加の認識価値を高めます。"
+  },
+  "stepOne": {
+    "title": "ターゲットを絞ったアンケート",
+    "description": "アンケートの関連性を向上させるために、特定の人口統計のセグメント化とターゲティングが可能です。"
+  },
+  "stepThree": {
+    "title": "参加率の向上",
+    "description": "報酬としてコインを提供することで、ユーザーがアンケートに回答するインセンティブとなり、より高い回答率が得られます。"
+  },
+  "stepFour": {
+    "title": "エンゲージメントの強化",
+    "description": "コインを獲得する見込みは定期的な参加を促し、フィードバックを提供する習慣を育みます。"
+  },
+  "login": {
+    "title": "ログイン",
+    "verifyOtpTitle": "OTP確認",
+    "loginContinue": "ウェブサイトを続けるにはログインしてください",
+    "verifyEmailProceed": "進むにはメールを確認してください",
+    "emailPlaceholder": "メールアドレスを入力",
+    "passwordPlaceholder": "パスワードを入力",
+    "loading": "読み込み中...",
+    "loginButton": "ログイン",
+    "otpPlaceholder": "OTPを入力",
+    "verifying": "確認中...",
+    "verifyOtpButton": "OTPを確認",
+    "resending": "再送信中...",
+    "resendOtpButton": "OTPを再送信",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "noAccount": "アカウントをお持ちでない方は ",
+    "signUp": "サインアップ",
+    "errors": {
+      "fillFields": "メールアドレスとパスワードの両方を入力してください。",
+      "validEmail": "有効なメールアドレスを入力してください。",
+      "passwordLength": "パスワードは6文字以上である必要があります。",
+      "loginFailed": "ログインに失敗しました。",
+      "enterOtp": "OTPを入力してください。",
+      "otpVerificationFailed": "OTP確認に失敗しました。",
+      "resendOtpFailed": "OTPの再送信に失敗しました。もう一度お試しください。",
+      "googleLoginFailed": "Googleログインに失敗しました。もう一度お試しください。"
+    },
+    "messages": {
+      "emailNotVerified": "メールが確認されていません。OTPがメールに送信されました。",
+      "otpVerified": "OTPが正常に確認されました！",
+      "otpResent": "OTPがメールに再送信されました。"
+    }
+  },
+  "signup": {
+    "signUp": "サインアップ",
+    "firstName": "名",
+    "lastName": "姓",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "rememberMe": "ログイン情報を保存",
+    "agreeTerms": "私は",
+    "terms": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+    "login": "ログイン",
+    "processing": "処理中...",
+    "verifyEmail": "メールを確認",
+    "enterCode": "メールに送信されたコードを入力",
+    "enterOtpCode": "OTPコードを入力",
+    "verifying": "確認中...",
+    "resendOtp": "OTPを再送信",
+    "resending": "再送信中...",
+    "allSet": "すべて設定完了！プロフィールを完成させて始めましょう",
+    "createProfile": "プロフィール作成",
+    "otpRequired": "OTPが必要です",
+    "otpSentSuccess": "OTPが正常に送信されました！",
+    "otpVerificationFailed": "OTP確認に失敗しました。もう一度お試しください。",
+    "otpVerifiedSuccess": "OTPが正常に確認されました！",
+    "failedToSendOtp": "OTPの送信に失敗しました。もう一度お試しください。",
+    "otpResent": "OTPがメールに再送信されました。",
+    "failedResendOtp": "OTPの再送信に失敗しました。もう一度お試しください。",
+    "firstNameRequired": "名は必須です",
+    "lastNameRequired": "姓は必須です",
+    "emailRequired": "メールアドレスは必須です",
+    "passwordRequired": "パスワードは必須です",
+    "confirmPasswordRequired": "パスワード確認は必須です",
+    "passwordsNotMatch": "パスワードが一致しません",
+    "agreeTermsRequired": "利用規約に同意する必要があります",
+    "enterPassword": "パスワードを入力",
+    "confirmPasswordPlaceholder": "パスワードを確認"
+  },
+  "forgotPassword": {
+    "forgotPassword": "パスワードをお忘れですか",
+    "email": "メールアドレス",
+    "enterEmail": "メールアドレスを入力",
+    "continue": "続ける",
+    "back": "戻る",
+    "verifyOtp": "OTPを確認",
+    "otpInstruction": "メールに送信されたコードを入力し、新しいパスワードを設定してください。",
+    "otp": "OTP",
+    "enterOtp": "OTPを入力",
+    "newPassword": "新しいパスワード",
+    "enterNewPassword": "新しいパスワードを入力",
+    "verifyReset": "確認してパスワードをリセット",
+    "resetSuccess": "パスワードリセット成功",
+    "resetMessage": "パスワードが正常にリセットされました。新しいパスワードでログインできるようになりました。",
+    "goToLogin": "ログインへ",
+    "invalidEmail": "有効なメールアドレスを入力してください。",
+    "otpSendFailed": "OTPの送信に失敗しました。もう一度お試しください。",
+    "otpPasswordRequired": "OTPと新しいパスワードを入力してください。",
+    "otpResetFailed": "無効なOTPまたはパスワードのリセットに失敗しました。もう一度お試しください。",
+    "sending": "送信中...",
+    "verifying": "確認中..."
+  },
+  "notFound": {
+    "404_title": "404",
+    "page_not_found_heading": "ページが見つかりません",
+    "page_not_found_description": "お探しのページは見当たらないようです。でも心配しないでください。すぐに元の場所に戻れるようにご案内します。",
+    "go_to_home_button": "ホームへ移動"
+  },
+  "googleAuth": {
+    "signInWithGoogle": "Googleでサインイン",
+    "signInToContinue": "ダッシュボードに進むためにサインインしてください",
+    "googleLoginFailed": "Googleログインに失敗しました。再度お試しください。"
+  },
+  "profile": {
+    "fullName": "氏名",
+    "phoneNumber": "電話番号",
+    "emailAddress": "メールアドレス",
+    "dateOfBirth": "生年月日",
+    "edit": "編集",
+    "set": "設定",
+    "save": "保存",
+    "logout": "ログアウト",
+    "displayPicture": "プロフィール画像"
+  }
+}

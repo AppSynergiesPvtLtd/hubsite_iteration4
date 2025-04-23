@@ -1,0 +1,14 @@
+{
+    "email": "Email",
+    "enterEmailAddress": "Inserisci il tuo indirizzo email",
+    "unsubscribe": "Disiscriviti",
+    "pleaseEnterEmail": "Per favore inserisci la tua email.",
+    "stopReceivingEmails": "Non riceverai più email da noi.",
+    "areYouSureUnsubscribe": "Sei sicuro di voler disiscriverti?",
+    "currentlySubscribed": "Attualmente sei iscritto a:",
+    "yesUnsubscribe": "Sì, disiscriviti",
+    "noNotYet": "No, non ancora",
+    "successfullyUnsubscribed": "Ti sei disiscritto con successo",
+    "noLongerReceiveEmails": "Non riceverai più email da noi.",
+    "changeMindSubscribeBack": "Se cambi idea, puoi <a>ri-iscriverti</a> in qualsiasi momento."
+  }

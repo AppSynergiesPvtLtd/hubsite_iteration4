@@ -1,0 +1,194 @@
+{
+    "index": {
+      "LiveSurvey": "Sondaggio in diretta",
+      "YourSurvey": "Il tuo sondaggio",
+      "LoadingSurveys": "Caricamento sondaggi...",
+      "NoSurveysAvailable": "Nessun sondaggio disponibile.",
+      "Active": "Attivo",
+      "Inactive": "Inattivo",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "PARTECIPA AL SONDAGGIO",
+      "FailedToFetchLiveSurveys": "Impossibile recuperare i sondaggi in diretta: {{message}}",
+      "ErrorFetchingLiveSurveys": "Errore durante il recupero dei sondaggi in diretta: {{error}}",
+      "FailedToFetchYourSurveys": "Impossibile recuperare i tuoi sondaggi: {{message}}",
+      "ErrorFetchingYourSurveys": "Errore durante il recupero dei tuoi sondaggi: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Dashboard",
+        "surveys": "Sondaggi profilo",
+        "rewards": "Premi"
+      },
+      "profile": {
+        "editProfile": "Modifica profilo",
+        "logout": "Disconnetti"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Dashboard",
+        "profile": "Profilo"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Banca",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Nome completo",
+        "contactNumber": "Il tuo numero di contatto",
+        "bankName": "Nome della banca",
+        "accountNumber": "Numero di conto",
+        "confirmAccountNumber": "Conferma numero di conto",
+        "ifscCode": "Codice IFSC",
+        "upiId": "Il tuo ID UPI"
+      },
+      "errors": {
+        "fullName": "Il nome completo è obbligatorio.",
+        "contactNumber": "Il numero di contatto è obbligatorio.",
+        "bankName": "Il nome della banca è obbligatorio.",
+        "accountNumber": "Il numero di conto è obbligatorio.",
+        "accountNumberMismatch": "I numeri di conto devono corrispondere.",
+        "ifscCode": "Il codice IFSC è obbligatorio.",
+        "upiId": "L'ID UPI è obbligatorio.",
+        "amount": {
+          "required": "L'importo è obbligatorio.",
+          "minimum": "L'importo minimo per il riscatto è di 100 HUBCOINS.",
+          "insufficientBalance": "Saldo insufficiente. Hai solo {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Saldo disponibile:",
+      "minimumRedemption": "Minimo 100 HUBCOINS",
+      "steps": {
+        "next": "Avanti",
+        "redeem": "Riscatta",
+        "okay": "Okay"
+      },
+      "confirmationMessage": "I tuoi soldi si rifletteranno presto sul tuo conto"
+    },
+    "profile": {
+      "title": "Profilo",
+      "subtitle": "Controlla qui le informazioni del tuo account!",
+      "fields": {
+        "fullName": {
+          "label": "Nome completo"
+        },
+        "phoneNumber": {
+          "label": "Numero di telefono"
+        },
+        "emailAddress": {
+          "label": "Indirizzo e-mail"
+        },
+        "dateOfBirth": {
+          "label": "Data di nascita"
+        }
+      },
+      "buttons": {
+        "edit": "Modifica",
+        "cancel": "Annulla",
+        "saveChanges": "Salva modifiche",
+        "logout": "Disconnetti"
+      },
+      "displayPicture": "Immagine del profilo",
+      "alerts": {
+        "missingUserId": "ID utente mancante",
+        "profileUpdateSuccess": "Profilo aggiornato con successo!",
+        "profileUpdateError": "Errore durante l'aggiornamento del profilo. Riprova."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Monete guadagnate",
+        "buttonText": "Riscatta punti"
+      },
+      "form": {
+        "title": "Completa i dettagli",
+        "labels": {
+          "name": "Nome",
+          "date": "Data",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "Il nome è obbligatorio.",
+          "dateRequired": "La data è obbligatoria.",
+          "hubscoreRequired": "L'Hubscore è obbligatorio."
+        },
+        "submitButton": "Invia"
+      },
+      "spinner": {
+        "title": "Gira la ruota",
+        "meta": "Gira la ruota per vincere Hubscore!",
+        "prizes": {
+          "prize1": "Premio 1",
+          "prize2": "Premio 2",
+          "prize3": "Premio 3",
+          "prize4": "Premio 4",
+          "prize5": "Premio 5",
+          "prize6": "Premio 6",
+          "prize7": "Premio 7",
+          "prize8": "Premio 8"
+        },
+        "buttons": {
+          "spin": "Gira"
+        },
+        "buttonText": "Tocca per girare",
+        "spinButton": "Gira",
+        "heading": "Gira la ruota dei premi!",
+        "description": "Gira la ruota per ottenere ricompense entusiasmanti e scoprire offerte esclusive solo per te!",
+        "reward": {
+          "title": "I tuoi premi ti aspettano!",
+          "hubscoreLabel": "Hubscore",
+          "hubcore": "Hubcore",
+          "claimButton": "Richiedi"
+        },
+        "nextRewards": {
+          "title": "Congratulazioni!",
+          "description": "Sblocca regali aggiuntivi con ogni sondaggio che completi!",
+          "day": "Giorno",
+          "confirmButton": "Okay"
+        }
+      }
+    },
+    "survey": {
+      "loading": "Caricamento sondaggi...",
+      "noSurveys": "Nessun sondaggio disponibile.",
+      "status": {
+        "active": "Attivo"
+      },
+      "time": {
+        "minutes": "min"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS RICEVUTI"
+      },
+      "actions": {
+        "takeSurvey": "PARTECIPA AL SONDAGGIO",
+        "completed": "Completato"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Sondaggio in diretta",
+        "yourSurvey": "Il tuo sondaggio"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Raccogli altri 190 per riscattare $ 200"
+      },
+      "earningSection": {
+        "title": "Più su di te",
+        "earnLabel": "GUADAGNA HUBCOINS"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "Sei pronto per questo sondaggio?",
+        "timeLabel": "min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "PARTECIPA AL SONDAGGIO"
+      }
+    }
+  }
+  

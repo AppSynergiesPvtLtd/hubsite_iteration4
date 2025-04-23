@@ -1,0 +1,194 @@
+{
+    "index": {
+      "LiveSurvey": "Live enquête",
+      "YourSurvey": "Uw enquête",
+      "LoadingSurveys": "Enquêtes laden...",
+      "NoSurveysAvailable": "Geen enquêtes beschikbaar.",
+      "Active": "Actief",
+      "Inactive": "Inactief",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "NEEM DEEL AAN DE ENQUÊTE",
+      "FailedToFetchLiveSurveys": "Live enquêtes ophalen mislukt: {{message}}",
+      "ErrorFetchingLiveSurveys": "Fout bij het ophalen van live enquêtes: {{error}}",
+      "FailedToFetchYourSurveys": "Uw enquêtes ophalen mislukt: {{message}}",
+      "ErrorFetchingYourSurveys": "Fout bij het ophalen van uw enquêtes: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Dashboard",
+        "surveys": "Profielenquêtes",
+        "rewards": "Beloningen"
+      },
+      "profile": {
+        "editProfile": "Profiel bewerken",
+        "logout": "Uitloggen"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Dashboard",
+        "profile": "Profiel"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Bank",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Volledige naam",
+        "contactNumber": "Uw contactnummer",
+        "bankName": "Naam van de bank",
+        "accountNumber": "Rekeningnummer",
+        "confirmAccountNumber": "Bevestig rekeningnummer",
+        "ifscCode": "IFSC-code",
+        "upiId": "Uw UPI-ID"
+      },
+      "errors": {
+        "fullName": "Volledige naam is verplicht.",
+        "contactNumber": "Contactnummer is verplicht.",
+        "bankName": "Naam van de bank is verplicht.",
+        "accountNumber": "Rekeningnummer is verplicht.",
+        "accountNumberMismatch": "Rekeningnummers moeten overeenkomen.",
+        "ifscCode": "IFSC-code is verplicht.",
+        "upiId": "UPI-ID is verplicht.",
+        "amount": {
+          "required": "Bedrag is verplicht.",
+          "minimum": "Minimumbedrag om in te wisselen is 100 HUBCOINS.",
+          "insufficientBalance": "Onvoldoende saldo. U heeft slechts {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Beschikbaar saldo:",
+      "minimumRedemption": "Minimaal 100 HUBCOINS",
+      "steps": {
+        "next": "Volgende",
+        "redeem": "Inwisselen",
+        "okay": "Oké"
+      },
+      "confirmationMessage": "Uw geld wordt binnenkort op uw rekening bijgeschreven"
+    },
+    "profile": {
+      "title": "Profiel",
+      "subtitle": "Bekijk hier uw accountgegevens!",
+      "fields": {
+        "fullName": {
+          "label": "Volledige naam"
+        },
+        "phoneNumber": {
+          "label": "Telefoonnummer"
+        },
+        "emailAddress": {
+          "label": "E-mailadres"
+        },
+        "dateOfBirth": {
+          "label": "Geboortedatum"
+        }
+      },
+      "buttons": {
+        "edit": "Bewerken",
+        "cancel": "Annuleren",
+        "saveChanges": "Wijzigingen opslaan",
+        "logout": "Uitloggen"
+      },
+      "displayPicture": "Profielfoto",
+      "alerts": {
+        "missingUserId": "Gebruikers-ID ontbreekt",
+        "profileUpdateSuccess": "Profiel succesvol bijgewerkt!",
+        "profileUpdateError": "Fout bij het bijwerken van profiel. Probeer het opnieuw."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Verdiende munten",
+        "buttonText": "Punten inwisselen"
+      },
+      "form": {
+        "title": "Details invullen",
+        "labels": {
+          "name": "Naam",
+          "date": "Datum",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "Naam is verplicht.",
+          "dateRequired": "Datum is verplicht.",
+          "hubscoreRequired": "Hubscore is verplicht."
+        },
+        "submitButton": "Verzenden"
+      },
+      "spinner": {
+        "title": "Draai aan het rad",
+        "meta": "Draai aan het rad om Hubscore te winnen!",
+        "prizes": {
+          "prize1": "Prijs 1",
+          "prize2": "Prijs 2",
+          "prize3": "Prijs 3",
+          "prize4": "Prijs 4",
+          "prize5": "Prijs 5",
+          "prize6": "Prijs 6",
+          "prize7": "Prijs 7",
+          "prize8": "Prijs 8"
+        },
+        "buttons": {
+          "spin": "Draaien"
+        },
+        "buttonText": "Tik om te draaien",
+        "spinButton": "Draaien",
+        "heading": "Draai aan het beloningsrad!",
+        "description": "Draai aan het rad voor spannende beloningen en ontdek exclusieve aanbiedingen speciaal voor jou!",
+        "reward": {
+          "title": "Uw beloningen wachten!",
+          "hubscoreLabel": "Hubscore",
+          "hubcore": "Hubcore",
+          "claimButton": "Claimen"
+        },
+        "nextRewards": {
+          "title": "Gefeliciteerd!",
+          "description": "Ontgrendel extra cadeaus bij elke enquête die u invult!",
+          "day": "Dag",
+          "confirmButton": "Oké"
+        }
+      }
+    },
+    "survey": {
+      "loading": "Enquêtes laden...",
+      "noSurveys": "Geen enquêtes beschikbaar.",
+      "status": {
+        "active": "Actief"
+      },
+      "time": {
+        "minutes": "minuten"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS ONTVANGEN"
+      },
+      "actions": {
+        "takeSurvey": "NEEM DEEL AAN DE ENQUÊTE",
+        "completed": "Voltooid"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Live enquête",
+        "yourSurvey": "Uw enquête"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Verzamel nog 190 MEER OM $ 200 IN TE WISSELEN"
+      },
+      "earningSection": {
+        "title": "Meer over u",
+        "earnLabel": "VERDIEN HUBCOINS"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "Bent u klaar voor deze enquête?",
+        "timeLabel": "min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "NEEM DEEL AAN DE ENQUÊTE"
+      }
+    }
+  }
+  

@@ -2,11 +2,17 @@ import React from "react";
 import Layout from "./layout";
 import DashboardLanding from "@/components/DashBoard/DashBoard";
 import PrivateRoute from "../PrivateRoute";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const DashboardPage = () => {
-  return (
-      <DashboardLanding/>
-  );
-};
+  return <DashboardLanding />
+}
 
-export default PrivateRoute(DashboardPage);
+export default PrivateRoute(DashboardPage)
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
+    },
+  }
+}

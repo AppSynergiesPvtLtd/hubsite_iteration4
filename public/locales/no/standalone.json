@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Undersøkelse fullført",
+      "message": "Flott! Svarene dine er sendt inn.\nTakk for at du delte tankene dine!",
+      "goToDashboard": "Gå til dashbord",
+      "giveFeedback": "Gi tilbakemelding"
+    },
+    "issue": {
+      "heading": "Kvalitetsproblem",
+      "message": "Av sikkerhetsmessige årsaker kan vi ikke behandle svaret ditt. Vennligst kontakt support hvis du mener dette er en feil."
+    },
+    "screenout": {
+      "heading": "Screenet ut",
+      "message": "Det ser ut til at denne ikke passet for deg, men vi setter pris på tiden din! Følg med for flere muligheter."
+    },
+    "reached": {
+      "heading": "Målet nådd",
+      "message": "Oops! Denne undersøkelsen ble fylt opp raskt. Men ikke bekymre deg – flere undersøkelser kommer snart din vei!"
+    }
+  }

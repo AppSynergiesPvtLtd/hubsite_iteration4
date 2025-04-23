@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import AdminRoutes from "@/pages/adminRoutes";
 import { useDispatch } from "react-redux";
 import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle } from "@/store/adminbtnSlice";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -13,24 +15,25 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const EditOnBoardingQuestion = () => {
   const router = useRouter();
   const { slug } = router.query; // slug identifies the question to edit
+  const { t } = useTranslation('admin')
 
   // Store both the original API data and the current form data.
   const [initialQuestionData, setInitialQuestionData] = useState(null);
   const [questionData, setQuestionData] = useState({
-    questionTitle: "",
-    questionDescription: "",
-    type: "SINGLE_SELECTION",
+    questionTitle: '',
+    questionDescription: '',
+    type: 'SINGLE_SELECTION',
     isRequired: true,
     options: [],
-  });
+  })
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setTitle("Onboarding Question"));
+    dispatch(setTitle('Onboarding Question'))
     return () => {
       dispatch(hideAdd());
       dispatch(hideRefresh());
@@ -41,70 +44,75 @@ const EditOnBoardingQuestion = () => {
 
   // Fetch the question details from the API.
   useEffect(() => {
-    if (!slug) return;
+    if (!slug) return
 
     const fetchQuestionDetails = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
         const response = await axios.get(`${API_BASE_URL}/questions/${slug}`, {
           headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'x-api-key': API_KEY,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        });
-        const data = response.data;
+        })
+        const data = response.data
         const formattedData = {
           questionTitle: data.question,
           questionDescription: data.description,
           type: data.type,
           isRequired: data.isRequired,
           // Only include options if the type allows it.
-          options: ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(data.type)
+          options: ['SINGLE_SELECTION', 'MULTIPLE_SELECTION'].includes(
+            data.type
+          )
             ? data.option || []
             : [],
-        };
-        setInitialQuestionData(formattedData);
-        setQuestionData(formattedData);
+        }
+        setInitialQuestionData(formattedData)
+        setQuestionData(formattedData)
       } catch (error) {
-        console.error("Error fetching question details:", error);
-        setErrorMessage("Failed to load question details.");
+        console.error('Error fetching question details:', error)
+        setErrorMessage(t('manageSurveys.editOnboardingQuestion.loadError'))
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchQuestionDetails();
-  }, [slug]);
+    fetchQuestionDetails()
+  }, [slug, t])
 
   // Determine if there are unsaved changes.
-  const hasChanges = JSON.stringify(questionData) !== JSON.stringify(initialQuestionData);
+  const hasChanges =
+    JSON.stringify(questionData) !== JSON.stringify(initialQuestionData)
 
   // Reset the form to its original state.
   const handleReset = () => {
     setQuestionData(initialQuestionData);
-    setErrorMessage("");
-    setSuccessMessage("");
+    setErrorMessage('')
+    setSuccessMessage('')
   };
 
   // Handle saving/updating the question.
   const handleSaveChanges = async () => {
     // If no changes have been made, alert the user.
     if (JSON.stringify(questionData) === JSON.stringify(initialQuestionData)) {
-      setSuccessMessage("No changes detected.");
+      setSuccessMessage(t('manageSurveys.editOnboardingQuestion.noChanges'))
       return;
     }
 
     // Validate options if question type is SINGLE_SELECTION or MULTIPLE_SELECTION.
-    if (["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type)) {
+    if (
+      ['SINGLE_SELECTION', 'MULTIPLE_SELECTION'].includes(questionData.type)
+    ) {
       if (!questionData.options || questionData.options.length < 2) {
-        setErrorMessage("At least 2 options are required for selection questions.");
-        return;
+        setErrorMessage(t('manageSurveys.editOnboardingQuestion.optionError'))
+        return
       }
     }
 
     setLoading(true);
-    setErrorMessage("");
-    setSuccessMessage("");
+    setErrorMessage('')
+    setSuccessMessage('')
 
     // Prepare the question payload.
     const questionPayload = {
@@ -119,30 +127,36 @@ const EditOnBoardingQuestion = () => {
       // Update the main question details.
       await axios.put(`${API_BASE_URL}/questions/${slug}`, questionPayload, {
         headers: {
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'x-api-key': API_KEY,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      });
+      })
 
       // If the question uses options, update them via the separate endpoint.
       if (
-        ["SINGLE_SELECTION", "MULTIPLE_SELECTION"].includes(questionData.type) &&
+        ['SINGLE_SELECTION', 'MULTIPLE_SELECTION'].includes(
+          questionData.type
+        ) &&
         questionData.options.length > 0
       ) {
-        await axios.put(`${API_BASE_URL}/questions/options/${slug}`, questionData.options, {
-          headers: {
-            "x-api-key": API_KEY,
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        await axios.put(
+          `${API_BASE_URL}/questions/options/${slug}`,
+          questionData.options,
+          {
+            headers: {
+              'x-api-key': API_KEY,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
       }
 
       // Update the "original" data.
       setInitialQuestionData(questionData);
-      setSuccessMessage("Question updated successfully!");
+      setSuccessMessage(t('manageSurveys.editOnboardingQuestion.updateSuccess'))
     } catch (error) {
-      console.error("Error saving question:", error);
-      setErrorMessage("Failed to update question. Please try again.");
+      console.error('Error saving question:', error)
+      setErrorMessage(t('manageSurveys.editOnboardingQuestion.updateError'))
     } finally {
       setLoading(false);
     }
@@ -150,10 +164,12 @@ const EditOnBoardingQuestion = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-lg font-medium text-gray-600">Loading...</p>
+      <div className='flex justify-center items-center h-screen'>
+        <p className='text-lg font-medium text-gray-600'>
+          {t('manageSurveys.editOnboardingQuestion.loading')}
+        </p>
       </div>
-    );
+    )
   }
 
   return (
@@ -168,12 +184,20 @@ const EditOnBoardingQuestion = () => {
         hasChanges={hasChanges}
       />
       {successMessage && (
-        <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center">
+        <div className='mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center'>
           {successMessage}
         </div>
       )}
     </>
-  );
+  )
 };
 
 export default AdminRoutes(EditOnBoardingQuestion);
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'admin'])),
+    },
+  }
+}

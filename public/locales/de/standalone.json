@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Umfrage erfolgreich abgeschlossen",
+      "message": "Super! Deine Antworten wurden übermittelt.\nDanke, dass du deine Gedanken mit uns geteilt hast!",
+      "goToDashboard": "Zum Dashboard",
+      "giveFeedback": "Feedback geben"
+    },
+    "issue": {
+      "heading": "Qualitätsproblem",
+      "message": "Aus Sicherheitsgründen können wir deine Antwort nicht verarbeiten. Bitte kontaktiere den Support, wenn du glaubst, dass dies ein Fehler ist."
+    },
+    "screenout": {
+      "heading": "Ausgeschlossen",
+      "message": "Es scheint, dass diese Umfrage nicht die richtige für dich war, aber wir schätzen deine Zeit! Bleib dran für weitere Möglichkeiten."
+    },
+    "reached": {
+      "heading": "Ziel erreicht",
+      "message": "Hoppla! Diese Umfrage wurde schnell ausgefüllt. Aber keine Sorge – weitere Umfragen werden bald auf dich zukommen!"
+    }
+  }

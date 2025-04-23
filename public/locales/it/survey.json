@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "Caricamento...",
+      "textAnswerPlaceholder": "Inserisci qui la tua risposta",
+      "answerRequired": "Si prega di fornire una risposta.",
+      "surveyCompletedTitle": "Sondaggio completato!",
+      "surveyCompletedMessage": "{{surveyId}} Hubcoins ricevuti con successo.",
+      "goToDashboard": "Vai alla dashboard",
+      "question": "Domanda",
+      "previous": "← Precedente",
+      "next": "Successivo →",
+      "submit": "Invia"
+    }
+  }

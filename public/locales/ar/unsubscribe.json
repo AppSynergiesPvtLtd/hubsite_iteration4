@@ -1,0 +1,14 @@
+{
+    "email": "البريد الإلكتروني",
+    "enterEmailAddress": "أدخل عنوان بريدك الإلكتروني",
+    "unsubscribe": "إلغاء الاشتراك",
+    "pleaseEnterEmail": "الرجاء إدخال بريدك الإلكتروني.",
+    "stopReceivingEmails": "لن تتلقى المزيد من رسائل البريد الإلكتروني منا.",
+    "areYouSureUnsubscribe": "هل أنت متأكد أنك تريد إلغاء الاشتراك؟",
+    "currentlySubscribed": "أنت مشترك حاليًا في:",
+    "yesUnsubscribe": "نعم، ألغ الاشتراك",
+    "noNotYet": "لا، ليس بعد",
+    "successfullyUnsubscribed": "تم إلغاء اشتراكك بنجاح",
+    "noLongerReceiveEmails": "لن تتلقى بعد الآن رسائل بريد إلكتروني منا.",
+    "changeMindSubscribeBack": "إذا غيرت رأيك، يمكنك <a>الاشتراك مرة أخرى</a> في أي وقت."
+  }

@@ -1,17 +1,21 @@
 import React from "react";
+import { useTranslation } from 'next-i18next'
 import WheelComponent from "./WheelComponent";
 
 const Wheel = () => {
+  const { t } = useTranslation('dashboard')
+
   const segments = [
-    "Prize 1",
-    "Prize 2",
-    "Prize 3",
-    "Prize 4",
-    "Prize 5",
-    "Prize 6",
-    "Prize 7",
-    "Prize 8",
-  ];
+    t('spinner.prizes.prize1'),
+    t('spinner.prizes.prize2'),
+    t('spinner.prizes.prize3'),
+    t('spinner.prizes.prize4'),
+    t('spinner.prizes.prize5'),
+    t('spinner.prizes.prize6'),
+    t('spinner.prizes.prize7'),
+    t('spinner.prizes.prize8'),
+  ]
+  
   const segColors = [
     "#EE4040",
     "#F0CF50",
@@ -29,16 +33,16 @@ const Wheel = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
       <WheelComponent
         segments={segments}
         segColors={segColors}
         onFinished={handleFinished}
         size={300}
-        buttonText="Spin"
+        buttonText={t('spinner.buttons.spin')}
       />
     </div>
-  );
+  )
 };
 
-export default Wheel;
+export default Wheel

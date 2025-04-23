@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Pesquisa concluída com sucesso",
+      "message": "Ótimo! Suas respostas foram enviadas.\nObrigado por compartilhar suas opiniões!",
+      "goToDashboard": "Ir para o Painel",
+      "giveFeedback": "Dar Feedback"
+    },
+    "issue": {
+      "heading": "Problema de qualidade",
+      "message": "Por razões de segurança, não podemos processar sua resposta. Entre em contato com o suporte se acreditar que isso é um erro."
+    },
+    "screenout": {
+      "heading": "Desqualificado",
+      "message": "Parece que esta pesquisa não era adequada para você, mas agradecemos seu tempo! Fique atento para mais oportunidades."
+    },
+    "reached": {
+      "heading": "Meta atingida",
+      "message": "Ops! Esta pesquisa foi preenchida rapidamente. Mas não se preocupe – mais pesquisas chegarão em breve!"
+    }
+  }

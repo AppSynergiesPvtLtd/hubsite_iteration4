@@ -1,0 +1,23 @@
+{
+    "imgFinal": "Kontaktillustrasjon",
+    "headingFinal": "Takk for at du tok kontakt! Vi har mottatt meldingen din og vil ta kontakt med deg snart.",
+    "heading1": "Vi vil gjerne høre fra deg,",
+    "heading2": "Ta kontakt 👋",
+    "name": "Navn",
+    "namePlaceholder": "Skriv inn navnet ditt",
+    "nameRequired": "Navn er obligatorisk",
+    "email": "E-post",
+    "emailPlaceholder": "Skriv inn e-postadressen din",
+    "emailRequired": "E-post er obligatorisk",
+    "emailInvalid": "Skriv inn en gyldig e-postadresse",
+    "upload": " Last opp (Valgfritt)",
+    "uploadInvalid": "Bare JPG- og PNG-bilder er tillatt",
+    "message": "Melding",
+    "messagePlaceholder": "Skriv inn meldingen din",
+    "messageRequired": "Melding er obligatorisk",
+    "submit": "Send melding",
+    "submitFail": "Kunne ikke sende skjemaet. Prøv igjen.",
+    "submitError": "Det oppsto en feil. Prøv igjen.",
+    "img": "Beskrivelse av bildet"
+  }
+  

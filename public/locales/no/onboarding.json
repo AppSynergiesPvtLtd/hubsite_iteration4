@@ -1,0 +1,39 @@
+{
+    "user_data_unavailable": "Brukerdata er ikke tilgjengelig. Forsikre deg om at brukeren er logget inn.",
+    "error_completing_onboarding": "Feil under fullføring av onboarding.",
+    "step1": {
+      "almost_there": "Nesten der!",
+      "first_hubcoins": "Dine første 10 Hubcoins venter på deg!",
+      "get_started": "Kom i gang"
+    },
+    "step2": {
+      "hey": "Hei",
+      "welcome_message": "Velkommen til Hubsite Social?",
+      "next_button": "Neste"
+    },
+    "step3": {
+      "heading": "La oss skreddersy våre undersøkelser for deg",
+      "paragraph": "Fortell oss mer om deg selv, slik at vi vet hvem du er, forstår perspektivet ditt bedre og kan gi deg relevante undersøkelser.",
+      "getStartedButton": "Kom i gang"
+    },
+    "step4": {
+      "heading": "Hvorfor stiller vi disse spørsmålene?",
+      "paragraph1": "Dette er for at vi skal kunne gi deg relevante undersøkelser. Det betyr at studenter ikke vil bli spurt hvordan det er å være lærer, eller at noen i Stockholm ikke blir spurt om offentlig transport i New York.",
+      "paragraph2": "Husk at vi bare kan finne undersøkelser for deg når du har svart på disse spørsmålene. Og du vil også få <b>30 HUBCOINS</b>.",
+      "continueButton": "Ok, la oss fortsette"
+    },
+    "questions": {
+      "textAnswerPlaceholder": "Skriv inn svaret ditt her",
+      "textAnswerRequired": "Vennligst gi et svar.",
+      "selectionRequired": "Vennligst velg et alternativ.",
+      "surveyCompleteImageAlt": "Undersøkelse fullført",
+      "surveyCompleteTitle": "Fullført undersøkelse!",
+      "surveyCompleteMessage": "Mottok 10 HUBCOINS.",
+      "goToDashboardButton": "Gå til dashbord",
+      "question": "Spørsmål",
+      "previousButton": "← Forrige",
+      "nextButton": "Neste →",
+      "submitButton": "Send"
+    }
+  }
+  

@@ -1,0 +1,14 @@
+{
+    "email": "E-post",
+    "enterEmailAddress": "Skriv inn din e-postadresse",
+    "unsubscribe": "Avmeld",
+    "pleaseEnterEmail": "Vennligst skriv inn din e-postadresse.",
+    "stopReceivingEmails": "Du vil ikke lenger motta e-poster fra oss.",
+    "areYouSureUnsubscribe": "Er du sikker på at du vil avmelde deg?",
+    "currentlySubscribed": "Du er for øyeblikket abonnert på:",
+    "yesUnsubscribe": "Ja, avmeld",
+    "noNotYet": "Nei, ikke ennå",
+    "successfullyUnsubscribed": "Du har blitt avmeldt",
+    "noLongerReceiveEmails": "Du vil ikke lenger motta e-poster fra oss.",
+    "changeMindSubscribeBack": "Hvis du ombestemmer deg, kan du <a>abonnere igjen</a> når som helst."
+  }
