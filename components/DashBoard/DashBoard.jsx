@@ -103,7 +103,7 @@ const DashboardLanding = () => {
             height={24}
             className='mr-2'
           />
-          {t('index.liveSurvey')}
+          {t('index.LiveSurvey')}
         </div>
 
         <div
@@ -121,13 +121,13 @@ const DashboardLanding = () => {
             height={24}
             className='mr-2'
           />
-          {t('index.yourSurvey')}
+          {t('index.YourSurvey')}
         </div>
       </div>
 
       <div className='w-[95%] md:w-[80%] m-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-6 rounded-lg'>
         {loading ? (
-          <p className='text-center col-span-2'>{t('index.loading')}</p>
+          <p className='text-center col-span-2'>{t('index.LoadingSurveys')}</p>
         ) : liveSurveys.length > 0 ? (
           liveSurveys.map((survey) => (
             <div
@@ -136,7 +136,7 @@ const DashboardLanding = () => {
             >
               <div className='flex items-center gap-2 mb-4 px-4'>
                 <span className='bg-[#0057A1] text-white px-2 mt-4 py-1 rounded-full text-xs'>
-                  {survey.isActive ? t('index.active') : t('index.inactive')}
+                  {survey.isActive ? t('index.Active') : t('index.Inactive')}
                 </span>
               </div>
               <div className='flex items-center gap-4 px-5'>
@@ -155,19 +155,21 @@ const DashboardLanding = () => {
                 </div>
                 <div className='ml-auto text-center'>
                   <p className='font-bold text-2xl'>{survey.hubCoins}</p>
-                  <p className='text-xs font-semibold'>{t('index.hubCoins')}</p>
+                  <p className='text-xs font-semibold'>{t('index.HUBCOINS')}</p>
                 </div>
               </div>
-              <a href={survey.link} target="_blank" rel="noopener noreferrer">
-                <div className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer">
-                  TAKE SURVEY
+              <a href={survey.link} target='_blank' rel='noopener noreferrer'>
+                <div className='mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer'>
+                  {t('index.TakeSurvey')}
                 </div>
-                </a>
+              </a>
               {/* )} */}
             </div>
           ))
         ) : (
-          <p className="text-center col-span-2">No surveys available.</p>
+          <p className='text-center col-span-2'>
+            {t('index.NoSurveysAvailable')}
+          </p>
         )}
       </div>
     </div>
