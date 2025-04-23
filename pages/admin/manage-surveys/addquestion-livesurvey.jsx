@@ -20,10 +20,7 @@ const LiveSurveyQuestions = ({
   const initialFormData = {
     title: '',
     description: '',
-    hubCoins: 0,
-    title: "",
-    description: "",
-    hubCoins: "",
+    hubCoins: '',
     isActive: true,
     link: '',
     profileSurveyId: '',
@@ -33,13 +30,9 @@ const LiveSurveyQuestions = ({
   dispatch(setTitle(t('manageSurveys.addQuestionLiveSurvey.pageTitle')))
 
   const [formData, setFormData] = useState(initialFormData)
-  const [profileSurveys, setProfileSurveys] = useState([]) // Ensure it's initialized as an array
+  const [profileSurveys, setProfileSurveys] = useState([])
   const [notification, setNotification] = useState({ type: '', message: '' })
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState(initialFormData);
-  const [profileSurveys, setProfileSurveys] = useState([]);
-  const [notification, setNotification] = useState({ type: "", message: "" });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfileSurveys = async () => {
@@ -58,10 +51,8 @@ const LiveSurveyQuestions = ({
         if (response.data && Array.isArray(response.data.data)) {
           setProfileSurveys(response.data.data)
         } else {
-          setProfileSurveys([]) // Fallback to an empty array if the response isn't as expected
+          setProfileSurveys([])
           console.error('Unexpected response format:', response.data)
-          setProfileSurveys([]);
-          console.error("Unexpected response format:", response.data);
           setNotification({
             type: 'error',
             message: t(
@@ -87,27 +78,19 @@ const LiveSurveyQuestions = ({
     const { name, value, type, checked } = e.target
     let newValue = type === 'checkbox' ? checked : value
 
-    // If the field is hubCoins, ensure the value is between 0 and 100
     if (name === 'hubCoins') {
-      let numValue = parseInt(newValue, 10)
-    if (name === "hubCoins") {
-      // Remove leading zeros and ensure it's a valid number
-      let numValue = value.replace(/^0+/, '') || "0";
-      numValue = parseInt(numValue, 10);
-      
+      let numValue = value.replace(/^0+/, '') || '0'
+      numValue = parseInt(numValue, 10)
+
       if (isNaN(numValue)) {
         numValue = 0
       }
       if (numValue > 100) {
-        numValue = 100
-        numValue = "";
-      } else if (numValue > 100) {
-        numValue = 100;
+        numValue = '100'
       } else if (numValue < 0) {
-        numValue = 0
+        numValue = '0'
       }
-      newValue = numValue
-      newValue = numValue.toString();
+      newValue = numValue.toString()
     }
 
     setFormData((prev) => ({
@@ -148,15 +131,6 @@ const LiveSurveyQuestions = ({
           },
         }
       )
-      console.log("payload", payload);
-      console.log("hitt");
-      const response = await axios.post(`${API_BASE_URL}/live-survey/`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
 
       console.log('API Response:', response.data)
 
@@ -165,18 +139,13 @@ const LiveSurveyQuestions = ({
         message: t('manageSurveys.addQuestionLiveSurvey.successMessage'),
       })
 
-      // Reset the form
       setFormData(initialFormData)
       router.push('/admin/manage-surveys/live-survey')
-      // Redirect on success
-      setFormData(initialFormData);
-      router.push("/admin/manage-surveys/live-survey");
+
       if (onSuccessRedirect) {
         setTimeout(() => {
           window.location.href = onSuccessRedirect
-        }, 2000) // Redirect after 2 seconds
-          window.location.href = onSuccessRedirect;
-        }, 2000);
+        }, 2000)
       }
     } catch (error) {
       console.error('Error saving live survey:', error)
@@ -194,9 +163,6 @@ const LiveSurveyQuestions = ({
   return (
     <div className='flex justify-center'>
       <div className='w-full p-6 border rounded-md shadow-md bg-white'>
-        {/* Notification Section */}
-    <div className="flex justify-center">
-      <div className="w-full p-6 border rounded-md shadow-md bg-white">
         {notification.message && (
           <div
             className={`mb-4 p-4 rounded-md text-white ${
@@ -207,13 +173,10 @@ const LiveSurveyQuestions = ({
           </div>
         )}
 
-        {/* Title */}
         <div className='mb-6'>
           <label className='block text-lg font-medium text-gray-800'>
             {t('manageSurveys.addQuestionLiveSurvey.titleLabel')}
           </label>
-        <div className="mb-6">
-          <label className="block text-lg font-medium text-gray-800">Title*</label>
           <input
             name='title'
             value={formData.title}
@@ -225,13 +188,10 @@ const LiveSurveyQuestions = ({
           />
         </div>
 
-        {/* Description */}
         <div className='mb-6'>
           <label className='block text-lg font-medium text-gray-800'>
             {t('manageSurveys.addQuestionLiveSurvey.descriptionLabel')}
           </label>
-        <div className="mb-6">
-          <label className="block text-lg font-medium text-gray-800">Description</label>
           <textarea
             name='description'
             rows='2'
@@ -244,13 +204,10 @@ const LiveSurveyQuestions = ({
           ></textarea>
         </div>
 
-        {/* HubCoins */}
         <div className='mb-6 block sm:flex items-center gap-4 overflow-hidden'>
           <label className='block text-lg font-medium text-gray-700'>
             {t('manageSurveys.addQuestionLiveSurvey.hubcoinsLabel')}
           </label>
-        <div className="mb-6 block sm:flex items-center gap-4 overflow-hidden">
-          <label className="block text-lg font-medium text-gray-700">HubCoins*</label>
           <input
             type='number'
             name='hubCoins'
@@ -265,13 +222,10 @@ const LiveSurveyQuestions = ({
           />
         </div>
 
-        {/* Link */}
         <div className='mb-6'>
           <label className='block text-lg font-medium text-gray-800'>
             {t('manageSurveys.addQuestionLiveSurvey.linkLabel')}
           </label>
-        <div className="mb-6">
-          <label className="block text-lg font-medium text-gray-800">Link*</label>
           <input
             name='link'
             value={formData.link}
@@ -283,13 +237,10 @@ const LiveSurveyQuestions = ({
           />
         </div>
 
-        {/* Profile Survey ID */}
         <div className='mb-6'>
           <label className='block text-lg font-medium text-gray-800'>
             {t('manageSurveys.addQuestionLiveSurvey.profileSurveyIdLabel')}
           </label>
-        <div className="mb-6">
-          <label className="block text-lg font-medium text-gray-800">Profile Survey ID</label>
           <select
             name='profileSurveyId'
             value={formData.profileSurveyId}
@@ -307,9 +258,7 @@ const LiveSurveyQuestions = ({
           </select>
         </div>
 
-        {/* Save Button */}
         <div className='w-full flex justify-center'>
-        <div className="w-full flex justify-center">
           <button
             onClick={handleSaveLiveSurvey}
             className={`w-[10rem] py-3 ${
@@ -338,4 +287,3 @@ export async function getServerSideProps({ locale }) {
     },
   }
 }
-export default AdminRoutes(LiveSurveyQuestions);

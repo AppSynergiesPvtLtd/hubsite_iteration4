@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from 'next-auth/react'
 import { LayoutDashboard, ClipboardList, Award } from 'lucide-react'
 import Spinner from '@/components/Spinner'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const Layout = ({ children }) => {
   const { t } = useTranslation('dashboard')
@@ -214,10 +214,10 @@ const Layout = ({ children }) => {
 
 export default Layout
 
-export async function getServerSideProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
-    },
-  }
-}
+// export async function getServerSideProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
+//     },
+//   }
+// }
