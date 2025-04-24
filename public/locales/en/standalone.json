@@ -1,0 +1,20 @@
+{
+  "template": {
+    "heading": "Survey Successfully Finished",
+    "message": "Awesome! Your responses have been submitted.\nThanks for sharing your thoughts!",
+    "goToDashboard": "Go to Dashboard",
+    "giveFeedback": "Give Feedback"
+  },
+  "issue": {
+    "heading": "Quality Issue",
+    "message": "For security reasons, we are unable to process your response. Please contact support if you believe this is an error."
+  },
+  "screenout": {
+    "heading": "Screened Out",
+    "message": "Looks like this one wasn’t the right fit for you, but we appreciate your time! Stay tuned for more opportunities."
+  },
+  "reached": {
+    "heading": "Target Reached",
+    "message": "Oops! This survey filled up quickly. But dont worry—more surveys are coming your way soon!"
+  }
+}

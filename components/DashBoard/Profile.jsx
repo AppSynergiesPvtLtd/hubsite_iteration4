@@ -10,6 +10,7 @@ import metadata from "libphonenumber-js/metadata.min.json";
 import Calendar from "../Calendar";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useTranslation } from 'next-i18next'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -43,6 +44,7 @@ const getCountryFlagUrl = (phoneNumber) => {
 };
 
 const Profile = () => {
+  const { t } = useTranslation('dashboard')
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user?.user);
   const router = useRouter();
@@ -112,7 +114,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     if (!user?.id) {
-      setAlert({ type: "error", message: "User ID is missing" });
+      setAlert({ type: 'error', message: t('profile.alerts.missingUserId') })
       return;
     }
 
@@ -151,7 +153,10 @@ const Profile = () => {
 
       const updatedUser = await response.json();
       dispatch(setUser(updatedUser));
-      setAlert({ type: "success", message: "Profile updated successfully!" });
+      setAlert({
+        type: 'success',
+        message: t('profile.alerts.profileUpdateSuccess'),
+      })
 
       // Reset the profileImageFile and update the initial ref so that no changes are pending
       setProfileImageFile(null);
@@ -165,9 +170,9 @@ const Profile = () => {
     } catch (error) {
       console.error("Error updating profile:", error);
       setAlert({
-        type: "error",
-        message: "Failed to update profile. Please try again.",
-      });
+        type: 'error',
+        message: t('profile.alerts.profileUpdateError'),
+      })
     } finally {
       setLoading(false);
     }
@@ -196,108 +201,122 @@ const Profile = () => {
   }, [userInfo, profileImageFile]);
 
   return (
-    <div className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative poppins">
+    <div className='flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-6 m-4 md:ml-8 relative'>
       {/* User Information Section */}
-      <div className="w-full md:w-2/3 space-y-6">
+      <div className='w-full md:w-2/3 space-y-6'>
         {alert.message && (
           <div
             className={`p-4 mb-4 rounded text-sm ${
-              alert.type === "success"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
+              alert.type === 'success'
+                ? 'bg-green-100 text-green-700'
+                : 'bg-red-100 text-red-700'
             }`}
           >
             {alert.message}
           </div>
         )}
-        <h2 className="text-[#0057A1] text-2xl font-semibold">Profile</h2>
-        <p className="text-gray-500 text-sm">See your account information in here!</p>
+        <h2 className='text-[#0057A1] text-2xl font-semibold'>
+          {t('profile.title')}
+        </h2>
+        <p className='text-gray-500 text-sm'>{t('profile.subtitle')}</p>
 
-        <div className="space-y-6">
+        <div className='space-y-6'>
           {/* Full Name */}
-          <div className="flex justify-between items-center border-b pb-2">
+          <div className='flex justify-between items-center border-b pb-2'>
             <div>
-              <p className="text-gray-400 text-sm">Full Name</p>
+              <p className='text-gray-400 text-sm'>
+                {t('profile.fields.fullName.label')}
+              </p>
               {isEditing.fullName ? (
                 <input
-                  type="text"
+                  type='text'
                   value={userInfo.fullName}
-                  onChange={(e) => handleFieldChange(e, "fullName")}
-                  className="border rounded p-1 text-gray-800"
+                  onChange={(e) => handleFieldChange(e, 'fullName')}
+                  className='border rounded p-1 text-gray-800'
                 />
               ) : (
-                <p className="text-gray-800 font-medium">{userInfo.fullName}</p>
+                <p className='text-gray-800 font-medium'>{userInfo.fullName}</p>
               )}
             </div>
             <span
-              className="text-[#0057A1] text-sm cursor-pointer"
-              onClick={() => handleEditToggle("fullName")}
+              className='text-[#0057A1] text-sm cursor-pointer'
+              onClick={() => handleEditToggle('fullName')}
             >
-              {isEditing.fullName ? "Cancel" : "Edit"}
+              {isEditing.fullName
+                ? t('profile.buttons.cancel')
+                : t('profile.buttons.edit')}
             </span>
           </div>
 
           {/* Phone Number */}
-          <div className="flex justify-between items-center border-b pb-2">
+          <div className='flex justify-between items-center border-b pb-2'>
             <div>
-              <p className="text-gray-400 text-sm">Phone Number</p>
+              <p className='text-gray-400 text-sm'>
+                {t('profile.fields.phoneNumber.label')}
+              </p>
               {isEditing.phoneNumber ? (
                 <PhoneInput
-                  country={"us"}
+                  country={'us'}
                   value={userInfo.phoneNumber}
                   onChange={(phone) =>
                     setUserInfo((prev) => ({ ...prev, phoneNumber: phone }))
                   }
                   inputStyle={{
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                    color: "black",
-                    paddingLeft: "50px",
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '1px solid #ccc',
+                    color: 'black',
+                    paddingLeft: '50px',
                   }}
                 />
               ) : (
-                <div className="flex items-center space-x-2">
+                <div className='flex items-center space-x-2'>
                   <Image
                     src={getCountryFlagUrl(userInfo.phoneNumber)}
-                    alt="Country Flag"
+                    alt='Country Flag'
                     width={24}
                     height={16}
-                    className="rounded"
+                    className='rounded'
                   />
-                  <p className="text-gray-800 font-medium">
-                    {userInfo.phoneNumber || "-"}
+                  <p className='text-gray-800 font-medium'>
+                    {userInfo.phoneNumber || '-'}
                   </p>
                 </div>
               )}
             </div>
             <span
-              className="text-[#0057A1] text-sm cursor-pointer"
-              onClick={() => handleEditToggle("phoneNumber")}
+              className='text-[#0057A1] text-sm cursor-pointer'
+              onClick={() => handleEditToggle('phoneNumber')}
             >
-              {isEditing.phoneNumber ? "Cancel" : "Edit"}
+              {isEditing.phoneNumber
+                ? t('profile.buttons.cancel')
+                : t('profile.buttons.edit')}
             </span>
           </div>
 
           {/* Email Address */}
-          <div className="flex justify-between items-center border-b pb-2">
+          <div className='flex justify-between items-center border-b pb-2'>
             <div>
-              <p className="text-gray-400 text-sm">Email Address</p>
-              <p className="text-gray-800 font-medium">{userInfo.email}</p>
+              <p className='text-gray-400 text-sm'>
+                {t('profile.fields.emailAddress.label')}
+              </p>
+              <p className='text-gray-800 font-medium'>{userInfo.email}</p>
             </div>
           </div>
 
           {/* Date of Birth */}
-          <div className="flex justify-between items-center border-b pb-2 relative">
+          <div className='flex justify-between items-center border-b pb-2 relative'>
             <div>
-              <p className="text-gray-400 text-sm">Date of Birth</p>
-              <p className="text-gray-800 font-medium">
-                {userInfo.dob ? userInfo.dob.toLocaleDateString("en-GB") : "-"}
+              <p className='text-gray-400 text-sm'>
+                {t('profile.fields.dateOfBirth.label')}
+              </p>
+              <p className='text-gray-800 font-medium'>
+                {userInfo.dob ? userInfo.dob.toLocaleDateString('en-GB') : '-'}
               </p>
             </div>
             <span
-              className="text-[#0057A1] text-sm cursor-pointer"
+              className='text-[#0057A1] text-sm cursor-pointer'
               onClick={() => setShowCalendar(true)}
             >
               <SlCalender />
@@ -306,49 +325,53 @@ const Profile = () => {
         </div>
 
         {/* Save and Logout Buttons */}
-        <div className="flex flex-col space-y-4 mt-6 m-auto items-center">
+        <div className='flex flex-col space-y-4 mt-6 m-auto items-center'>
           <button
             onClick={handleSave}
             className={`w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded ${
               loading || !hasChanges
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-600"
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-blue-600'
             }`}
             disabled={loading || !hasChanges}
           >
-            {loading ? "Saving..." : "Save Changes"}
+            {loading
+              ? `${t('profile.buttons.saveChanges')}...`
+              : t('profile.buttons.saveChanges')}
           </button>
           <button
             onClick={handleLogout}
-            className="w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded"
+            className='w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded'
           >
-            Logout
+            {t('profile.buttons.logout')}
           </button>
         </div>
       </div>
 
       {/* Desktop Profile Picture Section */}
-      <div className="hidden md:flex w-full md:w-1/3 flex-col items-center mt-6 md:mt-0">
-        <h3 className="text-[#0057A1] text-lg font-semibold mb-4">Display Picture</h3>
-        <div className="relative">
+      <div className='hidden md:flex w-full md:w-1/3 flex-col items-center mt-6 md:mt-0'>
+        <h3 className='text-[#0057A1] text-lg font-semibold mb-4'>
+          {t('profile.displayPicture')}
+        </h3>
+        <div className='relative'>
           <Image
             src={profileImage}
-            alt="Profile Picture"
+            alt='Profile Picture'
             width={200}
             height={220}
-            className="rounded-full"
+            className='rounded-full'
           />
           <label
-            htmlFor="profileImageDesktop"
-            className="absolute bottom-2 right-2 bg-[#0057A1] text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer"
+            htmlFor='profileImageDesktop'
+            className='absolute bottom-2 right-2 bg-[#0057A1] text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer'
           >
             +
           </label>
           <input
-            type="file"
-            id="profileImageDesktop"
-            accept="image/*"
-            className="hidden"
+            type='file'
+            id='profileImageDesktop'
+            accept='image/*'
+            className='hidden'
             onChange={handleImageChange}
           />
         </div>
@@ -356,21 +379,21 @@ const Profile = () => {
 
       {/* Calendar Modal for Date of Birth */}
       {showCalendar && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className='fixed inset-0 flex items-center justify-center z-50'>
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black opacity-50"
+            className='absolute inset-0 bg-black opacity-50'
             onClick={() => setShowCalendar(false)}
           ></div>
-          <div className="relative">
+          <div className='relative'>
             <Calendar
               selectedDate={userInfo.dob}
               onDateSelect={(date) =>
                 setUserInfo((prev) => ({ ...prev, dob: date }))
               }
               onSave={(date) => {
-                setUserInfo((prev) => ({ ...prev, dob: date }));
-                setShowCalendar(false);
+                setUserInfo((prev) => ({ ...prev, dob: date }))
+                setShowCalendar(false)
               }}
               onCancel={() => setShowCalendar(false)}
             />
@@ -378,7 +401,7 @@ const Profile = () => {
         </div>
       )}
     </div>
-  );
+  )
 };
 
 export default Profile;

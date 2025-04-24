@@ -8,86 +8,88 @@ import { useState, useEffect } from "react";
 import { PiEye } from "react-icons/pi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { setUser } from "@/store/userSlice";
+import { useTranslation } from 'react-i18next'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
 export default function SignUp() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const { data: session, status } = useSession();
-  const [resendLoading, setResendLoading] = useState(false);
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const { t } = useTranslation('common')
+  const [currentStep, setCurrentStep] = useState(1)
+  const { data: session, status } = useSession()
+  const [resendLoading, setResendLoading] = useState(false)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
     agreeTerms: true,
     rememberMe: true,
-    otp: "",
-  });
+    otp: '',
+  })
 
-  const [errors, setErrors] = useState({});
-  const [error, setError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ message: "", type: "" });
+  const [errors, setErrors] = useState({})
+  const [error, setError] = useState('')
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState({ message: '', type: '' })
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user) {
+    if (status === 'authenticated' && session?.user) {
       const userData = {
         name: session.name,
         email: session.email,
         image: session.image,
         id: session.id,
         accessToken: session.accessToken,
-      };
-      localStorage.setItem("user_token", session.accessToken);
-      dispatch(setUser(userData));
+      }
+      localStorage.setItem('user_token', session.accessToken)
+      dispatch(setUser(userData))
     }
-  }, [status, session, dispatch]);
+  }, [status, session, dispatch])
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-    setErrors({ ...errors, [name]: "" });
-    setAlert({ message: "", type: "" });
-  };
+      [name]: type === 'checkbox' ? checked : value,
+    })
+    setErrors({ ...errors, [name]: '' })
+    setAlert({ message: '', type: '' })
+  }
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+    setPasswordVisible(!passwordVisible)
+  }
 
   const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordVisible(!confirmPasswordVisible);
-  };
+    setConfirmPasswordVisible(!confirmPasswordVisible)
+  }
 
   const handleNext = async () => {
-    const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.password) newErrors.password = "Password is required";
+    const newErrors = {}
+    if (!formData.firstName) newErrors.firstName = t('signup.firstNameRequired')
+    if (!formData.lastName) newErrors.lastName = t('signup.lastNameRequired')
+    if (!formData.email) newErrors.email = t('signup.emailRequired')
+    if (!formData.password) newErrors.password = t('signup.passwordRequired')
     if (!formData.confirmPassword)
-      newErrors.confirmPassword = "Confirm password is required";
+      newErrors.confirmPassword = t('signup.confirmPasswordRequired')
     else if (formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+      newErrors.confirmPassword = t('signup.passwordsNotMatch')
     if (!formData.agreeTerms)
-      newErrors.agreeTerms = "You must agree to the terms and conditions";
+      newErrors.agreeTerms = t('signup.agreeTermsRequired')
 
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
+      setErrors(newErrors)
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
     try {
       const signupResp = await axios.post(
         `${API_BASE_URL}/auth/register-email`,
@@ -98,39 +100,37 @@ export default function SignUp() {
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
+      )
 
-      setAlert({ message: "OTP sent successfully!", type: "success" });
-      setErrors({});
-      setCurrentStep(2);
+      setAlert({ message: t('signup.otpSentSuccess'), type: 'success' })
+      setErrors({})
+      setCurrentStep(2)
     } catch (error) {
       setAlert({
-        message:
-          error.response?.data?.message ||
-          "Failed to send OTP. Please try again.",
-        type: "error",
-      });
+        message: error.response?.data?.message || t('signup.failedToSendOtp'),
+        type: 'error',
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handlePrevious = () => {
-    setErrors({});
-    setCurrentStep(currentStep - 1);
-  };
+    setErrors({})
+    setCurrentStep(currentStep - 1)
+  }
 
   const handleSubmit = async () => {
     if (!formData.otp) {
-      setErrors({ otp: "OTP is required" });
-      return;
+      setErrors({ otp: t('signup.otpRequired') })
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
     try {
       const OtpResp = await axios.post(
         `${API_BASE_URL}/auth/verify-email`,
@@ -140,319 +140,312 @@ export default function SignUp() {
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
-      localStorage.setItem("user_token", OtpResp.data.token.split(" ")[1]);
-      dispatch(setUser(OtpResp.data));
-      setAlert({ message: "OTP verified successfully!", type: "success" });
-      setCurrentStep(3);
+      )
+      localStorage.setItem('user_token', OtpResp.data.token.split(' ')[1])
+      dispatch(setUser(OtpResp.data))
+      setAlert({ message: t('signup.otpVerifiedSuccess'), type: 'success' })
+      setCurrentStep(3)
     } catch (error) {
       setAlert({
         message:
-          error.response?.data?.message ||
-          "OTP verification failed. Please try again.",
-        type: "error",
-      });
+          error.response?.data?.message || t('signup.otpVerificationFailed'),
+        type: 'error',
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleSignUp = () => {
-    router.push("/?modal=login", undefined, { shallow: true });
-  };
+    router.push('/?modal=login', undefined, { shallow: true })
+  }
 
   const handleGoogleSignUp = async () => {
-    router.push("/google-auth");
-  };
+    router.push('/google-auth')
+  }
 
   const handleResendOtp = async () => {
-    setResendLoading(true);
-    setAlert({ message: "", type: "" });
+    setResendLoading(true)
+    setAlert({ message: '', type: '' })
     try {
       await axios.post(
         `${API_BASE_URL}/auth/resend-email-verification`,
         { email: formData.email },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
+      )
       setAlert({
-        message: "OTP has been resent to your email.",
-        type: "info",
-      });
+        message: t('signup.otpResent'),
+        type: 'info',
+      })
     } catch (error) {
       setAlert({
-        message:
-          error.response?.data?.message ||
-          "Failed to resend OTP. Please try again.",
-        type: "error",
-      });
+        message: error.response?.data?.message || t('signup.failedResendOtp'),
+        type: 'error',
+      })
     } finally {
-      setResendLoading(false);
+      setResendLoading(false)
     }
-  };
+  }
 
-  const [googleTriggered, setGoogleTriggered] = useState(false);
+  const [googleTriggered, setGoogleTriggered] = useState(false)
 
   useEffect(() => {
-    if (status === "authenticated" && session?.idToken && !googleTriggered) {
-      setGoogleTriggered(true);
-      setLoading(true);
-      (async () => {
+    if (status === 'authenticated' && session?.idToken && !googleTriggered) {
+      setGoogleTriggered(true)
+      setLoading(true)
+      ;;(async () => {
         try {
           const response = await axios.post(
             `${API_BASE_URL}/auth/google`,
             { idToken: session.idToken },
             {
               headers: {
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY,
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
               },
             }
-          );
-          const userData = response.data;
-          localStorage.setItem("user_token", userData.token.split(" ")[1]);
-          dispatch(setUser(userData));
+          )
+          const userData = response.data
+          localStorage.setItem('user_token', userData.token.split(' ')[1])
+          dispatch(setUser(userData))
         } catch (err) {
           setError(
             err.response?.data?.message ||
-              "Google login failed. Please try again."
-          );
-          setLoading(false);
+              'Google login failed. Please try again.'
+          )
+          setLoading(false)
         }
-      })();
+      })()
     }
-  }, [status, session, googleTriggered, dispatch, router]);
+  }, [status, session, googleTriggered, dispatch, router])
 
   const handleGoogleLogin = async () => {
-    setError("");
-    await signIn("google");
-  };
+    setError('')
+    await signIn('google')
+  }
 
   // Handle Enter key press
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       if (currentStep === 1) {
-        handleNext();
+        handleNext()
       } else if (currentStep === 2) {
-        handleSubmit();
+        handleSubmit()
       }
     }
-  };
+  }
 
   return (
-    <div className="poppins flex flex-col md:flex-row justify-center items-center min-fit text-black">
-      <div className="w-full max-w-md bg-white rounded-lg space-y-6 p-6 shadow-lg z-50">
+    <div className='poppins flex flex-col md:flex-row justify-center items-center min-fit text-black'>
+      <div className='w-full max-w-md bg-white rounded-lg space-y-6 p-6 shadow-lg z-50'>
         {alert.message && (
           <div
-            className={`p-4 text-center z-50 ${alert.type === "success" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"} rounded`}
+            className={`p-4 text-center z-50 ${
+              alert.type === 'success'
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+            } rounded`}
           >
             {alert.message}
           </div>
         )}
 
         {currentStep === 1 && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-center mb-4">
-              Sign Up
+          <div className='space-y-4'>
+            <h2 className='text-2xl font-semibold text-center mb-4'>
+              {t('signup.signUp')}
             </h2>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <label htmlFor="firstName" className="block font-medium">
-                  First Name
+            <div className='flex flex-col md:flex-row gap-4'>
+              <div className='flex-1'>
+                <label htmlFor='firstName' className='block font-medium'>
+                  {t('signup.firstName')}
                 </label>
                 <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-0"
-                  placeholder="First Name"
+                  type='text'
+                  id='firstName'
+                  name='firstName'
+                  className='w-full border rounded px-4 py-2 focus:outline-none focus:ring-0'
+                  placeholder={t('signup.firstName')}
                   value={formData.firstName}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                 />
                 {errors.firstName && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className='text-red-500 text-sm mt-1'>
                     {errors.firstName}
                   </p>
                 )}
               </div>
-              <div className="flex-1">
-                <label htmlFor="lastName" className="block font-medium">
-                  Last Name
+              <div className='flex-1'>
+                <label htmlFor='lastName' className='block font-medium'>
+                  {t('signup.lastName')}
                 </label>
                 <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-0"
-                  placeholder="Last Name"
+                  type='text'
+                  id='lastName'
+                  name='lastName'
+                  className='w-full border rounded px-4 py-2 focus:outline-none focus:ring-0'
+                  placeholder={t('signup.lastName')}
                   value={formData.lastName}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                 />
                 {errors.lastName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.lastName}
-                  </p>
+                  <p className='text-red-500 text-sm mt-1'>{errors.lastName}</p>
                 )}
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block font-medium">
-                Email
+              <label htmlFor='email' className='block font-medium'>
+                {t('signup.email')}
               </label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-0"
-                placeholder="Email"
+                type='email'
+                id='email'
+                name='email'
+                className='w-full border rounded px-4 py-2 focus:outline-none focus:ring-0'
+                placeholder={t('signup.email')}
                 value={formData.email}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email}
-                </p>
+                <p className='text-red-500 text-sm mt-1'>{errors.email}</p>
               )}
             </div>
-            <div className="flex flex-col gap-4">
-              <div className="relative">
-                <label htmlFor="password" className="block font-medium">
-                  Password
+            <div className='flex flex-col gap-4'>
+              <div className='relative'>
+                <label htmlFor='password' className='block font-medium'>
+                  {t('signup.password')}
                 </label>
-                <div className="relative">
+                <div className='relative'>
                   <input
-                    type={passwordVisible ? "text" : "password"}
-                    id="password"
-                    name="password"
-                    className="w-full border rounded px-4 py-2 pr-10 focus:outline-none focus:ring-0"
-                    placeholder="Enter Password"
+                    type={passwordVisible ? 'text' : 'password'}
+                    id='password'
+                    name='password'
+                    className='w-full border rounded px-4 py-2 pr-10 focus:outline-none focus:ring-0'
+                    placeholder={t('signup.enterPassword')}
                     value={formData.password}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                   />
                   <button
-                    type="button"
-                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                    type='button'
+                    className='absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700'
                     onClick={togglePasswordVisibility}
                   >
                     {passwordVisible ? (
-                      <PiEye className="h-5 w-5" />
+                      <PiEye className='h-5 w-5' />
                     ) : (
-                      <FaRegEyeSlash className="h-5 w-5" />
+                      <FaRegEyeSlash className='h-5 w-5' />
                     )}
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.password}
-                  </p>
+                  <p className='text-red-500 text-sm mt-1'>{errors.password}</p>
                 )}
               </div>
-              <div className="relative">
-                <label htmlFor="confirmPassword" className="block font-medium">
-                  Confirm Password
+              <div className='relative'>
+                <label htmlFor='confirmPassword' className='block font-medium'>
+                  {t('signup.confirmPassword')}
                 </label>
-                <div className="relative">
+                <div className='relative'>
                   <input
-                    type={confirmPasswordVisible ? "text" : "password"}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    className="w-full border rounded px-4 py-2 pr-10 focus:outline-none focus:ring-0"
-                    placeholder="Confirm Password"
+                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    id='confirmPassword'
+                    name='confirmPassword'
+                    className='w-full border rounded px-4 py-2 pr-10 focus:outline-none focus:ring-0'
+                    placeholder={t('signup.confirmPasswordPlaceholder')}
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                   />
                   <button
-                    type="button"
-                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                    type='button'
+                    className='absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700'
                     onClick={toggleConfirmPasswordVisibility}
                   >
                     {confirmPasswordVisible ? (
-                      <PiEye className="h-5 w-5" />
+                      <PiEye className='h-5 w-5' />
                     ) : (
-                      <FaRegEyeSlash className="h-5 w-5" />
+                      <FaRegEyeSlash className='h-5 w-5' />
                     )}
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className='text-red-500 text-sm mt-1'>
                     {errors.confirmPassword}
                   </p>
                 )}
               </div>
             </div>
-            <div className="space-y-2">
-              <label className="flex items-center">
+            <div className='space-y-2'>
+              <label className='flex items-center'>
                 <input
-                  type="checkbox"
-                  name="rememberMe"
+                  type='checkbox'
+                  name='rememberMe'
                   checked={formData.rememberMe}
                   onChange={handleInputChange}
-                  className="mr-2 focus:ring-0"
+                  className='mr-2 focus:ring-0'
                 />
-                Remember Me
+                {t('signup.rememberMe')}
               </label>
-              <label className="flex items-center flex-wrap">
+              <label className='flex items-center flex-wrap'>
                 <input
-                  type="checkbox"
-                  name="agreeTerms"
+                  type='checkbox'
+                  name='agreeTerms'
                   checked={formData.agreeTerms}
                   onChange={handleInputChange}
-                  className="mr-2 focus:ring-0"
+                  className='mr-2 focus:ring-0'
                 />
-                I agree to the&nbsp;
-                <a href="/termsofuse" className="text-[#0057A1]">
-                  terms
+                {t('signup.agreeTerms')}&nbsp;
+                <a href='/termsofuse' className='text-[#0057A1]'>
+                  {t('signup.terms')}
                 </a>
                 &nbsp;and&nbsp;
-                <a href="/privacypolicy" className="text-[#0057A1]">
-                  Privacy Policy
-                </a>.
+                <a href='/privacypolicy' className='text-[#0057A1]'>
+                  {t('signup.privacyPolicy')}
+                </a>
               </label>
               {errors.agreeTerms && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.agreeTerms}
-                </p>
+                <p className='text-red-500 text-sm mt-1'>{errors.agreeTerms}</p>
               )}
             </div>
-            <div className="text-center">
+            <div className='text-center'>
               <button
-                type="button"
-                className="bg-[#0057A1] text-white w-full py-2 rounded hover:bg-[#0056a1ef] transition"
+                type='button'
+                className='bg-[#0057A1] text-white w-full py-2 rounded hover:bg-[#0056a1ef] transition'
                 onClick={handleNext}
                 disabled={loading}
               >
-                {loading ? "Processing..." : "Sign Up"}
+                {loading ? t('signup.processing') : t('signup.signUp')}
               </button>
             </div>
-            <p className="text-sm w-[80%] m-auto text-center text-black">
-              Already have an account?{" "}
+            <p className='text-sm w-[80%] m-auto text-center text-black'>
+              {t('signup.alreadyHaveAccount')}
               <button
                 onClick={handleSignUp}
-                className="text-[#0057A1] hover:underline font-semibold"
+                className='text-[#0057A1] hover:underline font-semibold'
               >
-                Login
+                {t('signup.login')}
               </button>
-              <div className="flex justify-center mt-6">
+              <div className='flex justify-center mt-6'>
                 <button
                   onClick={handleGoogleLogin}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 shadow hover:bg-gray-200"
+                  className='w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 shadow hover:bg-gray-200'
                 >
                   <Image
-                    src="/google.svg"
-                    alt="Google"
+                    src='/google.svg'
+                    alt='Google'
                     width={24}
                     height={24}
                   />
@@ -463,78 +456,74 @@ export default function SignUp() {
         )}
 
         {currentStep === 2 && (
-          <div className="space-y-4">
-            <h1 className="text-xl font-semibold">Verify Email</h1>
-            <p>Enter the code sent to your email</p>
+          <div className='space-y-4'>
+            <h1 className='text-xl font-semibold'>{t('signup.verifyEmail')}</h1>
+            <p>{t('signup.enterCode')}</p>
             <input
-              type="text"
-              placeholder="Enter OTP Code"
-              className="border border-gray-200 p-2 w-full focus:outline-none focus:ring-0"
-              name="otp"
+              type='text'
+              placeholder={t('signup.enterOtpCode')}
+              className='border border-gray-200 p-2 w-full focus:outline-none focus:ring-0'
+              name='otp'
               value={formData.otp}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
             />
             {errors.otp && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.otp}
-              </p>
+              <p className='text-red-500 text-sm mt-1'>{errors.otp}</p>
             )}
-            <div className="flex flex-col space-y-2">
+            <div className='flex flex-col space-y-2'>
               <button
-                type="button"
-                className="bg-[#0057A1] text-white py-2 px-4 rounded hover:bg-[#0056a1ef] transition"
+                type='button'
+                className='bg-[#0057A1] text-white py-2 px-4 rounded hover:bg-[#0056a1ef] transition'
                 onClick={handleSubmit}
                 disabled={loading}
               >
-                {loading ? "Verifying..." : "Verify"}
+                {loading ? t('signup.verifying') : t('signup.verify')}
               </button>
               <button
-                type="button"
-                className="bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300 transition"
+                type='button'
+                className='bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300 transition'
                 onClick={handleResendOtp}
                 disabled={resendLoading}
               >
-                {resendLoading ? "Resending..." : "Resend OTP"}
+                {resendLoading ? t('signup.resending') : t('signup.resendOtp')}
               </button>
             </div>
           </div>
         )}
 
         {currentStep === 3 && (
-          <div className="flex flex-col justify-center items-center space-y-6 text-center h-[30rem]">
+          <div className='flex flex-col justify-center items-center space-y-6 text-center h-[30rem]'>
             <Image
-              src="/login.jpg"
-              alt="Profile Completion"
+              src='/login.jpg'
+              alt='Profile Completion'
               width={350}
               height={200}
-              objectFit="contain"
+              objectFit='contain'
             />
-            <h1 className="text-xl font-semibold">
-              You're all set! Finish your profile to get started
-            </h1>
+            <h1 className='text-xl font-semibold'>{t('signup.allSet')}</h1>
             <button
-              type="button"
-              onClick={() => router.push("/dashboard")}
-              className="bg-[#0057A1] text-white py-2 px-6 rounded-lg hover:bg-[#0056a1ef] transition"
+              type='button'
+              onClick={() => router.push('/dashboard')}
+              className='bg-[#0057A1] text-white py-2 px-6 rounded-lg hover:bg-[#0056a1ef] transition'
             >
-              Create Profile
+              {t('signup.createProfile')}
             </button>
           </div>
         )}
       </div>
 
       {currentStep !== 3 && (
-        <div className="hidden md:flex items-center justify-center relative h-[76vh] w-[100%]">
+        <div className='hidden md:flex items-center justify-center relative h-[76vh] w-[100%]'>
           <Image
-            src="/login.jpg"
-            alt="Step Illustration"
-            layout="fill"
-            objectFit="contain"
-            className="rounded-lg"
+            src='/login.jpg'
+            alt='Step Illustration'
+            layout='fill'
+            objectFit='contain'
+            className='rounded-lg'
           />
         </div>
       )}
     </div>
-  );
+  )
 }

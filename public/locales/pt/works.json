@@ -1,0 +1,30 @@
+{
+    "heading": "Como funcionam as pesquisas pagas do Hubsite Social",
+    "title": "Acesse o Hubsite Social em 5 passos simples",
+    "description": "Prepare-se para se juntar à comunidade Hubsite Social! Siga estes cinco passos fáceis para configurar sua conta, completar seu perfil e começar a participar de pesquisas envolventes. Compartilhe suas ideias, influencie o mercado e ganhe recompensas empolgantes—tudo em apenas alguns cliques!",
+    "signup": {
+        "img": "Ilustração de inscrição",
+        "heading": "1. Inscreva-se",
+        "description": "Desbloqueie um mundo de oportunidades juntando-se à nossa comunidade hoje! Como membro, você terá a chance de compartilhar seus pensamentos, influenciar marcas líderes e ganhar recompensas por seus valiosos insights. É rápido e fácil—inscreva-se e faça sua voz contar!"
+    },
+    "profile": {
+        "img": "Avatar do usuário",
+        "heading": "2. Complete seu perfil",
+        "description": "Preencha seu perfil para aprimorar sua experiência e garantir que você receba oportunidades de pesquisa personalizadas e adaptadas aos seus interesses. Esta informação nos ajuda a conectá-lo com pesquisas que realmente ressoam com você, tornando seu feedback ainda mais impactante!"
+    },
+    "onboarding": {
+        "img": "Ilustração de inscrição",
+        "heading": "3. Conclua seu questionário de integração",
+        "description": "Reserve alguns momentos para concluir seu questionário de integração, permitindo-nos entender melhor seus interesses e preferências. Isso nos ajudará a conectá-lo com pesquisas relevantes que se alinhem com suas experiências, garantindo que sua participação seja agradável e impactante!"
+    },
+    "start": {
+        "img": "Avatar do usuário",
+        "heading": "4. Comece a responder às pesquisas",
+        "description": "Participe de uma variedade de pesquisas envolventes onde suas opiniões são importantes. Ao compartilhar seus insights, você não apenas influenciará os produtos e serviços que lhe interessam, mas também ganhará recompensas empolgantes a cada pesquisa que concluir!"
+    },
+    "rewards": {
+        "img": "Ilustração de inscrição",
+        "heading": "5. Reivindique suas recompensas",
+        "description": "Aproveite as recompensas que você ganhou compartilhando seus valiosos insights! De vales-presente a descontos exclusivos, sua participação traz benefícios tangíveis. Explore suas opções e celebre seu impacto no mercado!"
+    }
+}

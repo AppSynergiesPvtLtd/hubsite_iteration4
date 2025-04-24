@@ -1,0 +1,38 @@
+{
+    "user_data_unavailable": "Gebruikersgegevens zijn niet beschikbaar. Zorg ervoor dat de gebruiker is ingelogd.",
+    "error_completing_onboarding": "Fout bij het voltooien van onboarding.",
+    "step1": {
+      "almost_there": "Bijna klaar!",
+      "first_hubcoins": "Uw eerste 10 Hubcoins wachten op u!",
+      "get_started": "Aan de slag"
+    },
+    "step2": {
+      "hey": "Hallo",
+      "welcome_message": "Welkom bij Hubsite Social?",
+      "next_button": "Volgende"
+    },
+    "step3": {
+      "heading": "Laten we onze enquêtes op u afstemmen",
+      "paragraph": "Vertel ons meer over uzelf, zodat we weten wie u bent, uw perspectief beter begrijpen en u relevante enquêtes kunnen aanbieden.",
+      "getStartedButton": "Aan de slag"
+    },
+    "step4": {
+      "heading": "Waarom stellen we deze vragen?",
+      "paragraph1": "Dit is zodat we u relevante enquêtes kunnen aanbieden. Dit betekent dat studenten niet wordt gevraagd hoe het is om leraar te zijn of dat iemand in Stockholm niet wordt gevraagd naar het openbaar vervoer in New York.",
+      "paragraph2": "Houd er rekening mee dat we pas enquêtes voor u kunnen vinden als u deze vragen hebt beantwoord. En u krijgt ook <b>30 HUBCOINS</b>.",
+      "continueButton": "Oké, laten we verdergaan"
+    },
+    "questions": {
+      "textAnswerPlaceholder": "Voer hier uw antwoord in",
+      "textAnswerRequired": "Geef alstublieft een antwoord.",
+      "selectionRequired": "Selecteer alstublieft een optie.",
+      "surveyCompleteImageAlt": "Enquête voltooid",
+      "surveyCompleteTitle": "Enquête voltooid!",
+      "surveyCompleteMessage": "10 HUBCOINS succesvol ontvangen.",
+      "goToDashboardButton": "Ga naar dashboard",
+      "question": "Vraag",
+      "previousButton": "← Vorige",
+      "nextButton": "Volgende →",
+      "submitButton": "Verzenden"
+    }
+  }

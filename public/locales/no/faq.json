@@ -1,0 +1,39 @@
+{
+  "title": "FAQ",
+  "description1": "Finn svar på de vanligste spørsmålene om Hubsite Social. Hvis du trenger hjelp, kan du kontakte oss på",
+  "description2": " eller fylle ut kontaktskjemaet vårt. Vi er her for å hjelpe deg 24/7.",
+  "questions": {
+    "0": {
+      "question": "Hva er Hubsite Social?",
+      "answer": "Hubsite Social er et markedsundersøkelsespanel som kobler bedrifter med enkeltpersoner for å samle meninger og innsikt gjennom undersøkelser. Deltakere kan tjene belønninger for sin deltakelse."
+    },
+    "1": {
+      "question": "Hvordan blir jeg med i Hubsite Social?",
+      "answer": "Du kan bli med ved å registrere deg på nettstedet vårt, oppgi nødvendig informasjon og bekrefte e-postadressen din."
+    },
+    "2": {
+      "question": "Hva er kvalifikasjonskravene for å bli med?",
+      "answer": "Kvalifikasjonskravene inkluderer å være minst 18 år gammel og bo i en region der Hubsite Social opererer."
+    },
+    "3": {
+      "question": "Hvordan kan jeg delta i undersøkelser?",
+      "answer": "Når du er medlem, vil du motta undersøkelsesinvitasjoner via e-post eller via dashbordet ditt. Bare klikk på lenken for å starte undersøkelsen."
+    },
+    "4": {
+      "question": "Hvordan velges undersøkelsesdeltakere?",
+      "answer": "Deltakere velges basert på deres profiler og kravene til hver undersøkelse. Dette sikrer at svarene er relevante og verdifulle."
+    },
+    "5": {
+      "question": "Hvordan tjener jeg belønninger?",
+      "answer": "Du kan tjene belønninger ved å fullføre undersøkelser. Hver undersøkelse vil indikere antall poeng eller belønninger du vil motta ved fullføring."
+    },
+    "6": {
+      "question": "Hvordan kan jeg løse inn belønningene mine?",
+      "answer": "Belønninger kan løses inn for gavekort, kontanter eller andre alternativer som er tilgjengelige på kontodashbordet ditt."
+    },
+    "7": {
+      "question": "Er det en minimumsgrense for innløsning av belønninger?",
+      "answer": "Ja, det er en minimumsgrense som må nås før du kan løse inn belønningene dine. Sjekk dashbordet ditt for detaljer."
+    }
+  }
+}

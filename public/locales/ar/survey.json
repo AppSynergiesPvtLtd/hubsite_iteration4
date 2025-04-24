@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "جارٍ التحميل...",
+      "textAnswerPlaceholder": "أدخل إجابتك هنا",
+      "answerRequired": "يرجى تقديم إجابة.",
+      "surveyCompletedTitle": "اكتمل الاستطلاع!",
+      "surveyCompletedMessage": "تم استلام {{surveyId}} من Hubcoins بنجاح.",
+      "goToDashboard": "الذهاب إلى لوحة التحكم",
+      "question": "سؤال",
+      "previous": "← السابق",
+      "next": "التالي ←",
+      "submit": "إرسال"
+    }
+  }

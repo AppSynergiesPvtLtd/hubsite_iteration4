@@ -1,0 +1,14 @@
+{
+    "email": "Correo electrónico",
+    "enterEmailAddress": "Ingresa tu dirección de correo electrónico",
+    "unsubscribe": "Cancelar suscripción",
+    "pleaseEnterEmail": "Por favor, ingresa tu dirección de correo electrónico.",
+    "stopReceivingEmails": "No recibirás más correos electrónicos de nosotros.",
+    "areYouSureUnsubscribe": "¿Estás seguro de que quieres cancelar la suscripción?",
+    "currentlySubscribed": "Actualmente estás suscrito a:",
+    "yesUnsubscribe": "Sí, cancelar suscripción",
+    "noNotYet": "No, todavía no",
+    "successfullyUnsubscribed": "Te has dado de baja con éxito",
+    "noLongerReceiveEmails": "Ya no recibirás correos electrónicos de nosotros.",
+    "changeMindSubscribeBack": "Si cambias de opinión, puedes <a>volver a suscribirte</a> en cualquier momento."
+  }

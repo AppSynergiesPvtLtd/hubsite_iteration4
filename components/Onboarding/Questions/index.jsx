@@ -5,61 +5,52 @@ import Image from "next/image";
 import StepTemplate from "./StepTemplate";
 import { useSelector } from "react-redux";
 import Spinner from "@/components/Spinner";
+import { useTranslation } from 'next-i18next'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Questions = ({ onComplete }) => {
   const router = useRouter();
-  const [questions, setQuestions] = useState([]);
-  const [responses, setResponses] = useState([]);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [errors, setErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user.user);
-  const { id: u_id } = user;
+  const { t } = useTranslation('onboarding')
+  const [questions, setQuestions] = useState([])
+  const [responses, setResponses] = useState([])
+  const [currentStep, setCurrentStep] = useState(1)
+  const [errors, setErrors] = useState({})
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const user = useSelector((state) => state.user.user)
+  const { id: u_id } = user
 
   useEffect(() => {
     const fetchQuestionsAndResponses = async () => {
       try {
-        setLoading(true);
+        setLoading(true)
 
         // --- Fetch all pages of questions ---
-        let page = 1;
-        let allQuestionsData = [];
-        let totalPages = 1; // default to 1 in case pagination info is missing
+        let page = 1
+        let allQuestionsData = []
+        let totalPages = 1 // default to 1 in case pagination info is missing
 
         do {
           const questionsResponse = await axios.get(
             `${API_BASE_URL}/questions/onboarding?page=${page}`,
             {
               headers: {
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY,
-                Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
+                Authorization: `Bearer ${localStorage.getItem('user_token')}`,
               },
             }
-          );
+          )
 
-          // Assuming your API response structure is like:
-          // {
-          //   data: {
-          //     data: [Array of questions],
-          //     hasNextPage: true/false,
-          //     page: number,
-          //     totalPages: number,
-          //     ...
-          //   },
-          //   status: 200, ...
-          // }
           if (questionsResponse.data && questionsResponse.data.data) {
-            const pageQuestions = questionsResponse.data.data;
-            totalPages = questionsResponse.data.totalPages || totalPages;
-            allQuestionsData = [...allQuestionsData, ...pageQuestions];
+            const pageQuestions = questionsResponse.data.data
+            totalPages = questionsResponse.data.totalPages || totalPages
+            allQuestionsData = [...allQuestionsData, ...pageQuestions]
           }
-          page++;
-        } while (page <= totalPages);
+          page++
+        } while (page <= totalPages)
         // --- End fetching pages ---
 
         // Process the combined questions data
@@ -69,14 +60,19 @@ const Questions = ({ onComplete }) => {
           description: q.description,
           // Convert API types to local types; note that "TEXT" becomes "textarea"
           type:
-            q.type === "TEXT"
-              ? "textarea"
-              : q.type === "SINGLE_SELECTION"
-              ? "single"
-              : "multi",
+            q.type === 'TEXT'
+              ? 'textarea'
+              : q.type === 'SINGLE_SELECTION'
+              ? 'single'
+              : 'multi',
           fields:
-            q.type === "TEXT"
-              ? [{ name: "response", placeholder: "Enter your response here" }]
+            q.type === 'TEXT'
+              ? [
+                  {
+                    name: 'response',
+                    placeholder: t('questions.textAnswerPlaceholder'),
+                  },
+                ] // Use translation key
               : [],
           options:
             q.option?.map((opt) => ({
@@ -85,24 +81,24 @@ const Questions = ({ onComplete }) => {
             })) || [],
           // Use the API's isRequired flag if available; otherwise, assume required
           isRequired: q.isRequired !== undefined ? q.isRequired : true,
-        }));
+        }))
 
-        setQuestions(fetchedQuestions);
+        setQuestions(fetchedQuestions)
 
         // Fetch saved responses for all questions
-        const savedResponses = [];
+        const savedResponses = []
         for (const question of fetchedQuestions) {
           try {
             const response = await axios.get(
               `${API_BASE_URL}/response/${u_id}/question/${question.id}`,
               {
                 headers: {
-                  "Content-Type": "application/json",
-                  "x-api-key": API_KEY,
-                  Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+                  'Content-Type': 'application/json',
+                  'x-api-key': API_KEY,
+                  Authorization: `Bearer ${localStorage.getItem('user_token')}`,
                 },
               }
-            );
+            )
 
             if (response.data) {
               savedResponses.push({
@@ -112,54 +108,54 @@ const Questions = ({ onComplete }) => {
                   selectedOptions:
                     response.data.selectedOptions?.map((opt) => opt.optionId) ||
                     [],
-                  textAnswer: response.data.textAnswer || "",
+                  textAnswer: response.data.textAnswer || '',
                 },
-              });
+              })
             } else {
               savedResponses.push({
                 id: question.id,
                 type: question.type,
-                data: { selectedOptions: [], textAnswer: "" },
-              });
+                data: { selectedOptions: [], textAnswer: '' },
+              })
             }
           } catch (error) {
             console.error(
               `Error fetching saved response for question ${question.id}:`,
               error
-            );
+            )
             savedResponses.push({
               id: question.id,
               type: question.type,
-              data: { selectedOptions: [], textAnswer: "" },
-            });
+              data: { selectedOptions: [], textAnswer: '' },
+            })
           }
         }
 
-        setResponses(savedResponses);
+        setResponses(savedResponses)
       } catch (error) {
-        console.error("Error fetching questions or responses:", error);
+        console.error('Error fetching questions or responses:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchQuestionsAndResponses();
-  }, [u_id]);
+    fetchQuestionsAndResponses()
+  }, [u_id, t]) // Add t to the dependency array
 
   // Function to save the current response
   const saveResponse = async (responsePayload) => {
     try {
       await axios.post(`${API_BASE_URL}/response/`, responsePayload, {
         headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
         },
-      });
+      })
     } catch (error) {
-      console.error("Error saving response:", error);
+      console.error('Error saving response:', error)
     }
-  };
+  }
 
   // Update responses state when the child component changes data
   const handleDataChange = (data) => {
@@ -169,28 +165,28 @@ const Questions = ({ onComplete }) => {
           ? { ...response, data }
           : response
       )
-    );
-  };
+    )
+  }
 
   // Validate the current step before moving on
   const validateStep = () => {
-    const currentQuestion = questions[currentStep - 1];
+    const currentQuestion = questions[currentStep - 1]
     const currentResponse = responses.find(
       (response) => response.id === currentQuestion?.id
-    );
+    )
 
-    let isValid = true;
-    let stepErrors = {};
+    let isValid = true
+    let stepErrors = {}
 
     if (currentQuestion?.isRequired) {
-      if (currentQuestion.type === "textarea") {
+      if (currentQuestion.type === 'textarea') {
         // For text responses, check that textAnswer is nonempty
         if (
           !currentResponse?.data?.textAnswer ||
-          currentResponse.data.textAnswer.trim() === ""
+          currentResponse.data.textAnswer.trim() === ''
         ) {
-          stepErrors.textAnswer = "Please provide an answer.";
-          isValid = false;
+          stepErrors.textAnswer = t('questions.textAnswerRequired') // Use translation key
+          isValid = false
         }
       } else {
         // For selection questions, ensure at least one option is selected
@@ -198,15 +194,15 @@ const Questions = ({ onComplete }) => {
           !currentResponse?.data?.selectedOptions ||
           currentResponse.data.selectedOptions.length === 0
         ) {
-          stepErrors.selectedOptions = "Please select an option.";
-          isValid = false;
+          stepErrors.selectedOptions = t('questions.selectionRequired') // Use translation key
+          isValid = false
         }
       }
     }
 
-    setErrors((prev) => ({ ...prev, [currentStep]: stepErrors }));
-    return isValid;
-  };
+    setErrors((prev) => ({ ...prev, [currentStep]: stepErrors }))
+    return isValid
+  }
 
   const handleNext = async () => {
     if (validateStep()) {
@@ -244,58 +240,58 @@ const Questions = ({ onComplete }) => {
 
   if (isSubmitted) {
     return (
-      <div className="w-full flex flex-col items-center justify-center min-h-[80vh] text-center gap-6">
-        <div className="w-[150px] h-[150px] relative">
+      <div className='w-full flex flex-col items-center justify-center min-h-[80vh] text-center gap-6'>
+        <div className='w-[150px] h-[150px] relative'>
           <Image
-            src="/SurveryComplete.png"
-            alt="Survey Complete"
-            layout="fill"
-            objectFit="contain"
+            src='/SurveryComplete.png'
+            alt={t('questions.surveyCompleteImageAlt')} // Use translation key
+            layout='fill'
+            objectFit='contain'
           />
         </div>
-        <h2 className="text-[#0057A1] text-[28px] md:text-[36px] font-bold">
-          Completed Survey!
+        <h2 className='text-[#0057A1] text-[28px] md:text-[36px] font-bold'>
+          {t('questions.surveyCompleteTitle')}
         </h2>
-        <p className="text-gray-600 text-lg">
-          Successfully Received 10 HUBCOINS.
+        <p className='text-gray-600 text-lg'>
+          {t('questions.surveyCompleteMessage')}
         </p>
         <button
-          onClick={() => router.push("/dashboard")}
-          className="bg-[#0057A1] text-white px-12 poppins-bold py-3 hover:bg-blue-600 transition rounded-2xl"
+          onClick={() => router.push('/dashboard')}
+          className='bg-[#0057A1] text-white px-12 poppins-bold py-3 hover:bg-blue-600 transition rounded-2xl'
         >
-          Go to Dashboard
+          {t('questions.goToDashboardButton')}
         </button>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="w-[95%] md:w-[85%] mx-auto">
-      <div className="w-full flex justify-center mb-8">
-        <div className="w-[250px] h-[60px] md:w-[280px] md:h-[80px] relative">
+    <div className='w-[95%] md:w-[85%] mx-auto'>
+      <div className='w-full flex justify-center mb-8'>
+        <div className='w-[250px] h-[60px] md:w-[280px] md:h-[80px] relative'>
           <Image
-            src="/navbar_logo.png"
-            alt="Hubsite Social Logo"
-            layout="fill"
-            objectFit="contain"
+            src='/navbar_logo.png'
+            alt='Hubsite Social Logo'
+            layout='fill'
+            objectFit='contain'
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-1 mb-6">
-        <span className="bg-[#0057A1] text-white px-3 py-1 rounded-md font-medium">
+      <div className='flex items-center gap-1 mb-6'>
+        <span className='bg-[#0057A1] text-white px-3 py-1 rounded-md font-medium'>
           {currentStep}/{questions.length}
         </span>
-        <div className="w-full md:w-[60%] bg-gray-300 rounded-full h-2.5">
+        <div className='w-full md:w-[60%] bg-gray-300 rounded-full h-2.5'>
           <div
-            className="bg-[#0057A1] h-2.5 rounded-full"
+            className='bg-[#0057A1] h-2.5 rounded-full'
             style={{ width: `${(currentStep / questions.length) * 100}%` }}
           ></div>
         </div>
       </div>
 
-      <h2 className="text-[#0057A1] text-[25px] md:text-[28px] poppins-bold mb-3">
-        Question {currentStep}
+      <h2 className='text-[#0057A1] text-[25px] md:text-[28px] poppins-bold mb-3'>
+        {t('questions.question')} {currentStep}
       </h2>
 
       {questions[currentStep - 1] && (
@@ -311,32 +307,35 @@ const Questions = ({ onComplete }) => {
       )}
 
       {errors[currentStep] && (
-        <div className="text-red-500">
-          {errors[currentStep].textAnswer || errors[currentStep].selectedOptions}
+        <div className='text-red-500'>
+          {errors[currentStep].textAnswer ||
+            errors[currentStep].selectedOptions}
         </div>
       )}
 
-      <div className="flex justify-between mt-8">
+      <div className='flex justify-between mt-8'>
         <button
           onClick={handlePrevious}
           className={`px-6 py-2 rounded-md transition ${
             currentStep === 1
-              ? "bg-gray-500 text-white cursor-not-allowed"
-              : "bg-[#0057A1] text-white hover:bg-gray-700"
+              ? 'bg-gray-500 text-white cursor-not-allowed'
+              : 'bg-[#0057A1] text-white hover:bg-gray-700'
           }`}
           disabled={currentStep === 1}
         >
-          ← Previous
+          {t('questions.previousButton')}
         </button>
         <button
           onClick={handleNext}
-          className="bg-[#0057A1] text-white px-6 py-2 rounded-md hover:bg-blue-600 transition"
+          className='bg-[#0057A1] text-white px-6 py-2 rounded-md hover:bg-blue-600 transition'
         >
-          {currentStep === questions.length ? "Submit" : "Next →"}
+          {currentStep === questions.length
+            ? t('questions.submitButton')
+            : t('questions.nextButton')}
         </button>
       </div>
     </div>
-  );
+  )
 };
 
 export default Questions;

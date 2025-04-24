@@ -1,16 +1,26 @@
 "use client";
 
 import StandAloneTemplate from "@/components/StandAlone.template";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
 const QualityIssue = () => {
+  const { t } = useTranslation('standalone')
+
   return (
     <StandAloneTemplate
-      heading="Quality Issue"
-      message={
-        "For security reasons, we are unable to process your response. Please contact support if you believe this is an error."
-      }
+      heading={t('issue.heading')}
+      message={t('issue.message')}
     />
-  );
+  )
 };
 
 export default QualityIssue;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'standalone'])),
+    },
+  }
+}

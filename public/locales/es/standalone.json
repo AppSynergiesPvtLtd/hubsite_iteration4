@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Encuesta finalizada con éxito",
+      "message": "¡Genial! Tus respuestas han sido enviadas.\n¡Gracias por compartir tus opiniones!",
+      "goToDashboard": "Ir al Panel",
+      "giveFeedback": "Dar Retroalimentación"
+    },
+    "issue": {
+      "heading": "Problema de calidad",
+      "message": "Por razones de seguridad, no podemos procesar tu respuesta. Por favor, contacta con soporte si crees que esto es un error."
+    },
+    "screenout": {
+      "heading": "Descalificado",
+      "message": "Parece que esta encuesta no era adecuada para ti, ¡pero agradecemos tu tiempo! Mantente atento para más oportunidades."
+    },
+    "reached": {
+      "heading": "Objetivo alcanzado",
+      "message": "¡Ups! Esta encuesta se llenó rápidamente. Pero no te preocupes, ¡más encuestas llegarán pronto!"
+    }
+  }

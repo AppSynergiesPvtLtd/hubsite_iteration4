@@ -1,13 +1,22 @@
 import React from 'react'
 import Layout from './layout'
 import PaymentComp from '@/components/DashBoard/Payment'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const Payment = () => {
   return (
     <Layout>
-        <PaymentComp/>
+      <PaymentComp />
     </Layout>
   )
 }
 
 export default Payment
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'dashboard'])),
+    },
+  }
+}

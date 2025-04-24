@@ -1,0 +1,23 @@
+{
+    "imgFinal": "Illustration de contact",
+    "headingFinal": "Merci de nous avoir contactés ! Nous avons reçu votre message et nous vous répondrons sous peu.",
+    "heading1": "Nous aimerions avoir de vos nouvelles,",
+    "heading2": "Entrez en contact 👋",
+    "name": "Nom",
+    "namePlaceholder": "Entrez votre nom",
+    "nameRequired": "Le nom est requis",
+    "email": "Courriel",
+    "emailPlaceholder": "Entrez votre courriel",
+    "emailRequired": "Le courriel est requis",
+    "emailInvalid": "Veuillez entrer une adresse courriel valide",
+    "upload": " Télécharger (Facultatif)",
+    "uploadInvalid": "Seuls les fichiers JPG et PNG sont autorisés",
+    "message": "Message",
+    "messagePlaceholder": "Entrez votre message",
+    "messageRequired": "Le message est requis",
+    "submit": "Envoyer le message",
+    "submitFail": "Échec de l'envoi du formulaire. Veuillez réessayer.",
+    "submitError": "Une erreur s'est produite. Veuillez réessayer.",
+    "img": "Description de l'image"
+  }
+  

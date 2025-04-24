@@ -1,0 +1,30 @@
+{
+    "heading": "So funktionieren bezahlte Umfragen von Hubsite Social",
+    "title": "Zugang zu Hubsite Social in 5 einfachen Schritten",
+    "description": "Mach dich bereit, der Hubsite Social Community beizutreten! Folge diesen fünf einfachen Schritten, um dein Konto einzurichten, dein Profil zu vervollständigen und an spannenden Umfragen teilzunehmen. Teile deine Einsichten, beeinflusse den Markt und verdiene aufregende Belohnungen – alles mit nur wenigen Klicks!",
+    "signup": {
+        "img": "Anmelde-Illustration",
+        "heading": "1. Anmelden",
+        "description": "Schalte eine Welt voller Möglichkeiten frei, indem du noch heute unserer Community beitrittst! Als Mitglied hast du die Chance, deine Gedanken zu teilen, führende Marken zu beeinflussen und Belohnungen für deine wertvollen Einsichten zu erhalten. Es ist schnell und einfach – melde dich an und sorge dafür, dass deine Stimme zählt!"
+    },
+    "profile": {
+        "img": "Benutzer-Avatar",
+        "heading": "2. Vervollständige dein Profil",
+        "description": "Fülle dein Profil aus, um deine Erfahrungen zu verbessern und sicherzustellen, dass du personalisierte Umfrageoptionen erhältst, die auf deine Interessen zugeschnitten sind. Diese Informationen helfen uns, dich mit Umfragen zu verbinden, die dich wirklich ansprechen, wodurch dein Feedback noch wirkungsvoller wird!"
+    },
+    "onboarding": {
+        "img": "Anmelde-Illustration",
+        "heading": "3. Beende deinen Onboarding-Fragebogen",
+        "description": "Nimm dir einen Moment Zeit, um deinen Onboarding-Fragebogen auszufüllen, damit wir deine Interessen und Vorlieben besser verstehen können. Dies wird uns helfen, dich mit relevanten Umfragen zu verbinden, die zu deinen Erfahrungen passen, und sicherzustellen, dass deine Teilnahme sowohl angenehm als auch wirkungsvoll ist!"
+    },
+    "start": {
+        "img": "Benutzer-Avatar",
+        "heading": "4. Starte mit der Teilnahme an Umfragen",
+        "description": "Stürze dich in eine Vielzahl spannender Umfragen, bei denen deine Meinung zählt. Indem du deine Einsichten teilst, beeinflusst du nicht nur die Produkte und Dienstleistungen, die dich interessieren, sondern verdienst auch mit jeder abgeschlossenen Umfrage aufregende Belohnungen!"
+    },
+    "rewards": {
+        "img": "Anmelde-Illustration",
+        "heading": "5. Fordere deine Belohnungen an",
+        "description": "Genieße die Belohnungen, die du durch das Teilen deiner wertvollen Einsichten verdient hast! Von Geschenkkarten bis hin zu exklusiven Rabatten bringt deine Teilnahme greifbare Vorteile. Entdecke deine Optionen und feiere deinen Einfluss auf dem Markt!"
+    }
+}

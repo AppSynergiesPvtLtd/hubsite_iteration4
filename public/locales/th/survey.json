@@ -1,0 +1,14 @@
+{
+    "index": {
+      "loading": "กำลังโหลด...",
+      "textAnswerPlaceholder": "ป้อนคำตอบของคุณที่นี่",
+      "answerRequired": "โปรดให้คำตอบ",
+      "surveyCompletedTitle": "ทำแบบสำรวจเสร็จสิ้น!",
+      "surveyCompletedMessage": "ได้รับ {{surveyId}} Hubcoins สำเร็จแล้ว",
+      "goToDashboard": "ไปที่แดชบอร์ด",
+      "question": "คำถาม",
+      "previous": "← ก่อนหน้า",
+      "next": "ถัดไป →",
+      "submit": "ส่ง"
+    }
+  }

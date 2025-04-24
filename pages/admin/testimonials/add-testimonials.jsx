@@ -1,14 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import AdminRoutes from "@/pages/adminRoutes";
 import { CheckCircle, AlertCircle, XCircle } from "lucide-react";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const MessageModal = ({ visible, type, message, onClose }) => {
+  const { t } = useTranslation('admin')
+
   if (!visible) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -55,6 +59,7 @@ const TestimonialForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState("");
+  const { t } = useTranslation('admin')
 
   const [modalConfig, setModalConfig] = useState({
     visible: false,
@@ -64,45 +69,45 @@ const TestimonialForm = () => {
   });
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady) return
     if (id) {
-      setIsFetching(true);
-      (async () => {
+      setIsFetching(true)
+      ;(async () => {
         try {
           const response = await fetch(`${API_BASE_URL}/testimonial/${id}`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "x-api-key": API_KEY,
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              'x-api-key': API_KEY,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-          });
+          })
           if (!response.ok) {
-            throw new Error(`Failed to fetch testimonial: ${response.status}`);
+            throw new Error(`Failed to fetch testimonial: ${response.status}`)
           }
-          const data = await response.json();
-          console.log("Fetched data:", data); // Debug log
+          const data = await response.json()
+          console.log('Fetched data:', data) // Debug log
           if (data && data.id) {
             setFormData({
-              name: data.name || "",
-              city: data.city || "",
-              comment: data.comment || "",
-              rating: data.rating ? data.rating.toString() : "",
+              name: data.name || '',
+              city: data.city || '',
+              comment: data.comment || '',
+              rating: data.rating ? data.rating.toString() : '',
               file: null,
               removeImage: false,
-            });
-            setImagePreview(data.image || null);
+            })
+            setImagePreview(data.image || null)
           } else {
-            setFetchError("Testimonial not found or invalid id.");
+            setFetchError(t('addTestimonial.testimonialNotFound'))
           }
         } catch (error) {
-          console.error("Error fetching testimonial:", error);
-          setFetchError(`Error fetching testimonial: ${error.message}`);
+          console.error('Error fetching testimonial:', error)
+          setFetchError(`${t('addTestimonial.fetchError')} ${error.message}`)
         } finally {
-          setIsFetching(false);
+          setIsFetching(false)
         }
-      })();
+      })()
     }
-  }, [id, router.isReady]);
+  }, [id, router.isReady, t])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -127,10 +132,11 @@ const TestimonialForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required";
-    if (!formData.city) newErrors.city = "City is required";
-    if (!formData.comment) newErrors.comment = "Comment is required";
-    if (!formData.rating) newErrors.rating = "Rating is required";
+    if (!formData.name) newErrors.name = t('addTestimonial.nameRequired')
+    if (!formData.city) newErrors.city = t('addTestimonial.cityRequired')
+    if (!formData.comment)
+      newErrors.comment = t('addTestimonial.commentRequired')
+    if (!formData.rating) newErrors.rating = t('addTestimonial.ratingRequired')
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -184,15 +190,18 @@ const TestimonialForm = () => {
         console.log("Update response:", result); // Debug log
 
         if (!response.ok) {
-          throw new Error(result.message || `Update failed with status: ${response.status}`);
+          throw new Error(
+            result.message ||
+              `${t('addTestimonial.updateFailed')} ${response.status}`
+          )
         }
 
         setModalConfig({
           visible: true,
-          type: "success",
-          message: "Testimonial updated successfully!",
+          type: 'success',
+          message: t('addTestimonial.updateSuccess'),
           redirect: { pathname: `/admin/testimonials` },
-        });
+        })
       } else {
         // Create new testimonial
         const submitData = new FormData();
@@ -217,15 +226,18 @@ const TestimonialForm = () => {
         console.log("Create response:", result); // Debug log
 
         if (!response.ok) {
-          throw new Error(result.message || `Create failed with status: ${response.status}`);
+          throw new Error(
+            result.message ||
+              `${t('addTestimonial.createFailed')} ${response.status}`
+          )
         }
 
         setModalConfig({
           visible: true,
-          type: "success",
-          message: "Testimonial created successfully!",
+          type: 'success',
+          message: t('addTestimonial.createSuccess'),
           redirect: { pathname: `/admin/testimonials` },
-        });
+        })
         setFormData(initialFormData);
         setImagePreview(null);
       }
@@ -233,10 +245,10 @@ const TestimonialForm = () => {
       console.error("Error submitting form:", error);
       setModalConfig({
         visible: true,
-        type: "error",
-        message: `Submission failed: ${error.message}`,
+        type: 'error',
+        message: `${t('addTestimonial.submissionFailed')} ${error.message}`,
         redirect: null,
-      });
+      })
     } finally {
       setIsSubmitting(false);
     }
@@ -244,10 +256,10 @@ const TestimonialForm = () => {
 
   if (isFetching) {
     return (
-      <div className="min-h-screen w-full bg-white p-6">
-        <p>Loading testimonial data...</p>
+      <div className='min-h-screen w-full bg-white p-6'>
+        <p>{t('addTestimonial.loadingData')}</p>
       </div>
-    );
+    )
   }
 
   if (fetchError) {
@@ -261,130 +273,144 @@ const TestimonialForm = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white p-6">
+    <div className='min-h-screen w-full bg-white p-6'>
       <MessageModal
         visible={modalConfig.visible}
         type={modalConfig.type}
         message={modalConfig.message}
         onClose={closeModal}
       />
-      <form onSubmit={handleSubmit} className="w-full space-y-6">
+      <form onSubmit={handleSubmit} className='w-full space-y-6'>
         <div>
-          <label className="block mb-2">Upload Image (Optional)</label>
+          <label className='block mb-2'>
+            {t('addTestimonial.uploadImage')}
+          </label>
           {imagePreview && (
-            <div className="mb-4 relative inline-block">
+            <div className='mb-4 relative inline-block'>
               <img
-                src={imagePreview || "/placeholder.svg"}
-                alt="Preview"
-                className="w-32 h-32 object-cover rounded"
+                src={imagePreview || '/placeholder.svg'}
+                alt='Preview'
+                className='w-32 h-32 object-cover rounded'
               />
               <button
-                type="button"
+                type='button'
                 onClick={handleRemoveImage}
-                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
-                title="Remove Image"
+                className='absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors'
+                title='Remove Image'
               >
-                <XCircle className="w-5 h-5" />
+                <XCircle className='w-5 h-5' />
               </button>
             </div>
           )}
           {!imagePreview && (
-            <div className="flex items-center space-x-4">
+            <div className='flex items-center space-x-4'>
               <button
-                type="button"
-                onClick={() => document.getElementById("file-upload").click()}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                type='button'
+                onClick={() => document.getElementById('file-upload').click()}
+                className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
               >
                 + Image
               </button>
-              <span className="text-gray-500 text-sm">No image selected</span>
+              <span className='text-gray-500 text-sm'>No image selected</span>
             </div>
           )}
           <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
+            id='file-upload'
+            type='file'
+            accept='image/*'
             onChange={handleFileChange}
-            className="hidden"
+            className='hidden'
           />
           {errors.file && (
-            <p className="text-red-500 text-sm mt-1">{errors.file}</p>
+            <p className='text-red-500 text-sm mt-1'>{errors.file}</p>
           )}
         </div>
 
         <div>
-          <label className="block mb-2">Name*</label>
+          <label className='block mb-2'>{t('addTestimonial.name')}*</label>
           <input
-            type="text"
-            name="name"
+            type='text'
+            name='name'
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-            placeholder="Enter Name"
+            className='w-full p-2 border rounded'
+            placeholder={t('addTestimonial.namePlaceholder')}
           />
           {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            <p className='text-red-500 text-sm mt-1'>{errors.name}</p>
           )}
         </div>
 
         <div>
-          <label className="block mb-2">City*</label>
+          <label className='block mb-2'>{t('addTestimonial.city')}*</label>
           <input
-            type="text"
-            name="city"
+            type='text'
+            name='city'
             value={formData.city}
             onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-            placeholder="Enter City"
+            className='w-full p-2 border rounded'
+            placeholder={t('addTestimonial.cityPlaceholder')}
           />
           {errors.city && (
-            <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+            <p className='text-red-500 text-sm mt-1'>{errors.city}</p>
           )}
         </div>
 
         <div>
-          <label className="block mb-2">Comment*</label>
+          <label className='block mb-2'>{t('addTestimonial.comment')}*</label>
           <textarea
-            name="comment"
+            name='comment'
             value={formData.comment}
             onChange={handleInputChange}
-            className="w-full p-2 border rounded h-32 resize-none"
-            placeholder="Enter Comment"
+            className='w-full p-2 border rounded h-32 resize-none'
+            placeholder={t('addTestimonial.commentPlaceholder')}
           />
           {errors.comment && (
-            <p className="text-red-500 text-sm mt-1">{errors.comment}</p>
+            <p className='text-red-500 text-sm mt-1'>{errors.comment}</p>
           )}
         </div>
 
         <div>
-          <label className="block mb-2">Rating*</label>
+          <label className='block mb-2'>{t('addTestimonial.rating')}*</label>
           <input
-            type="number"
-            name="rating"
+            type='number'
+            name='rating'
             value={formData.rating}
             onChange={handleInputChange}
-            min="1"
-            max="5"
-            className="w-full p-2 border rounded"
-            placeholder="Enter Rating"
+            min='1'
+            max='5'
+            className='w-full p-2 border rounded'
+            placeholder={t('addTestimonial.ratingPlaceholder')}
           />
           {errors.rating && (
-            <p className="text-red-500 text-sm mt-1">{errors.rating}</p>
+            <p className='text-red-500 text-sm mt-1'>{errors.rating}</p>
           )}
         </div>
 
-        <div className="flex justify-center">
+        <div className='flex justify-center'>
           <button
-            type="submit"
+            type='submit'
             disabled={isSubmitting}
-            className="bg-blue-600 text-white px-8 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+            className='bg-blue-600 text-white px-8 py-2 rounded hover:bg-blue-700 disabled:opacity-50'
           >
-            {isSubmitting ? "Submitting..." : id ? "Update" : "Submit"}
+            {isSubmitting
+              ? t('addTestimonial.submitting')
+              : id
+              ? t('addTestimonial.update')
+              : t('addTestimonial.submit')}
           </button>
         </div>
       </form>
     </div>
-  );
+  )
 };
 
 export default AdminRoutes(TestimonialForm);
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'admin'])),
+    },
+  }
+}

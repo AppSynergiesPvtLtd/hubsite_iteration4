@@ -7,21 +7,27 @@ import Image from "next/image";
 import Benefits from "@/components/Home/Benefits";
 import MainLayout from "@/layouts/MainLayout";
 import Whatsapp from "@/layouts/whatsapp";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-
-
-Home.Layout = MainLayout; 
+Home.Layout = MainLayout
 export default function Home() {
   return (
-    <div className="text-black bg-white">
-        <WelcomeBanner/>
-        <HubsiteSocial/>
-        <Benefits/>
-        <Accumulate/>
-        <Reviews/>
-        <Newsletter/>
-        <Whatsapp/>
+    <div className='text-black bg-white'>
+      <WelcomeBanner />
+      <HubsiteSocial />
+      <Benefits />
+      <Accumulate />
+      <Reviews />
+      <Newsletter />
+      <Whatsapp />
     </div>
-    
-  );
+  )
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
 }

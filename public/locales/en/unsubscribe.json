@@ -1,0 +1,14 @@
+{
+    "email": "Email",
+    "enterEmailAddress": "Enter a email address",
+    "pleaseEnterEmail": "Please enter your email address.",
+    "unsubscribe": "Unsubscribe",
+    "stopReceivingEmails": "If you unsubscribe, you will stop receiving emails from us",
+    "areYouSureUnsubscribe": "Are you sure you would like to unsubscribe?",
+    "currentlySubscribed": "You are currently subscribed with the address:",
+    "yesUnsubscribe": "Yes, Unsubscribe",
+    "noNotYet": "No, not yet",
+    "successfullyUnsubscribed": "Successfully Unsubscribed",
+    "noLongerReceiveEmails": "You have successfully unsubscribed from our newsletter and will no longer receive any emails from us.",
+    "changeMindSubscribeBack": "If you change your mind, you can subscribe back."
+  }

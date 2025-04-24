@@ -1,0 +1,38 @@
+{
+    "user_data_unavailable": "ユーザーデータが利用できません。ユーザーがログインしていることを確認してください。",
+    "error_completing_onboarding": "オンボーディングの完了中にエラーが発生しました。",
+    "step1": {
+      "almost_there": "もう少しです！",
+      "first_hubcoins": "最初の10ハブコインがあなたを待っています！",
+      "get_started": "始めましょう"
+    },
+    "step2": {
+      "hey": "こんにちは",
+      "welcome_message": "Hubsite Socialへようこそ？",
+      "next_button": "次へ"
+    },
+    "step3": {
+      "heading": "あなたに合わせてアンケートを調整しましょう",
+      "paragraph": "あなたが誰であるか、あなたの視点をよりよく理解し、関連するアンケートをお届けするために、あなたの詳細をお知らせください。",
+      "getStartedButton": "始めましょう"
+    },
+    "step4": {
+      "heading": "なぜこれらの質問をするのですか？",
+      "paragraph1": "これは、関連するアンケートをお届けするためです。つまり、学生に教師であることについて尋ねたり、ストックホルムの人がニューヨークの公共交通機関について尋ねられたりすることはありません。",
+      "paragraph2": "これらの質問に回答していただくと、アンケートを見つけることができます。また、<b>30 HUBCOINS</b>も入手できます。",
+      "continueButton": "はい、続けます"
+    },
+    "questions": {
+      "textAnswerPlaceholder": "ここに回答を入力してください",
+      "textAnswerRequired": "回答を入力してください。",
+      "selectionRequired": "オプションを選択してください。",
+      "surveyCompleteImageAlt": "アンケート完了",
+      "surveyCompleteTitle": "アンケート完了！",
+      "surveyCompleteMessage": "10 HUBCOINSを正常に受け取りました。",
+      "goToDashboardButton": "ダッシュボードへ",
+      "question": "質問",
+      "previousButton": "← 前へ",
+      "nextButton": "次へ →",
+      "submitButton": "送信"
+    }
+  }

@@ -1,0 +1,20 @@
+{
+    "template": {
+      "heading": "Sondage terminé avec succès",
+      "message": "Génial ! Tes réponses ont été soumises.\nMerci d'avoir partagé tes opinions !",
+      "goToDashboard": "Aller au tableau de bord",
+      "giveFeedback": "Donner un retour"
+    },
+    "issue": {
+      "heading": "Problème de qualité",
+      "message": "Pour des raisons de sécurité, nous ne pouvons pas traiter ta réponse. Contacte le support si tu penses qu'il s'agit d'une erreur."
+    },
+    "screenout": {
+      "heading": "Écarté",
+      "message": "Il semble que celui-ci ne te convenait pas, mais nous apprécions ton temps ! Reste à l'écoute pour d'autres opportunités."
+    },
+    "reached": {
+      "heading": "Objectif atteint",
+      "message": "Oups ! Ce sondage s'est rempli rapidement. Mais ne t'inquiète pas, d'autres sondages arriveront bientôt !"
+    }
+  }

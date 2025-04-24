@@ -1,0 +1,14 @@
+{
+    "email": "メールアドレス",
+    "enterEmailAddress": "メールアドレスを入力してください",
+    "unsubscribe": "購読解除",
+    "pleaseEnterEmail": "メールアドレスを入力してください。",
+    "stopReceivingEmails": "今後、弊社からのメールは配信されません。",
+    "areYouSureUnsubscribe": "本当に購読を解除しますか？",
+    "currentlySubscribed": "現在の購読先：",
+    "yesUnsubscribe": "はい、購読を解除します",
+    "noNotYet": "いいえ、まだです",
+    "successfullyUnsubscribed": "購読を解除しました",
+    "noLongerReceiveEmails": "今後、弊社からのメールは配信されません。",
+    "changeMindSubscribeBack": "気が変わった場合は、いつでも<a>再購読</a>できます。"
+  }

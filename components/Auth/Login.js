@@ -7,49 +7,51 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useTranslation } from 'react-i18next'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
 export default function UserLogin() {
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { t } = useTranslation('common') // Use translation
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [otp, setOtp] = useState("");
-  const [currentStep, setCurrentStep] = useState(1); // 1 = login, 2 = OTP verification
-  const [loading, setLoading] = useState(false);
-  const [resendLoading, setResendLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [alert, setAlert] = useState({ message: "", type: "" });
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [otp, setOtp] = useState('')
+  const [currentStep, setCurrentStep] = useState(1) // 1 = login, 2 = OTP verification
+  const [loading, setLoading] = useState(false)
+  const [resendLoading, setResendLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [alert, setAlert] = useState({ message: '', type: '' })
+  const [showPassword, setShowPassword] = useState(false)
 
   // Regular expression to validate email pattern
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   const handleLogin = async () => {
-    setLoading(true);
-    setError("");
+    setLoading(true)
+    setError('')
 
     if (!email || !password) {
-      setError("Please fill in both email and password.");
-      setLoading(false);
-      return;
+      setError(t('login.errors.fillFields'))
+      setLoading(false)
+      return
     }
 
     // Validate email format before hitting the API
     if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
-      setLoading(false);
-      return;
+      setError(t('login.errors.validEmail'))
+      setLoading(false)
+      return
     }
 
     // Validate password length
     if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      setLoading(false);
-      return;
+      setError(t('login.errors.passwordLength'))
+      setLoading(false)
+      return
     }
 
     try {
@@ -58,43 +60,43 @@ export default function UserLogin() {
         { email, password },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
-      const userData = response.data;
+      )
+      const userData = response.data
 
       if (!userData.isEmailVerified) {
         setAlert({
-          message: "Email not verified. OTP sent to your email.",
-          type: "info",
-        });
-        setCurrentStep(2);
-        setLoading(false);
-        return;
+          message: t('login.messages.emailNotVerified'),
+          type: 'info',
+        })
+        setCurrentStep(2)
+        setLoading(false)
+        return
       }
 
       // Save token using a key specific for users:
-      localStorage.setItem("user_token", userData.token.split(" ")[1]);
-      dispatch(setUser(userData));
-      router.push("/dashboard");
+      localStorage.setItem('user_token', userData.token.split(' ')[1])
+      dispatch(setUser(userData))
+      router.push('/dashboard')
     } catch (err) {
-      console.log("err", err);
-      setError(err.response?.data?.message || "Login failed.");
+      console.log('err', err)
+      setError(err.response?.data?.message || t('login.errors.loginFailed'))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleVerifyOtp = async () => {
-    setLoading(true);
-    setError("");
+    setLoading(true)
+    setError('')
 
     if (!otp) {
-      setError("Please enter the OTP.");
-      setLoading(false);
-      return;
+      setError(t('login.errors.enterOtp'))
+      setLoading(false)
+      return
     }
 
     try {
@@ -103,123 +105,123 @@ export default function UserLogin() {
         { email, otp },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
-      const userData = response.data;
-      localStorage.setItem("user_token", userData.token.split(" ")[1]);
-      dispatch(setUser(userData));
-      setAlert({ message: "OTP verified successfully!", type: "success" });
-      router.push("/dashboard");
+      )
+      const userData = response.data
+      localStorage.setItem('user_token', userData.token.split(' ')[1])
+      dispatch(setUser(userData))
+      setAlert({ message: t('login.messages.otpVerified'), type: 'success' })
+      router.push('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || "OTP verification failed.");
+      setError(
+        err.response?.data?.message || t('login.errors.otpVerificationFailed')
+      )
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleResendOtp = async () => {
-    setResendLoading(true);
-    setAlert({ message: "", type: "" });
+    setResendLoading(true)
+    setAlert({ message: '', type: '' })
     try {
       await axios.post(
         `${API_BASE_URL}/auth/resend-email-verification`,
         { email },
         {
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
         }
-      );
+      )
       setAlert({
-        message: "OTP has been resent to your email.",
-        type: "info",
-      });
+        message: t('login.messages.otpResent'),
+        type: 'info',
+      })
     } catch (err) {
       setAlert({
         message:
-          err.response?.data?.message ||
-          "Failed to resend OTP. Please try again.",
-        type: "error",
-      });
+          err.response?.data?.message || t('login.errors.resendOtpFailed'),
+        type: 'error',
+      })
     } finally {
-      setResendLoading(false);
+      setResendLoading(false)
     }
-  };
+  }
 
-  const { data: session, status } = useSession();
-  const [googleTriggered, setGoogleTriggered] = useState(false);
+  const { data: session, status } = useSession()
+  const [googleTriggered, setGoogleTriggered] = useState(false)
 
   useEffect(() => {
-    if (status === "authenticated" && session?.idToken && !googleTriggered) {
-      setGoogleTriggered(true);
-      setLoading(true);
-      (async () => {
+    if (status === 'authenticated' && session?.idToken && !googleTriggered) {
+      setGoogleTriggered(true)
+      setLoading(true)
+      ;(async () => {
         try {
           const response = await axios.post(
             `${API_BASE_URL}/auth/google`,
             { idToken: session.idToken },
             {
               headers: {
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY,
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
               },
             }
-          );
-          const userData = response.data;
-          localStorage.setItem("user_token", userData.token.split(" ")[1]);
-          dispatch(setUser(userData));
-          router.push("/dashboard");
+          )
+          const userData = response.data
+          localStorage.setItem('user_token', userData.token.split(' ')[1])
+          dispatch(setUser(userData))
+          router.push('/dashboard')
         } catch (err) {
           setError(
-            err.response?.data?.message ||
-              "Google login failed. Please try again."
-          );
-          setLoading(false);
+            err.response?.data?.message || t('login.errors.googleLoginFailed')
+          )
+          setLoading(false)
         }
-      })();
+      })()
     }
-  }, [status, session, googleTriggered, dispatch, router]);
+  }, [status, session, googleTriggered, dispatch, router, t])
 
   const handleGoogleLogin = async () => {
-    setError("");
-    await signIn("google");
-  };
+    setError('')
+    await signIn('google')
+  }
 
   // Handle Enter key press
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       if (currentStep === 1) {
-        handleLogin();
+        handleLogin()
       } else if (currentStep === 2) {
-        handleVerifyOtp();
+        handleVerifyOtp()
       }
     }
-  };
+  }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 poppins">
-      <div className="flex flex-col justify-center space-y-6">
-        <h2 className="text-3xl font-bold text-gray-800 text-center">
-          {currentStep === 1 ? "Login" : "Verify OTP"}
+    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 poppins'>
+      <div className='flex flex-col justify-center space-y-6'>
+        <h2 className='text-3xl font-bold text-gray-800 text-center'>
+          {currentStep === 1 ? t('login.title') : t('login.verifyOtpTitle')}
         </h2>
-        <p className="text-gray-600 text-center">
+        <p className='text-gray-600 text-center'>
           {currentStep === 1
-            ? "Login to continue to our website"
-            : "Verify your email to proceed"}
+            ? t('login.loginContinue')
+            : t('login.verifyEmailProceed')}
         </p>
 
         {alert.message && (
           <div
             className={`p-4 text-center ${
-              alert.type === "success"
-                ? "bg-green-100 text-green-800"
-                : alert.type === "info"
-                ? "bg-blue-100 text-blue-800"
-                : "bg-red-100 text-red-800"
+              alert.type === 'success'
+                ? 'bg-green-100 text-green-800'
+                : alert.type === 'info'
+                ? 'bg-blue-100 text-blue-800'
+                : 'bg-red-100 text-red-800'
             } rounded`}
           >
             {alert.message}
@@ -227,123 +229,125 @@ export default function UserLogin() {
         )}
 
         {currentStep === 1 && (
-          <div className="space-y-4 flex flex-col items-center">
-            <div className="w-[80%]">
+          <div className='space-y-4 flex flex-col items-center'>
+            <div className='w-[80%]'>
               <input
-                type="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none"
-                placeholder="Enter your email"
+                type='email'
+                className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none'
+                placeholder={t('login.emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
             </div>
-            <div className="w-[80%] relative">
+            <div className='w-[80%] relative'>
               <input
-                type={showPassword ? "text" : "password"}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none"
-                placeholder="Enter your password"
+                type={showPassword ? 'text' : 'password'}
+                className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none'
+                placeholder={t('login.passwordPlaceholder')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
               <span
-                className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                className='absolute inset-y-0 right-4 flex items-center cursor-pointer'
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <EyeIcon className="h-5 w-5 text-gray-500" />
+                  <EyeIcon className='h-5 w-5 text-gray-500' />
                 ) : (
-                  <EyeOffIcon className="h-5 w-5 text-gray-500" />
+                  <EyeOffIcon className='h-5 w-5 text-gray-500' />
                 )}
               </span>
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className='text-red-500 text-sm'>{error}</p>}
             <button
               onClick={handleLogin}
-              className="w-[80%] py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className='w-[80%] py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'
               disabled={loading}
             >
-              {loading ? "Loading..." : "Login"}
+              {loading ? t('login.loading') : t('login.loginButton')}
             </button>
           </div>
         )}
 
         {currentStep === 2 && (
-          <div className="space-y-4 flex flex-col items-center">
-            <div className="w-[80%]">
+          <div className='space-y-4 flex flex-col items-center'>
+            <div className='w-[80%]'>
               <input
-                type="text"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none"
-                placeholder="Enter OTP"
+                type='text'
+                className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none'
+                placeholder={t('login.otpPlaceholder')}
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className='text-red-500 text-sm'>{error}</p>}
             <button
               onClick={handleVerifyOtp}
-              className="w-[80%] py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className='w-[80%] py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'
               disabled={loading}
             >
-              {loading ? "Verifying..." : "Verify OTP"}
+              {loading ? t('login.verifying') : t('login.verifyOtpButton')}
             </button>
             <button
               onClick={handleResendOtp}
-              className="w-[80%] py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              className='w-[80%] py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300'
               disabled={resendLoading}
             >
-              {resendLoading ? "Resending..." : "Resend OTP"}
+              {resendLoading
+                ? t('login.resending')
+                : t('login.resendOtpButton')}
             </button>
           </div>
         )}
 
-        <div className="text-center mt-4">
+        <div className='text-center mt-4'>
           {currentStep === 1 && (
             <button
-              onClick={() => router.push("/?modal=forgotpassword")}
-              className="text-sm text-blue-600 hover:underline"
+              onClick={() => router.push('/?modal=forgotpassword')}
+              className='text-sm text-blue-600 hover:underline'
             >
-              Forgot Password?
+              {t('login.forgotPassword')}
             </button>
           )}
         </div>
 
         {currentStep === 1 && (
-          <p className="text-sm text-center text-gray-700 mt-4">
-            Don’t have an account?{" "}
+          <p className='text-sm text-center text-gray-700 mt-4'>
+            {t('login.noAccount')}
             <button
-              onClick={() => router.push("/?modal=signUp")}
-              className="text-blue-600 hover:underline font-semibold"
+              onClick={() => router.push('/?modal=signUp')}
+              className='text-blue-600 hover:underline font-semibold'
             >
-              Sign up
+              {t('login.signUp')}
             </button>
           </p>
         )}
 
         {currentStep === 1 && (
-          <div className="flex justify-center mt-6">
+          <div className='flex justify-center mt-6'>
             <button
               onClick={handleGoogleLogin}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 shadow hover:bg-gray-200"
+              className='w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 shadow hover:bg-gray-200'
             >
-              <Image src="/google.svg" alt="Google" width={24} height={24} />
+              <Image src='/google.svg' alt='Google' width={24} height={24} />
             </button>
           </div>
         )}
       </div>
 
-      <div className="hidden lg:flex items-center justify-center relative h-[80vh] w-full">
+      <div className='hidden lg:flex items-center justify-center relative h-[80vh] w-full'>
         <Image
-          src="/login.jpg"
-          alt="Login Illustration"
+          src='/login.jpg'
+          alt='Login Illustration'
           width={350}
           height={200}
-          style={{ objectFit: "contain" }}
-          className="rounded-lg w-[90%] h-[550px]"
+          style={{ objectFit: 'contain' }}
+          className='rounded-lg w-[90%] h-[550px]'
         />
       </div>
     </div>
-  );
+  )
 }

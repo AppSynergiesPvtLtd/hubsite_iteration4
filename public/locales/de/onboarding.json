@@ -1,0 +1,39 @@
+{
+    "user_data_unavailable": "Nutzerdaten sind nicht verfügbar. Stellen Sie sicher, dass der Nutzer angemeldet ist.",
+    "error_completing_onboarding": "Fehler beim Abschließen des Onboardings.",
+    "step1": {
+      "almost_there": "Fast geschafft!",
+      "first_hubcoins": "Ihre ersten 10 Hubcoins warten auf Sie!",
+      "get_started": "Los geht's"
+    },
+    "step2": {
+      "hey": "Hallo",
+      "welcome_message": "Willkommen bei Hubsite Social?",
+      "next_button": "Weiter"
+    },
+    "step3": {
+      "heading": "Lassen Sie uns unsere Umfragen auf Sie zuschneiden",
+      "paragraph": "Erzählen Sie uns mehr über sich, damit wir wissen, wer Sie sind, Ihre Perspektive besser verstehen und Ihnen relevante Umfragen zukommen lassen können.",
+      "getStartedButton": "Los geht's"
+    },
+    "step4": {
+      "heading": "Warum stellen wir diese Fragen?",
+      "paragraph1": "Damit wir Ihnen relevante Umfragen zukommen lassen können. Das bedeutet, dass Studenten nicht gefragt werden, wie es ist, Lehrer zu sein, oder jemand in Stockholm nicht nach den öffentlichen Verkehrsmitteln in New York gefragt wird.",
+      "paragraph2": "Denken Sie daran, dass wir Ihnen erst dann Umfragen finden können, wenn Sie diese Fragen beantwortet haben. Und Sie erhalten außerdem <b>30 HUBCOINS</b>.",
+      "continueButton": "Ok, weiter geht's"
+    },
+    "questions": {
+      "textAnswerPlaceholder": "Geben Sie hier Ihre Antwort ein",
+      "textAnswerRequired": "Bitte geben Sie eine Antwort.",
+      "selectionRequired": "Bitte wählen Sie eine Option.",
+      "surveyCompleteImageAlt": "Umfrage abgeschlossen",
+      "surveyCompleteTitle": "Umfrage abgeschlossen!",
+      "surveyCompleteMessage": "10 HUBCOINS erfolgreich erhalten.",
+      "goToDashboardButton": "Zum Dashboard",
+      "question": "Frage",
+      "previousButton": "← Zurück",
+      "nextButton": "Weiter →",
+      "submitButton": "Absenden"
+    }
+  }
+  

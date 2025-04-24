@@ -1,0 +1,193 @@
+{
+    "index": {
+      "LiveSurvey": "Encuesta en vivo",
+      "YourSurvey": "Tu encuesta",
+      "LoadingSurveys": "Cargando encuestas...",
+      "NoSurveysAvailable": "No hay encuestas disponibles.",
+      "Active": "Activa",
+      "Inactive": "Inactiva",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "REALIZAR ENCUESTA",
+      "FailedToFetchLiveSurveys": "Error al obtener encuestas en vivo: {{message}}",
+      "ErrorFetchingLiveSurveys": "Error al obtener encuestas en vivo: {{error}}",
+      "FailedToFetchYourSurveys": "Error al obtener tus encuestas: {{message}}",
+      "ErrorFetchingYourSurveys": "Error al obtener tus encuestas: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Panel",
+        "surveys": "Encuestas de perfil",
+        "rewards": "Recompensas"
+      },
+      "profile": {
+        "editProfile": "Editar perfil",
+        "logout": "Cerrar sesión"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Panel",
+        "profile": "Perfil"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Banco",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Nombre completo",
+        "contactNumber": "Tu número de contacto",
+        "bankName": "Nombre del banco",
+        "accountNumber": "Número de cuenta",
+        "confirmAccountNumber": "Confirmar número de cuenta",
+        "ifscCode": "Código IFSC",
+        "upiId": "Tu ID de UPI"
+      },
+      "errors": {
+        "fullName": "El nombre completo es obligatorio.",
+        "contactNumber": "El número de contacto es obligatorio.",
+        "bankName": "El nombre del banco es obligatorio.",
+        "accountNumber": "El número de cuenta es obligatorio.",
+        "accountNumberMismatch": "Los números de cuenta deben coincidir.",
+        "ifscCode": "El código IFSC es obligatorio.",
+        "upiId": "El ID de UPI es obligatorio.",
+        "amount": {
+          "required": "El monto es obligatorio.",
+          "minimum": "El monto mínimo para canjear es de 100 HUBCOINS.",
+          "insufficientBalance": "Saldo insuficiente. Solo tienes {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Saldo disponible:",
+      "minimumRedemption": "Mínimo 100 HUBCOINS",
+      "steps": {
+        "next": "Siguiente",
+        "redeem": "Canjear",
+        "okay": "Aceptar"
+      },
+      "confirmationMessage": "Tu dinero se reflejará en tu cuenta pronto"
+    },
+    "profile": {
+      "title": "Perfil",
+      "subtitle": "¡Consulta la información de tu cuenta aquí!",
+      "fields": {
+        "fullName": {
+          "label": "Nombre completo"
+        },
+        "phoneNumber": {
+          "label": "Número de teléfono"
+        },
+        "emailAddress": {
+          "label": "Correo electrónico"
+        },
+        "dateOfBirth": {
+          "label": "Fecha de nacimiento"
+        }
+      },
+      "buttons": {
+        "edit": "Editar",
+        "cancel": "Cancelar",
+        "saveChanges": "Guardar cambios",
+        "logout": "Cerrar sesión"
+      },
+      "displayPicture": "Foto de perfil",
+      "alerts": {
+        "missingUserId": "Falta el ID de usuario",
+        "profileUpdateSuccess": "¡Perfil actualizado correctamente!",
+        "profileUpdateError": "Error al actualizar el perfil. Inténtalo de nuevo."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Monedas ganadas",
+        "buttonText": "Canjear puntos"
+      },
+      "form": {
+        "title": "Completar detalles",
+        "labels": {
+          "name": "Nombre",
+          "date": "Fecha",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "El nombre es obligatorio.",
+          "dateRequired": "La fecha es obligatoria.",
+          "hubscoreRequired": "El Hubscore es obligatorio."
+        },
+        "submitButton": "Enviar"
+      }
+    },
+    "spinner": {
+      "title": "Gira la rueda",
+      "meta": "¡Gira la rueda para ganar Hubscore!",
+      "prizes": {
+        "prize1": "Premio 1",
+        "prize2": "Premio 2",
+        "prize3": "Premio 3",
+        "prize4": "Premio 4",
+        "prize5": "Premio 5",
+        "prize6": "Premio 6",
+        "prize7": "Premio 7",
+        "prize8": "Premio 8"
+      },
+      "buttons": {
+        "spin": "Girar"
+      },
+      "buttonText": "Toca para girar",
+      "spinButton": "Girar",
+      "heading": "¡Gira la ruleta de recompensas!",
+      "description": "¡Gira la rueda para obtener recompensas emocionantes y descubre ofertas exclusivas solo para ti!",
+      "reward": {
+        "title": "¡Tus recompensas te esperan!",
+        "hubscoreLabel": "Hubscore",
+        "hubcore": "Hubcore",
+        "claimButton": "Reclamar"
+      },
+      "nextRewards": {
+        "title": "¡Felicidades!",
+        "description": "¡Desbloquea regalos adicionales con cada encuesta que completes!",
+        "day": "Día",
+        "confirmButton": "Entendido"
+      }
+    },
+    "survey": {
+      "loading": "Cargando encuestas...",
+      "noSurveys": "No hay encuestas disponibles.",
+      "status": {
+        "active": "Activa"
+      },
+      "time": {
+        "minutes": "min"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS RECIBIDOS"
+      },
+      "actions": {
+        "takeSurvey": "REALIZAR ENCUESTA",
+        "completed": "Completada"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Encuesta en vivo",
+        "yourSurvey": "Tu encuesta"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Recolecta 190 MÁS PARA CANJEAR $200"
+      },
+      "earningSection": {
+        "title": "Más sobre ti",
+        "earnLabel": "GANA HUBCOINS"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "¿Estás listo para esta encuesta?",
+        "timeLabel": "min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "REALIZAR ENCUESTA"
+      }
+    }
+  }

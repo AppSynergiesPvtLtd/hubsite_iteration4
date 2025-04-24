@@ -1,0 +1,30 @@
+{
+    "heading": "Comment fonctionnent les sondages rémunérés de Hubsite Social",
+    "title": "Accédez à Hubsite Social en 5 étapes simples",
+    "description": "Préparez-vous à rejoindre la communauté Hubsite Social ! Suivez ces cinq étapes faciles pour configurer votre compte, compléter votre profil et commencer à participer à des sondages captivants. Partagez vos points de vue, influencez le marché et gagnez des récompenses intéressantes, le tout en quelques clics !",
+    "signup": {
+        "img": "Illustration d'inscription",
+        "heading": "1. S'inscrire",
+        "description": "Débloquez un monde d'opportunités en rejoignant notre communauté dès aujourd'hui ! En tant que membre, vous aurez la chance de partager vos réflexions, d'influencer les plus grandes marques et de gagner des récompenses pour vos précieux points de vue. C'est rapide et facile : inscrivez-vous et faites entendre votre voix !"
+    },
+    "profile": {
+        "img": "Avatar de l'utilisateur",
+        "heading": "2. Compléter votre profil",
+        "description": "Remplissez votre profil pour améliorer votre expérience et vous assurer de recevoir des opportunités de sondages personnalisées et adaptées à vos intérêts. Ces informations nous aident à vous mettre en relation avec des sondages qui vous correspondent vraiment, ce qui rend votre feedback encore plus impactant !"
+    },
+    "onboarding": {
+        "img": "Illustration d'inscription",
+        "heading": "3. Terminer votre questionnaire d'intégration",
+        "description": "Prenez quelques instants pour terminer votre questionnaire d'intégration, ce qui nous permettra de mieux comprendre vos intérêts et vos préférences. Cela nous aidera à vous mettre en relation avec des sondages pertinents qui correspondent à vos expériences, garantissant ainsi que votre participation soit à la fois agréable et impactante !"
+    },
+    "start": {
+        "img": "Avatar de l'utilisateur",
+        "heading": "4. Commencer à répondre aux sondages",
+        "description": "Lancez-vous dans une variété de sondages captivants où vos opinions comptent. En partageant vos points de vue, vous influencerez non seulement les produits et services qui vous intéressent, mais vous gagnerez également des récompenses intéressantes à chaque sondage que vous complétez !"
+    },
+    "rewards": {
+        "img": "Illustration d'inscription",
+        "heading": "5. Réclamer vos récompenses",
+        "description": "Profitez des récompenses que vous avez gagnées en partageant vos précieux points de vue ! Des cartes-cadeaux aux remises exclusives, votre participation apporte des avantages tangibles. Explorez vos options et célébrez votre impact sur le marché !"
+    }
+}

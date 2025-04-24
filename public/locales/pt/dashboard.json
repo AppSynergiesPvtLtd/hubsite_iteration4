@@ -1,0 +1,194 @@
+{
+    "index": {
+      "LiveSurvey": "Pesquisa ao vivo",
+      "YourSurvey": "Sua pesquisa",
+      "LoadingSurveys": "Carregando pesquisas...",
+      "NoSurveysAvailable": "Nenhuma pesquisa disponível.",
+      "Active": "Ativo",
+      "Inactive": "Inativo",
+      "HUBCOINS": "HUBCOINS",
+      "TakeSurvey": "FAZER PESQUISA",
+      "FailedToFetchLiveSurveys": "Falha ao buscar pesquisas ao vivo: {{message}}",
+      "ErrorFetchingLiveSurveys": "Erro ao buscar pesquisas ao vivo: {{error}}",
+      "FailedToFetchYourSurveys": "Falha ao buscar suas pesquisas: {{message}}",
+      "ErrorFetchingYourSurveys": "Erro ao buscar suas pesquisas: {{error}}"
+    },
+    "layout": {
+      "sidebar": {
+        "dashboard": "Painel",
+        "surveys": "Pesquisas de perfil",
+        "rewards": "Recompensas"
+      },
+      "profile": {
+        "editProfile": "Editar Perfil",
+        "logout": "Sair"
+      },
+      "hubcoins": {
+        "tooltip": "{{count}} Hubcoins"
+      },
+      "pageTitle": {
+        "dashboard": "Painel",
+        "profile": "Perfil"
+      }
+    },
+    "payment": {
+      "paymentMethods": {
+        "bank": "🏦 Banco",
+        "upi": "💳 UPI"
+      },
+      "fields": {
+        "fullName": "Nome completo",
+        "contactNumber": "Seu número de contato",
+        "bankName": "Nome do banco",
+        "accountNumber": "Número da conta",
+        "confirmAccountNumber": "Confirmar número da conta",
+        "ifscCode": "Código IFSC",
+        "upiId": "Seu ID UPI"
+      },
+      "errors": {
+        "fullName": "Nome completo é obrigatório.",
+        "contactNumber": "Número de contato é obrigatório.",
+        "bankName": "Nome do banco é obrigatório.",
+        "accountNumber": "Número da conta é obrigatório.",
+        "accountNumberMismatch": "Os números da conta devem corresponder.",
+        "ifscCode": "Código IFSC é obrigatório.",
+        "upiId": "ID UPI é obrigatório.",
+        "amount": {
+          "required": "Valor é obrigatório.",
+          "minimum": "Valor mínimo para resgate é 100 HUBCOINS.",
+          "insufficientBalance": "Saldo insuficiente. Você só tem {{balance}} HUBCOINS."
+        }
+      },
+      "availableBalance": "Saldo disponível:",
+      "minimumRedemption": "Mínimo 100 HUBCOINS",
+      "steps": {
+        "next": "Próximo",
+        "redeem": "Resgatar",
+        "okay": "OK"
+      },
+      "confirmationMessage": "Seu dinheiro será refletido em sua conta em breve"
+    },
+    "profile": {
+      "title": "Perfil",
+      "subtitle": "Confira as informações da sua conta aqui!",
+      "fields": {
+        "fullName": {
+          "label": "Nome completo"
+        },
+        "phoneNumber": {
+          "label": "Número de telefone"
+        },
+        "emailAddress": {
+          "label": "Endereço de e-mail"
+        },
+        "dateOfBirth": {
+          "label": "Data de nascimento"
+        }
+      },
+      "buttons": {
+        "edit": "Editar",
+        "cancel": "Cancelar",
+        "saveChanges": "Salvar alterações",
+        "logout": "Sair"
+      },
+      "displayPicture": "Foto de perfil",
+      "alerts": {
+        "missingUserId": "ID de usuário ausente",
+        "profileUpdateSuccess": "Perfil atualizado com sucesso!",
+        "profileUpdateError": "Erro ao atualizar o perfil. Tente novamente."
+      }
+    },
+    "rewards": {
+      "coinsEarned": {
+        "title": "Moedas ganhas",
+        "buttonText": "Resgatar pontos"
+      },
+      "form": {
+        "title": "Preencher detalhes",
+        "labels": {
+          "name": "Nome",
+          "date": "Data",
+          "hubscore": "Hubscore"
+        },
+        "errors": {
+          "nameRequired": "Nome é obrigatório.",
+          "dateRequired": "Data é obrigatória.",
+          "hubscoreRequired": "Hubscore é obrigatório."
+        },
+        "submitButton": "Enviar"
+      },
+      "spinner": {
+        "title": "Gire a roda",
+        "meta": "Gire a roda para ganhar Hubscore!",
+        "prizes": {
+          "prize1": "Prêmio 1",
+          "prize2": "Prêmio 2",
+          "prize3": "Prêmio 3",
+          "prize4": "Prêmio 4",
+          "prize5": "Prêmio 5",
+          "prize6": "Prêmio 6",
+          "prize7": "Prêmio 7",
+          "prize8": "Prêmio 8"
+        },
+        "buttons": {
+          "spin": "Girar"
+        },
+        "buttonText": "Toque para girar",
+        "spinButton": "Girar",
+        "heading": "Gire a roda de recompensas!",
+        "description": "Gire a roda para obter recompensas emocionantes e descubra ofertas exclusivas só para você!",
+        "reward": {
+          "title": "Suas recompensas estão esperando!",
+          "hubscoreLabel": "Hubscore",
+          "hubcore": "Hubcore",
+          "claimButton": "Reivindicar"
+        },
+        "nextRewards": {
+          "title": "Parabéns!",
+          "description": "Desbloqueie presentes extras a cada pesquisa que você concluir!",
+          "day": "Dia",
+          "confirmButton": "OK"
+        }
+      }
+    },
+    "survey": {
+      "loading": "Carregando pesquisas...",
+      "noSurveys": "Nenhuma pesquisa disponível.",
+      "status": {
+        "active": "Ativo"
+      },
+      "time": {
+        "minutes": "min"
+      },
+      "coins": {
+        "label": "HUBCOINS",
+        "received": "HUBCOINS RECEBIDOS"
+      },
+      "actions": {
+        "takeSurvey": "FAZER PESQUISA",
+        "completed": "Concluído"
+      }
+    },
+    "yoursurvey": {
+      "tabs": {
+        "liveSurvey": "Pesquisa ao vivo",
+        "yourSurvey": "Sua pesquisa"
+      },
+      "hubscore": {
+        "count": "Hubscore",
+        "redeemMessage": "Colete mais 190 para resgatar $ 200"
+      },
+      "earningSection": {
+        "title": "Mais sobre você",
+        "earnLabel": "GANHE HUBCOINS"
+      },
+      "surveyCard": {
+        "status": "Lorem",
+        "question": "Você está pronto para esta pesquisa?",
+        "timeLabel": "min",
+        "coinsLabel": "HUBCOINS",
+        "actionButton": "FAZER PESQUISA"
+      }
+    }
+  }
+  
