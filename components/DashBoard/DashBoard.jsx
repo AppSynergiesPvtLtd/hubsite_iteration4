@@ -169,16 +169,16 @@ const DashboardLanding = () => {
                   rel="noopener noreferrer"
                   className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
                 >
-                  TAKE SURVEY
+                  {t('index.TakeSurvey')}
                 </a>
               ) : (
                 <div
                   className="mt-4 border text-gray-400 border-gray-300 w-full py-2 text-center cursor-not-allowed bg-gray-100"
                 >
-                  TAKE SURVEY
+                  {t('index.TakeSurvey')}
                 </div>
-              </a>
-              {/* )} */}
+              
+              )}
             </div>
           ))
         ) : (
