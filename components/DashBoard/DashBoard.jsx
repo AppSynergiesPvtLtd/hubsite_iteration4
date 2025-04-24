@@ -165,7 +165,7 @@ const DashboardLanding = () => {
               {survey.link && survey.link !== "" ? (
                 <a
                   href={`${survey.link}?userId=${user.id}&surveyId=${survey.id}`}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
                 >
@@ -173,7 +173,8 @@ const DashboardLanding = () => {
                 </a>
               ) : (
                 <div
-                  className="mt-4 border text-gray-400 border-gray-300 w-full py-2 text-center cursor-not-allowed bg-gray-100"
+                    className="mt-4 border text-gray-400 border-gray-300 w-full py-2 text-center cursor-not-allowed bg-gray-100"
+                    
                 >
                   {t('index.TakeSurvey')}
                 </div>
