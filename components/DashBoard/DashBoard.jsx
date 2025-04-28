@@ -164,7 +164,7 @@ const DashboardLanding = () => {
               </div>
               {survey.link && survey.link !== "" ? (
                 <a
-                  href={`${survey.link}?userId=${user.id}&surveyId=${survey.id}`}
+                  href={`${survey.link}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
