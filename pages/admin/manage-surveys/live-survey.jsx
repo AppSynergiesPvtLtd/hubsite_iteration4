@@ -121,8 +121,7 @@ const LiveSurvey = () => {
   }
 
   const handleEditRedirect = (id) => {
-    console.log(`Redirecting to edit live survey ${id}`)
-    window.location.href = `/admin/manage-surveys/live-survey-questions/${id}`
+    router.push(`/admin/manage-surveys/live-survey-questions/${id}`)
   }
 
   const handlePageChange = (newPage) => {
