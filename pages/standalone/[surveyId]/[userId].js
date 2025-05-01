@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -17,7 +15,6 @@ const SurveySuccess = () => {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    // Wait until router is ready and params exist
     if (!router.isReady || !surveyId || !userId || loaded) return
 
     const success = async () => {
@@ -30,11 +27,11 @@ const SurveySuccess = () => {
             },
           }
         )
-        console.log('Completion response:', apiResp)
+        console.log('Success API response:', apiResp.data)
         setLoaded(true)
       } catch (err) {
-        console.error('API call error:', err)
-        setLoaded(true) // Even on error, prevent re-call
+        console.error('API call failed:', err)
+        setLoaded(true)
       }
     }
 
