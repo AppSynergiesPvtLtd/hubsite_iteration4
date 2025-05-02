@@ -243,7 +243,7 @@ export default function UserLogin() {
             <div className='w-[80%] relative'>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none'
+                className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-0 focus:outline-none pr-10'
                 placeholder={t('login.passwordPlaceholder')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
