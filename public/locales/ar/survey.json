@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "جارٍ التحميل...",
-      "textAnswerPlaceholder": "أدخل إجابتك هنا",
-      "answerRequired": "يرجى تقديم إجابة.",
-      "surveyCompletedTitle": "اكتمل الاستطلاع!",
-      "surveyCompletedMessage": "تم استلام {{surveyId}} من Hubcoins بنجاح.",
-      "goToDashboard": "الذهاب إلى لوحة التحكم",
-      "question": "سؤال",
-      "previous": "← السابق",
-      "next": "التالي ←",
-      "submit": "إرسال"
-    }
+  "index": {
+    "loading": "جار التحميل...",
+    "textAnswerPlaceholder": "أدخل ردك هنا",
+    "answerRequired": "يرجى تقديم إجابة.",
+    "surveyCompletedTitle": "اكتمل الاستبيان!",
+    "surveyCompletedMessage": "تم استلام {{surveyId}} Hubcoins بنجاح.",
+    "goToDashboard": "اذهب إلى لوحة التحكم",
+    "question": "سؤال",
+    "previous": "← السابق",
+    "next": "التالي →",
+    "submit": "إرسال"
+  },
+  "slug": {
+    "placeholderResponse": "أدخل ردك هنا",
+    "errorFetchSavedResponse": "خطأ في جلب الرد المحفوظ للسؤال {{questionId}}:",
+    "errorFetchSurvey": "خطأ في جلب أسئلة الاستبيان أو الردود:",
+    "errorSaveResponse": "خطأ في حفظ الرد:",
+    "errorValidation": "يرجى تقديم إجابة.",
+    "errorCompleteSurvey": "خطأ في إكمال الاستبيان:",
+    "loading": "جار التحميل...",
+    "surveyCompletedTitle": "اكتمل الاستبيان!",
+    "surveyCompletedDescription": "لقد أكملت الاستبيان بنجاح.",
+    "goToDashboard": "اذهب إلى لوحة التحكم",
+    "questionTitle": "السؤال {{currentStep}}",
+    "previousButton": "← السابق",
+    "submitButton": "إرسال",
+    "nextButton": "التالي →"
   }
+}

@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Cargando...",
-      "textAnswerPlaceholder": "Introduce tu respuesta aquí",
-      "answerRequired": "Por favor, proporciona una respuesta.",
-      "surveyCompletedTitle": "¡Encuesta completada!",
-      "surveyCompletedMessage": "Se recibieron {{surveyId}} Hubcoins con éxito.",
-      "goToDashboard": "Ir al panel de control",
-      "question": "Pregunta",
-      "previous": "← Anterior",
-      "next": "Siguiente →",
-      "submit": "Enviar"
-    }
+  "index": {
+    "loading": "Cargando...",
+    "textAnswerPlaceholder": "Introduce tu respuesta aquí",
+    "answerRequired": "Por favor, proporciona una respuesta.",
+    "surveyCompletedTitle": "¡Encuesta completada!",
+    "surveyCompletedMessage": "{{surveyId}} Hubcoins recibidos correctamente.",
+    "goToDashboard": "Ir al Panel",
+    "question": "Pregunta",
+    "previous": "← Anterior",
+    "next": "Siguiente →",
+    "submit": "Enviar"
+  },
+  "slug": {
+    "placeholderResponse": "Introduce tu respuesta aquí",
+    "errorFetchSavedResponse": "Error al obtener la respuesta guardada para la pregunta {{questionId}}:",
+    "errorFetchSurvey": "Error al obtener las preguntas o respuestas de la encuesta:",
+    "errorSaveResponse": "Error al guardar la respuesta:",
+    "errorValidation": "Por favor, proporciona una respuesta.",
+    "errorCompleteSurvey": "Error al completar la encuesta:",
+    "loading": "Cargando...",
+    "surveyCompletedTitle": "¡Encuesta completada!",
+    "surveyCompletedDescription": "Has completado la encuesta correctamente.",
+    "goToDashboard": "Ir al Panel",
+    "questionTitle": "Pregunta {{currentStep}}",
+    "previousButton": "← Anterior",
+    "submitButton": "Enviar",
+    "nextButton": "Siguiente →"
   }
+}

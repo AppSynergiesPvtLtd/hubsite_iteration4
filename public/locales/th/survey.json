@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "กำลังโหลด...",
-      "textAnswerPlaceholder": "ป้อนคำตอบของคุณที่นี่",
-      "answerRequired": "โปรดให้คำตอบ",
-      "surveyCompletedTitle": "ทำแบบสำรวจเสร็จสิ้น!",
-      "surveyCompletedMessage": "ได้รับ {{surveyId}} Hubcoins สำเร็จแล้ว",
-      "goToDashboard": "ไปที่แดชบอร์ด",
-      "question": "คำถาม",
-      "previous": "← ก่อนหน้า",
-      "next": "ถัดไป →",
-      "submit": "ส่ง"
-    }
+  "index": {
+    "loading": "กำลังโหลด...",
+    "textAnswerPlaceholder": "ป้อนคำตอบของคุณที่นี่",
+    "answerRequired": "โปรดระบุคำตอบ",
+    "surveyCompletedTitle": "ทำแบบสำรวจเสร็จแล้ว!",
+    "surveyCompletedMessage": "ได้รับ {{surveyId}} Hubcoins เรียบร้อยแล้ว",
+    "goToDashboard": "ไปที่แดชบอร์ด",
+    "question": "คำถาม",
+    "previous": "← ก่อนหน้า",
+    "next": "ถัดไป →",
+    "submit": "ส่ง"
+  },
+  "slug": {
+    "placeholderResponse": "ป้อนคำตอบของคุณที่นี่",
+    "errorFetchSavedResponse": "เกิดข้อผิดพลาดในการดึงคำตอบที่บันทึกไว้สำหรับคำถาม {{questionId}}:",
+    "errorFetchSurvey": "เกิดข้อผิดพลาดในการดึงคำถามหรือคำตอบของแบบสำรวจ:",
+    "errorSaveResponse": "เกิดข้อผิดพลาดในการบันทึกคำตอบ:",
+    "errorValidation": "โปรดระบุคำตอบ",
+    "errorCompleteSurvey": "เกิดข้อผิดพลาดในการทำแบบสำรวจให้เสร็จสิ้น:",
+    "loading": "กำลังโหลด...",
+    "surveyCompletedTitle": "ทำแบบสำรวจเสร็จแล้ว!",
+    "surveyCompletedDescription": "คุณทำแบบสำรวจเสร็จเรียบร้อยแล้ว",
+    "goToDashboard": "ไปที่แดชบอร์ด",
+    "questionTitle": "คำถาม {{currentStep}}",
+    "previousButton": "← ก่อนหน้า",
+    "submitButton": "ส่ง",
+    "nextButton": "ถัดไป →"
   }
+}

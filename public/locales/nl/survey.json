@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Laden...",
-      "textAnswerPlaceholder": "Voer hier uw antwoord in",
-      "answerRequired": "Geef alstublieft een antwoord.",
-      "surveyCompletedTitle": "Enquête voltooid!",
-      "surveyCompletedMessage": "{{surveyId}} Hubcoins succesvol ontvangen.",
-      "goToDashboard": "Ga naar het dashboard",
-      "question": "Vraag",
-      "previous": "← Vorige",
-      "next": "Volgende →",
-      "submit": "Verzenden"
-    }
+  "index": {
+    "loading": "Laden...",
+    "textAnswerPlaceholder": "Voer hier uw antwoord in",
+    "answerRequired": "Geef alstublieft een antwoord.",
+    "surveyCompletedTitle": "Enquête voltooid!",
+    "surveyCompletedMessage": "{{surveyId}} Hubcoins succesvol ontvangen.",
+    "goToDashboard": "Ga naar Dashboard",
+    "question": "Vraag",
+    "previous": "← Vorige",
+    "next": "Volgende →",
+    "submit": "Verzenden"
+  },
+  "slug": {
+    "placeholderResponse": "Voer hier uw antwoord in",
+    "errorFetchSavedResponse": "Fout bij het ophalen van opgeslagen antwoord voor vraag {{questionId}}:",
+    "errorFetchSurvey": "Fout bij het ophalen van enquêtevragen of antwoorden:",
+    "errorSaveResponse": "Fout bij het opslaan van antwoord:",
+    "errorValidation": "Geef alstublieft een antwoord.",
+    "errorCompleteSurvey": "Fout bij het voltooien van de enquête:",
+    "loading": "Laden...",
+    "surveyCompletedTitle": "Enquête voltooid!",
+    "surveyCompletedDescription": "U heeft de enquête succesvol voltooid.",
+    "goToDashboard": "Ga naar Dashboard",
+    "questionTitle": "Vraag {{currentStep}}",
+    "previousButton": "← Vorige",
+    "submitButton": "Verzenden",
+    "nextButton": "Volgende →"
   }
+}

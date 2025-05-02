@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Loading...",
-      "textAnswerPlaceholder": "Enter your response here",
-      "answerRequired": "Please provide an answer.",
-      "surveyCompletedTitle": "Completed Survey!",
-      "surveyCompletedMessage": "Successfully Received {{surveyId}} Hubcoins.",
-      "goToDashboard": "Go to Dashboard",
-      "question": "Question",
-      "previous": "← Previous",
-      "next": "Next →",
-      "submit": "Submit"
-    }
+  "index": {
+    "loading": "Loading...",
+    "textAnswerPlaceholder": "Enter your response here",
+    "answerRequired": "Please provide an answer.",
+    "surveyCompletedTitle": "Completed Survey!",
+    "surveyCompletedMessage": "Successfully Received {{surveyId}} Hubcoins.",
+    "goToDashboard": "Go to Dashboard",
+    "question": "Question",
+    "previous": "← Previous",
+    "next": "Next →",
+    "submit": "Submit"
+  },
+  "slug": {
+    "placeholderResponse": "Enter your response here",
+    "errorFetchSavedResponse": "Error fetching saved response for question {{questionId}}:",
+    "errorFetchSurvey": "Error fetching survey questions or responses:",
+    "errorSaveResponse": "Error saving response:",
+    "errorValidation": "Please provide an answer.",
+    "errorCompleteSurvey": "Error completing survey:",
+    "loading": "Loading...",
+    "surveyCompletedTitle": "Survey Completed!",
+    "surveyCompletedDescription": "You have successfully completed the survey.",
+    "goToDashboard": "Go to Dashboard",
+    "questionTitle": "Question {{currentStep}}",
+    "previousButton": "← Previous",
+    "submitButton": "Submit",
+    "nextButton": "Next →"
   }
+}

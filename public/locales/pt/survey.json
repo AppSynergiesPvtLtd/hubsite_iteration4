@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Carregando...",
-      "textAnswerPlaceholder": "Insira sua resposta aqui",
-      "answerRequired": "Por favor, forneça uma resposta.",
-      "surveyCompletedTitle": "Pesquisa concluída!",
-      "surveyCompletedMessage": "{{surveyId}} Hubcoins recebidos com sucesso.",
-      "goToDashboard": "Ir para o painel de controle",
-      "question": "Pergunta",
-      "previous": "← Anterior",
-      "next": "Próximo →",
-      "submit": "Enviar"
-    }
+  "index": {
+    "loading": "Carregando...",
+    "textAnswerPlaceholder": "Digite sua resposta aqui",
+    "answerRequired": "Por favor, forneça uma resposta.",
+    "surveyCompletedTitle": "Pesquisa concluída!",
+    "surveyCompletedMessage": "{{surveyId}} Hubcoins recebidos com sucesso.",
+    "goToDashboard": "Ir para o Painel",
+    "question": "Pergunta",
+    "previous": "← Anterior",
+    "next": "Próximo →",
+    "submit": "Enviar"
+  },
+  "slug": {
+    "placeholderResponse": "Digite sua resposta aqui",
+    "errorFetchSavedResponse": "Erro ao buscar resposta salva para a pergunta {{questionId}}:",
+    "errorFetchSurvey": "Erro ao buscar perguntas ou respostas da pesquisa:",
+    "errorSaveResponse": "Erro ao salvar resposta:",
+    "errorValidation": "Por favor, forneça uma resposta.",
+    "errorCompleteSurvey": "Erro ao concluir a pesquisa:",
+    "loading": "Carregando...",
+    "surveyCompletedTitle": "Pesquisa concluída!",
+    "surveyCompletedDescription": "Você concluiu a pesquisa com sucesso.",
+    "goToDashboard": "Ir para o Painel",
+    "questionTitle": "Pergunta {{currentStep}}",
+    "previousButton": "← Anterior",
+    "submitButton": "Enviar",
+    "nextButton": "Próximo →"
   }
+}

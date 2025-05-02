@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Chargement...",
-      "textAnswerPlaceholder": "Entrez votre réponse ici",
-      "answerRequired": "Veuillez fournir une réponse.",
-      "surveyCompletedTitle": "Sondage terminé !",
-      "surveyCompletedMessage": "{{surveyId}} Hubcoins reçus avec succès.",
-      "goToDashboard": "Aller au tableau de bord",
-      "question": "Question",
-      "previous": "← Précédent",
-      "next": "Suivant →",
-      "submit": "Soumettre"
-    }
+  "index": {
+    "loading": "Chargement...",
+    "textAnswerPlaceholder": "Entrez votre réponse ici",
+    "answerRequired": "Veuillez fournir une réponse.",
+    "surveyCompletedTitle": "Sondage terminé !",
+    "surveyCompletedMessage": "{{surveyId}} Hubcoins reçus avec succès.",
+    "goToDashboard": "Aller au tableau de bord",
+    "question": "Question",
+    "previous": "← Précédent",
+    "next": "Suivant →",
+    "submit": "Soumettre"
+  },
+  "slug": {
+    "placeholderResponse": "Entrez votre réponse ici",
+    "errorFetchSavedResponse": "Erreur lors de la récupération de la réponse enregistrée pour la question {{questionId}} :",
+    "errorFetchSurvey": "Erreur lors de la récupération des questions ou des réponses du sondage :",
+    "errorSaveResponse": "Erreur lors de l'enregistrement de la réponse :",
+    "errorValidation": "Veuillez fournir une réponse.",
+    "errorCompleteSurvey": "Erreur lors de la finalisation du sondage :",
+    "loading": "Chargement...",
+    "surveyCompletedTitle": "Sondage terminé !",
+    "surveyCompletedDescription": "Vous avez terminé le sondage avec succès.",
+    "goToDashboard": "Aller au tableau de bord",
+    "questionTitle": "Question {{currentStep}}",
+    "previousButton": "← Précédent",
+    "submitButton": "Soumettre",
+    "nextButton": "Suivant →"
   }
+}

@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Lädt...",
-      "textAnswerPlaceholder": "Geben Sie hier Ihre Antwort ein",
-      "answerRequired": "Bitte geben Sie eine Antwort ein.",
-      "surveyCompletedTitle": "Umfrage abgeschlossen!",
-      "surveyCompletedMessage": "{{surveyId}} Hubcoins erfolgreich erhalten.",
-      "goToDashboard": "Zum Dashboard gehen",
-      "question": "Frage",
-      "previous": "← Zurück",
-      "next": "Weiter →",
-      "submit": "Absenden"
-    }
+  "index": {
+    "loading": "Wird geladen...",
+    "textAnswerPlaceholder": "Geben Sie hier Ihre Antwort ein",
+    "answerRequired": "Bitte geben Sie eine Antwort an.",
+    "surveyCompletedTitle": "Umfrage abgeschlossen!",
+    "surveyCompletedMessage": "{{surveyId}} Hubcoins erfolgreich erhalten.",
+    "goToDashboard": "Zum Dashboard gehen",
+    "question": "Frage",
+    "previous": "← Zurück",
+    "next": "Weiter →",
+    "submit": "Senden"
+  },
+  "slug": {
+    "placeholderResponse": "Geben Sie hier Ihre Antwort ein",
+    "errorFetchSavedResponse": "Fehler beim Abrufen der gespeicherten Antwort für Frage {{questionId}}:",
+    "errorFetchSurvey": "Fehler beim Abrufen der Umfragefragen oder Antworten:",
+    "errorSaveResponse": "Fehler beim Speichern der Antwort:",
+    "errorValidation": "Bitte geben Sie eine Antwort an.",
+    "errorCompleteSurvey": "Fehler beim Abschließen der Umfrage:",
+    "loading": "Wird geladen...",
+    "surveyCompletedTitle": "Umfrage abgeschlossen!",
+    "surveyCompletedDescription": "Sie haben die Umfrage erfolgreich abgeschlossen.",
+    "goToDashboard": "Zum Dashboard gehen",
+    "questionTitle": "Frage {{currentStep}}",
+    "previousButton": "← Zurück",
+    "submitButton": "Senden",
+    "nextButton": "Weiter →"
   }
+}

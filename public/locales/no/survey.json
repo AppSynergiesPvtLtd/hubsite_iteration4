@@ -1,14 +1,30 @@
 {
-    "index": {
-      "loading": "Laster...",
-      "textAnswerPlaceholder": "Skriv inn svaret ditt her",
-      "answerRequired": "Vennligst oppgi et svar.",
-      "surveyCompletedTitle": "Undersøkelse fullført!",
-      "surveyCompletedMessage": "{{surveyId}} Hubcoins mottatt.",
-      "goToDashboard": "Gå til dashbordet",
-      "question": "Spørsmål",
-      "previous": "← Forrige",
-      "next": "Neste →",
-      "submit": "Send inn"
-    }
+  "index": {
+    "loading": "Laster...",
+    "textAnswerPlaceholder": "Skriv inn svaret ditt her",
+    "answerRequired": "Vennligst oppgi et svar.",
+    "surveyCompletedTitle": "Undersøkelse fullført!",
+    "surveyCompletedMessage": "Mottok {{surveyId}} Hubcoins.",
+    "goToDashboard": "Gå til dashbord",
+    "question": "Spørsmål",
+    "previous": "← Forrige",
+    "next": "Neste →",
+    "submit": "Send inn"
+  },
+  "slug": {
+    "placeholderResponse": "Skriv inn svaret ditt her",
+    "errorFetchSavedResponse": "Feil ved henting av lagret svar for spørsmål {{questionId}}:",
+    "errorFetchSurvey": "Feil ved henting av undersøkelsesspørsmål eller svar:",
+    "errorSaveResponse": "Feil ved lagring av svar:",
+    "errorValidation": "Vennligst oppgi et svar.",
+    "errorCompleteSurvey": "Feil ved fullføring av undersøkelsen:",
+    "loading": "Laster...",
+    "surveyCompletedTitle": "Undersøkelse fullført!",
+    "surveyCompletedDescription": "Du har fullført undersøkelsen.",
+    "goToDashboard": "Gå til dashbord",
+    "questionTitle": "Spørsmål {{currentStep}}",
+    "previousButton": "← Forrige",
+    "submitButton": "Send inn",
+    "nextButton": "Neste →"
   }
+}
