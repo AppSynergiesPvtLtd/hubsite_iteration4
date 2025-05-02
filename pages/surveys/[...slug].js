@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from 'next-i18next'; // Import useTranslation
 
 import StepTemplate from "@/components/Onboarding/Questions/StepTemplate"; // Assuming StepTemplate is also adapted or doesn't need translation directly here
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -328,3 +329,11 @@ const QuestionsSurvey = () => {
 };
 
 export default QuestionsSurvey; // Default export remains the same
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'survey'])),
+    },
+  }
+}
