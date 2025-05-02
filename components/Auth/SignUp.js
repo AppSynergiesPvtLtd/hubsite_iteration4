@@ -1,13 +1,13 @@
-"use client";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { PiEye } from "react-icons/pi";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { setUser } from "@/store/userSlice";
+'use client'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { PiEye } from 'react-icons/pi'
+import { FaRegEyeSlash } from 'react-icons/fa'
+import { setUser } from '@/store/userSlice'
 import { useTranslation } from 'react-i18next'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -202,7 +202,7 @@ export default function SignUp() {
     if (status === 'authenticated' && session?.idToken && !googleTriggered) {
       setGoogleTriggered(true)
       setLoading(true)
-      ;;(async () => {
+      ;(async () => {
         try {
           const response = await axios.post(
             `${API_BASE_URL}/auth/google`,
@@ -264,11 +264,19 @@ export default function SignUp() {
             <h2 className='text-2xl font-semibold text-center mb-4'>
               {t('signup.signUp')}
             </h2>
-            <div className='flex flex-col md:flex-row gap-4'>
-              <div className='flex-1'>
-                <label htmlFor='firstName' className='block font-medium'>
-                  {t('signup.firstName')}
-                </label>
+            <div className='grid grid-cols-2 gap-4 gap-y-1'>
+              {/* Label: First Name */}
+              <label htmlFor='firstName' className='font-medium'>
+                {t('signup.firstName')}
+              </label>
+
+              {/* Label: Last Name */}
+              <label htmlFor='lastName' className='font-medium'>
+                {t('signup.lastName')}
+              </label>
+
+              {/* Input: First Name */}
+              <div>
                 <input
                   type='text'
                   id='firstName'
@@ -285,10 +293,9 @@ export default function SignUp() {
                   </p>
                 )}
               </div>
-              <div className='flex-1'>
-                <label htmlFor='lastName' className='block font-medium'>
-                  {t('signup.lastName')}
-                </label>
+
+              {/* Input: Last Name */}
+              <div>
                 <input
                   type='text'
                   id='lastName'
@@ -304,6 +311,7 @@ export default function SignUp() {
                 )}
               </div>
             </div>
+
             <div>
               <label htmlFor='email' className='block font-medium'>
                 {t('signup.email')}
