@@ -27,8 +27,9 @@ const QuestionsSurvey = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log('New change');
+  console.log('New change v2');
   
+
 
   // --- Effects ---
   useEffect(() => {
@@ -305,12 +306,24 @@ const QuestionsSurvey = () => {
   );
 };
 
-export async function getServerSideProps({ locale, params }) {
-  const { slug } = params; // Access the slug from the route parameters
+export async function getStaticPaths() {
+  // This function tells Next.js which dynamic paths to pre-render
+  return {
+    // Since the survey IDs are fetched at runtime based on the authenticated user,
+    // we'll use fallback: 'blocking' to render pages on-demand if they aren't pre-rendered
+    paths: [],
+    fallback: 'blocking', // or 'true' if you want to show a loading state
+  };
+}
+
+export async function getStaticProps({ locale, params }) {
+  // Extract the first element of the slug array
+  // When using [...slug], params.slug will be an array
+  const slug = params.slug[0];
 
   return {
     props: {
-      surveyId: slug, // Pass the surveyId as a prop
+      surveyId: slug,
       ...(await serverSideTranslations(locale, ['common', 'survey'])),
     },
   };
