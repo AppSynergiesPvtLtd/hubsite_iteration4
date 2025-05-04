@@ -201,7 +201,8 @@
     "passwordsNotMatch": "As senhas não correspondem",
     "agreeTermsRequired": "Você deve concordar com os termos e condições",
     "enterPassword": "Digite a senha",
-    "confirmPasswordPlaceholder": "Confirmar senha"
+    "confirmPasswordPlaceholder": "Confirmar senha",
+    "and": "e"
   },
   "forgotPassword": {
     "forgotPassword": "Esqueceu sua senha",

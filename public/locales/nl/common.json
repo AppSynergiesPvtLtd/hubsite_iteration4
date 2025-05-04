@@ -201,7 +201,8 @@
     "passwordsNotMatch": "Wachtwoorden komen niet overeen",
     "agreeTermsRequired": "U moet akkoord gaan met de algemene voorwaarden",
     "enterPassword": "Voer wachtwoord in",
-    "confirmPasswordPlaceholder": "Bevestig wachtwoord"
+    "confirmPasswordPlaceholder": "Bevestig wachtwoord",
+    "and": "en"
   },
   "forgotPassword": {
     "forgotPassword": "Wachtwoord vergeten",

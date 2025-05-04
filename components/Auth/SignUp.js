@@ -419,7 +419,7 @@ export default function SignUp() {
                 <a href='/termsofuse' className='text-[#0057A1]'>
                   {t('signup.terms')}
                 </a>
-                &nbsp;and&nbsp;
+                &nbsp;{t('signup.and')}&nbsp;
                 <a href='/privacypolicy' className='text-[#0057A1]'>
                   {t('signup.privacyPolicy')}
                 </a>

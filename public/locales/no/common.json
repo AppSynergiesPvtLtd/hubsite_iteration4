@@ -201,7 +201,8 @@
     "passwordsNotMatch": "Passordene stemmer ikke overens",
     "agreeTermsRequired": "Du må godta vilkårene og betingelsene",
     "enterPassword": "Skriv inn passord",
-    "confirmPasswordPlaceholder": "Bekreft passord"
+    "confirmPasswordPlaceholder": "Bekreft passord",
+    "and": "og"
   },
   "forgotPassword": {
     "forgotPassword": "Glemt passord",

@@ -201,7 +201,8 @@
     "passwordsNotMatch": "รหัสผ่านไม่ตรงกัน",
     "agreeTermsRequired": "คุณต้องยอมรับข้อกำหนดและเงื่อนไข",
     "enterPassword": "ป้อนรหัสผ่าน",
-    "confirmPasswordPlaceholder": "ยืนยันรหัสผ่าน"
+    "confirmPasswordPlaceholder": "ยืนยันรหัสผ่าน",
+    "and": "และ"
   },
   "forgotPassword": {
     "forgotPassword": "ลืมรหัสผ่าน",

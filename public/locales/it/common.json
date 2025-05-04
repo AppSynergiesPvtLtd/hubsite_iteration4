@@ -201,7 +201,8 @@
     "passwordsNotMatch": "Le password non corrispondono",
     "agreeTermsRequired": "Devi accettare i termini e le condizioni",
     "enterPassword": "Inserisci la password",
-    "confirmPasswordPlaceholder": "Conferma password"
+    "confirmPasswordPlaceholder": "Conferma password",
+    "and": "e"
   },
   "forgotPassword": {
     "forgotPassword": "Password dimenticata",

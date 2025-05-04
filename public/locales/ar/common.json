@@ -201,7 +201,8 @@
     "passwordsNotMatch": "كلمات المرور غير متطابقة",
     "agreeTermsRequired": "يجب أن توافق على الشروط والأحكام",
     "enterPassword": "أدخل كلمة المرور",
-    "confirmPasswordPlaceholder": "تأكيد كلمة المرور"
+    "confirmPasswordPlaceholder": "تأكيد كلمة المرور",
+    "and": "و"
   },
   "forgotPassword": {
     "forgotPassword": "هل نسيت كلمة المرور",

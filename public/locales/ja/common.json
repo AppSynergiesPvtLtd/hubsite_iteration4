@@ -201,7 +201,8 @@
     "passwordsNotMatch": "パスワードが一致しません",
     "agreeTermsRequired": "利用規約に同意する必要があります",
     "enterPassword": "パスワードを入力",
-    "confirmPasswordPlaceholder": "パスワードを確認"
+    "confirmPasswordPlaceholder": "パスワードを確認",
+    "and": "そして"
   },
   "forgotPassword": {
     "forgotPassword": "パスワードをお忘れですか",

@@ -201,7 +201,8 @@
     "passwordsNotMatch": "Passwords do not match",
     "agreeTermsRequired": "You must agree to the terms and conditions",
     "enterPassword": "Enter Password",
-    "confirmPasswordPlaceholder": "Confirm Password"
+    "confirmPasswordPlaceholder": "Confirm Password",
+    "and": "and"
   },
   "forgotPassword": {
     "forgotPassword": "Forgot Password",
