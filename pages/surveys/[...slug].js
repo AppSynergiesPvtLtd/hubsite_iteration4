@@ -27,7 +27,7 @@ const QuestionsSurvey = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log('New change v2');
+  console.log('New change v3');
   
 
 
@@ -312,7 +312,7 @@ export async function getStaticPaths() {
     // Since the survey IDs are fetched at runtime based on the authenticated user,
     // we'll use fallback: 'blocking' to render pages on-demand if they aren't pre-rendered
     paths: [],
-    fallback: 'blocking', // or 'true' if you want to show a loading state
+    fallback: true, // or 'true' if you want to show a loading state
   };
 }
 
