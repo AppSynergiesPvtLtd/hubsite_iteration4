@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import StepTemplate from "@/components/Onboarding/Questions/StepTemplate";
@@ -27,7 +27,7 @@ const QuestionsSurvey = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log('New change v3');
+  console.log('New change v4');
   
 
 
@@ -312,7 +312,7 @@ export async function getStaticPaths() {
     // Since the survey IDs are fetched at runtime based on the authenticated user,
     // we'll use fallback: 'blocking' to render pages on-demand if they aren't pre-rendered
     paths: [],
-    fallback: true, // or 'true' if you want to show a loading state
+    fallback: 'blocking', // or 'true' if you want to show a loading state
   };
 }
 
