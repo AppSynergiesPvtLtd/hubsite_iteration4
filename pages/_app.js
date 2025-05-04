@@ -1,34 +1,34 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import "@/styles/globals.css";
-import { Provider as ReduxProvider } from "react-redux";
-import { SessionProvider } from "next-auth/react";
-import { useRouter } from "next/router";
-import store from "@/store";
-import AppInitializer from "@/layouts/AppInitializer";
+'use client'
+import React, { useState, useEffect } from 'react'
+import '@/styles/globals.css'
+import { Provider as ReduxProvider } from 'react-redux'
+import { SessionProvider } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import store from '@/store'
+import AppInitializer from '@/layouts/AppInitializer'
 import { appWithTranslation } from 'next-i18next'
 import nextI18NextConfig from '../next-i18next.config.js'
 
 // Supported languages
-const SUPPORTED_LANGUAGES = nextI18NextConfig.locales; // Add your supported languages
-const DEFAULT_LANGUAGE = nextI18NextConfig.defaultLocale; // Add your default language
+const SUPPORTED_LANGUAGES = nextI18NextConfig.locales // Add your supported languages
+const DEFAULT_LANGUAGE = nextI18NextConfig.defaultLocale // Add your default language
 
 function detectPreferredLanguage() {
   // First, check localStorage
-  const storedLanguage = localStorage.getItem('preferredLanguage');
+  const storedLanguage = localStorage.getItem('preferredLanguage')
   if (storedLanguage && SUPPORTED_LANGUAGES.includes(storedLanguage)) {
-    return storedLanguage;
+    return storedLanguage
   }
 
   // If not in localStorage, use browser language
-  const browserLanguage = navigator.language.split('-')[0];
-  
+  const browserLanguage = navigator.language.split('-')[0]
+
   if (SUPPORTED_LANGUAGES.includes(browserLanguage)) {
-    return browserLanguage;
+    return browserLanguage
   }
 
   // Default to English if no match
-  return DEFAULT_LANGUAGE;
+  return DEFAULT_LANGUAGE
 }
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -97,7 +97,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
 export default appWithTranslation(MyApp, {
   i18n: nextI18NextConfig,
-  localePath: './public/locales',
+  localePath:
+    typeof window === 'undefined'
+      ? require('path').resolve('./public/locales')
+      : '/public/locales',
   defaultNS: 'common',
   ns: ['common'],
   fallbackLng: 'en',
