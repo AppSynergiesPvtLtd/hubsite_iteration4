@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { useTranslation } from 'next-i18next'
 import { CircularProgress } from "./CircularProgress"
 
-const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Surveys = () => {
@@ -14,12 +14,15 @@ const Surveys = () => {
   const router = useRouter()
   const [surveys, setSurveys] = useState([])
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const user = useSelector((state) => state.user?.user)
-  
+
   useEffect(() => {
     const fetchSurveys = async () => {
+      setLoading(true)
       try {
-        const response = await axios.get(
+         const response = await axios.get(
           `${API_BASE_URL}/profile-survey/progress/${user.id}`,
           {
             params: {
@@ -34,27 +37,61 @@ const Surveys = () => {
             },
           }
         )
-        console.log("Res", response)
         const surveysData = response.data.data || []
-        // Filter out surveys where totalQuestions is not greater than 0
         const filteredSurveys = surveysData.filter(
           (survey) => survey.progress?.totalQuestions > 0
         )
         setSurveys(filteredSurveys)
+        setTotalPages(response.data.totalPages || 1)
       } catch (error) {
         console.error("Error fetching surveys:", error)
       } finally {
         setLoading(false)
       }
     }
-  
+
     if (user?.id) {
       fetchSurveys()
     }
-  }, [user?.id])
-  
+  }, [user?.id, page])
+
   const handleSurveyClick = (id) => {
     router.push(`/surveys/${id}`)
+  }
+
+  const renderPagination = () => {
+    const pages = []
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => setPage(i)}
+          className={`px-3 py-1 border rounded ${page === i ? 'bg-[#0057A1] text-white' : 'bg-white text-[#0057A1]'} border-[#0057A1] hover:bg-[#0057A1] hover:text-white transition`}
+        >
+          {i}
+        </button>
+      )
+    }
+
+    return (
+      <div className='flex justify-center gap-2 mt-8'>
+        <button
+          onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className='px-3 py-1 border rounded bg-white text-[#0057A1] border-[#0057A1] disabled:opacity-50 disabled:cursor-not-allowed'
+        >
+          {t('<')}
+        </button>
+        {pages}
+        <button
+          onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}
+          className='px-3 py-1 border rounded bg-white text-[#0057A1] border-[#0057A1] disabled:opacity-50 disabled:cursor-not-allowed'
+        >
+          {t('>')}
+        </button>
+      </div>
+    )
   }
 
   if (loading) {
@@ -70,7 +107,6 @@ const Surveys = () => {
       <div className="w-[98%] xl:w-[98%] m-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {surveys.map((survey) => {
           const { id, title, hubCoins, progress = {} } = survey
-          // Destructure progress values
           const {
             totalQuestions = 0,
             answeredQuestions,
@@ -79,7 +115,6 @@ const Surveys = () => {
             isCompleted = false,
           } = progress
 
-          // Determine if the survey is completed
           const completed = isCompleted || percentageCompleted === 100
 
           let topRightContent = null
@@ -172,6 +207,9 @@ const Surveys = () => {
           )
         })}
       </div>
+
+      {/* Pagination UI */}
+      {totalPages > 1 && renderPagination()}
     </div>
   )
 }
