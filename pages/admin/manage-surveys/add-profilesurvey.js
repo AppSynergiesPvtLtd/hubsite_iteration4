@@ -3,99 +3,78 @@ import Layout from "../layout";
 import { useRouter } from "next/router";
 import AdminRoutes from "../../adminRoutes";
 import axios from "axios";
-import { Edit, Trash } from "lucide-react";
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+const API_BASE_URL= process.env.NEXT_PUBLIC_BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const SurveyDetails = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const { t } = useTranslation('admin')
+  const router = useRouter();
+  const { id } = router.query;
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    status: 'Active',
-    hubcoins: '',
-  })
+    title: "",
+    description: "",
+    status: "Active",
+    hubcoins: "",
+  });
 
-  const [questions, setQuestions] = useState([])
-  const [errors, setErrors] = useState({})
-  const [isEditing, setIsEditing] = useState(false)
-  const [hasChanges, setHasChanges] = useState(false)
-  const [isFetchingError, setIsFetchingError] = useState(false)
-  const [alert, setAlert] = useState({ type: '', message: '' })
+  const [questions, setQuestions] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [isFetchingError, setIsFetchingError] = useState(false);
+  const [alert, setAlert] = useState({ type: "", message: "" }); // Alert state
 
   useEffect(() => {
     if (id) {
-      fetchSurveyDetails(id)
+      fetchSurveyDetails(id);
     }
-  }, [id])
+  }, [id]);
 
   const fetchSurveyDetails = async (surveyId) => {
     try {
-      setIsFetchingError(false)
+      setIsFetchingError(false);
       const response = await axios.get(
         `${API_BASE_URL}/profile-survey/${surveyId}?includeQuestions=true&includeCompletions=true`,
         {
           headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': API_KEY,
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      )
+      );
 
-      const surveyData = response.data
+      const surveyData = response.data;
       setFormData({
         title: surveyData.title,
         description: surveyData.description,
-        status: surveyData.isActive ? 'Active' : 'Inactive',
-        hubcoins: surveyData.hubCoins.toString(),
-      })
-      setQuestions(surveyData.questions || [])
-      setIsEditing(true)
+        status: surveyData.isActive ? "Active" : "Inactive",
+        hubcoins: surveyData.hubCoins,
+      });
+      setQuestions(surveyData.questions || []);
+      setIsEditing(true);
     } catch (error) {
-      console.error('Error fetching survey details:', error)
-      setIsFetchingError(true)
-      setAlert({
-        type: 'error',
-        message: t('manageSurveys.addProfileSurvey.fetchError'),
-      })
+      console.error("Error fetching survey details:", error);
+      setIsFetchingError(true);
+      setAlert({ type: "error", message: "Failed to fetch survey details." });
     }
-  }
+  };
 
   const handleFormChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-    setHasChanges(true)
-    // Clear error for the changed field (optional)
-    setErrors((prev) => ({ ...prev, [name]: null }))
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setHasChanges(true);
+  };
 
   const handleSaveSurvey = async () => {
-    // Validate required fields and hubcoins range 0-100
-    const hubcoinsValue = parseInt(formData.hubcoins, 10)
-    let newErrors = {}
-
-    if (!formData.title) newErrors.title = 'Title is required'
-    if (!formData.description) newErrors.description = 'Description is required'
-    if (formData.hubcoins === '') {
-      newErrors.hubcoins = 'Hubcoins is required'
-    } else if (
-      isNaN(hubcoinsValue) ||
-      hubcoinsValue < 0 ||
-      hubcoinsValue > 100
-    ) {
-      newErrors.hubcoins = 'Hubcoins must be between 0 and 100'
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      return
+    if (!formData.title || !formData.description || !formData.hubcoins) {
+      setErrors({
+        title: !formData.title ? "Title is required" : null,
+        description: !formData.description ? "Description is required" : null,
+        hubcoins: !formData.hubcoins ? "Hubcoins is required" : null,
+      });
+      return;
     }
 
     try {
@@ -105,302 +84,247 @@ const SurveyDetails = () => {
           {
             title: formData.title,
             description: formData.description,
-            hubCoins: hubcoinsValue,
-            isActive: formData.status === 'Active',
+            hubCoins: parseInt(formData.hubcoins, 10),
+            isActive: formData.status === "Active",
           },
           {
             headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': API_KEY,
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              "Content-Type": "application/json",
+              "x-api-key": API_KEY,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        )
-        setAlert({
-          type: 'success',
-          message: t('manageSurveys.addProfileSurvey.surveyUpdated'),
-        })
+        );
+        setAlert({ type: "success", message: "Survey updated successfully!" });
       } else {
         const response = await axios.post(
           `${API_BASE_URL}/profile-survey/`,
           {
             title: formData.title,
             description: formData.description,
-            hubCoins: hubcoinsValue,
-            isActive: formData.status === 'Active',
+            hubCoins: parseInt(formData.hubcoins, 10),
+            isActive: formData.status === "Active",
           },
           {
             headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': API_KEY,
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              "Content-Type": "application/json",
+              "x-api-key": API_KEY,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        )
-        setAlert({
-          type: 'success',
-          message: t('manageSurveys.addProfileSurvey.surveySaved'),
-        })
-        router.push(`/admin/manage-surveys/profiling-survey`)
+        );
+        router.push(`/admin/manage-surveys/add-profilesurvey?id=${response.data.id}`);
+        setAlert({ type: "success", message: "Survey saved successfully!" });
       }
-      setHasChanges(false)
+      setHasChanges(false);
     } catch (error) {
-      console.error('Error saving survey:', error)
-      setAlert({
-        type: 'error',
-        message: t('manageSurveys.addProfileSurvey.saveError'),
-      })
+      console.error("Error saving survey:", error);
+      setAlert({ type: "error", message: "Failed to save survey." });
     }
-  }
+  };
 
   const handleAddQuestion = () => {
     if (!id) {
-      setAlert({ type: 'error', message: 'Please save the survey first.' })
-      return
+      setAlert({ type: "error", message: "Please save the survey first." });
+      return;
     }
 
     router.push({
       pathname: `/admin/manage-surveys/profilesurvey-question/${id}`,
-    })
-  }
+    });
+  };
 
   const handleDeleteQuestion = async (index) => {
-    const questionId = questions[index]?.id
+    const questionId = questions[index]?.id;
 
     if (!questionId) {
-      setAlert({
-        type: 'error',
-        message: t('manageSurveys.addProfileSurvey.invalidQuestionId'),
-      })
-      return
+      setAlert({ type: "error", message: "Invalid question ID." });
+      return;
     }
 
     try {
       await axios.delete(`${API_BASE_URL}/questions/${questionId}`, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY,
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
+      });
 
-      const updatedQuestions = questions.filter((_, i) => i !== index)
-      setQuestions(updatedQuestions)
+      const updatedQuestions = questions.filter((_, i) => i !== index);
+      setQuestions(updatedQuestions);
 
-      setAlert({
-        type: 'success',
-        message: t('manageSurveys.addProfileSurvey.questionDeleted'),
-      })
+      setAlert({ type: "success", message: "Question deleted successfully!" });
     } catch (error) {
-      console.error('Error deleting question:', error)
-      setAlert({
-        type: 'error',
-        message: t('manageSurveys.addProfileSurvey.deleteQuestionError'),
-      })
+      console.error("Error deleting question:", error);
+      setAlert({ type: "error", message: "Failed to delete the question." });
     }
-  }
+  };
 
   const handleEditQuestion = (q_id) => {
     if (!id || !q_id) {
-      setAlert({
-        type: 'error',
-        message: t('manageSurveys.addProfileSurvey.invalidSurveyOrQuestionId'),
-      })
-      return
+      setAlert({ type: "error", message: "Invalid survey or question ID." });
+      return;
     }
 
     router.push({
       pathname: `/admin/manage-surveys/profilesurvey-question/${id}`,
       query: { questionId: q_id },
-    })
-  }
+    });
+  };
 
   return (
-    <div className='flex justify-center p-1 sm:p-4'>
-      <div className='w-full  sm:p-6 bg-white md:border rounded-md shadow-md flex flex-col gap-5'>
-        {/* Alert Section */}
-        {alert.message && (
-          <div
-            className={`p-4 mb-6 rounded-md ${
-              alert.type === 'success'
-                ? 'bg-green-100 text-green-700'
-                : 'bg-red-100 text-red-700'
-            }`}
-          >
-            {alert.message}
+    <>
+      <div className="flex justify-center p-4">
+        <div className="w-full p-6 bg-white border rounded-md shadow-md">
+          {/* Alert Section */}
+          {alert.message && (
+            <div
+              className={`p-4 mb-6 rounded-md ${
+                alert.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              }`}
+            >
+              {alert.message}
+            </div>
+          )}
+
+          {/* Survey Details */}
+          <div className="mb-6">
+            <label className="block text-lg font-medium text-gray-700">
+              Title*
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleFormChange}
+              className={`w-full mt-2 p-3 border rounded-md ${
+                errors.title ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="Enter survey title..."
+            />
+            {errors.title && (
+              <p className="text-sm text-red-500 mt-1">{errors.title}</p>
+            )}
           </div>
-        )}
 
-        {/* Survey Details */}
-        <div className=''>
-          <label className='block text-lg font-medium text-gray-700'>
-            {t('manageSurveys.addProfileSurvey.titleLabel')}
-          </label>
-          <input
-            type='text'
-            name='title'
-            value={formData.title}
-            onChange={handleFormChange}
-            className={`w-full mt-2 p-3 border rounded-md ${
-              errors.title ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder={t('manageSurveys.addProfileSurvey.titlePlaceholder')}
-          />
-          {errors.title && (
-            <p className='text-sm text-red-500 mt-1'>{errors.title}</p>
-          )}
-        </div>
-
-        <div className=''>
-          <label className='block text-lg font-medium text-gray-700'>
-            {t('manageSurveys.addProfileSurvey.descriptionLabel')}
-          </label>
-          <textarea
-            name='description'
-            rows='4'
-            value={formData.description}
-            onChange={handleFormChange}
-            className={`w-full mt-2 p-3 border rounded-md ${
-              errors.description ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder={t(
-              'manageSurveys.addProfileSurvey.descriptionPlaceholder'
+          <div className="mb-6">
+            <label className="block text-lg font-medium text-gray-700">
+              Description
+            </label>
+            <textarea
+              name="description"
+              rows="4"
+              value={formData.description}
+              onChange={handleFormChange}
+              className={`w-full mt-2 p-3 border rounded-md ${
+                errors.description ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="Enter survey description..."
+            ></textarea>
+            {errors.description && (
+              <p className="text-sm text-red-500 mt-1">{errors.description}</p>
             )}
-          ></textarea>
-          {errors.description && (
-            <p className='text-sm text-red-500 mt-1'>{errors.description}</p>
-          )}
-        </div>
+          </div>
 
-        <div className=''>
-          <label className='block text-lg font-medium text-gray-700'>
-            {t('manageSurveys.addProfileSurvey.statusLabel')}
-          </label>
-          <select
-            name='status'
-            value={formData.status}
-            onChange={handleFormChange}
-            className='w-full mt-2 p-3 border rounded-md'
-          >
-            <option value='Active'>
-              {t('manageSurveys.addProfileSurvey.statusActive')}
-            </option>
-            <option value='Inactive'>
-              {t('manageSurveys.addProfileSurvey.statusInactive')}
-            </option>
-          </select>
-        </div>
+          <div className="mb-6">
+            <label className="block text-lg font-medium text-gray-700">
+              Status
+            </label>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleFormChange}
+              className="w-full mt-2 p-3 border rounded-md"
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
 
-        <div className='flex flex-col'>
-          <label className='block text-lg font-medium text-gray-700'>
-            {t('manageSurveys.addProfileSurvey.hubcoinsLabel')}
-          </label>
-          <input
-            type='number'
-            name='hubcoins'
-            value={formData.hubcoins}
-            onChange={handleFormChange}
-            min='0'
-            max='100'
-            step='1'
-            className={`w-full mt-2 p-3 border rounded-md ${
-              errors.hubcoins ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder={t(
-              'manageSurveys.addProfileSurvey.hubcoinsPlaceholder'
+          <div className="mb-6 flex items-center gap-4">
+            <label className="block text-lg font-medium text-gray-700">
+              HUBCOINS
+            </label>
+            <input
+              type="number"
+              name="hubcoins"
+              value={formData.hubcoins}
+              onChange={handleFormChange}
+              className={`flex-grow p-3 border rounded-md ${
+                errors.hubcoins ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="Enter hubcoins"
+            />
+            {errors.hubcoins && (
+              <p className="text-sm text-red-500 mt-1">{errors.hubcoins}</p>
             )}
-          />
-          {errors.hubcoins && (
-            <p className='text-sm text-red-500 mt-1'>{errors.hubcoins}</p>
-          )}
-        </div>
+          </div>
 
-        <div className='flex flex-col w-full md:w-[90%] items-center'>
           <button
             onClick={handleSaveSurvey}
-            className={`w-[70%] sm:w-[60%] md:w-[40%] lg:w-[30%] xl:w-[20%] p-3 mb-6 ${
-              hasChanges ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-400'
+            className={`w-full p-3 mb-6 ${
+              hasChanges ? "bg-green-600 hover:bg-green-700" : "bg-gray-400"
             } text-white font-medium rounded-md`}
             disabled={!hasChanges}
           >
-            {isEditing
-              ? t('manageSurveys.addProfileSurvey.updateSurvey')
-              : t('manageSurveys.addProfileSurvey.saveSurvey')}
+            {isEditing ? "Update Survey" : "Save Survey"}
           </button>
 
           <button
             onClick={handleAddQuestion}
-            className={`w-[70%] sm:w-[60%] md:w-[40%] lg:w-[30%] xl:w-[20%] p-3 mb-6 ${
+            className={`w-full p-3 mb-6 ${
               !id || isFetchingError
-                ? 'bg-gray-400'
-                : 'bg-blue-600 hover:bg-blue-700'
+                ? "bg-gray-400"
+                : "bg-blue-600 hover:bg-blue-700"
             } text-white font-medium rounded-md`}
             disabled={!id || isFetchingError}
           >
-            {t('manageSurveys.addProfileSurvey.addQuestions')}
+            Add Questions
           </button>
-        </div>
 
-        {/* Questions List */}
-        <div>
-          {questions.length > 0 ? (
-            <ul className='space-y-4 '>
-              {questions.map((question, index) => (
-                <li
-                  key={index}
-                  className='flex justify-between items-center p-4 bg-gray-100 md:border rounded-md'
-                >
-                  <div>
-                    <h3 className=' text-gray-800 font-bold text-lg'>
-                      {index + 1}.{' '}
-                      {t('manageSurveys.addProfileSurvey.questionTitle')}{' '}
-                      {index + 1}?
-                    </h3>
-                    <h3 className='text-gray-700 font-semibold'>
-                      {t('manageSurveys.addProfileSurvey.title')} :{' '}
-                      {question.question}
-                    </h3>
-                    <p className='text-gray-600'>
-                      <span className='font-bold'>
-                        {t('manageSurveys.addProfileSurvey.description')}:
-                      </span>{' '}
-                      {question.description}
-                    </p>
-                  </div>
-                  <div className='flex gap-4'>
-                    <button
-                      className='text-blue-600 font-medium'
-                      onClick={() => handleEditQuestion(question.id)}
-                    >
-                      <Edit />
-                    </button>
-                    <button
-                      className='text-red-500 font-medium'
-                      onClick={() => handleDeleteQuestion(index)}
-                    >
-                      <Trash />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className='text-center text-gray-600 md:w-[90%] items-center'>
-              {t('manageSurveys.addProfileSurvey.noQuestions')}
-            </p>
-          )}
+          {/* Questions List */}
+          <div>
+            {questions.length > 0 ? (
+              <ul className="space-y-4">
+                {questions.map((question, index) => (
+                  <li
+                    key={index}
+                    className="flex justify-between items-center p-4 bg-gray-100 border rounded-md"
+                  >
+                    <div>
+                      <h3 className="font-medium text-gray-800">
+                        {question.title}
+                      </h3>
+                      <p className="text-gray-600">{question.description}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <button
+                        className="text-blue-600 font-medium"
+                        onClick={() => handleEditQuestion(question.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="text-red-500 font-medium"
+                        onClick={() => handleDeleteQuestion(index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center text-gray-600">
+                No questions added yet.
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default AdminRoutes(SurveyDetails)
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'admin'])),
-    },
-  }
-}
+export default AdminRoutes(SurveyDetails);
