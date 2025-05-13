@@ -96,7 +96,10 @@ const LiveSurvey = () => {
     fetchLiveSurveys()
   }, [page, t])
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, e) => {
+    // Prevent default behavior
+    if (e) e.preventDefault()
+    
     try {
       await axios.delete(`${API_BASE_URL}/live-survey/${id}`, {
         headers: {
@@ -111,20 +114,39 @@ const LiveSurvey = () => {
         type: 'success',
         message: t('manageSurveys.liveSurvey.deleteSuccess'),
       })
+      
+      // Clear notification after 3 seconds
+      setTimeout(() => {
+        setNotification({ type: '', message: '' })
+      }, 3000)
     } catch (error) {
       console.error('Error deleting live survey:', error)
       setNotification({
         type: 'error',
         message: t('manageSurveys.liveSurvey.deleteError'),
       })
+      
+      // Clear notification after 3 seconds
+      setTimeout(() => {
+        setNotification({ type: '', message: '' })
+      }, 3000)
     }
   }
 
-  const handleEditRedirect = (id) => {
-    router.push(`/admin/manage-surveys/live-survey-questions/${id}`)
+  const handleEditRedirect = (id, e) => {
+    // Prevent default behavior
+    if (e) e.preventDefault()
+    
+    // Use router.push with the shallow option to prevent a hard refresh
+    router.push(`/admin/manage-surveys/live-survey-questions/${id}`, undefined, { 
+      shallow: true 
+    })
   }
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage, e) => {
+    // Prevent default behavior
+    if (e) e.preventDefault()
+    
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage)
     }
@@ -148,6 +170,21 @@ const LiveSurvey = () => {
     )
   }
 
+  // Custom props for SurveyTemplate to handle edit and delete with event prevention
+  const templateProps = {
+    surveyData: liveSurveyData,
+    onDelete: handleDelete,
+    editRedirect: handleEditRedirect,
+    headerTitle: t('manageSurveys.liveSurvey.pageTitle'),
+    questionHeader: t('manageSurveys.liveSurvey.questionHeader'),
+    descriptionHeader: t('manageSurveys.liveSurvey.descriptionHeader'),
+    statusHeader: t('manageSurveys.liveSurvey.statusHeader'),
+    actionsHeader: t('manageSurveys.liveSurvey.actionsHeader'),
+    editLabel: t('manageSurveys.liveSurvey.edit'),
+    deleteLabel: t('manageSurveys.liveSurvey.delete'),
+    noSurveysLabel: t('manageSurveys.liveSurvey.noSurveys'),
+  }
+
   return (
     <div className='w-full p-4'>
       {/* Notification Section */}
@@ -161,25 +198,13 @@ const LiveSurvey = () => {
         </div>
       )}
 
-      <SurveyTemplate
-        surveyData={liveSurveyData}
-        onDelete={handleDelete}
-        editRedirect={handleEditRedirect}
-        headerTitle={t('manageSurveys.liveSurvey.pageTitle')}
-        questionHeader={t('manageSurveys.liveSurvey.questionHeader')}
-        descriptionHeader={t('manageSurveys.liveSurvey.descriptionHeader')}
-        statusHeader={t('manageSurveys.liveSurvey.statusHeader')}
-        actionsHeader={t('manageSurveys.liveSurvey.actionsHeader')}
-        editLabel={t('manageSurveys.liveSurvey.edit')}
-        deleteLabel={t('manageSurveys.liveSurvey.delete')}
-        noSurveysLabel={t('manageSurveys.liveSurvey.noSurveys')}
-      />
+      <SurveyTemplate {...templateProps} />
 
       {/* Enhanced Pagination UI */}
       <div className='flex justify-center mt-8'>
         <nav className='inline-flex -space-x-px'>
           <button
-            onClick={() => handlePageChange(page - 1)}
+            onClick={(e) => handlePageChange(page - 1, e)}
             disabled={page === 1}
             className='px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50'
           >
@@ -191,7 +216,7 @@ const LiveSurvey = () => {
             (pageNumber) => (
               <button
                 key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
+                onClick={(e) => handlePageChange(pageNumber, e)}
                 className={`px-4 py-2 leading-tight border border-gray-300 bg-white hover:bg-gray-100 ${
                   pageNumber === page
                     ? 'text-blue-600 bg-blue-50 font-medium'
@@ -203,7 +228,7 @@ const LiveSurvey = () => {
             )
           )}
           <button
-            onClick={() => handlePageChange(page + 1)}
+            onClick={(e) => handlePageChange(page + 1, e)}
             disabled={page === totalPages}
             className='px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50'
           >
