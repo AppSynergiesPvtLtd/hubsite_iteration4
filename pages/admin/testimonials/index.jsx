@@ -529,7 +529,7 @@ const TestimonialManagement = () => {
 
             {/* Updated Pagination Controls */}
             <div className='flex flex-col items-center mt-6'>
-              <p className='text-sm text-gray-700 mb-2'>Take survey 5 mins</p>
+              {/* <p className='text-sm text-gray-700 mb-2'>Take survey 5 mins</p> */}
               <div className='flex items-center gap-2'>
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
