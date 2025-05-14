@@ -4,6 +4,7 @@ import AdminRoutes from "@/pages/adminRoutes";
 import * as XLSX from "xlsx";
 import { Trash2, X, AlertCircle } from "lucide-react";
 import { useRouter } from "next/router";
+import Image from "next/image"; // Added for image rendering
 import Layout from "../layout";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -46,6 +47,25 @@ export const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
   )
 }
 
+// New ImageDisplay component to handle image rendering
+const ImageDisplay = ({ uploadUrl }) => {
+  if (!uploadUrl || uploadUrl === "") {
+    return <span className="text-gray-500">N/A</span>;
+  }
+  return (
+    <div className="relative w-16 h-16">
+      <Image
+        src={uploadUrl}
+        alt="Contact upload"
+        layout="fill"
+        objectFit="cover"
+        className="rounded-md"
+        onError={() => <span className="text-gray-500">N/A</span>}
+      />
+    </div>
+  );
+};
+
 const Contactus = () => {
   const { t } = useTranslation('admin');
   
@@ -71,6 +91,7 @@ const Contactus = () => {
     { key: 'email', label: t('contact.tableHeaders.email') },
     { key: 'message', label: t('contact.tableHeaders.message') },
     { key: 'createdAt', label: t('contact.tableHeaders.createdAt') },
+    { key: 'upload', label:"uploads" }, // Added upload field
   ]
 
   const dispatch = useDispatch()
@@ -438,9 +459,13 @@ const Contactus = () => {
                               key={field.key}
                               className='py-3 px-4 break-words'
                             >
-                              {field.key === 'createdAt'
-                                ? new Date(item.createdAt).toLocaleDateString()
-                                : item[field.key]}
+                              {field.key === 'createdAt' ? (
+                                new Date(item.createdAt).toLocaleDateString()
+                              ) : field.key === 'upload' ? (
+                                <ImageDisplay uploadUrl={item.upload} />
+                              ) : (
+                                item[field.key]
+                              )}
                             </td>
                           ))}
                         <td className='py-3 px-4'>
@@ -490,9 +515,10 @@ const Contactus = () => {
                             {new Date(item.createdAt).toLocaleDateString()}
                           </p>
                         )}
-                        {visibleFields.includes("upload") && (
-                          <p className="text-gray-600 break-words">
-                            <b>Image:</b> <ImageDisplay uploadUrl={item.upload} />
+                        {visibleFields.includes('upload') && (
+                          <p className='text-gray-600 break-words'>
+                            <b>{"uploads"}:</b>{' '}
+                            <ImageDisplay uploadUrl={item.upload} />
                           </p>
                         )}
                       </div>
@@ -540,9 +566,10 @@ const Contactus = () => {
                           {new Date(item.createdAt).toLocaleDateString()}
                         </p>
                       )}
-                      {visibleFields.includes("upload") && (
-                        <p className="text-gray-600 break-words">
-                          <b>Image:</b> <ImageDisplay uploadUrl={item.upload} />
+                      {visibleFields.includes('upload') && (
+                        <p className='text-gray-600 break-words'>
+                          <b>{"uploads"}:</b>{' '}
+                          <ImageDisplay uploadUrl={item.upload} />
                         </p>
                       )}
                     </div>
@@ -599,7 +626,6 @@ const Contactus = () => {
         )}
       </div>
 
-      {/* Confirmation Modal for Deletion */}
       {confirmDelete.show && (
         <ConfirmationModal
           message={t('contact.deleteConfirmation')}
