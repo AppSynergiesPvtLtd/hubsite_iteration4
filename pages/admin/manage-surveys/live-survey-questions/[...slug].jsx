@@ -61,7 +61,7 @@ const EditLiveSurveyQuestion = () => {
           )
 
           const survey = response.data
-
+          console.log("survey",survey)
           // Populate form fields with response data
           setFormData({
             title: survey.title || '',
@@ -69,7 +69,7 @@ const EditLiveSurveyQuestion = () => {
             isActive: survey.isActive || false,
             hubCoins: survey.hubCoins || 0,
             link: survey.link || '',
-            profileSurveyId: survey.profileSurveyId || '',
+            profileSurveyId: survey.profileSurveyId || null,
           })
         } catch (error) {
           console.error('Error fetching survey details:', error)
