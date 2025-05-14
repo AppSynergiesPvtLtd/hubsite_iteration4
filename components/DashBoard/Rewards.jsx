@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useTranslation } from 'next-i18next'
+import { useSelector } from "react-redux";
 
 const Rewards = () => {
   const { t } = useTranslation('dashboard')
 
   // State for coins earned and history data
-  const [coins, setCoins] = useState(60);
+const user = useSelector((state) => state.user.user)
+
+  const [coins, setCoins] = useState(user.hubCoins);
   const [history, setHistory] = useState([
     { id: 1, name: "Daily Reward 1", date: "2/10/24, 11.00", hubscore: 10 },
     { id: 2, name: "More about yourself", date: "2/10/24, 12.00", hubscore: 10 },
@@ -15,7 +18,6 @@ const Rewards = () => {
     { id: 5, name: "Are you ready for this survey?", date: "3/10/24, 1.00", hubscore: 10 },
     { id: 6, name: "Are you ready for this survey?", date: "4/10/24, 11.00", hubscore: 10 },
   ]);
-
   // State for validation and error messages
   const [errors, setErrors] = useState({});
   const [formInput, setFormInput] = useState({
@@ -121,12 +123,12 @@ const Rewards = () => {
               <p className='text-red-500 text-sm'>{errors.hubscore}</p>
             )}
           </div>
-          <button
+          {/* <button
             type='submit'
             className='bg-[#0057A1] text-white px-4 py-2 rounded hover:bg-[#004785]'
           >
             {t('rewards.form.submitButton')}
-          </button>
+          </button> */}
         </form>
       </div>
     </div>

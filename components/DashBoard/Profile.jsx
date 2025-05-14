@@ -4,47 +4,74 @@ import { SlCalender } from "react-icons/sl";
 import { useSelector, useDispatch } from "react-redux";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { clearUser, setUser } from "@/store/userSlice";
+import { setUser } from "@/store/userSlice";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import metadata from "libphonenumber-js/metadata.min.json";
 import Calendar from "../Calendar";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 /**
- * Updated getCountryFlagUrl function:
- * - Trims the input.
- * - If the phone number does not start with a "+", prepends one.
- * - Parses the phone number without a default country so that the embedded country code is used.
+ * Improved getCountryFlagUrl function:
+ * - Properly handles international phone numbers
+ * - Ensures the country code is correctly parsed
+ * - Falls back to default flag if parsing fails
  */
 const getCountryFlagUrl = (phoneNumber) => {
-  if (!phoneNumber) return "/Group.png";
-
-  // Remove extra whitespace.
-  let formattedPhone = phoneNumber.trim();
-
-  // If the number doesn't start with a "+", add it.
-  if (!formattedPhone.startsWith("+")) {
-    formattedPhone = `+${formattedPhone}`;
+  if (!phoneNumber || phoneNumber.length < 4) {
+    return "/default-flag.png";
   }
 
-  // Parse without a default country.
-  const phoneNumberObj = parsePhoneNumberFromString(formattedPhone, undefined, metadata);
-  console.log("Parsed phone number:", formattedPhone, phoneNumberObj);
-
-  if (phoneNumberObj && phoneNumberObj.country) {
-    return `https://flagcdn.com/w40/${phoneNumberObj.country.toLowerCase()}.png`;
+  try {
+    // Ensure the phone number has a "+" prefix for proper parsing
+    const formattedPhone = phoneNumber.startsWith('+') 
+      ? phoneNumber 
+      : `+${phoneNumber}`;
+    
+    // Parse the phone number
+    const phoneNumberObj = parsePhoneNumberFromString(formattedPhone);
+    
+    if (phoneNumberObj && phoneNumberObj.country) {
+      return `https://flagcdn.com/w40/${phoneNumberObj.country.toLowerCase()}.png`;
+    }
+  } catch (error) {
+    console.error("Error parsing phone number:", error);
   }
 
   return "/default-flag.png";
 };
 
+/**
+ * Format a phone number for display with proper country code
+ */
+const formatPhoneNumberForDisplay = (phoneNumber) => {
+  if (!phoneNumber) return "-";
+  
+  try {
+    // Ensure the phone number has a "+" prefix
+    const formattedPhone = phoneNumber.startsWith('+') 
+      ? phoneNumber 
+      : `+${phoneNumber}`;
+    
+    const phoneNumberObj = parsePhoneNumberFromString(formattedPhone);
+    
+    if (phoneNumberObj) {
+      return phoneNumberObj.formatInternational();
+    }
+    
+    // If parsing fails, at least ensure it has a "+" for display
+    return formattedPhone;
+  } catch (error) {
+    // If parsing fails completely, return the original with a "+" prefix
+    return phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+  }
+};
+
 const Profile = () => {
-  const { t } = useTranslation('dashboard')
+  const { t } = useTranslation('dashboard');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user?.user);
   const router = useRouter();
@@ -75,26 +102,38 @@ const Profile = () => {
   const [alert, setAlert] = useState({ type: "", message: "" });
   const [showCalendar, setShowCalendar] = useState(false);
 
-  // Update local state if user changes (optional)
+  // Update local state if user changes
   useEffect(() => {
-    setUserInfo({
-      fullName: user?.name || "-",
-      phoneNumber: user?.phone || "",
-      email: user?.email || "-",
-      dob: user?.dob ? new Date(user.dob) : null,
-    });
-    setProfileImage(user?.userDp || "/dummyProfile.png");
-    // Update the initial ref as well
-    initialUserInfo.current = {
-      fullName: user?.name || "-",
-      phoneNumber: user?.phone || "",
-      email: user?.email || "-",
-      dob: user?.dob ? new Date(user.dob) : null,
-      userDp: user?.userDp || "/dummyProfile.png",
-    };
+    if (user) {
+      setUserInfo({
+        fullName: user.name || "-",
+        phoneNumber: user.phone || "",
+        email: user.email || "-",
+        dob: user.dob ? new Date(user.dob) : null,
+      });
+      setProfileImage(user.userDp || "/dummyProfile.png");
+      
+      // Update the initial ref as well
+      initialUserInfo.current = {
+        fullName: user.name || "-",
+        phoneNumber: user.phone || "",
+        email: user.email || "-",
+        dob: user.dob ? new Date(user.dob) : null,
+        userDp: user.userDp || "/dummyProfile.png",
+      };
+    }
   }, [user]);
 
   const handleEditToggle = (field) => {
+    // Reset to original value if canceling edit
+    if (isEditing[field]) {
+      setUserInfo((prev) => ({ 
+        ...prev, 
+        [field]: initialUserInfo.current[field] 
+      }));
+    }
+    
+    // Toggle editing state
     setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
@@ -106,6 +145,15 @@ const Profile = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file size (limit to 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setAlert({ 
+          type: 'error', 
+          message: t('profile.alerts.imageTooLarge', { maxSize: '5MB' }) 
+        });
+        return;
+      }
+      
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
       setProfileImageFile(file);
@@ -114,7 +162,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     if (!user?.id) {
-      setAlert({ type: 'error', message: t('profile.alerts.missingUserId') })
+      setAlert({ type: 'error', message: t('profile.alerts.missingUserId') });
       return;
     }
 
@@ -126,7 +174,13 @@ const Profile = () => {
     }
 
     if (userInfo.phoneNumber) {
-      body.append("phone", userInfo.phoneNumber);
+      // Ensure phone number is properly formatted for storage
+      // If it doesn't start with +, add it
+      const phoneToStore = userInfo.phoneNumber.startsWith('+') 
+        ? userInfo.phoneNumber 
+        : `+${userInfo.phoneNumber}`;
+        
+      body.append("phone", phoneToStore);
     }
 
     if (profileImageFile) {
@@ -156,9 +210,15 @@ const Profile = () => {
       setAlert({
         type: 'success',
         message: t('profile.alerts.profileUpdateSuccess'),
-      })
+      });
 
-      // Reset the profileImageFile and update the initial ref so that no changes are pending
+      // Reset editing states
+      setIsEditing({
+        fullName: false,
+        phoneNumber: false,
+      });
+
+      // Reset the profileImageFile and update the initial ref
       setProfileImageFile(null);
       initialUserInfo.current = {
         fullName: updatedUser.name || "-",
@@ -172,16 +232,21 @@ const Profile = () => {
       setAlert({
         type: 'error',
         message: t('profile.alerts.profileUpdateError'),
-      })
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const handleLogout = async () => {
-    localStorage.removeItem("user_token");
-    await signOut({ redirect: false });
-    router.reload();
+    try {
+      localStorage.removeItem("user_token");
+      await signOut({ redirect: false });
+      router.push('/login');
+    } catch (error) {
+      console.error("Error during logout:", error);
+      router.reload();
+    }
   };
 
   // Compute if there are changes compared to the initial state
@@ -189,14 +254,17 @@ const Profile = () => {
     // Compare full name and phone number
     if (userInfo.fullName !== initialUserInfo.current.fullName) return true;
     if (userInfo.phoneNumber !== initialUserInfo.current.phoneNumber) return true;
-    // Compare dates (if one exists and the other doesn't, or both exist but are different)
+    
+    // Compare dates
     const initialDob = initialUserInfo.current.dob;
     const currentDob = userInfo.dob;
     if ((initialDob && !currentDob) || (!initialDob && currentDob)) return true;
     if (initialDob && currentDob && initialDob.getTime() !== currentDob.getTime())
       return true;
+      
     // Check if a new profile image has been selected
     if (profileImageFile) return true;
+    
     return false;
   }, [userInfo, profileImageFile]);
 
@@ -213,6 +281,12 @@ const Profile = () => {
             }`}
           >
             {alert.message}
+            <button 
+              className="float-right font-bold"
+              onClick={() => setAlert({ type: "", message: "" })}
+            >
+              &times;
+            </button>
           </div>
         )}
         <h2 className='text-[#0057A1] text-2xl font-semibold'>
@@ -223,23 +297,25 @@ const Profile = () => {
         <div className='space-y-6'>
           {/* Full Name */}
           <div className='flex justify-between items-center border-b pb-2'>
-            <div>
+            <div className="w-full">
               <p className='text-gray-400 text-sm'>
                 {t('profile.fields.fullName.label')}
               </p>
-              {isEditing.fullName ? (
-                <input
-                  type='text'
-                  value={userInfo.fullName}
-                  onChange={(e) => handleFieldChange(e, 'fullName')}
-                  className='border rounded p-1 text-gray-800'
-                />
-              ) : (
-                <p className='text-gray-800 font-medium'>{userInfo.fullName}</p>
-              )}
+              <input
+                type='text'
+                value={userInfo.fullName}
+                onChange={(e) => isEditing.fullName && handleFieldChange(e, 'fullName')}
+                className={`rounded p-2 text-gray-800 w-full md:w-4/5 ${
+                  isEditing.fullName 
+                    ? 'border border-blue-300 bg-white' 
+                    : 'border-none bg-transparent font-medium'
+                }`}
+                placeholder={t('profile.fields.fullName.placeholder')}
+                disabled={!isEditing.fullName}
+              />
             </div>
             <span
-              className='text-[#0057A1] text-sm cursor-pointer'
+              className='text-[#0057A1] text-sm cursor-pointer whitespace-nowrap'
               onClick={() => handleEditToggle('fullName')}
             >
               {isEditing.fullName
@@ -250,43 +326,48 @@ const Profile = () => {
 
           {/* Phone Number */}
           <div className='flex justify-between items-center border-b pb-2'>
-            <div>
+            <div className="w-full">
               <p className='text-gray-400 text-sm'>
                 {t('profile.fields.phoneNumber.label')}
               </p>
-              {isEditing.phoneNumber ? (
+              <div className="relative">
+                {/* Always show PhoneInput, but disable it when not editing */}
                 <PhoneInput
                   country={'us'}
                   value={userInfo.phoneNumber}
-                  onChange={(phone) =>
-                    setUserInfo((prev) => ({ ...prev, phoneNumber: phone }))
+                  onChange={(phone) => 
+                    isEditing.phoneNumber && setUserInfo((prev) => ({ ...prev, phoneNumber: phone }))
                   }
                   inputStyle={{
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    border: '1px solid #ccc',
+                    border: isEditing.phoneNumber ? '1px solid #ccc' : 'none',
+                    backgroundColor: isEditing.phoneNumber ? 'white' : 'transparent',
                     color: 'black',
                     paddingLeft: '50px',
+                    pointerEvents: isEditing.phoneNumber ? 'auto' : 'none',
+                    opacity: isEditing.phoneNumber ? '1' : '1',
+                    fontWeight: isEditing.phoneNumber ? 'normal' : 'medium'
                   }}
+                  containerStyle={{
+                    opacity: isEditing.phoneNumber ? '1' : '0.99',
+                  }}
+                  buttonStyle={{
+                    border: isEditing.phoneNumber ? '1px solid #ccc' : 'none',
+                    backgroundColor: isEditing.phoneNumber ? 'white' : 'transparent',
+                    pointerEvents: isEditing.phoneNumber ? 'auto' : 'none',
+                  }}
+                  placeholder={t('profile.fields.phoneNumber.placeholder')}
+                  enableSearch={isEditing.phoneNumber}
+                  searchPlaceholder={t('profile.fields.phoneNumber.searchPlaceholder')}
+                  disabled={!isEditing.phoneNumber}
+                  disableDropdown={!isEditing.phoneNumber}
                 />
-              ) : (
-                <div className='flex items-center space-x-2'>
-                  <Image
-                    src={getCountryFlagUrl(userInfo.phoneNumber)}
-                    alt='Country Flag'
-                    width={24}
-                    height={16}
-                    className='rounded'
-                  />
-                  <p className='text-gray-800 font-medium'>
-                    {userInfo.phoneNumber || '-'}
-                  </p>
-                </div>
-              )}
+              </div>
             </div>
             <span
-              className='text-[#0057A1] text-sm cursor-pointer'
+              className='text-[#0057A1] text-sm cursor-pointer whitespace-nowrap'
               onClick={() => handleEditToggle('phoneNumber')}
             >
               {isEditing.phoneNumber
@@ -297,30 +378,47 @@ const Profile = () => {
 
           {/* Email Address */}
           <div className='flex justify-between items-center border-b pb-2'>
-            <div>
+            <div className="w-full">
               <p className='text-gray-400 text-sm'>
                 {t('profile.fields.emailAddress.label')}
               </p>
-              <p className='text-gray-800 font-medium'>{userInfo.email}</p>
+              <input
+                type='email'
+                value={userInfo.email}
+                className='rounded p-2 text-gray-800 w-full md:w-4/5 border-none bg-transparent font-medium'
+                disabled={true}
+              />
             </div>
           </div>
 
           {/* Date of Birth */}
           <div className='flex justify-between items-center border-b pb-2 relative'>
-            <div>
+            <div className="w-full">
               <p className='text-gray-400 text-sm'>
                 {t('profile.fields.dateOfBirth.label')}
               </p>
-              <p className='text-gray-800 font-medium'>
-                {userInfo.dob ? userInfo.dob.toLocaleDateString('en-GB') : '-'}
-              </p>
+              <div className="flex items-center">
+                <input
+                  type='text'
+                  value={userInfo.dob 
+                    ? userInfo.dob.toLocaleDateString(
+                        navigator.language || 'en-US',
+                        { year: 'numeric', month: '2-digit', day: '2-digit' }
+                      ) 
+                    : '-'
+                  }
+                  className='rounded p-2 text-gray-800 w-full md:w-4/5 border-none bg-transparent font-medium'
+                  disabled={true}
+                  readOnly={true}
+                />
+                <span
+                  className='text-[#0057A1] text-lg cursor-pointer ml-2'
+                  onClick={() => setShowCalendar(true)}
+                >
+                  <SlCalender />
+                </span>
+              </div>
             </div>
-            <span
-              className='text-[#0057A1] text-sm cursor-pointer'
-              onClick={() => setShowCalendar(true)}
-            >
-              <SlCalender />
-            </span>
           </div>
         </div>
 
@@ -336,12 +434,12 @@ const Profile = () => {
             disabled={loading || !hasChanges}
           >
             {loading
-              ? `${t('profile.buttons.saveChanges')}...`
+              ? `${t('profile.buttons.saving')}...`
               : t('profile.buttons.saveChanges')}
           </button>
           <button
             onClick={handleLogout}
-            className='w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded'
+            className='w-4/6 md:w-2/6 bg-[#0057A1] text-white font-semibold py-2 rounded hover:bg-blue-600'
           >
             {t('profile.buttons.logout')}
           </button>
@@ -358,18 +456,47 @@ const Profile = () => {
             src={profileImage}
             alt='Profile Picture'
             width={200}
-            height={220}
-            className='rounded-full'
+            height={200}
+            className='rounded-full object-cover'
           />
           <label
             htmlFor='profileImageDesktop'
-            className='absolute bottom-2 right-2 bg-[#0057A1] text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer'
+            className='absolute bottom-2 right-2 bg-[#0057A1] text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-blue-600'
+          >
+            <span className="text-lg">+</span>
+          </label>
+          <input
+            type='file'
+            id='profileImageDesktop'
+            accept='image/*'
+            className='hidden'
+            onChange={handleImageChange}
+          />
+        </div>
+      </div>
+
+      {/* Mobile Profile Picture Section - Shown only on small screens */}
+      <div className='flex md:hidden w-full flex-col items-center mt-6'>
+        <h3 className='text-[#0057A1] text-lg font-semibold mb-4'>
+          {t('profile.displayPicture')}
+        </h3>
+        <div className='relative'>
+          <Image
+            src={profileImage}
+            alt='Profile Picture'
+            width={120}
+            height={120}
+            className='rounded-full object-cover'
+          />
+          <label
+            htmlFor='profileImageMobile'
+            className='absolute bottom-1 right-1 bg-[#0057A1] text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer'
           >
             +
           </label>
           <input
             type='file'
-            id='profileImageDesktop'
+            id='profileImageMobile'
             accept='image/*'
             className='hidden'
             onChange={handleImageChange}
@@ -385,7 +512,7 @@ const Profile = () => {
             className='absolute inset-0 bg-black opacity-50'
             onClick={() => setShowCalendar(false)}
           ></div>
-          <div className='relative'>
+          <div className='relative bg-white rounded-lg p-1'>
             <Calendar
               selectedDate={userInfo.dob}
               onDateSelect={(date) =>
