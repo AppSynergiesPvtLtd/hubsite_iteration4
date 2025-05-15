@@ -5,16 +5,14 @@ import Layout from "../../layout";
 import AdminRoutes from "@/pages/adminRoutes";
 import { useDispatch } from "react-redux";
 import { clearTitle, hideAdd, hideExcel, hideRefresh, setTitle, showRefresh } from "@/store/adminbtnSlice";
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const EditLiveSurveyQuestion = () => {
-  const router = useRouter()
-  const { slug: id } = router.query // Get the `id` from the URL slug
-  const { t } = useTranslation('admin')
+  const router = useRouter();
+  const { slug: id } = router.query; // Get the `id` from the URL slug
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -23,32 +21,31 @@ const EditLiveSurveyQuestion = () => {
     hubCoins: 0,
     link: '',
     profileSurveyId: '',
-  })
-  const [profileSurveys, setProfileSurveys] = useState([])
-  const [notification, setNotification] = useState({ type: '', message: '' })
-  const [loading, setLoading] = useState(false)
-  const [isFetching, setIsFetching] = useState(false) // Separate loading state for data fetching
-
-  const dispatch = useDispatch()
+    pushToLiveSurvey: false, // Added new field
+  });
+  const [profileSurveys, setProfileSurveys] = useState([]);
+  const [notification, setNotification] = useState({ type: '', message: '' });
+  const [loading, setLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false); // Separate loading state for data fetching
 
   useEffect(() => {
-    dispatch(setTitle('Add Live Survey Question'))
-    dispatch(showRefresh({ label: 'Refresh', redirectTo: router.asPath }))
+    dispatch(setTitle('Edit Live Survey Question'));
+    dispatch(showRefresh({ label: 'Refresh', redirectTo: router.asPath }));
 
     // Clean up on unmount
     return () => {
-      dispatch(hideAdd())
-      dispatch(hideRefresh())
-      dispatch(hideExcel())
-      dispatch(clearTitle())
-    }
-  }, [dispatch, router.asPath])
+      dispatch(hideAdd());
+      dispatch(hideRefresh());
+      dispatch(hideExcel());
+      dispatch(clearTitle());
+    };
+  }, [dispatch, router.asPath]);
 
   // Fetch survey details based on `id`
   useEffect(() => {
     if (id) {
       const fetchSurveyDetails = async () => {
-        setIsFetching(true) // Start fetching
+        setIsFetching(true);
         try {
           const response = await axios.get(
             `${API_BASE_URL}/live-survey/${id}`,
@@ -58,33 +55,33 @@ const EditLiveSurveyQuestion = () => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               },
             }
-          )
+          );
 
-          const survey = response.data
-          console.log("survey",survey)
-          // Populate form fields with response data
+          const survey = response.data;
+          console.log("survey", survey);
           setFormData({
             title: survey.title || '',
             description: survey.description || '',
-            isActive: survey.isActive || false,
-            hubCoins: survey.hubCoins || 0,
+            isActive: survey.isActive ?? true,
+            hubCoins: survey.hubCoins?.toString() || '0',
             link: survey.link || '',
-            profileSurveyId: survey.profileSurveyId || null,
-          })
+            profileSurveyId: survey.profileSurveyId || '',
+            pushToLiveSurvey: survey.pushToLiveSurvey ?? false, // Handle new field
+          });
         } catch (error) {
-          console.error('Error fetching survey details:', error)
+          console.error('Error fetching survey details:', error);
           setNotification({
             type: 'error',
-            message: t('manageSurveys.liveSurveyQuestions.loadError'),
-          })
+            message: 'Failed to load survey data',
+          });
         } finally {
-          setIsFetching(false) // Stop fetching
+          setIsFetching(false);
         }
-      }
+      };
 
-      fetchSurveyDetails()
+      fetchSurveyDetails();
     }
-  }, [id, t])
+  }, [id]);
 
   // Fetch all active profile surveys to populate the dropdown
   useEffect(() => {
@@ -99,45 +96,47 @@ const EditLiveSurveyQuestion = () => {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           }
-        )
-        // Assuming the API response data structure has a `data` property that holds the array.
-        setProfileSurveys(response.data.data || [])
+        );
+        setProfileSurveys(response.data.data || []);
       } catch (error) {
-        console.error('Error fetching profile surveys:', error)
+        console.error('Error fetching profile surveys:', error);
+        setNotification({
+          type: 'error',
+          message: 'Failed to load profile surveys',
+        });
       }
-    }
+    };
 
-    fetchProfileSurveys()
-  }, [])
+    fetchProfileSurveys();
+  }, []);
 
   const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target
-    let newValue = type === 'checkbox' ? checked : value
+    const { name, value, type, checked } = e.target;
+    let newValue = type === 'checkbox' ? checked : value;
 
-    // If the field is hubCoins, ensure the value is between 0 and 100
     if (name === 'hubCoins') {
-      let numValue = parseInt(newValue, 10)
+      let numValue = parseInt(newValue, 10);
       if (isNaN(numValue)) {
-        numValue = 0
+        numValue = 0;
       }
       if (numValue > 100) {
-        numValue = 100
+        numValue = 100;
       } else if (numValue < 0) {
-        numValue = 0
+        numValue = 0;
       }
-      newValue = numValue
+      newValue = numValue.toString();
     }
 
     setFormData((prev) => ({
       ...prev,
       [name]: newValue,
-    }))
-    setNotification({ type: '', message: '' })
-  }
+    }));
+    setNotification({ type: '', message: '' });
+  };
 
   const handleSaveSurvey = async () => {
-    setLoading(true) // Start saving
-    setNotification({ type: '', message: '' })
+    setLoading(true);
+    setNotification({ type: '', message: '' });
 
     const payload = {
       title: formData.title,
@@ -145,8 +144,9 @@ const EditLiveSurveyQuestion = () => {
       isActive: formData.isActive,
       hubCoins: parseInt(formData.hubCoins, 10),
       link: formData.link,
-      profileSurveyId: formData.profileSurveyId,
-    }
+      profileSurveyId: formData.profileSurveyId || null,
+      pushToLiveSurvey: formData.pushToLiveSurvey, // Include new field
+    };
 
     try {
       const response = await axios.put(
@@ -159,36 +159,32 @@ const EditLiveSurveyQuestion = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
-      )
+      );
 
-      console.log('API Response:', response.data)
+      console.log('API Response:', response.data);
 
       setNotification({
         type: 'success',
-        message: t('manageSurveys.liveSurveyQuestions.updateSuccess'),
-      })
+        message: 'Live survey updated successfully',
+      });
 
-      // Redirect on success
       setTimeout(() => {
-        router.push('/admin/manage-surveys/live-survey')
-      }, 2000)
+        router.push('/admin/manage-surveys/live-survey');
+      }, 2000);
     } catch (error) {
-      console.error('Error saving survey:', error)
+      console.error('Error saving survey:', error);
       setNotification({
         type: 'error',
-        message:
-          error.response?.data?.message ||
-          t('manageSurveys.liveSurveyQuestions.updateError'),
-      })
+        message: error.response?.data?.message || 'Failed to update live survey',
+      });
     } finally {
-      setLoading(false) // Stop saving
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className='flex justify-center'>
       <div className='w-full p-6 border rounded-md shadow-md bg-white'>
-        {/* Notification Section */}
         {notification.message && (
           <div
             className={`mb-4 p-4 rounded-md text-white ${
@@ -199,33 +195,28 @@ const EditLiveSurveyQuestion = () => {
           </div>
         )}
 
-        {/* Show spinner if data is loading */}
         {isFetching ? (
           <div className='flex justify-center items-center h-48'>
             <div className='animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500'></div>
           </div>
         ) : (
           <>
-            {/* Title */}
             <div className='mb-6'>
               <label className='block text-lg font-medium text-gray-800'>
-                {t('manageSurveys.liveSurveyQuestions.titleLabel')}
+                Title
               </label>
               <input
                 name='title'
                 value={formData.title}
                 onChange={handleFormChange}
                 className='w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                placeholder={t(
-                  'manageSurveys.liveSurveyQuestions.titlePlaceholder'
-                )}
+                placeholder='Enter survey title'
               />
             </div>
 
-            {/* Description */}
             <div className='mb-6'>
               <label className='block text-lg font-medium text-gray-800'>
-                {t('manageSurveys.liveSurveyQuestions.descriptionLabel')}
+                Description
               </label>
               <textarea
                 name='description'
@@ -233,16 +224,13 @@ const EditLiveSurveyQuestion = () => {
                 value={formData.description}
                 onChange={handleFormChange}
                 className='w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                placeholder={t(
-                  'manageSurveys.liveSurveyQuestions.descriptionPlaceholder'
-                )}
+                placeholder='Enter survey description'
               ></textarea>
             </div>
 
-            {/* HubCoins */}
             <div className='mb-6 sm:flex items-center gap-4'>
               <label className='block text-lg font-medium text-gray-700'>
-                {t('manageSurveys.liveSurveyQuestions.hubCoinsLabel')}
+                Hub Coins
               </label>
               <input
                 type='number'
@@ -252,32 +240,26 @@ const EditLiveSurveyQuestion = () => {
                 min='0'
                 max='100'
                 className='w-fit p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                placeholder={t(
-                  'manageSurveys.liveSurveyQuestions.hubCoinsPlaceholder'
-                )}
+                placeholder='Enter hub coins (0-100)'
               />
             </div>
 
-            {/* Link */}
             <div className='mb-6'>
               <label className='block text-lg font-medium text-gray-800'>
-                {t('manageSurveys.liveSurveyQuestions.linkLabel')}
+                Survey Link
               </label>
               <input
                 name='link'
                 value={formData.link}
                 onChange={handleFormChange}
                 className='w-full mt-2 p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                placeholder={t(
-                  'manageSurveys.liveSurveyQuestions.linkPlaceholder'
-                )}
+                placeholder='Enter survey link'
               />
             </div>
 
-            {/* Profile Survey Dropdown */}
             <div className='mb-6'>
               <label className='block text-lg font-medium text-gray-800'>
-                {t('manageSurveys.liveSurveyQuestions.profileSurveyLabel')}
+                Profile Survey
               </label>
               <select
                 name='profileSurveyId'
@@ -285,9 +267,7 @@ const EditLiveSurveyQuestion = () => {
                 onChange={handleFormChange}
                 className='w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
               >
-                <option value=''>
-                  {t('manageSurveys.liveSurveyQuestions.profileSurveySelect')}
-                </option>
+                <option value=''>Select a profile survey</option>
                 {profileSurveys.map((survey) => (
                   <option key={survey.id} value={survey.id}>
                     {survey.title}
@@ -296,42 +276,45 @@ const EditLiveSurveyQuestion = () => {
               </select>
             </div>
 
-            {/* IsActive */}
             <div className='mb-6'>
-              <label className='block text-lg font-medium text-gray-700'>
-                {t('manageSurveys.liveSurveyQuestions.statusLabel')}
+              <label className='block text-lg font-medium text-gray-800'>
+                Status
               </label>
               <select
                 name='isActive'
-                value={
-                  formData.isActive
-                    ? t('manageSurveys.liveSurveyQuestions.statusActive')
-                    : t('manageSurveys.liveSurveyQuestions.statusInactive')
-                }
+                value={formData.isActive ? 'Active' : 'Inactive'}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    isActive:
-                      e.target.value ===
-                      t('manageSurveys.liveSurveyQuestions.statusActive'),
+                    isActive: e.target.value === 'Active',
                   }))
                 }
                 className='w-fit mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
               >
-                <option
-                  value={t('manageSurveys.liveSurveyQuestions.statusActive')}
-                >
-                  {t('manageSurveys.liveSurveyQuestions.statusActive')}
-                </option>
-                <option
-                  value={t('manageSurveys.liveSurveyQuestions.statusInactive')}
-                >
-                  {t('manageSurveys.liveSurveyQuestions.statusInactive')}
-                </option>
+                <option value='Active'>Active</option>
+                <option value='Inactive'>Inactive</option>
               </select>
             </div>
 
-            {/* Save Button */}
+            <div className='mb-6 flex gap-3 items-center'>
+              <label className='block text-sm font-medium text-gray-800'>
+                Push to Live Survey
+              </label>
+              <div className='mt-2'>
+                <label className='relative inline-flex items-center cursor-pointer'>
+                  <input
+                    type='checkbox'
+                    name='pushToLiveSurvey'
+                    checked={formData.pushToLiveSurvey}
+                    onChange={handleFormChange}
+                    className='sr-only peer'
+                  />
+                  <div className='w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 peer-focus:ring-2 peer-focus:ring-blue-300 transition-colors duration-200'></div>
+                  <div className='absolute w-4 h-4 bg-white rounded-full top-1 left-1 peer-checked:translate-x-5 transition-transform duration-200'></div>
+                </label>
+              </div>
+            </div>
+
             <div className='w-full flex justify-center'>
               <button
                 onClick={handleSaveSurvey}
@@ -342,24 +325,14 @@ const EditLiveSurveyQuestion = () => {
                 } text-white text-lg font-semibold rounded-md shadow-sm transition`}
                 disabled={loading}
               >
-                {loading
-                  ? t('manageSurveys.liveSurveyQuestions.saving')
-                  : t('manageSurveys.liveSurveyQuestions.save')}
+                {loading ? 'Saving...' : 'Save'}
               </button>
             </div>
           </>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminRoutes(EditLiveSurveyQuestion)
-
-export async function getServerSideProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'admin'])),
-    },
-  }
-}
+export default AdminRoutes(EditLiveSurveyQuestion);
