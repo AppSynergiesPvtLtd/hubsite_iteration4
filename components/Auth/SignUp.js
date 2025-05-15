@@ -486,7 +486,7 @@ export default function SignUp() {
                 onClick={handleSubmit}
                 disabled={loading}
               >
-                {loading ? t('signup.verifying') : t('signup.verify')}
+                {loading ? t('signup.verifying') : t('signup.verifyEmail')}
               </button>
               <button
                 type='button'

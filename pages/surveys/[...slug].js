@@ -200,10 +200,12 @@ const QuestionsSurvey = () => {
       // If this is the last question, attempt to complete the survey
       if (currentStep === questions.length) {
         try {
+          console.log('Survey ID:', surveyId);
+          
           setLoading(true); // Show loading indicator during submission
           await axios.post(
             `${API_BASE_URL}/response/complete-survey`,
-            { profileSurveyId: surveyId }, // Ensure surveyId is passed correctly
+            { profileSurveyId: typeof surveyId === 'string' ? surveyId : surveyId[0] }, // Ensure surveyId is passed correctly
             {
               headers: {
                 "Content-Type": "application/json", // Ensure content type is set
