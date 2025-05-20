@@ -381,7 +381,7 @@ const EditLiveSurveyQuestion = () => {
       let newRuleId = currentRule.id;
       if (currentRule.id) {
         await axios.put(
-          `${API_BASE_URL}/live-survey/update-targeting/${currentRule.id}`,
+          `${API_BASE_URL}/live-survey/update-trageting/${currentRule.id}`,
           rulePayload,
           {
             headers: {
