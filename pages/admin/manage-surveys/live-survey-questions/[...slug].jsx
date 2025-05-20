@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -13,13 +14,17 @@ import {
   setTitle,
   showRefresh,
 } from "@/store/adminbtnSlice";
+import { useSearchParams } from "next/navigation";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const EditLiveSurveyQuestion = () => {
   const router = useRouter();
-  const { slug: id } = router.query;
+  const searchParams = useSearchParams();
+  const id = searchParams.get("slug");
+  // const { slug: id } = router.query;
+  console.log(id)
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -38,6 +43,8 @@ const EditLiveSurveyQuestion = () => {
   const [loading, setLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [showTargetingRulesModal, setShowTargetingRulesModal] = useState(false);
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [deleteRuleData, setDeleteRuleData] = useState({ type: "", index: null });
   const [currentRule, setCurrentRule] = useState({
     id: null,
     questionId: "",
@@ -440,7 +447,13 @@ const EditLiveSurveyQuestion = () => {
     }
   };
 
-  const handleDeleteRule = async (type, index) => {
+  const handleDeleteRuleClick = (type, index) => {
+    setDeleteRuleData({ type, index });
+    setShowDeleteConfirmModal(true);
+  };
+
+  const handleDeleteRule = async () => {
+    const { type, index } = deleteRuleData;
     const rulesKey =
       type === "profiling" ? "profilingTargetingRules" : "onboardingTargetingRules";
     const ruleId = formData[rulesKey][index].id;
@@ -469,6 +482,9 @@ const EditLiveSurveyQuestion = () => {
         message:
           error.response?.data?.message || "Failed to delete targeting rule.",
       });
+    } finally {
+      setShowDeleteConfirmModal(false);
+      setDeleteRuleData({ type: "", index: null });
     }
   };
 
@@ -729,7 +745,7 @@ const EditLiveSurveyQuestion = () => {
                           </svg>
                         </button>
                         <button
-                          onClick={() => handleDeleteRule("profiling", index)}
+                          onClick={() => handleDeleteRuleClick("profiling", index)}
                           className="text-red-600 hover:text-red-800"
                           aria-label="Delete Rule"
                         >
@@ -804,7 +820,7 @@ const EditLiveSurveyQuestion = () => {
                           </svg>
                         </button>
                         <button
-                          onClick={() => handleDeleteRule("onboarding", index)}
+                          onClick={() => handleDeleteRuleClick("onboarding", index)}
                           className="text-red-600 hover:text-red-800"
                           aria-label="Delete Rule"
                         >
@@ -966,6 +982,33 @@ const EditLiveSurveyQuestion = () => {
               </div>
             )}
 
+            {showDeleteConfirmModal && (
+              <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center z-50">
+                <div className="bg-white p-6 rounded-md shadow-xl w-11/12 md:max-w-md">
+                  <h4 className="text-xl font-bold mb-4 text-gray-800">
+                    Confirm Deletion
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-6">
+                    Are you sure you want to delete this targeting rule? This action cannot be undone.
+                  </p>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      onClick={() => setShowDeleteConfirmModal(false)}
+                      className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-100 text-sm font-medium"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleDeleteRule}
+                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm font-medium"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="w-full flex justify-center">
               <button
                 onClick={handleSaveSurvey}
@@ -987,3 +1030,5 @@ const EditLiveSurveyQuestion = () => {
 };
 
 export default AdminRoutes(EditLiveSurveyQuestion);
+
+
