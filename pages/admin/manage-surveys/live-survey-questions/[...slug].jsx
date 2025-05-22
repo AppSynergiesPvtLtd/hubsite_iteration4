@@ -21,9 +21,8 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const EditLiveSurveyQuestion = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get("slug");
-  // const { slug: id } = router.query;
+  
+  const { slug: id } = router.query;
   console.log(id)
   const dispatch = useDispatch();
 
