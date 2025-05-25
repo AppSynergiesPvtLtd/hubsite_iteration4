@@ -168,9 +168,9 @@ const DashboardLanding = () => {
                   <p className='text-xs font-semibold'>{t('index.HUBCOINS')}</p>
                 </div>
               </div>
-              {survey.link && survey.link !== "" ? (
+              {survey.link && survey.link !== "" && user?.id ? (
                 <a
-                  href={survey.link}
+                  href={survey.link.replace("id={ID}", `id=${user.id}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 border text-[#0057A1] border-gray-300 w-full py-2 transition duration-200 text-center cursor-pointer hover:bg-gray-100"
@@ -185,7 +185,18 @@ const DashboardLanding = () => {
             </div>
           ))
         ) : (
-          <p className='text-center col-span-2'>{t('index.NoSurveysAvailable')}</p>
+          <div className='col-span-2 flex flex-col items-center justify-center py-8'>
+            <Image 
+              src='/noSurvey.png' 
+              alt='No Surveys Available' 
+              width={250} 
+              height={250} 
+              className='mb-4'
+            />
+            <p className='text-center text-gray-500 text-lg font-medium'>
+              {t('index.NoSurveysAvailable')}
+            </p>
+          </div>
         )}
       </div>
 
