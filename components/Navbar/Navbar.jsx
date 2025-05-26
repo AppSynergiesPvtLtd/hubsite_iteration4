@@ -86,6 +86,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     dispatch(clearUser())
     localStorage.removeItem('user_token')
+    localStorage.clear()
     sessionStorage.clear()
     setUserDropdownOpen(false)
     await signOut({ redirect: false })
