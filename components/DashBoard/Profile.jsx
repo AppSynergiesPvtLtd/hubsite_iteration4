@@ -241,6 +241,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       localStorage.removeItem("user_token");
+      localStorage.clear()
       await signOut({ redirect: false });
       router.push('/login');
     } catch (error) {

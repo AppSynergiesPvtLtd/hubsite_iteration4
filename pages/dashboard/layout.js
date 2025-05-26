@@ -88,6 +88,7 @@ const Layout = ({ children }) => {
 
   const handleLogout = async () => {
     localStorage.removeItem('user_token')
+    localStorage.clear()
     sessionStorage.clear()
     await signOut({ callbackUrl: '/' })
   }

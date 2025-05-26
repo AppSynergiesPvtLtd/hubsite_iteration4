@@ -37,6 +37,7 @@ const Layout = ({ children, isLoading = false }) => {
     // Logout handler: clear storages and call NextAuth's signOut
     const handleLogout = async () => {
       localStorage.removeItem('token')
+      localStorage.clear()
       sessionStorage.clear()
       await signOut({ callbackUrl: '/admin/auth/login' })
     }
