@@ -146,9 +146,9 @@ const EditLiveSurveyQuestion = () => {
             questionId: target.questionId,
             questionText: question.question,
             operator:
-              target.operator === "contains_any"
+              target.operator === "any"
                 ? "Contains_any"
-                : target.operator === "contains_all"
+                : target.operator === "all"
                 ? "Contains_all"
                 : "Equals",
             values: JSON.parse(target.value).map((optId) => {
@@ -378,7 +378,7 @@ const EditLiveSurveyQuestion = () => {
     const rulePayload = {
       liveSurveyId: surveyId,
       questionId: currentRule.questionId,
-      operator: currentRule.operator.toLowerCase().replace("contains_", ""),
+      operator: currentRule.operator === "Equals" ? "equals" : currentRule.operator.toLowerCase().replace("contains_", ""),
       value: JSON.stringify(optionIds),
       fromOnboarding: currentRule.type === "onboarding",
     };
@@ -1029,5 +1029,3 @@ const EditLiveSurveyQuestion = () => {
 };
 
 export default AdminRoutes(EditLiveSurveyQuestion);
-
-
